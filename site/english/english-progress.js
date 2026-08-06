@@ -143,7 +143,7 @@
 (() => {
   'use strict';
 
-  const PROGRESS_API = 'https://l2m5cxuri2eojykndfbabmuthi0xfjya.lambda-url.us-east-1.on.aws/';
+  const PROGRESS_API = 'https://hvvnxnlzdt7h4w53prvjavlgom0twjbu.lambda-url.us-east-1.on.aws/';
   const LEGACY_PROGRESS_KEY = 'sat300-nireekshan-progress-v1';
   const TOTAL_WORDS = 375;
   const params = new URLSearchParams(location.search);
@@ -414,7 +414,7 @@
 (() => {
   'use strict';
 
-  const API = "https://l2m5cxuri2eojykndfbabmuthi0xfjya.lambda-url.us-east-1.on.aws/";
+  const API = "https://hvvnxnlzdt7h4w53prvjavlgom0twjbu.lambda-url.us-east-1.on.aws/";
   const TOTAL = 375;
   const previous = window.SATEnglishCloud || {};
   const normalizeStudent = value => {

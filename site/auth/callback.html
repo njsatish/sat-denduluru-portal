@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Completing Login</title>
+  <style>
+    :root { color-scheme: dark; font-family: Inter, system-ui, -apple-system, sans-serif; }
+    body { min-height: 100vh; margin: 0; display: grid; place-items: center; background: #10141d; color: #f7f9fc; padding: 24px; }
+    main { width: min(520px, 100%); text-align: center; }
+    p { color: #c8d0dc; line-height: 1.55; }
+    a { color: #fff; }
+  </style>
+  <script src="/js/auth-config.js"></script>
+  <script src="/js/auth.js"></script>
+</head>
+<body>
+  <main>
+    <h1>Completing your login…</h1>
+    <p id="message">Please do not close this page.</p>
+  </main>
+
+  <script>
+    SATAuth.handleCallback().catch((error) => {
+      document.querySelector("h1").textContent = "Login could not be completed";
+      document.getElementById("message").innerHTML =
+        `${error.message} <a href="/login.html">Return to login</a>.`;
+    });
+  </script>
+</body>
+</html>

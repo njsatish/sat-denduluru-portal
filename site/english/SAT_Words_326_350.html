@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script id="sat-english-identity-v7">
+/* BEGIN SAT ENGLISH IDENTITY V7 */
+(() => {
+  'use strict';
+
+  if (window.SATEnglishIdentity?.build === '20260804-english-identity-v7-20260804T182532Z') return;
+
+  const normalize = value => {
+    const id = String(value || '').trim().toLowerCase();
+    return /^[a-z0-9_-]{1,80}$/.test(id) ? id : '';
+  };
+
+  const decodeToken = token => {
+    try {
+      const part = String(token || '').split('.')[1];
+      if (!part) return null;
+      const base64 = part.replace(/-/g, '+').replace(/_/g, '/');
+      const padded = base64 + '='.repeat((4 - base64.length % 4) % 4);
+      const binary = atob(padded);
+      const bytes = Uint8Array.from(binary, character => character.charCodeAt(0));
+      return JSON.parse(new TextDecoder().decode(bytes));
+    } catch (error) {
+      console.warn('Unable to decode the SAT Cognito identity.', error);
+      return null;
+    }
+  };
+
+  const nativeGet = URLSearchParams.prototype.get;
+  const tokenClaims = decodeToken(
+    sessionStorage.getItem('sat_id_token') ||
+    localStorage.getItem('sat_id_token')
+  );
+  const tokenStudent = normalize(
+    window.SATAuth?.studentId ||
+    window.SATAuth?.username ||
+    tokenClaims?.['cognito:username'] ||
+    tokenClaims?.username ||
+    tokenClaims?.preferred_username
+  );
+  const storedStudent = normalize(localStorage.getItem('sat_user'));
+  const pageParams = new URLSearchParams(location.search);
+  const urlStudent = normalize(nativeGet.call(pageParams, 'student'));
+  let studentId = tokenStudent || storedStudent || urlStudent;
+
+  function resolveStudentId() {
+    const claims = decodeToken(
+      sessionStorage.getItem('sat_id_token') ||
+      localStorage.getItem('sat_id_token')
+    );
+    const authenticated = normalize(
+      window.SATAuth?.studentId ||
+      window.SATAuth?.username ||
+      claims?.['cognito:username'] ||
+      claims?.username ||
+      claims?.preferred_username
+    );
+    const stored = normalize(localStorage.getItem('sat_user'));
+    studentId = authenticated || stored || studentId || urlStudent;
+    if (studentId) localStorage.setItem('sat_user', studentId);
+    return studentId;
+  }
+
+  if (!URLSearchParams.prototype.__satEnglishIdentityV7) {
+    URLSearchParams.prototype.get = function(name) {
+      const value = nativeGet.call(this, name);
+      if (String(name) === 'student' && !normalize(value)) {
+        return resolveStudentId() || value;
+      }
+      return value;
+    };
+    Object.defineProperty(URLSearchParams.prototype, '__satEnglishIdentityV7', {
+      value: true,
+      configurable: true
+    });
+  }
+
+  function cleanStudentParameter(urlValue) {
+    try {
+      const url = new URL(urlValue, location.href);
+      if (url.origin !== location.origin) return urlValue;
+      url.searchParams.delete('student');
+      return `${url.pathname}${url.search}${url.hash}`;
+    } catch (_) {
+      return urlValue;
+    }
+  }
+
+  function cleanAddressBar() {
+    const url = new URL(location.href);
+    if (!url.searchParams.has('student')) return;
+    url.searchParams.delete('student');
+    history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
+  }
+
+  function cleanStudentLinks(root = document) {
+    root.querySelectorAll?.('a[href]').forEach(anchor => {
+      const href = anchor.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('javascript:')) return;
+      const cleaned = cleanStudentParameter(href);
+      if (cleaned !== href) anchor.setAttribute('href', cleaned);
+    });
+  }
+
+  resolveStudentId();
+  cleanAddressBar();
+
+  window.SATResolveStudentId = resolveStudentId;
+  window.SATEnglishIdentity = {
+    build: '20260804-english-identity-v7-20260804T182532Z',
+    get studentId() { return resolveStudentId(); },
+    source: tokenStudent ? 'cognito' : storedStudent ? 'storage' : urlStudent ? 'url' : 'missing',
+    normalize,
+    resolveStudentId,
+    cleanStudentLinks
+  };
+
+  const ready = () => {
+    cleanStudentLinks();
+    setTimeout(cleanStudentLinks, 0);
+    setTimeout(cleanStudentLinks, 150);
+    setTimeout(cleanStudentLinks, 600);
+
+    if (document.body && window.MutationObserver) {
+      const observer = new MutationObserver(records => {
+        for (const record of records) {
+          record.addedNodes.forEach(node => {
+            if (node.nodeType === 1) cleanStudentLinks(node);
+          });
+        }
+      });
+      observer.observe(document.body, {childList: true, subtree: true});
+      setTimeout(() => observer.disconnect(), 5000);
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ready, {once: true});
+  } else {
+    ready();
+  }
+})();
+/* END SAT ENGLISH IDENTITY V7 */
+</script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>SAT Vocabulary — Words 326–350</title>
+  <style>
+    :root {
+      --page:#111214;--panel:#202226;--panel2:#181a1e;--ink:#f4f1e8;
+      --muted:#bdb7aa;--line:#4a4d53;--gold:#e7c96f;--gold2:#d4a72c;
+      --blue:#1f78b8;--teal:#149c97;--orange:#c97717;--purple:#7441a4;
+      --green:#2b7d47;--rose:#bd4f69;
+    }
+    *{box-sizing:border-box}
+    html{background:var(--page)}
+    body{margin:0;background:var(--page);color:var(--ink);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}
+    a{color:inherit}
+    .site-header{background:radial-gradient(circle at 82% 20%,rgba(212,167,44,.12),transparent 34%),linear-gradient(180deg,#17191d,#121316);border-bottom:1px solid #393c42;padding:42px 20px 34px}
+    .header-inner,main{width:min(1450px,calc(100% - 34px));margin:0 auto}
+    .back-link{display:inline-flex;align-items:center;gap:8px;color:var(--gold);text-decoration:none;font-weight:850}
+    .back-link:hover{text-decoration:underline}
+    h1{margin:18px 0 8px;font-size:clamp(2.35rem,5vw,4.6rem);line-height:1.02;letter-spacing:-.045em}
+    .subtitle{margin:0;color:#cec8bc;font-size:1.08rem}
+    .toolbar{display:flex;gap:14px;align-items:center;padding:26px 0 18px}
+    .search-wrap{flex:1}
+    input[type="search"]{width:100%;padding:15px 17px;border:1px solid #555960;border-radius:12px;color:var(--ink);background:#17191d;font:inherit;font-size:1rem;outline:none}
+    input[type="search"]:focus{border-color:var(--gold2);box-shadow:0 0 0 3px rgba(212,167,44,.14)}
+    .count{color:var(--gold);font-weight:900;white-space:nowrap}
+    .study-note,.progress-card,.audio-card{margin:0 0 22px;padding:22px;background:linear-gradient(180deg,#202226,#1c1e22);border:1px solid var(--line);border-radius:17px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+    .study-note{color:#d8d1c4;border-left:4px solid var(--gold2)}
+    .progress-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+    .progress-title,.audio-card h2{margin:0;color:var(--ink);font-size:1.28rem}
+    .progress-copy,.audio-card p{margin:5px 0 0;color:var(--muted)}
+    .progress-number{color:var(--gold);font-weight:900;white-space:nowrap}
+    .progress-track{height:11px;margin:17px 0;overflow:hidden;background:#0f1012;border:1px solid #2f3237;border-radius:999px}
+    .progress-fill{width:0;height:100%;background:linear-gradient(90deg,#e4c15f,#c9982d);border-radius:inherit;transition:width .2s ease}
+    .progress-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+    .remaining-toggle{display:inline-flex;align-items:center;gap:8px;color:#ded8cd;font-weight:750;cursor:pointer}
+    .remaining-toggle input{width:18px;height:18px;accent-color:var(--gold2)}
+    .small-btn,.audio-download{display:inline-flex;align-items:center;justify-content:center;padding:10px 13px;border:1px solid #75622f;border-radius:10px;background:#282b30;color:var(--gold);font:inherit;font-size:.92rem;font-weight:850;text-decoration:none;cursor:pointer}
+    .small-btn:hover,.audio-download:hover{background:#34312a;border-color:var(--gold2)}
+    .small-btn.reset{color:#efb4ab;border-color:#754741;background:#2a2020}
+    .audio-card-header{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}
+    .audio-card audio{width:100%;margin-top:8px;filter:sepia(.12) saturate(.75)}
+    .word-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+    .word-card{overflow:hidden;background:linear-gradient(180deg,#202226,#1c1e22);border:1px solid #4a4d53;border-radius:17px;box-shadow:0 7px 22px rgba(0,0,0,.22);transition:opacity .18s ease,transform .18s ease,border-color .18s ease}
+    .word-card:hover{transform:translateY(-2px);border-color:#666a72}
+    .word-card.learned{border-color:#6f8f58;opacity:.78}
+    .word-heading{display:flex;align-items:center;gap:11px;padding:17px 18px;color:#fff}
+    .card-1 .word-heading{background:var(--rose)}.card-2 .word-heading{background:var(--blue)}.card-3 .word-heading{background:var(--teal)}.card-4 .word-heading{background:var(--orange)}.card-5 .word-heading{background:var(--purple)}.card-6 .word-heading{background:var(--green)}
+    .word-number{color:#f4d77f;font-size:.9rem;font-weight:950;letter-spacing:.07em}
+    .word-heading h2{margin:0;font-size:clamp(1.35rem,2vw,1.7rem);line-height:1.15;letter-spacing:-.02em}
+    .part{margin-left:auto;color:#f8f3e7;font-size:.84rem;font-weight:800;opacity:.92}
+    .word-content{padding:18px 20px 20px}
+    .field{margin-bottom:14px}.field:last-child{margin-bottom:0}
+    .label{display:block;margin-bottom:4px;color:var(--gold);font-size:.78rem;font-weight:950;letter-spacing:.09em;text-transform:uppercase}
+    .field p{margin:0;color:#e3ddd2}
+    .synonyms p,.antonyms p{color:#d0c9bd}
+    .example{margin-top:16px;padding:13px 14px 14px 16px;background:rgba(212,167,44,.10);border-left:4px solid var(--gold2);border-radius:4px 10px 10px 4px}
+    .example p{font-style:italic;color:#e8e0d3}
+    .word-action{margin-top:17px;padding-top:15px;border-top:1px solid #3c3f45}
+    .learn-btn{width:100%;padding:10px 12px;border:1px solid #7e692f;border-radius:10px;background:#282b30;color:var(--gold);font:inherit;font-weight:900;cursor:pointer}
+    .learn-btn:hover{background:#34312a}
+    .word-card.learned .learn-btn{border-color:#59614f;background:#242822;color:#bad39f}
+    .bottom-nav{display:flex;flex-wrap:wrap;gap:11px;justify-content:center;padding:32px 0 48px}
+    .nav-link{display:inline-flex;padding:12px 16px;border-radius:11px;background:#282b30;border:1px solid #555960;color:#f4f1e8;text-decoration:none;font-weight:850}
+    .nav-link:hover{border-color:#8a7440;background:#303238}
+    .nav-link.home{background:linear-gradient(135deg,#e4c15f,#d2a93f);border-color:#e7c96f;color:#18191b}
+    .empty-state{display:none;margin:0;padding:34px 0 8px;text-align:center;color:var(--muted);font-weight:800}
+    footer{padding:0 16px 32px;text-align:center;color:#918c82;font-size:.92rem}
+    @media(max-width:1100px){.word-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:700px){.toolbar,.progress-top,.audio-card-header{flex-direction:column;align-items:stretch}.count{text-align:left}.word-grid{grid-template-columns:1fr}.progress-number{white-space:normal}.header-inner,main{width:min(100% - 24px,1450px)}}
+</style>
+  <script src="english-progress.js?v=20260804-english-identity-v7-20260804T182532Z"></script>
+</head>
+<body>
+  <header class="site-header"><div class="header-inner">
+    <a class="back-link" href="index.html">← SAT 375 Vocabulary Builder</a>
+    <h1>SAT Vocabulary — Words 326–350</h1>
+    <p class="subtitle">Spelling, meaning, synonyms, antonyms, and example sentences</p>
+  </div></header>
+  <main>
+    <section class="toolbar" aria-label="Vocabulary search"><div class="search-wrap"><input id="wordSearch" type="search" placeholder="Search a word, meaning, synonym, antonym, or example…" autocomplete="off"></div><div class="count" id="visibleCount">25 words</div></section>
+    <section class="progress-card" aria-label="Learning progress">
+      <div class="progress-top"><div><h2 class="progress-title">Learning Progress</h2><p class="progress-copy" id="rangeProgressText">This page: 0 of 25 learned</p></div><div class="progress-number" id="globalProgressText">0 of 375 learned</div></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-actions"><label class="remaining-toggle"><input id="remainingOnly" type="checkbox">Show remaining words only</label><a class="small-btn" href="SAT_Progress.html">View progress dashboard</a><button class="small-btn reset" id="resetProgress" type="button">Reset all progress</button></div>
+    </section>
+    <p class="study-note">Use <strong>Mark learned</strong> after you know a word. Choose <strong>Show remaining words only</strong> to focus on what is left.</p>
+    <section class="audio-card" id="audioCard" data-audio-file="SAT_Words_326_350.mp3" aria-label="Audio practice for words 326 to 350"><div class="audio-card-header"><div><h2>Listen to Words 326–350</h2><p>Play the matching vocabulary audio while studying this page.</p></div><a class="audio-download" href="SAT_Words_326_350.mp3" download>Download MP3</a></div><audio controls preload="metadata"><source src="SAT_Words_326_350.mp3" type="audio/mpeg">Your browser does not support audio playback.</audio></section>
+    <section class="word-grid" id="wordGrid">
+      <article class="word-card card-1" data-word-number="326" data-search="circumscribe verb to restrict something within limits or define its boundaries. limit, confine, bound expand, liberate “the law circumscribes the agency’s authority to collect personal data.”">
+        <div class="word-heading"><span class="word-number">326</span><h2>Circumscribe</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To restrict something within limits or define its boundaries.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>limit, confine, bound</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>expand, liberate</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The law circumscribes the agency’s authority to collect personal data.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-2" data-word-number="327" data-search="connotation noun an associated or implied meaning beyond a word’s literal definition. association, implication, undertone denotation, literal meaning “the word “home” often carries a connotation of safety and belonging.”">
+        <div class="word-heading"><span class="word-number">327</span><h2>Connotation</h2><span class="part">noun</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>An associated or implied meaning beyond a word’s literal definition.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>association, implication, undertone</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>denotation, literal meaning</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The word “home” often carries a connotation of safety and belonging.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-3" data-word-number="328" data-search="denotation noun the direct, literal, or dictionary meaning of a word. definition, literal meaning, reference connotation, implication “although the two terms share a similar denotation, their emotional associations differ.”">
+        <div class="word-heading"><span class="word-number">328</span><h2>Denotation</h2><span class="part">noun</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>The direct, literal, or dictionary meaning of a word.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>definition, literal meaning, reference</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>connotation, implication</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“Although the two terms share a similar denotation, their emotional associations differ.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-4" data-word-number="329" data-search="euphemism noun a mild or indirect expression used in place of one considered harsh or unpleasant. substitute, understatement, circumlocution bluntness, directness “the phrase “passed away” is a common euphemism for “died.””">
+        <div class="word-heading"><span class="word-number">329</span><h2>Euphemism</h2><span class="part">noun</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>A mild or indirect expression used in place of one considered harsh or unpleasant.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>substitute, understatement, circumlocution</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>bluntness, directness</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The phrase “passed away” is a common euphemism for “died.””</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-5" data-word-number="330" data-search="syntax noun the arrangement of words and phrases to create well-formed sentences. sentence structure, word order, grammar disorder, incoherence “the poet’s unusual syntax slows the reader and emphasizes each image.”">
+        <div class="word-heading"><span class="word-number">330</span><h2>Syntax</h2><span class="part">noun</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>The arrangement of words and phrases to create well-formed sentences.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>sentence structure, word order, grammar</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>disorder, incoherence</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The poet’s unusual syntax slows the reader and emphasizes each image.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-6" data-word-number="331" data-search="mitigate verb to make something harmful, serious, or painful less severe. lessen, alleviate, reduce aggravate, intensify “planting trees can mitigate the urban heat-island effect.”">
+        <div class="word-heading"><span class="word-number">331</span><h2>Mitigate</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To make something harmful, serious, or painful less severe.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>lessen, alleviate, reduce</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>aggravate, intensify</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“Planting trees can mitigate the urban heat-island effect.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-1" data-word-number="332" data-search="alleviate verb to relieve or reduce pain, difficulty, or a problem. relieve, ease, lessen worsen, aggravate “the new bus route helped alleviate transportation problems for rural residents.”">
+        <div class="word-heading"><span class="word-number">332</span><h2>Alleviate</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To relieve or reduce pain, difficulty, or a problem.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>relieve, ease, lessen</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>worsen, aggravate</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The new bus route helped alleviate transportation problems for rural residents.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-2" data-word-number="333" data-search="augment verb to increase the size, value, or effectiveness of something by adding to it. increase, enhance, expand diminish, reduce “the museum augmented its exhibit with interactive maps and recordings.”">
+        <div class="word-heading"><span class="word-number">333</span><h2>Augment</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To increase the size, value, or effectiveness of something by adding to it.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>increase, enhance, expand</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>diminish, reduce</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The museum augmented its exhibit with interactive maps and recordings.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-3" data-word-number="334" data-search="facilitate verb to make an action or process easier or more likely to occur. enable, assist, ease hinder, impede “shared digital records facilitate cooperation among medical specialists.”">
+        <div class="word-heading"><span class="word-number">334</span><h2>Facilitate</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To make an action or process easier or more likely to occur.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>enable, assist, ease</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>hinder, impede</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“Shared digital records facilitate cooperation among medical specialists.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-4" data-word-number="335" data-search="stymie verb to prevent or hinder progress. thwart, obstruct, impede assist, advance “a shortage of reliable data may stymie efforts to evaluate the program.”">
+        <div class="word-heading"><span class="word-number">335</span><h2>Stymie</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To prevent or hinder progress.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>thwart, obstruct, impede</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>assist, advance</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“A shortage of reliable data may stymie efforts to evaluate the program.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-5" data-word-number="336" data-search="curtail verb to reduce, limit, or cut something short. reduce, restrict, shorten extend, expand “the city curtailed water use during the prolonged drought.”">
+        <div class="word-heading"><span class="word-number">336</span><h2>Curtail</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To reduce, limit, or cut something short.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>reduce, restrict, shorten</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>extend, expand</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The city curtailed water use during the prolonged drought.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-6" data-word-number="337" data-search="bolster verb to support, strengthen, or reinforce something. strengthen, support, fortify weaken, undermine “new archaeological evidence bolstered the historian’s interpretation.”">
+        <div class="word-heading"><span class="word-number">337</span><h2>Bolster</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To support, strengthen, or reinforce something.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>strengthen, support, fortify</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>weaken, undermine</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“New archaeological evidence bolstered the historian’s interpretation.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-1" data-word-number="338" data-search="attenuate verb to reduce the force, effect, or intensity of something. weaken, diminish, lessen amplify, intensify “dense vegetation can attenuate noise from a nearby highway.”">
+        <div class="word-heading"><span class="word-number">338</span><h2>Attenuate</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To reduce the force, effect, or intensity of something.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>weaken, diminish, lessen</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>amplify, intensify</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“Dense vegetation can attenuate noise from a nearby highway.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-2" data-word-number="339" data-search="escalate verb to increase rapidly in intensity, seriousness, or extent. intensify, increase, mount subside, decrease “the disagreement escalated when neither side agreed to compromise.”">
+        <div class="word-heading"><span class="word-number">339</span><h2>Escalate</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To increase rapidly in intensity, seriousness, or extent.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>intensify, increase, mount</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>subside, decrease</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The disagreement escalated when neither side agreed to compromise.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-3" data-word-number="340" data-search="burgeoning adjective growing or developing rapidly. expanding, flourishing, growing declining, shrinking “the region’s burgeoning technology sector attracted skilled workers.”">
+        <div class="word-heading"><span class="word-number">340</span><h2>Burgeoning</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Growing or developing rapidly.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>expanding, flourishing, growing</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>declining, shrinking</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The region’s burgeoning technology sector attracted skilled workers.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-4" data-word-number="341" data-search="nascent adjective just beginning to exist or develop. emerging, incipient, developing mature, established “the nascent research field had only a few published studies.”">
+        <div class="word-heading"><span class="word-number">341</span><h2>Nascent</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Just beginning to exist or develop.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>emerging, incipient, developing</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>mature, established</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The nascent research field had only a few published studies.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-5" data-word-number="342" data-search="inception noun the beginning or establishment of an activity, organization, or process. beginning, outset, origin conclusion, termination “the program has served thousands of students since its inception.”">
+        <div class="word-heading"><span class="word-number">342</span><h2>Inception</h2><span class="part">noun</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>The beginning or establishment of an activity, organization, or process.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>beginning, outset, origin</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>conclusion, termination</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The program has served thousands of students since its inception.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-6" data-word-number="343" data-search="cessation noun the stopping or ending of an action or process. ending, halt, termination continuation, inception “the cessation of mining allowed the damaged landscape to recover.”">
+        <div class="word-heading"><span class="word-number">343</span><h2>Cessation</h2><span class="part">noun</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>The stopping or ending of an action or process.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>ending, halt, termination</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>continuation, inception</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The cessation of mining allowed the damaged landscape to recover.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-1" data-word-number="344" data-search="wane verb / noun to decrease gradually in strength, size, or importance. decline, diminish, fade grow, intensify “public interest began to wane after the issue disappeared from the news.”">
+        <div class="word-heading"><span class="word-number">344</span><h2>Wane</h2><span class="part">verb / noun</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To decrease gradually in strength, size, or importance.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>decline, diminish, fade</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>grow, intensify</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“Public interest began to wane after the issue disappeared from the news.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-2" data-word-number="345" data-search="modulate verb to adjust or regulate the degree, tone, or intensity of something. regulate, adjust, vary fix, intensify “the speaker modulated her voice to emphasize the most important points.”">
+        <div class="word-heading"><span class="word-number">345</span><h2>Modulate</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To adjust or regulate the degree, tone, or intensity of something.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>regulate, adjust, vary</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>fix, intensify</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The speaker modulated her voice to emphasize the most important points.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-3" data-word-number="346" data-search="temper verb to moderate, soften, or restrain the force of something. moderate, soften, restrain intensify, inflame “the author tempered his criticism by acknowledging the study’s strengths.”">
+        <div class="word-heading"><span class="word-number">346</span><h2>Temper</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To moderate, soften, or restrain the force of something.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>moderate, soften, restrain</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>intensify, inflame</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The author tempered his criticism by acknowledging the study’s strengths.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-4" data-word-number="347" data-search="paramount adjective more important than anything else; supreme. foremost, supreme, primary minor, secondary “protecting participants’ safety was paramount throughout the experiment.”">
+        <div class="word-heading"><span class="word-number">347</span><h2>Paramount</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>More important than anything else; supreme.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>foremost, supreme, primary</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>minor, secondary</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“Protecting participants’ safety was paramount throughout the experiment.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-5" data-word-number="348" data-search="paucity noun a scarcity or insufficient amount of something. scarcity, shortage, dearth abundance, plenty “a paucity of written records makes the period difficult to study.”">
+        <div class="word-heading"><span class="word-number">348</span><h2>Paucity</h2><span class="part">noun</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>A scarcity or insufficient amount of something.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>scarcity, shortage, dearth</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>abundance, plenty</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“A paucity of written records makes the period difficult to study.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-6" data-word-number="349" data-search="superfluous adjective unnecessary because more than enough is already present. unnecessary, excessive, redundant essential, necessary “the editor removed superfluous details that distracted from the main argument.”">
+        <div class="word-heading"><span class="word-number">349</span><h2>Superfluous</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Unnecessary because more than enough is already present.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>unnecessary, excessive, redundant</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>essential, necessary</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The editor removed superfluous details that distracted from the main argument.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-1" data-word-number="350" data-search="tenuous adjective weak, slight, or not strongly supported. weak, fragile, insubstantial strong, substantial “the claim rests on a tenuous connection between two unrelated trends.”">
+        <div class="word-heading"><span class="word-number">350</span><h2>Tenuous</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Weak, slight, or not strongly supported.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>weak, fragile, insubstantial</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>strong, substantial</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The claim rests on a tenuous connection between two unrelated trends.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article></section>
+    <p class="empty-state" id="emptyState">No words match this filter. Turn off “Show remaining words only” to see learned words.</p>
+    <nav class="bottom-nav" aria-label="Study page navigation"><a class="nav-link" href="SAT_Words_301_325.html">← Words 301–325</a><a class="nav-link home" href="index.html">All Study Pages</a><a class="nav-link" href="SAT_Words_351_375.html">Words 351–375 →</a></nav>
+  </main>
+  <footer>Progress is synchronized using the active student link.</footer>
+  <script>
+const SAT_PROGRESS_KEY = window.SATEnglishCloud.storageKey;
+const SAT_WORD_TOTAL = 375;
+function getProgress(){try{const raw=localStorage.getItem(SAT_PROGRESS_KEY);const saved=raw?JSON.parse(raw):{};const cleaned=Array.isArray(saved.learned)?saved.learned.map(Number).filter(n=>Number.isInteger(n)&&n>=1&&n<=SAT_WORD_TOTAL):[];return{learned:[...new Set(cleaned)]}}catch(e){return{learned:[]}}}
+function setProgress(progress){const cleaned=[...new Set((progress.learned||[]).map(Number).filter(n=>Number.isInteger(n)&&n>=1&&n<=SAT_WORD_TOTAL))];try{localStorage.setItem(SAT_PROGRESS_KEY,JSON.stringify({learned:cleaned}));window.SATEnglishCloud.queueLearnedSync(cleaned)}catch(e){}return{learned:cleaned}}
+function learnedSet(){return new Set(getProgress().learned)}
+function isLearned(number){return learnedSet().has(Number(number))}
+function markLearned(number,learned){const set=learnedSet();learned?set.add(Number(number)):set.delete(Number(number));return setProgress({learned:[...set]})}
+function resetAllProgress(){return setProgress({learned:[]})}
+function globalCounts(){const learned=learnedSet().size;return{learned,remaining:SAT_WORD_TOTAL-learned,total:SAT_WORD_TOTAL}}
+function rangeCounts(start,end){const set=learnedSet();let learned=0;for(let n=start;n<=end;n+=1)if(set.has(n))learned+=1;return{learned,remaining:end-start+1-learned,total:end-start+1}}
+const RANGE_START=326,RANGE_END=350;
+const wordSearch=document.getElementById('wordSearch');const remainingOnly=document.getElementById('remainingOnly');const cards=[...document.querySelectorAll('.word-card')];
+function refreshStudyPage(){const learned=learnedSet();const query=wordSearch.value.trim().toLowerCase();const filterRemaining=remainingOnly.checked;let visible=0;cards.forEach(card=>{const number=Number(card.dataset.wordNumber);const done=learned.has(number);const show=(!query||card.dataset.search.includes(query))&&(!filterRemaining||!done);card.classList.toggle('learned',done);card.style.display=show?'':'none';const button=card.querySelector('.learn-btn');button.textContent=done?'✓ Learned — undo':'Mark learned';button.setAttribute('aria-pressed',String(done));if(show)visible+=1});const global=globalCounts();const range=rangeCounts(RANGE_START,RANGE_END);document.getElementById('visibleCount').textContent=`${visible} word${visible===1?'':'s'} shown`;document.getElementById('rangeProgressText').textContent=`This page: ${range.learned} of ${range.total} learned · ${range.remaining} remaining`;document.getElementById('globalProgressText').textContent=`${global.learned} of ${global.total} learned · ${global.remaining} remaining`;document.getElementById('progressFill').style.width=`${(global.learned/global.total)*100}%`;document.getElementById('emptyState').style.display=visible===0?'block':'none'}
+cards.forEach(card=>card.querySelector('.learn-btn').addEventListener('click',()=>{const number=Number(card.dataset.wordNumber);markLearned(number,!isLearned(number));refreshStudyPage()}));
+wordSearch.addEventListener('input',refreshStudyPage);remainingOnly.addEventListener('change',refreshStudyPage);document.getElementById('resetProgress').addEventListener('click',()=>{if(window.confirm('Reset all learned-word progress for all 375 SAT words for this student?')){resetAllProgress();refreshStudyPage()}});
+if(new URLSearchParams(location.search).get('remaining')==='1')remainingOnly.checked=true;
+window.addEventListener('storage',refreshStudyPage);
+window.SATEnglishCloud.ready.then(()=>{refreshStudyPage()}).catch(()=>{});
+</script>
+</body>
+</html>

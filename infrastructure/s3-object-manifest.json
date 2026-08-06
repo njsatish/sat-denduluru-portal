@@ -1,0 +1,4566 @@
+[
+    {
+        "Key": "admin.html",
+        "Size": 26649,
+        "ETag": "\"b0e42a71f7fc9d795b48e7f07d1fad0a\"",
+        "LastModified": "2026-08-03T18:37:05+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "admin.js",
+        "Size": 11458,
+        "ETag": "\"62e9edb5581bc03be44ffac5a9382c16\"",
+        "LastModified": "2026-08-04T19:07:34+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "apple-touch-icon.png",
+        "Size": 8501,
+        "ETag": "\"fa6a722b278d316be926cf73949eaea5\"",
+        "LastModified": "2026-07-30T04:45:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "auth/callback.html",
+        "Size": 1051,
+        "ETag": "\"6ae17dc674a33ad1c5de0c33cb6d0a44\"",
+        "LastModified": "2026-07-30T19:50:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/admin-move-20260730-223131/math-admin.html",
+        "Size": 22330,
+        "ETag": "\"02108e26878172597c3c942e87c612fb\"",
+        "LastModified": "2026-07-30T22:33:29+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/admin-move-20260730-223131/previous-root-admin.html",
+        "Size": 4082,
+        "ETag": "\"8932b5b24c6addc35bdb975dc1a55d5b\"",
+        "LastModified": "2026-07-30T22:33:28+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/admin-template2-v2-20260730-234525/admin.html",
+        "Size": 22352,
+        "ETag": "\"eaefba3e95e375cd97f67e00ea71b19c\"",
+        "LastModified": "2026-07-30T23:45:34+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/admin-template2-v2-20260730-234525/math/admin.js",
+        "Size": 7094,
+        "ETag": "\"bca2c64446adbf48d10de5fb1c497b06\"",
+        "LastModified": "2026-07-30T23:45:35+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/api-url-fix-20260804T190727Z/admin.js",
+        "Size": 11458,
+        "ETag": "\"55329385cb18c765266cce004ccaa9f9\"",
+        "LastModified": "2026-08-04T19:07:32+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/api-url-fix-20260804T190727Z/english/english-student.js",
+        "Size": 2432,
+        "ETag": "\"f314a7953f4a66447574269c3d27516c\"",
+        "LastModified": "2026-08-04T19:07:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/api-url-fix-20260804T190727Z/english/reading-writing/app.js",
+        "Size": 24004,
+        "ETag": "\"a5f2c22d1886670d7c63a7687c151c6b\"",
+        "LastModified": "2026-08-04T19:08:02+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/api-url-fix-20260804T190727Z/index.html",
+        "Size": 27577,
+        "ETag": "\"3d18d3e33830b5b24d71bfcf5ce6c4d8\"",
+        "LastModified": "2026-08-04T19:07:29+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/api-url-fix-20260804T190727Z/math/admin.js",
+        "Size": 23286,
+        "ETag": "\"244f4fdff4f5e112760dccb0551ebd1c\"",
+        "LastModified": "2026-08-04T19:07:35+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/api-url-fix-20260804T190727Z/math/app.js",
+        "Size": 62363,
+        "ETag": "\"7e502871e26e353126bd127932742f1f\"",
+        "LastModified": "2026-08-04T19:07:56+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/auth-20260730-201828/math-app.js",
+        "Size": 37742,
+        "ETag": "\"c952233671dd91ef53705bfa2adc77e4\"",
+        "LastModified": "2026-07-30T20:18:33+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/auth-login-pointer-20260730-211303/auth.js",
+        "Size": 6577,
+        "ETag": "\"713e1833e481059065025f154d796435\"",
+        "LastModified": "2026-07-30T21:13:08+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/clean-student-url-20260730-222746/sat-nav-fix.js",
+        "Size": 7424,
+        "ETag": "\"d062b7915a39fcb20b471f715450e4fb\"",
+        "LastModified": "2026-07-30T22:27:52+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/correction-save-hotfix-20260801T222349Z/math/app.js",
+        "Size": 57820,
+        "ETag": "\"847ba30e48f0e501223524c944f33b66\"",
+        "LastModified": "2026-08-01T22:23:53+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/correction-strong-fix-20260801T222712Z/math/app.js",
+        "Size": 58865,
+        "ETag": "\"e3ea178346b9c150bdd47684a46f0c22\"",
+        "LastModified": "2026-08-01T22:27:23+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/correction-strong-fix-20260801T222712Z/math/set-2-volume-1-algebra.html",
+        "Size": 94119,
+        "ETag": "\"dab99daf6af0276c288ed69cd838a940\"",
+        "LastModified": "2026-08-01T22:27:27+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/correction-strong-fix-20260801T222712Z/math/set-2-volume-2-advanced-math.html",
+        "Size": 93923,
+        "ETag": "\"1006de6a432a600d766b6d7eb327f7bf\"",
+        "LastModified": "2026-08-01T22:27:28+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/correction-strong-fix-20260801T222712Z/math/set-2-volume-3-data-geometry-trigonometry.html",
+        "Size": 94093,
+        "ETag": "\"73737c6e00a5f86c7907c551f66c20a5\"",
+        "LastModified": "2026-08-01T22:27:29+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/correction-strong-fix-20260801T222712Z/math/volume-1-algebra-foundations.html",
+        "Size": 92605,
+        "ETag": "\"f860d66e79ab07cfedc2d39ec20dbc88\"",
+        "LastModified": "2026-08-01T22:27:24+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/correction-strong-fix-20260801T222712Z/math/volume-2-advanced-math.html",
+        "Size": 90953,
+        "ETag": "\"4a23b063d92b6aa07757703833e12ba6\"",
+        "LastModified": "2026-08-01T22:27:25+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/correction-strong-fix-20260801T222712Z/math/volume-3-data-geometry-trigonometry.html",
+        "Size": 89594,
+        "ETag": "\"08b2a3d5f35fdd7feac64ed96a435f19\"",
+        "LastModified": "2026-08-01T22:27:26+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/double-nav-20260730-223824/math-app.js",
+        "Size": 41464,
+        "ETag": "\"28ad9a141bd1de702bcc25f64dbdf3f8\"",
+        "LastModified": "2026-07-30T22:38:31+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/emergency-before-corrected-rollback-20260802T001521Z/math/app.js",
+        "Size": 64518,
+        "ETag": "\"dd241e13b62c68f61d35beccbe2d5287\"",
+        "LastModified": "2026-08-02T00:15:26+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/emergency-before-corrected-rollback-20260802T001521Z/math/set-2-volume-1-algebra.html",
+        "Size": 94082,
+        "ETag": "\"d488787ff4194478c92bab843371a4e4\"",
+        "LastModified": "2026-08-02T00:15:31+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/emergency-before-corrected-rollback-20260802T001521Z/math/set-2-volume-2-advanced-math.html",
+        "Size": 93886,
+        "ETag": "\"07bbfab9010ffb46000095001cd15d74\"",
+        "LastModified": "2026-08-02T00:15:32+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/emergency-before-corrected-rollback-20260802T001521Z/math/set-2-volume-3-data-geometry-trigonometry.html",
+        "Size": 94056,
+        "ETag": "\"0f66929552585058a4d4f5ed160608ef\"",
+        "LastModified": "2026-08-02T00:15:33+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/emergency-before-corrected-rollback-20260802T001521Z/math/volume-1-algebra-foundations.html",
+        "Size": 92568,
+        "ETag": "\"93a10f5c469edfea7432a1540e8142d8\"",
+        "LastModified": "2026-08-02T00:15:27+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/emergency-before-corrected-rollback-20260802T001521Z/math/volume-2-advanced-math.html",
+        "Size": 90916,
+        "ETag": "\"bc470368132363fd57cf7709fcc37c77\"",
+        "LastModified": "2026-08-02T00:15:28+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/emergency-before-corrected-rollback-20260802T001521Z/math/volume-3-data-geometry-trigonometry.html",
+        "Size": 89557,
+        "ETag": "\"3428feb8e5b36cc021b47a20fc95c776\"",
+        "LastModified": "2026-08-02T00:15:30+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_All_300_Words.html",
+        "Size": 518,
+        "ETag": "\"86dfcf419010bb602b2b77a31afa9ff3\"",
+        "LastModified": "2026-07-30T22:31:54+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_All_375_Words.html",
+        "Size": 290812,
+        "ETag": "\"29f7c0b3676e808d1085b9ac0f15d111\"",
+        "LastModified": "2026-07-30T22:32:37+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Flashcards.html",
+        "Size": 10907,
+        "ETag": "\"adb63b054e8fcef23b9df4ceee8aacb7\"",
+        "LastModified": "2026-07-30T22:31:55+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Flashcards_101_125.html",
+        "Size": 32839,
+        "ETag": "\"bc473c572d4dbf2d496bc4011f2bd52b\"",
+        "LastModified": "2026-07-30T22:32:21+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Flashcards_126_150.html",
+        "Size": 32836,
+        "ETag": "\"33ceb9e85df9f0f928bf5f24cbc29085\"",
+        "LastModified": "2026-07-30T22:33:22+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Flashcards_151_175.html",
+        "Size": 34154,
+        "ETag": "\"616f933b6ddb9dc8ec7a0c26d7bb8ac2\"",
+        "LastModified": "2026-07-30T22:32:31+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Flashcards_176_200.html",
+        "Size": 34424,
+        "ETag": "\"06e96502abed6ce4cb603431fe77fe64\"",
+        "LastModified": "2026-07-30T22:32:03+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Flashcards_1_25.html",
+        "Size": 33704,
+        "ETag": "\"dec32a73b978e572425445e4671f4d06\"",
+        "LastModified": "2026-07-30T22:31:57+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Flashcards_201_225.html",
+        "Size": 34026,
+        "ETag": "\"af96b942c2b53c97066aa26d31618674\"",
+        "LastModified": "2026-07-30T22:32:44+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Flashcards_226_250.html",
+        "Size": 34147,
+        "ETag": "\"9a6793a87dadcd7e40ae26b16869244a\"",
+        "LastModified": "2026-07-30T22:32:51+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Flashcards_251_275.html",
+        "Size": 34212,
+        "ETag": "\"2f2b977d598760541d1b2dc332ed3e11\"",
+        "LastModified": "2026-07-30T22:32:12+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Flashcards_26_50.html",
+        "Size": 34126,
+        "ETag": "\"e1020d9472a89a341de78bf10739147e\"",
+        "LastModified": "2026-07-30T22:32:06+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Flashcards_276_300.html",
+        "Size": 34401,
+        "ETag": "\"c7ac9a11189fc08be9b0339e7638ba6f\"",
+        "LastModified": "2026-07-30T22:32:15+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Flashcards_51_75.html",
+        "Size": 34432,
+        "ETag": "\"21886ab62f88f874bd767561aad694ec\"",
+        "LastModified": "2026-07-30T22:31:40+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Flashcards_76_100.html",
+        "Size": 34498,
+        "ETag": "\"2b992bcd10f91243f37b62e8bbd64eb0\"",
+        "LastModified": "2026-07-30T22:33:19+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Practice_Hub.html",
+        "Size": 10865,
+        "ETag": "\"c48ec8196929e070a5ff445286d17ef2\"",
+        "LastModified": "2026-07-30T22:33:04+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Progress.html",
+        "Size": 13361,
+        "ETag": "\"16d1b3320b2815db60530c45de5211c2\"",
+        "LastModified": "2026-07-30T22:32:26+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Quiz.html",
+        "Size": 11663,
+        "ETag": "\"cf0e03839510c340f661bcac2209e237\"",
+        "LastModified": "2026-07-30T22:33:10+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Quiz_101_125.html",
+        "Size": 32572,
+        "ETag": "\"5e8db93733c2018ea856d27a902d975c\"",
+        "LastModified": "2026-07-30T22:31:41+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Quiz_126_150.html",
+        "Size": 32569,
+        "ETag": "\"d80c49f199cbbb1393004f73163ef017\"",
+        "LastModified": "2026-07-30T22:32:46+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Quiz_151_175.html",
+        "Size": 33887,
+        "ETag": "\"1847afe1310116a1b4eec00a5dbed3e6\"",
+        "LastModified": "2026-07-30T22:33:15+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Quiz_176_200.html",
+        "Size": 34157,
+        "ETag": "\"24d7b17f604aff1ef098894838349c54\"",
+        "LastModified": "2026-07-30T22:32:01+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Quiz_1_25.html",
+        "Size": 33449,
+        "ETag": "\"76c2a053416e8ca472eec970924e55a7\"",
+        "LastModified": "2026-07-30T22:32:40+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Quiz_201_225.html",
+        "Size": 33759,
+        "ETag": "\"c3f9b8b401edd24e1283da5c2495a70b\"",
+        "LastModified": "2026-07-30T22:32:48+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Quiz_226_250.html",
+        "Size": 33880,
+        "ETag": "\"3183d5cfde57f80dbaf94ac3267490ce\"",
+        "LastModified": "2026-07-30T22:32:57+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Quiz_251_275.html",
+        "Size": 33945,
+        "ETag": "\"677cc41427ae9553f458aa17b7d4eaf6\"",
+        "LastModified": "2026-07-30T22:33:08+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Quiz_26_50.html",
+        "Size": 33859,
+        "ETag": "\"efc89645d4aa9e432ed9e24fa5e5f027\"",
+        "LastModified": "2026-07-30T22:31:43+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Quiz_276_300.html",
+        "Size": 34146,
+        "ETag": "\"a3f4d65fce9536a5af34e025b7d2f703\"",
+        "LastModified": "2026-07-30T22:33:00+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Quiz_51_75.html",
+        "Size": 34165,
+        "ETag": "\"9d7d2a6748ea17c4f8f235df4965afa3\"",
+        "LastModified": "2026-07-30T22:33:24+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Quiz_76_100.html",
+        "Size": 34231,
+        "ETag": "\"cf9e3a0d5cff15572db4efe9391a19f3\"",
+        "LastModified": "2026-07-30T22:32:24+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Spelling.html",
+        "Size": 11509,
+        "ETag": "\"d0c4d8f0f74adca21839aa4e4fc90058\"",
+        "LastModified": "2026-07-30T22:31:45+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Spelling_101_125.html",
+        "Size": 33648,
+        "ETag": "\"66db513af8eaf8b7716aba3eca8e0ce1\"",
+        "LastModified": "2026-07-30T22:32:17+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Spelling_126_150.html",
+        "Size": 33645,
+        "ETag": "\"35f782e6bd656f83d097149f41350381\"",
+        "LastModified": "2026-07-30T22:32:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Spelling_151_175.html",
+        "Size": 34963,
+        "ETag": "\"285d80fa4d385c0a5ffc2eca107fd33b\"",
+        "LastModified": "2026-07-30T22:32:10+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Spelling_176_200.html",
+        "Size": 35233,
+        "ETag": "\"ce783ad16f28079e67db4e43d8877201\"",
+        "LastModified": "2026-07-30T22:33:11+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Spelling_1_25.html",
+        "Size": 34517,
+        "ETag": "\"03ca376cceafc4772eab023b0ce24251\"",
+        "LastModified": "2026-07-30T22:33:06+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Spelling_201_225.html",
+        "Size": 34835,
+        "ETag": "\"ffc3f1ba48e0e25d9cada09aaa70fd1c\"",
+        "LastModified": "2026-07-30T22:32:22+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Spelling_226_250.html",
+        "Size": 34956,
+        "ETag": "\"b42629932303266688cc57925e5f52de\"",
+        "LastModified": "2026-07-30T22:32:19+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Spelling_251_275.html",
+        "Size": 35021,
+        "ETag": "\"350fc7a03436956311678d0ceae7cc8d\"",
+        "LastModified": "2026-07-30T22:32:55+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Spelling_26_50.html",
+        "Size": 34935,
+        "ETag": "\"57aead891ecf62672f9f8b49c977d131\"",
+        "LastModified": "2026-07-30T22:31:52+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Spelling_276_300.html",
+        "Size": 35214,
+        "ETag": "\"640e211d6c759575e300c521b6da9ef2\"",
+        "LastModified": "2026-07-30T22:31:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Spelling_51_75.html",
+        "Size": 35241,
+        "ETag": "\"a240a442136377e12960292942fc99ea\"",
+        "LastModified": "2026-07-30T22:32:30+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Spelling_76_100.html",
+        "Size": 35307,
+        "ETag": "\"e22b9861ed0f3556a24e125abd74f134\"",
+        "LastModified": "2026-07-30T22:32:05+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Words_101_125.html",
+        "Size": 59241,
+        "ETag": "\"f6d3879dcdba46aa50848429a3d27382\"",
+        "LastModified": "2026-07-30T22:32:08+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Words_126_150.html",
+        "Size": 59163,
+        "ETag": "\"b74c2df6d04f6394a599dbf63c78ef51\"",
+        "LastModified": "2026-07-30T22:32:35+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Words_151_175.html",
+        "Size": 62168,
+        "ETag": "\"59946b3bfba53448379c54c7c7bb3df8\"",
+        "LastModified": "2026-07-30T22:32:13+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Words_176_200.html",
+        "Size": 62649,
+        "ETag": "\"e193f6a9cd5ae59c2a8457c038ae98fe\"",
+        "LastModified": "2026-07-30T22:31:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Words_1_25.html",
+        "Size": 61734,
+        "ETag": "\"b7ec591936026eb510dd1773a60f806f\"",
+        "LastModified": "2026-07-30T22:33:17+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Words_201_225.html",
+        "Size": 62085,
+        "ETag": "\"82db0a3054faa212aea63a50840b1eea\"",
+        "LastModified": "2026-07-30T22:31:47+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Words_226_250.html",
+        "Size": 62253,
+        "ETag": "\"00a207abd1ef00d040a73724635d9680\"",
+        "LastModified": "2026-07-30T22:32:53+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Words_251_275.html",
+        "Size": 62343,
+        "ETag": "\"9af0947262f6ce01dd1bafed011ba631\"",
+        "LastModified": "2026-07-30T22:33:13+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Words_26_50.html",
+        "Size": 62239,
+        "ETag": "\"3a79659c333febf12e1863e2670dae70\"",
+        "LastModified": "2026-07-30T22:32:28+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Words_276_300.html",
+        "Size": 62610,
+        "ETag": "\"8f570a0228455b7c9ad3ed0664fbc3e8\"",
+        "LastModified": "2026-07-30T22:31:50+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Words_301_325.html",
+        "Size": 41744,
+        "ETag": "\"ead0c0e0fe90c8c761540a1784fac6d5\"",
+        "LastModified": "2026-07-30T22:33:02+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Words_326_350.html",
+        "Size": 40836,
+        "ETag": "\"e2e67f245c3a143646c6a4b721886e27\"",
+        "LastModified": "2026-07-30T22:32:42+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Words_351_375.html",
+        "Size": 41361,
+        "ETag": "\"90ddbdf360055151a416a02acac0eda3\"",
+        "LastModified": "2026-07-30T22:32:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Words_51_75.html",
+        "Size": 62759,
+        "ETag": "\"533b02c226cf701745720058cf5ecaeb\"",
+        "LastModified": "2026-07-30T22:32:39+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/SAT_Words_76_100.html",
+        "Size": 62731,
+        "ETag": "\"9f05c9478fe249cf13fff6c4a91761fb\"",
+        "LastModified": "2026-07-30T22:32:33+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-auth-20260730-223131/english/index.html",
+        "Size": 14577,
+        "ETag": "\"4a10760b86a5c20fca8696c1eb9d0703\"",
+        "LastModified": "2026-07-30T22:33:20+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_All_300_Words.html",
+        "Size": 719,
+        "ETag": "\"386b2745f36755f1b9bef13f36e9cb3c\"",
+        "LastModified": "2026-07-31T00:04:01+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_All_375_Words.html",
+        "Size": 291013,
+        "ETag": "\"870cc5b5c33d5a6373f551479f0d2982\"",
+        "LastModified": "2026-07-31T00:04:04+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Flashcards.html",
+        "Size": 11108,
+        "ETag": "\"aad21db2e4a9254d2838be087c82cd01\"",
+        "LastModified": "2026-07-31T00:04:06+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Flashcards_101_125.html",
+        "Size": 33040,
+        "ETag": "\"f9d31f2568606bb69757c36d42904458\"",
+        "LastModified": "2026-07-31T00:04:09+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Flashcards_126_150.html",
+        "Size": 33037,
+        "ETag": "\"0f68c069c974079b0e3f1bf126311d9a\"",
+        "LastModified": "2026-07-31T00:04:11+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Flashcards_151_175.html",
+        "Size": 34355,
+        "ETag": "\"5e9ba97def3fd4269aa4464b8f2aee05\"",
+        "LastModified": "2026-07-31T00:04:14+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Flashcards_176_200.html",
+        "Size": 34625,
+        "ETag": "\"1a49515b3acbd771f51bc0f1b3a1c804\"",
+        "LastModified": "2026-07-31T00:04:17+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Flashcards_1_25.html",
+        "Size": 33905,
+        "ETag": "\"2dbc4539454d460a99f3f723a1dd12ce\"",
+        "LastModified": "2026-07-31T00:04:19+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Flashcards_201_225.html",
+        "Size": 34227,
+        "ETag": "\"7bb9de9b416c06863b00ba467e38c468\"",
+        "LastModified": "2026-07-31T00:04:22+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Flashcards_226_250.html",
+        "Size": 34348,
+        "ETag": "\"4f4fd009367b7d8a6c43a67beb62f76a\"",
+        "LastModified": "2026-07-31T00:04:24+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Flashcards_251_275.html",
+        "Size": 34413,
+        "ETag": "\"e0e4fd463a10d863b70d920ef06b72ab\"",
+        "LastModified": "2026-07-31T00:04:27+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Flashcards_26_50.html",
+        "Size": 34327,
+        "ETag": "\"e766c304f139cce5cd9ba9fc04a0dc65\"",
+        "LastModified": "2026-07-31T00:04:29+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Flashcards_276_300.html",
+        "Size": 34602,
+        "ETag": "\"265f240aef43eb5d791e4d22945ed05c\"",
+        "LastModified": "2026-07-31T00:04:32+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Flashcards_51_75.html",
+        "Size": 34633,
+        "ETag": "\"5ae19eeb733504fa84e7a1794bb6ac82\"",
+        "LastModified": "2026-07-31T00:04:34+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Flashcards_76_100.html",
+        "Size": 34699,
+        "ETag": "\"961d03b66f078aa1b4c9d02f53af120c\"",
+        "LastModified": "2026-07-31T00:04:37+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Practice_Hub.html",
+        "Size": 11066,
+        "ETag": "\"9a190a49a68556031a3a45eb1ccee9db\"",
+        "LastModified": "2026-07-31T00:04:40+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Progress.html",
+        "Size": 13562,
+        "ETag": "\"986aa7899bfa98f9b9a4015fe3aef938\"",
+        "LastModified": "2026-07-31T00:04:42+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Quiz.html",
+        "Size": 11864,
+        "ETag": "\"1202ebe8ccb93432999b7e1005610cc4\"",
+        "LastModified": "2026-07-31T00:04:45+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Quiz_101_125.html",
+        "Size": 32773,
+        "ETag": "\"b1c414a160c5a5c16dad5c368a1f9dc0\"",
+        "LastModified": "2026-07-31T00:04:47+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Quiz_126_150.html",
+        "Size": 32770,
+        "ETag": "\"352bdb4dd724f8a75442bbb5f6641595\"",
+        "LastModified": "2026-07-31T00:04:50+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Quiz_151_175.html",
+        "Size": 34088,
+        "ETag": "\"81933073a035a20fec485d58f6b22224\"",
+        "LastModified": "2026-07-31T00:04:52+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Quiz_176_200.html",
+        "Size": 34358,
+        "ETag": "\"f42be1ac0ac1b5614eb2646e4f2072f5\"",
+        "LastModified": "2026-07-31T00:04:55+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Quiz_1_25.html",
+        "Size": 33650,
+        "ETag": "\"9902776222c8ebeaefef895b0525a363\"",
+        "LastModified": "2026-07-31T00:04:58+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Quiz_201_225.html",
+        "Size": 33960,
+        "ETag": "\"abd3eb11d07d6c559955f4ccbc60c666\"",
+        "LastModified": "2026-07-31T00:05:00+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Quiz_226_250.html",
+        "Size": 34081,
+        "ETag": "\"2494a23a5a2a8763cd677a880da00c58\"",
+        "LastModified": "2026-07-31T00:05:03+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Quiz_251_275.html",
+        "Size": 34146,
+        "ETag": "\"c2afd5f7b7b3bb1c082ed8f250e3953d\"",
+        "LastModified": "2026-07-31T00:05:05+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Quiz_26_50.html",
+        "Size": 34060,
+        "ETag": "\"cd607e52b3c0d6802438bea5e6674375\"",
+        "LastModified": "2026-07-31T00:05:08+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Quiz_276_300.html",
+        "Size": 34347,
+        "ETag": "\"158794c0dc2231aff25b2099bd3d05e9\"",
+        "LastModified": "2026-07-31T00:05:11+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Quiz_51_75.html",
+        "Size": 34366,
+        "ETag": "\"54666038c27e118672152fdb1d2c0eae\"",
+        "LastModified": "2026-07-31T00:05:13+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Quiz_76_100.html",
+        "Size": 34432,
+        "ETag": "\"a55403d0cfcf482779f84ecfa7e7dd33\"",
+        "LastModified": "2026-07-31T00:05:16+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Spelling.html",
+        "Size": 11710,
+        "ETag": "\"b1d21da004f61c5d242430081b87fdc8\"",
+        "LastModified": "2026-07-31T00:05:18+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Spelling_101_125.html",
+        "Size": 33849,
+        "ETag": "\"704f4e6a0b5635d7234bd6d1060b13c8\"",
+        "LastModified": "2026-07-31T00:05:21+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Spelling_126_150.html",
+        "Size": 33846,
+        "ETag": "\"fd84354f72ee073cabe5ade14093f6e0\"",
+        "LastModified": "2026-07-31T00:05:23+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Spelling_151_175.html",
+        "Size": 35164,
+        "ETag": "\"f18baf74cb8b3290a93c7bd8b1577cc7\"",
+        "LastModified": "2026-07-31T00:05:26+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Spelling_176_200.html",
+        "Size": 35434,
+        "ETag": "\"330b63f08cd9099e36b89dc36617d4b4\"",
+        "LastModified": "2026-07-31T00:05:29+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Spelling_1_25.html",
+        "Size": 34718,
+        "ETag": "\"82efef18e3ea32371cbedcd4d131a367\"",
+        "LastModified": "2026-07-31T00:05:31+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Spelling_201_225.html",
+        "Size": 35036,
+        "ETag": "\"04e673fbc00f95bbf13ad4b7f1e5e74b\"",
+        "LastModified": "2026-07-31T00:05:34+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Spelling_226_250.html",
+        "Size": 35157,
+        "ETag": "\"d26e715cbe67e664910af3e1f959b013\"",
+        "LastModified": "2026-07-31T00:05:37+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Spelling_251_275.html",
+        "Size": 35222,
+        "ETag": "\"b55a074b3c1ddced5948d69140a3a9e7\"",
+        "LastModified": "2026-07-31T00:05:39+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Spelling_26_50.html",
+        "Size": 35136,
+        "ETag": "\"9f345a28b338873fb21e43f3cd8962bb\"",
+        "LastModified": "2026-07-31T00:05:42+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Spelling_276_300.html",
+        "Size": 35415,
+        "ETag": "\"bf943880ca904b8aca3f062c171c37e9\"",
+        "LastModified": "2026-07-31T00:05:44+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Spelling_51_75.html",
+        "Size": 35442,
+        "ETag": "\"a1209dfb6b1a6a1fb7f63e1c2eead0b6\"",
+        "LastModified": "2026-07-31T00:05:47+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Spelling_76_100.html",
+        "Size": 35508,
+        "ETag": "\"b404abd2609dd4e5b0c5de9ad074fbbb\"",
+        "LastModified": "2026-07-31T00:05:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Words_101_125.html",
+        "Size": 59442,
+        "ETag": "\"41fd738f10a093a61bba5bcea23b0d22\"",
+        "LastModified": "2026-07-31T00:05:52+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Words_126_150.html",
+        "Size": 59364,
+        "ETag": "\"a602c8931dfa242040961424944d8f20\"",
+        "LastModified": "2026-07-31T00:05:54+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Words_151_175.html",
+        "Size": 62369,
+        "ETag": "\"4682db0aca1292f2f27ffef664ca772a\"",
+        "LastModified": "2026-07-31T00:05:57+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Words_176_200.html",
+        "Size": 62850,
+        "ETag": "\"0545e16ea4dc3c3aa8612fd7c9427d91\"",
+        "LastModified": "2026-07-31T00:06:00+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Words_1_25.html",
+        "Size": 61935,
+        "ETag": "\"c1736dff3e6c2cf7f3f7d3da783d52a2\"",
+        "LastModified": "2026-07-31T00:06:02+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Words_201_225.html",
+        "Size": 62286,
+        "ETag": "\"2416365fa09627a6394840459deeaf02\"",
+        "LastModified": "2026-07-31T00:06:05+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Words_226_250.html",
+        "Size": 62454,
+        "ETag": "\"a13040670f9f8603600aa2ff7030f364\"",
+        "LastModified": "2026-07-31T00:06:08+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Words_251_275.html",
+        "Size": 62544,
+        "ETag": "\"1fec2d14675b88f71edbc026386477ab\"",
+        "LastModified": "2026-07-31T00:06:10+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Words_26_50.html",
+        "Size": 62440,
+        "ETag": "\"104640c176537b84fda34947759b32aa\"",
+        "LastModified": "2026-07-31T00:06:13+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Words_276_300.html",
+        "Size": 62811,
+        "ETag": "\"e08c332b1daa3c1adb3ba024956a7ed7\"",
+        "LastModified": "2026-07-31T00:06:15+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Words_301_325.html",
+        "Size": 41945,
+        "ETag": "\"da06463dd146f5bd85abd6788043cde9\"",
+        "LastModified": "2026-07-31T00:06:18+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Words_326_350.html",
+        "Size": 41037,
+        "ETag": "\"663749edfe72a67bfa71913fd3438e62\"",
+        "LastModified": "2026-07-31T00:06:20+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Words_351_375.html",
+        "Size": 41562,
+        "ETag": "\"5361b18190273aed4459f782a33c3280\"",
+        "LastModified": "2026-07-31T00:06:23+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Words_51_75.html",
+        "Size": 62960,
+        "ETag": "\"3b0375dec1bf01724df9b4387814eb21\"",
+        "LastModified": "2026-07-31T00:06:25+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/SAT_Words_76_100.html",
+        "Size": 62932,
+        "ETag": "\"1ca9692c7596199275ccc2a10e2a9b64\"",
+        "LastModified": "2026-07-31T00:06:28+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-cognito-20260731-000349/english/index.html",
+        "Size": 14778,
+        "ETag": "\"c0ef248b1280052e7747756e24e44496\"",
+        "LastModified": "2026-07-31T00:06:31+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_All_300_Words.html",
+        "Size": 2118,
+        "ETag": "\"8411ef09e00e8c79eab948f53788fd54\"",
+        "LastModified": "2026-08-04T18:25:42+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_All_375_Words.html",
+        "Size": 292412,
+        "ETag": "\"f953a884f889bcf5a1e3997ed2ef2591\"",
+        "LastModified": "2026-08-04T18:25:43+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Flashcards.html",
+        "Size": 12507,
+        "ETag": "\"979020b922f72b0a8c757615392b6826\"",
+        "LastModified": "2026-08-04T18:25:44+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Flashcards_101_125.html",
+        "Size": 34528,
+        "ETag": "\"75a8822305946e35bc4c902d9b60fe23\"",
+        "LastModified": "2026-08-04T18:25:46+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Flashcards_126_150.html",
+        "Size": 34525,
+        "ETag": "\"270b9f6eba3b124066081a8999269228\"",
+        "LastModified": "2026-08-04T18:25:47+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Flashcards_151_175.html",
+        "Size": 35843,
+        "ETag": "\"337c4ccf6e352d9a9672600d76e4d836\"",
+        "LastModified": "2026-08-04T18:25:48+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Flashcards_176_200.html",
+        "Size": 36113,
+        "ETag": "\"77629eb7f9b2dbbff1e43df816734e12\"",
+        "LastModified": "2026-08-04T18:25:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Flashcards_1_25.html",
+        "Size": 35393,
+        "ETag": "\"ba38c56ea8c0080a3e10f2fc8807867f\"",
+        "LastModified": "2026-08-04T18:25:50+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Flashcards_201_225.html",
+        "Size": 35715,
+        "ETag": "\"fd3d0d804dbb057d39919d506d78dc6e\"",
+        "LastModified": "2026-08-04T18:25:51+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Flashcards_226_250.html",
+        "Size": 35836,
+        "ETag": "\"3c15293aa45b3f3b0cb78090b561f200\"",
+        "LastModified": "2026-08-04T18:25:52+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Flashcards_251_275.html",
+        "Size": 35901,
+        "ETag": "\"7a0b9b0ea91665f3a5b655583bc5652a\"",
+        "LastModified": "2026-08-04T18:25:54+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Flashcards_26_50.html",
+        "Size": 35815,
+        "ETag": "\"efc37d643359f3792f32f42f453dfc3d\"",
+        "LastModified": "2026-08-04T18:25:55+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Flashcards_276_300.html",
+        "Size": 36090,
+        "ETag": "\"09afc22bb923f0463c5519bebec4e155\"",
+        "LastModified": "2026-08-04T18:25:56+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Flashcards_51_75.html",
+        "Size": 36121,
+        "ETag": "\"d79ec5a129bcda7334ed99d521cd07d1\"",
+        "LastModified": "2026-08-04T18:25:57+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Flashcards_76_100.html",
+        "Size": 36187,
+        "ETag": "\"693baa0446f0c687ec277f29dba82763\"",
+        "LastModified": "2026-08-04T18:25:58+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Practice_Hub.html",
+        "Size": 12465,
+        "ETag": "\"b98ee53b330c99085aa71026f634dcb5\"",
+        "LastModified": "2026-08-04T18:25:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Progress.html",
+        "Size": 14961,
+        "ETag": "\"de356cdbcab13d5dff8b25ccfb825512\"",
+        "LastModified": "2026-08-04T18:26:00+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Quiz.html",
+        "Size": 13263,
+        "ETag": "\"1de25feb956154de511ac091c5bd64ca\"",
+        "LastModified": "2026-08-04T18:26:01+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Quiz_101_125.html",
+        "Size": 34261,
+        "ETag": "\"f407dd0ed8a089ca71ad83939d67766b\"",
+        "LastModified": "2026-08-04T18:26:02+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Quiz_126_150.html",
+        "Size": 34258,
+        "ETag": "\"533990b91aaf725bd5856f3862b385e8\"",
+        "LastModified": "2026-08-04T18:26:03+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Quiz_151_175.html",
+        "Size": 35576,
+        "ETag": "\"43c5443f73c9b2581c7ef512f0b489ca\"",
+        "LastModified": "2026-08-04T18:26:05+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Quiz_176_200.html",
+        "Size": 35846,
+        "ETag": "\"dfdd81b22f6080db858b7c85caac7c45\"",
+        "LastModified": "2026-08-04T18:26:06+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Quiz_1_25.html",
+        "Size": 35138,
+        "ETag": "\"727d885212b5aded2cdc6b41133ee94f\"",
+        "LastModified": "2026-08-04T18:26:07+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Quiz_201_225.html",
+        "Size": 35448,
+        "ETag": "\"3d7590ff91b579a5ef1b05e1232f4415\"",
+        "LastModified": "2026-08-04T18:26:08+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Quiz_226_250.html",
+        "Size": 35569,
+        "ETag": "\"6180d8f8b81b86a285b9b132ed2ec3fb\"",
+        "LastModified": "2026-08-04T18:26:09+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Quiz_251_275.html",
+        "Size": 35634,
+        "ETag": "\"d8c9af3a8426a57966d69ff26a6126d6\"",
+        "LastModified": "2026-08-04T18:26:10+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Quiz_26_50.html",
+        "Size": 35548,
+        "ETag": "\"b11c04670b90e0bf9baaac0616862717\"",
+        "LastModified": "2026-08-04T18:26:11+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Quiz_276_300.html",
+        "Size": 35835,
+        "ETag": "\"777ca6263a27171c0547b22c1ecf6e63\"",
+        "LastModified": "2026-08-04T18:26:12+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Quiz_51_75.html",
+        "Size": 35854,
+        "ETag": "\"120d1efee86a06cabb75d67ef8697ef9\"",
+        "LastModified": "2026-08-04T18:26:13+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Quiz_76_100.html",
+        "Size": 35920,
+        "ETag": "\"64896842115a491f1067b63f1a7db750\"",
+        "LastModified": "2026-08-04T18:26:15+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Spelling.html",
+        "Size": 13109,
+        "ETag": "\"c2871aa99ad9be4040d9b9317d631304\"",
+        "LastModified": "2026-08-04T18:26:16+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Spelling_101_125.html",
+        "Size": 35337,
+        "ETag": "\"fea1e86a5cf6e922e5c4e68862e6a064\"",
+        "LastModified": "2026-08-04T18:26:17+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Spelling_126_150.html",
+        "Size": 35334,
+        "ETag": "\"d86a44d6f7a0206e45b897f827d4ed4b\"",
+        "LastModified": "2026-08-04T18:26:18+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Spelling_151_175.html",
+        "Size": 36652,
+        "ETag": "\"2381c7a1bd1f3b0b8da5516f43b6ec12\"",
+        "LastModified": "2026-08-04T18:26:19+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Spelling_176_200.html",
+        "Size": 36922,
+        "ETag": "\"ad24d2a9e6289329bfed3a19c152bc13\"",
+        "LastModified": "2026-08-04T18:26:20+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Spelling_1_25.html",
+        "Size": 36206,
+        "ETag": "\"8ca1905011015de0a93bd0900f5b143a\"",
+        "LastModified": "2026-08-04T18:26:21+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Spelling_201_225.html",
+        "Size": 36524,
+        "ETag": "\"9e4b06619991b93620d5e92f9b10114b\"",
+        "LastModified": "2026-08-04T18:26:22+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Spelling_226_250.html",
+        "Size": 36645,
+        "ETag": "\"50ccf9aac7ae9f523be101942ee74549\"",
+        "LastModified": "2026-08-04T18:26:23+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Spelling_251_275.html",
+        "Size": 36710,
+        "ETag": "\"09cf85b953fbc03274a7c8de792cfef8\"",
+        "LastModified": "2026-08-04T18:26:25+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Spelling_26_50.html",
+        "Size": 36624,
+        "ETag": "\"68c802519a2fd1ddb1a01d4bc311d636\"",
+        "LastModified": "2026-08-04T18:26:26+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Spelling_276_300.html",
+        "Size": 36903,
+        "ETag": "\"f9230aabc64d2ca4605b75fd535b1f39\"",
+        "LastModified": "2026-08-04T18:26:27+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Spelling_51_75.html",
+        "Size": 36930,
+        "ETag": "\"e6ba2dd65fa46aa807ba6076da0947b7\"",
+        "LastModified": "2026-08-04T18:26:28+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Spelling_76_100.html",
+        "Size": 36996,
+        "ETag": "\"8387091f82e1cb77f73af6053427935d\"",
+        "LastModified": "2026-08-04T18:26:29+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Words_101_125.html",
+        "Size": 60998,
+        "ETag": "\"2e8c2b813fb21a14aee4620a72a4828f\"",
+        "LastModified": "2026-08-04T18:26:30+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Words_126_150.html",
+        "Size": 60920,
+        "ETag": "\"a8495f231b1d0b0c1af07b498a35d731\"",
+        "LastModified": "2026-08-04T18:26:31+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Words_151_175.html",
+        "Size": 63925,
+        "ETag": "\"0664ae0410bbf0f405560b4972d22421\"",
+        "LastModified": "2026-08-04T18:26:32+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Words_176_200.html",
+        "Size": 64406,
+        "ETag": "\"65ed622e3f6e756a39f0ae715ba55daf\"",
+        "LastModified": "2026-08-04T18:26:34+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Words_1_25.html",
+        "Size": 63491,
+        "ETag": "\"104db52ccc74b3371fdf956616386fc8\"",
+        "LastModified": "2026-08-04T18:26:35+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Words_201_225.html",
+        "Size": 63842,
+        "ETag": "\"1c0b213e48551d1af5cfba7d19dc94f7\"",
+        "LastModified": "2026-08-04T18:26:36+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Words_226_250.html",
+        "Size": 64010,
+        "ETag": "\"b58d48967941640a638133194410a6fa\"",
+        "LastModified": "2026-08-04T18:26:37+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Words_251_275.html",
+        "Size": 64100,
+        "ETag": "\"59e94726e4ee38dd8728d6f5aa4ad4ad\"",
+        "LastModified": "2026-08-04T18:26:38+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Words_26_50.html",
+        "Size": 63996,
+        "ETag": "\"480b229627cc553a80019a6902e91eca\"",
+        "LastModified": "2026-08-04T18:26:40+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Words_276_300.html",
+        "Size": 64367,
+        "ETag": "\"92a7be013ccf64a55e16af3cafda79ee\"",
+        "LastModified": "2026-08-04T18:26:41+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Words_301_325.html",
+        "Size": 41453,
+        "ETag": "\"1635adc5b65a9ae891b3131cfeef488e\"",
+        "LastModified": "2026-08-04T18:26:42+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Words_326_350.html",
+        "Size": 40545,
+        "ETag": "\"0af9b23054af203cc1956e65c238eacb\"",
+        "LastModified": "2026-08-04T18:26:43+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Words_351_375.html",
+        "Size": 41070,
+        "ETag": "\"f859e54c08da2c6be9a353ae9e2545d6\"",
+        "LastModified": "2026-08-04T18:26:44+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Words_51_75.html",
+        "Size": 64516,
+        "ETag": "\"9b40fe4c18f5a52c5f737cd9742ce0f4\"",
+        "LastModified": "2026-08-04T18:26:45+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/SAT_Words_76_100.html",
+        "Size": 64488,
+        "ETag": "\"82f6d7387a33057c48676b72bd8c6198\"",
+        "LastModified": "2026-08-04T18:26:46+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/english-progress.js",
+        "Size": 17278,
+        "ETag": "\"afbeabcbccf3485e984e7d0273d6430c\"",
+        "LastModified": "2026-08-04T18:25:41+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/index.html",
+        "Size": 17138,
+        "ETag": "\"e85caefbcdc966fd7c75ff0da9ea8880\"",
+        "LastModified": "2026-08-04T18:26:47+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-identity-v7-20260804T182532Z/english/reading-writing/index.html",
+        "Size": 7618,
+        "ETag": "\"1deedec18933d62bcd2fa6fc13905649\"",
+        "LastModified": "2026-08-04T18:26:48+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-page-reset-20260801-195910/english/SAT_Words_101_125.html",
+        "Size": 60902,
+        "ETag": "\"ca3ab37af130a839832a731a1f60b2d5\"",
+        "LastModified": "2026-08-01T19:59:20+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-page-reset-20260801-195910/english/SAT_Words_126_150.html",
+        "Size": 60824,
+        "ETag": "\"4f415540d59d53fccf7276785e57d7c0\"",
+        "LastModified": "2026-08-01T19:59:22+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-page-reset-20260801-195910/english/SAT_Words_151_175.html",
+        "Size": 63829,
+        "ETag": "\"065eec146dc047b90017b79a9da4b636\"",
+        "LastModified": "2026-08-01T19:59:23+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-page-reset-20260801-195910/english/SAT_Words_176_200.html",
+        "Size": 64310,
+        "ETag": "\"476263e9614f9f32e92822c678a32ba9\"",
+        "LastModified": "2026-08-01T19:59:25+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-page-reset-20260801-195910/english/SAT_Words_1_25.html",
+        "Size": 63395,
+        "ETag": "\"560166eb3d96a94a130884ca183ee1cb\"",
+        "LastModified": "2026-08-01T19:59:27+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-page-reset-20260801-195910/english/SAT_Words_201_225.html",
+        "Size": 63746,
+        "ETag": "\"52f34ad7fd5863c498838e828e383036\"",
+        "LastModified": "2026-08-01T19:59:29+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-page-reset-20260801-195910/english/SAT_Words_226_250.html",
+        "Size": 63914,
+        "ETag": "\"f3f298e88166a467d249c78cea9ca2ec\"",
+        "LastModified": "2026-08-01T19:59:31+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-page-reset-20260801-195910/english/SAT_Words_251_275.html",
+        "Size": 64004,
+        "ETag": "\"3163267ab8cbac560843f89456eb2c77\"",
+        "LastModified": "2026-08-01T19:59:33+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-page-reset-20260801-195910/english/SAT_Words_26_50.html",
+        "Size": 63900,
+        "ETag": "\"ae6ec98d17834ede065bb8ebfe0ac91c\"",
+        "LastModified": "2026-08-01T19:59:35+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-page-reset-20260801-195910/english/SAT_Words_276_300.html",
+        "Size": 64271,
+        "ETag": "\"1ad5f4a4bcff765a2372a3ef8d895d09\"",
+        "LastModified": "2026-08-01T19:59:36+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-page-reset-20260801-195910/english/SAT_Words_301_325.html",
+        "Size": 43360,
+        "ETag": "\"adeda905bd3beeacd40ef6cb911e8370\"",
+        "LastModified": "2026-08-01T19:59:38+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-page-reset-20260801-195910/english/SAT_Words_326_350.html",
+        "Size": 42452,
+        "ETag": "\"e540a70077fed999f4b49b8273df2e1d\"",
+        "LastModified": "2026-08-01T19:59:40+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-page-reset-20260801-195910/english/SAT_Words_351_375.html",
+        "Size": 42977,
+        "ETag": "\"dac699a572d949d8fea4abfdf953d2ca\"",
+        "LastModified": "2026-08-01T19:59:42+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-page-reset-20260801-195910/english/SAT_Words_51_75.html",
+        "Size": 64420,
+        "ETag": "\"079b9152e3fc797ed0ad5f888fa865c2\"",
+        "LastModified": "2026-08-01T19:59:44+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-page-reset-20260801-195910/english/SAT_Words_76_100.html",
+        "Size": 64392,
+        "ETag": "\"89f4c922e2ff3c602e68a19ca5579cf7\"",
+        "LastModified": "2026-08-01T19:59:45+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Flashcards_101_125.html",
+        "Size": 34484,
+        "ETag": "\"da74d80d689fec8cae4ce3a249b414f0\"",
+        "LastModified": "2026-07-31T00:22:27+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Flashcards_126_150.html",
+        "Size": 34481,
+        "ETag": "\"e0ec2e19e427e02d3a4e59ea12b776f7\"",
+        "LastModified": "2026-07-31T00:22:29+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Flashcards_151_175.html",
+        "Size": 35799,
+        "ETag": "\"2c4b305190577c1194dbf98b8af1d494\"",
+        "LastModified": "2026-07-31T00:22:31+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Flashcards_176_200.html",
+        "Size": 36069,
+        "ETag": "\"abb10a199ec89ee23c1d55386814f4c6\"",
+        "LastModified": "2026-07-31T00:22:33+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Flashcards_1_25.html",
+        "Size": 35349,
+        "ETag": "\"a0a59e85fbc9d825caf81e094f649cd7\"",
+        "LastModified": "2026-07-31T00:22:34+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Flashcards_201_225.html",
+        "Size": 35671,
+        "ETag": "\"c0d089df3dc1b32f764d2dcf746773b5\"",
+        "LastModified": "2026-07-31T00:22:36+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Flashcards_226_250.html",
+        "Size": 35792,
+        "ETag": "\"cbd2bc6d75285f17648f55f0b650bb29\"",
+        "LastModified": "2026-07-31T00:22:38+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Flashcards_251_275.html",
+        "Size": 35857,
+        "ETag": "\"554352a3283df96b7b10db6e7fb5b445\"",
+        "LastModified": "2026-07-31T00:22:40+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Flashcards_26_50.html",
+        "Size": 35771,
+        "ETag": "\"325d187266aca8de1934740b7adab78d\"",
+        "LastModified": "2026-07-31T00:22:42+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Flashcards_276_300.html",
+        "Size": 36046,
+        "ETag": "\"9e726d65380007bd0f4c669c32c83086\"",
+        "LastModified": "2026-07-31T00:22:44+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Flashcards_51_75.html",
+        "Size": 36077,
+        "ETag": "\"8d4816ce7495c43cdcb61ed858465813\"",
+        "LastModified": "2026-07-31T00:22:45+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Flashcards_76_100.html",
+        "Size": 36143,
+        "ETag": "\"ec21b4fcdbe43e9f56423df6f1487660\"",
+        "LastModified": "2026-07-31T00:22:47+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Quiz_101_125.html",
+        "Size": 34217,
+        "ETag": "\"19e4c04b447610a1fa92e35f9fcdf834\"",
+        "LastModified": "2026-07-31T00:22:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Quiz_126_150.html",
+        "Size": 34214,
+        "ETag": "\"0370af682552a89908239411c7dbf221\"",
+        "LastModified": "2026-07-31T00:22:51+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Quiz_151_175.html",
+        "Size": 35532,
+        "ETag": "\"444fc490f5d86ad44c3ea76eb8217d2a\"",
+        "LastModified": "2026-07-31T00:22:52+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Quiz_176_200.html",
+        "Size": 35802,
+        "ETag": "\"25bc399b126d6805ac46cf7585c4d0d0\"",
+        "LastModified": "2026-07-31T00:22:54+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Quiz_1_25.html",
+        "Size": 35094,
+        "ETag": "\"4bb974a8ffed115bde640801587278dd\"",
+        "LastModified": "2026-07-31T00:22:56+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Quiz_201_225.html",
+        "Size": 35404,
+        "ETag": "\"57e01299dbf25156023cc9a45cda24cc\"",
+        "LastModified": "2026-07-31T00:22:58+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Quiz_226_250.html",
+        "Size": 35525,
+        "ETag": "\"267722446fa3034cad68e48c9ed0e141\"",
+        "LastModified": "2026-07-31T00:23:00+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Quiz_251_275.html",
+        "Size": 35590,
+        "ETag": "\"f8b1b503a04d0198c8f02469def0fad2\"",
+        "LastModified": "2026-07-31T00:23:01+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Quiz_26_50.html",
+        "Size": 35504,
+        "ETag": "\"a9bd9f57235da232dd1d659a9f6ccfe5\"",
+        "LastModified": "2026-07-31T00:23:03+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Quiz_276_300.html",
+        "Size": 35791,
+        "ETag": "\"324cd945a586e4a5a26a707ba40c9741\"",
+        "LastModified": "2026-07-31T00:23:05+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Quiz_51_75.html",
+        "Size": 35810,
+        "ETag": "\"fdddbb447abd97aa7edad352cc831126\"",
+        "LastModified": "2026-07-31T00:23:07+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Quiz_76_100.html",
+        "Size": 35876,
+        "ETag": "\"bf738f72ce29f3c97fb0d938d8010bc0\"",
+        "LastModified": "2026-07-31T00:23:09+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Spelling_101_125.html",
+        "Size": 35293,
+        "ETag": "\"22afdba1494c0705f85cf89c7b4ba769\"",
+        "LastModified": "2026-07-31T00:23:10+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Spelling_126_150.html",
+        "Size": 35290,
+        "ETag": "\"eaa89919dc7dafa013d998d24662436b\"",
+        "LastModified": "2026-07-31T00:23:12+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Spelling_151_175.html",
+        "Size": 36608,
+        "ETag": "\"af78d95b03972a1f64ef71ff28c37750\"",
+        "LastModified": "2026-07-31T00:23:14+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Spelling_176_200.html",
+        "Size": 36878,
+        "ETag": "\"ed9f53bd90e139abbd92dd581a8368f3\"",
+        "LastModified": "2026-07-31T00:23:16+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Spelling_1_25.html",
+        "Size": 36162,
+        "ETag": "\"75f4c41b9bc4f6371e076db684cc4bcf\"",
+        "LastModified": "2026-07-31T00:23:17+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Spelling_201_225.html",
+        "Size": 36480,
+        "ETag": "\"004f319cee3c4da66af04688a5373290\"",
+        "LastModified": "2026-07-31T00:23:19+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Spelling_226_250.html",
+        "Size": 36601,
+        "ETag": "\"f1f7ed38707a627a8d2c53abec6a683b\"",
+        "LastModified": "2026-07-31T00:23:21+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Spelling_251_275.html",
+        "Size": 36666,
+        "ETag": "\"03c7738ae4941a90925f3c79e82b54ca\"",
+        "LastModified": "2026-07-31T00:23:23+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Spelling_26_50.html",
+        "Size": 36580,
+        "ETag": "\"d99de25fa46901c17cf0739fd3808fa2\"",
+        "LastModified": "2026-07-31T00:23:25+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Spelling_276_300.html",
+        "Size": 36859,
+        "ETag": "\"0f51c06a06bf36caf8e9dca85dc9196c\"",
+        "LastModified": "2026-07-31T00:23:26+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Spelling_51_75.html",
+        "Size": 36886,
+        "ETag": "\"6e0a729eb2dc59c4a404f0553bd1c631\"",
+        "LastModified": "2026-07-31T00:23:28+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Spelling_76_100.html",
+        "Size": 36952,
+        "ETag": "\"9a7d9603a1a3822bdf1a2053b4fc9ef8\"",
+        "LastModified": "2026-07-31T00:23:30+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Words_101_125.html",
+        "Size": 60886,
+        "ETag": "\"7f8ea35e9bc7b23f836655fcfcbe194c\"",
+        "LastModified": "2026-07-31T00:23:32+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Words_126_150.html",
+        "Size": 60808,
+        "ETag": "\"b9c7b3c06b6ee4804dae70b461283917\"",
+        "LastModified": "2026-07-31T00:23:34+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Words_151_175.html",
+        "Size": 63813,
+        "ETag": "\"b708d20a393e64e46c3497b49cc292c8\"",
+        "LastModified": "2026-07-31T00:23:35+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Words_176_200.html",
+        "Size": 64294,
+        "ETag": "\"b0c6b83fb587989b61b73366a25553f5\"",
+        "LastModified": "2026-07-31T00:23:37+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Words_1_25.html",
+        "Size": 63379,
+        "ETag": "\"54550d05ebf12af05c8ecb12b24f71e3\"",
+        "LastModified": "2026-07-31T00:23:39+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Words_201_225.html",
+        "Size": 63730,
+        "ETag": "\"df7a40806afdb44abfa6c5b6cc81e643\"",
+        "LastModified": "2026-07-31T00:23:42+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Words_226_250.html",
+        "Size": 63898,
+        "ETag": "\"ec9f2513604e3b1830440265af104bc1\"",
+        "LastModified": "2026-07-31T00:23:44+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Words_251_275.html",
+        "Size": 63988,
+        "ETag": "\"35f8ca022650bf55fcbbf944c29be299\"",
+        "LastModified": "2026-07-31T00:23:46+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Words_26_50.html",
+        "Size": 63884,
+        "ETag": "\"b4f0ec2c0adf23315dbb6c7dd89fdf3d\"",
+        "LastModified": "2026-07-31T00:23:48+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Words_276_300.html",
+        "Size": 64255,
+        "ETag": "\"d4c56473f3d4a4a564d233d44b563ddf\"",
+        "LastModified": "2026-07-31T00:23:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Words_301_325.html",
+        "Size": 43344,
+        "ETag": "\"6944716e2cbedc9fda550152cf05e674\"",
+        "LastModified": "2026-07-31T00:23:51+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Words_326_350.html",
+        "Size": 42436,
+        "ETag": "\"1b22a7d217082895bf1ed1b3f7e3d852\"",
+        "LastModified": "2026-07-31T00:23:53+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Words_351_375.html",
+        "Size": 42961,
+        "ETag": "\"a1d6f18b3979e33a87959666f9e6950d\"",
+        "LastModified": "2026-07-31T00:23:55+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Words_51_75.html",
+        "Size": 64404,
+        "ETag": "\"ecac20922186e434eaac189e499bad29\"",
+        "LastModified": "2026-07-31T00:23:57+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/SAT_Words_76_100.html",
+        "Size": 64376,
+        "ETag": "\"e29a3b9c65e7b78322308a4e0602c620\"",
+        "LastModified": "2026-07-31T00:23:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260731-002212/english/english-progress.js",
+        "Size": 10002,
+        "ETag": "\"884b4648f4edbcfdc5a6977f849751de\"",
+        "LastModified": "2026-07-31T00:22:25+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Flashcards_101_125.html",
+        "Size": 34500,
+        "ETag": "\"54ef6f4d30459983abc6c4ceb26ef5e5\"",
+        "LastModified": "2026-08-04T01:51:33+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Flashcards_126_150.html",
+        "Size": 34497,
+        "ETag": "\"92cf319073f905d4737b2a16cde134c5\"",
+        "LastModified": "2026-08-04T01:51:35+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Flashcards_151_175.html",
+        "Size": 35815,
+        "ETag": "\"542bf9c5633d39540de4f705445e9167\"",
+        "LastModified": "2026-08-04T01:51:37+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Flashcards_176_200.html",
+        "Size": 36085,
+        "ETag": "\"08df43e39e948fcd6b0c0cf6a418fec3\"",
+        "LastModified": "2026-08-04T01:51:39+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Flashcards_1_25.html",
+        "Size": 35365,
+        "ETag": "\"5e912d7b25e4cbbf34b4ea805b4b7795\"",
+        "LastModified": "2026-08-04T01:51:41+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Flashcards_201_225.html",
+        "Size": 35687,
+        "ETag": "\"82188d26280692f7e0b7483a6520ba19\"",
+        "LastModified": "2026-08-04T01:51:44+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Flashcards_226_250.html",
+        "Size": 35808,
+        "ETag": "\"1713aeb021626465b4e69d430980eb67\"",
+        "LastModified": "2026-08-04T01:51:46+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Flashcards_251_275.html",
+        "Size": 35873,
+        "ETag": "\"7e18e553fa2b9ea22577a75c2c95805b\"",
+        "LastModified": "2026-08-04T01:51:48+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Flashcards_26_50.html",
+        "Size": 35787,
+        "ETag": "\"8a6308a051c9f80f79a9080aad5a265e\"",
+        "LastModified": "2026-08-04T01:51:50+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Flashcards_276_300.html",
+        "Size": 36062,
+        "ETag": "\"90f2fef84302ea8844b1b111979a0c97\"",
+        "LastModified": "2026-08-04T01:51:52+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Flashcards_51_75.html",
+        "Size": 36093,
+        "ETag": "\"c368ce408dac3a6673e947881aae994c\"",
+        "LastModified": "2026-08-04T01:51:54+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Flashcards_76_100.html",
+        "Size": 36159,
+        "ETag": "\"1555ab8b71e614e1e6991e0a8b0ac47d\"",
+        "LastModified": "2026-08-04T01:51:56+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Quiz_101_125.html",
+        "Size": 34233,
+        "ETag": "\"c1385cfac92bfdc18c8d73fbee344e01\"",
+        "LastModified": "2026-08-04T01:51:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Quiz_126_150.html",
+        "Size": 34230,
+        "ETag": "\"2119a552489ccbadf69fb7c86e5078ae\"",
+        "LastModified": "2026-08-04T01:52:01+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Quiz_151_175.html",
+        "Size": 35548,
+        "ETag": "\"bf26eb640c2598c51d125e8e6177e392\"",
+        "LastModified": "2026-08-04T01:52:03+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Quiz_176_200.html",
+        "Size": 35818,
+        "ETag": "\"ec54f6b4bb49a458ee4edbeda880248f\"",
+        "LastModified": "2026-08-04T01:52:05+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Quiz_1_25.html",
+        "Size": 35110,
+        "ETag": "\"d701ca99c615f96427c962cb4b84968e\"",
+        "LastModified": "2026-08-04T01:52:08+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Quiz_201_225.html",
+        "Size": 35420,
+        "ETag": "\"818a1e842032e0cc25f266604c99d137\"",
+        "LastModified": "2026-08-04T01:52:10+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Quiz_226_250.html",
+        "Size": 35541,
+        "ETag": "\"4c0139f2101706af66c0b9213dd802c9\"",
+        "LastModified": "2026-08-04T01:52:12+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Quiz_251_275.html",
+        "Size": 35606,
+        "ETag": "\"9a73140a7a5a6200ee8d39ebb15ffb7f\"",
+        "LastModified": "2026-08-04T01:52:14+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Quiz_26_50.html",
+        "Size": 35520,
+        "ETag": "\"9cde9496205b5f5962637a9189a7ae72\"",
+        "LastModified": "2026-08-04T01:52:16+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Quiz_276_300.html",
+        "Size": 35807,
+        "ETag": "\"a6c618d654bccd411fd28cc8c9a7effc\"",
+        "LastModified": "2026-08-04T01:52:18+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Quiz_51_75.html",
+        "Size": 35826,
+        "ETag": "\"dbdc80f0339baed55f3c92bd03b23985\"",
+        "LastModified": "2026-08-04T01:52:20+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Quiz_76_100.html",
+        "Size": 35892,
+        "ETag": "\"8969b2d007b127b148e2dd132f0f5c82\"",
+        "LastModified": "2026-08-04T01:52:22+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Spelling_101_125.html",
+        "Size": 35309,
+        "ETag": "\"30d74a963fbf1ee22083a4ca66524a48\"",
+        "LastModified": "2026-08-04T01:52:24+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Spelling_126_150.html",
+        "Size": 35306,
+        "ETag": "\"df1f0a6d9372f4bc5a7afc8c7fad6cb1\"",
+        "LastModified": "2026-08-04T01:52:26+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Spelling_151_175.html",
+        "Size": 36624,
+        "ETag": "\"5259db2b9321fbd1d1de3ddaa852b846\"",
+        "LastModified": "2026-08-04T01:52:28+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Spelling_176_200.html",
+        "Size": 36894,
+        "ETag": "\"6f460dec072b35c289f53b02c2877386\"",
+        "LastModified": "2026-08-04T01:52:30+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Spelling_1_25.html",
+        "Size": 36178,
+        "ETag": "\"b1bd8efa7abc706df07e9f932b5f7c23\"",
+        "LastModified": "2026-08-04T01:52:32+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Spelling_201_225.html",
+        "Size": 36496,
+        "ETag": "\"487222993c7abfd0806bfb006264d162\"",
+        "LastModified": "2026-08-04T01:52:34+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Spelling_226_250.html",
+        "Size": 36617,
+        "ETag": "\"f72e72b91a43d92c5bad17ed43512486\"",
+        "LastModified": "2026-08-04T01:52:37+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Spelling_251_275.html",
+        "Size": 36682,
+        "ETag": "\"1a0f10cb83259b8319aa60ddf9f812be\"",
+        "LastModified": "2026-08-04T01:52:39+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Spelling_26_50.html",
+        "Size": 36596,
+        "ETag": "\"70491ab01e6e9e804c39a742ad784e3d\"",
+        "LastModified": "2026-08-04T01:52:41+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Spelling_276_300.html",
+        "Size": 36875,
+        "ETag": "\"002d39670e9809940c28c46fb4374ace\"",
+        "LastModified": "2026-08-04T01:52:43+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Spelling_51_75.html",
+        "Size": 36902,
+        "ETag": "\"526cb8874b90d124bf629a7dcd8a46ce\"",
+        "LastModified": "2026-08-04T01:52:45+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Spelling_76_100.html",
+        "Size": 36968,
+        "ETag": "\"bea4383f4a56431daa838339e12a60c0\"",
+        "LastModified": "2026-08-04T01:52:47+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Words_101_125.html",
+        "Size": 60970,
+        "ETag": "\"7d59f6579c36776e3c0494046d9e668e\"",
+        "LastModified": "2026-08-04T01:52:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Words_126_150.html",
+        "Size": 60892,
+        "ETag": "\"9c9946d0e202eaa41411cfde88e12ced\"",
+        "LastModified": "2026-08-04T01:52:51+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Words_151_175.html",
+        "Size": 63897,
+        "ETag": "\"ce8110173df52f0e4b12ee4cb58478a4\"",
+        "LastModified": "2026-08-04T01:52:53+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Words_176_200.html",
+        "Size": 64378,
+        "ETag": "\"8c4f6eba867874a9ff56a2319d4580d9\"",
+        "LastModified": "2026-08-04T01:52:55+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Words_1_25.html",
+        "Size": 63463,
+        "ETag": "\"4a0d5035e77ba7b9d3346762f44dfe1a\"",
+        "LastModified": "2026-08-04T01:52:58+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Words_201_225.html",
+        "Size": 63814,
+        "ETag": "\"0ca728f1d48a519be09b25d0fe4a19c3\"",
+        "LastModified": "2026-08-04T01:53:00+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Words_226_250.html",
+        "Size": 63982,
+        "ETag": "\"8aca17a09b0ce3a3ab6ec4b205243c7d\"",
+        "LastModified": "2026-08-04T01:53:02+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Words_251_275.html",
+        "Size": 64072,
+        "ETag": "\"ba9f3aba8891cd2ccd42f559a9422b40\"",
+        "LastModified": "2026-08-04T01:53:04+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Words_26_50.html",
+        "Size": 63968,
+        "ETag": "\"b20ba9ec4452b171e74c9dfabf6ff17d\"",
+        "LastModified": "2026-08-04T01:53:06+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Words_276_300.html",
+        "Size": 64339,
+        "ETag": "\"bf2cc859ab2d98d56372a5b472dd4dc9\"",
+        "LastModified": "2026-08-04T01:53:08+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Words_301_325.html",
+        "Size": 41409,
+        "ETag": "\"f33a7b2848dad680f4b0338d88917215\"",
+        "LastModified": "2026-08-04T01:53:10+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Words_326_350.html",
+        "Size": 40501,
+        "ETag": "\"d46b2a89cefedf1269228d9833d17f4c\"",
+        "LastModified": "2026-08-04T01:53:12+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Words_351_375.html",
+        "Size": 41026,
+        "ETag": "\"dc9450fac787e7bbb19074a0de66dd93\"",
+        "LastModified": "2026-08-04T01:53:14+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Words_51_75.html",
+        "Size": 64488,
+        "ETag": "\"280927cbc3e5bc7588ec4ecb5e4ca370\"",
+        "LastModified": "2026-08-04T01:53:16+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/SAT_Words_76_100.html",
+        "Size": 64460,
+        "ETag": "\"e818bfaa1f416ed68ddb75859b165e23\"",
+        "LastModified": "2026-08-04T01:53:18+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-auth-20260803-215117/english/english-progress.js",
+        "Size": 12372,
+        "ETag": "\"fc7aeac7d891a67fab928f778f5670d8\"",
+        "LastModified": "2026-08-04T01:51:31+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Flashcards_101_125.html",
+        "Size": 34500,
+        "ETag": "\"54ef6f4d30459983abc6c4ceb26ef5e5\"",
+        "LastModified": "2026-08-04T02:20:29+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Flashcards_126_150.html",
+        "Size": 34497,
+        "ETag": "\"92cf319073f905d4737b2a16cde134c5\"",
+        "LastModified": "2026-08-04T02:20:31+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Flashcards_151_175.html",
+        "Size": 35815,
+        "ETag": "\"542bf9c5633d39540de4f705445e9167\"",
+        "LastModified": "2026-08-04T02:20:33+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Flashcards_176_200.html",
+        "Size": 36085,
+        "ETag": "\"08df43e39e948fcd6b0c0cf6a418fec3\"",
+        "LastModified": "2026-08-04T02:20:35+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Flashcards_1_25.html",
+        "Size": 35365,
+        "ETag": "\"5e912d7b25e4cbbf34b4ea805b4b7795\"",
+        "LastModified": "2026-08-04T02:20:37+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Flashcards_201_225.html",
+        "Size": 35687,
+        "ETag": "\"82188d26280692f7e0b7483a6520ba19\"",
+        "LastModified": "2026-08-04T02:20:39+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Flashcards_226_250.html",
+        "Size": 35808,
+        "ETag": "\"1713aeb021626465b4e69d430980eb67\"",
+        "LastModified": "2026-08-04T02:20:41+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Flashcards_251_275.html",
+        "Size": 35873,
+        "ETag": "\"7e18e553fa2b9ea22577a75c2c95805b\"",
+        "LastModified": "2026-08-04T02:20:43+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Flashcards_26_50.html",
+        "Size": 35787,
+        "ETag": "\"8a6308a051c9f80f79a9080aad5a265e\"",
+        "LastModified": "2026-08-04T02:20:46+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Flashcards_276_300.html",
+        "Size": 36062,
+        "ETag": "\"90f2fef84302ea8844b1b111979a0c97\"",
+        "LastModified": "2026-08-04T02:20:48+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Flashcards_51_75.html",
+        "Size": 36093,
+        "ETag": "\"c368ce408dac3a6673e947881aae994c\"",
+        "LastModified": "2026-08-04T02:20:50+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Flashcards_76_100.html",
+        "Size": 36159,
+        "ETag": "\"1555ab8b71e614e1e6991e0a8b0ac47d\"",
+        "LastModified": "2026-08-04T02:20:52+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Quiz_101_125.html",
+        "Size": 34233,
+        "ETag": "\"c1385cfac92bfdc18c8d73fbee344e01\"",
+        "LastModified": "2026-08-04T02:20:54+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Quiz_126_150.html",
+        "Size": 34230,
+        "ETag": "\"2119a552489ccbadf69fb7c86e5078ae\"",
+        "LastModified": "2026-08-04T02:20:56+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Quiz_151_175.html",
+        "Size": 35548,
+        "ETag": "\"bf26eb640c2598c51d125e8e6177e392\"",
+        "LastModified": "2026-08-04T02:20:58+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Quiz_176_200.html",
+        "Size": 35818,
+        "ETag": "\"ec54f6b4bb49a458ee4edbeda880248f\"",
+        "LastModified": "2026-08-04T02:21:00+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Quiz_1_25.html",
+        "Size": 35110,
+        "ETag": "\"d701ca99c615f96427c962cb4b84968e\"",
+        "LastModified": "2026-08-04T02:21:02+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Quiz_201_225.html",
+        "Size": 35420,
+        "ETag": "\"818a1e842032e0cc25f266604c99d137\"",
+        "LastModified": "2026-08-04T02:21:04+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Quiz_226_250.html",
+        "Size": 35541,
+        "ETag": "\"4c0139f2101706af66c0b9213dd802c9\"",
+        "LastModified": "2026-08-04T02:21:06+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Quiz_251_275.html",
+        "Size": 35606,
+        "ETag": "\"9a73140a7a5a6200ee8d39ebb15ffb7f\"",
+        "LastModified": "2026-08-04T02:21:08+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Quiz_26_50.html",
+        "Size": 35520,
+        "ETag": "\"9cde9496205b5f5962637a9189a7ae72\"",
+        "LastModified": "2026-08-04T02:21:10+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Quiz_276_300.html",
+        "Size": 35807,
+        "ETag": "\"a6c618d654bccd411fd28cc8c9a7effc\"",
+        "LastModified": "2026-08-04T02:21:12+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Quiz_51_75.html",
+        "Size": 35826,
+        "ETag": "\"dbdc80f0339baed55f3c92bd03b23985\"",
+        "LastModified": "2026-08-04T02:21:14+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Quiz_76_100.html",
+        "Size": 35892,
+        "ETag": "\"8969b2d007b127b148e2dd132f0f5c82\"",
+        "LastModified": "2026-08-04T02:21:16+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Spelling_101_125.html",
+        "Size": 35309,
+        "ETag": "\"30d74a963fbf1ee22083a4ca66524a48\"",
+        "LastModified": "2026-08-04T02:21:18+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Spelling_126_150.html",
+        "Size": 35306,
+        "ETag": "\"df1f0a6d9372f4bc5a7afc8c7fad6cb1\"",
+        "LastModified": "2026-08-04T02:21:20+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Spelling_151_175.html",
+        "Size": 36624,
+        "ETag": "\"5259db2b9321fbd1d1de3ddaa852b846\"",
+        "LastModified": "2026-08-04T02:21:22+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Spelling_176_200.html",
+        "Size": 36894,
+        "ETag": "\"6f460dec072b35c289f53b02c2877386\"",
+        "LastModified": "2026-08-04T02:21:24+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Spelling_1_25.html",
+        "Size": 36178,
+        "ETag": "\"b1bd8efa7abc706df07e9f932b5f7c23\"",
+        "LastModified": "2026-08-04T02:21:26+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Spelling_201_225.html",
+        "Size": 36496,
+        "ETag": "\"487222993c7abfd0806bfb006264d162\"",
+        "LastModified": "2026-08-04T02:21:29+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Spelling_226_250.html",
+        "Size": 36617,
+        "ETag": "\"f72e72b91a43d92c5bad17ed43512486\"",
+        "LastModified": "2026-08-04T02:21:31+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Spelling_251_275.html",
+        "Size": 36682,
+        "ETag": "\"1a0f10cb83259b8319aa60ddf9f812be\"",
+        "LastModified": "2026-08-04T02:21:33+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Spelling_26_50.html",
+        "Size": 36596,
+        "ETag": "\"70491ab01e6e9e804c39a742ad784e3d\"",
+        "LastModified": "2026-08-04T02:21:35+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Spelling_276_300.html",
+        "Size": 36875,
+        "ETag": "\"002d39670e9809940c28c46fb4374ace\"",
+        "LastModified": "2026-08-04T02:21:37+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Spelling_51_75.html",
+        "Size": 36902,
+        "ETag": "\"526cb8874b90d124bf629a7dcd8a46ce\"",
+        "LastModified": "2026-08-04T02:21:40+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Spelling_76_100.html",
+        "Size": 36968,
+        "ETag": "\"bea4383f4a56431daa838339e12a60c0\"",
+        "LastModified": "2026-08-04T02:21:42+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Words_101_125.html",
+        "Size": 60970,
+        "ETag": "\"7d59f6579c36776e3c0494046d9e668e\"",
+        "LastModified": "2026-08-04T02:21:44+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Words_126_150.html",
+        "Size": 60892,
+        "ETag": "\"9c9946d0e202eaa41411cfde88e12ced\"",
+        "LastModified": "2026-08-04T02:21:46+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Words_151_175.html",
+        "Size": 63897,
+        "ETag": "\"ce8110173df52f0e4b12ee4cb58478a4\"",
+        "LastModified": "2026-08-04T02:21:48+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Words_176_200.html",
+        "Size": 64378,
+        "ETag": "\"8c4f6eba867874a9ff56a2319d4580d9\"",
+        "LastModified": "2026-08-04T02:21:51+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Words_1_25.html",
+        "Size": 63463,
+        "ETag": "\"4a0d5035e77ba7b9d3346762f44dfe1a\"",
+        "LastModified": "2026-08-04T02:21:53+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Words_201_225.html",
+        "Size": 63814,
+        "ETag": "\"0ca728f1d48a519be09b25d0fe4a19c3\"",
+        "LastModified": "2026-08-04T02:21:55+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Words_226_250.html",
+        "Size": 63982,
+        "ETag": "\"8aca17a09b0ce3a3ab6ec4b205243c7d\"",
+        "LastModified": "2026-08-04T02:21:57+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Words_251_275.html",
+        "Size": 64072,
+        "ETag": "\"ba9f3aba8891cd2ccd42f559a9422b40\"",
+        "LastModified": "2026-08-04T02:21:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Words_26_50.html",
+        "Size": 63968,
+        "ETag": "\"b20ba9ec4452b171e74c9dfabf6ff17d\"",
+        "LastModified": "2026-08-04T02:22:02+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Words_276_300.html",
+        "Size": 64339,
+        "ETag": "\"bf2cc859ab2d98d56372a5b472dd4dc9\"",
+        "LastModified": "2026-08-04T02:22:04+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Words_301_325.html",
+        "Size": 41425,
+        "ETag": "\"65054de31dc5865101957f6bf97f8c5b\"",
+        "LastModified": "2026-08-04T02:22:06+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Words_326_350.html",
+        "Size": 40517,
+        "ETag": "\"dc4d004f742192841ba1645d03de1e9e\"",
+        "LastModified": "2026-08-04T02:22:08+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Words_351_375.html",
+        "Size": 41042,
+        "ETag": "\"18891525861a6bf7dbaa54f33910c401\"",
+        "LastModified": "2026-08-04T02:22:11+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Words_51_75.html",
+        "Size": 64488,
+        "ETag": "\"280927cbc3e5bc7588ec4ecb5e4ca370\"",
+        "LastModified": "2026-08-04T02:22:13+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/SAT_Words_76_100.html",
+        "Size": 64460,
+        "ETag": "\"e818bfaa1f416ed68ddb75859b165e23\"",
+        "LastModified": "2026-08-04T02:22:15+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/frontend/english/english-progress.js",
+        "Size": 12372,
+        "ETag": "\"fc7aeac7d891a67fab928f778f5670d8\"",
+        "LastModified": "2026-08-04T02:20:27+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-progress-v6-20260804T021957Z/lambda-before.zip",
+        "Size": 10478,
+        "ETag": "\"e455556fa48e13f3f9ad9d27e7039acb\"",
+        "LastModified": "2026-08-04T02:20:08+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-signout-20260730-225512/section-auth-guard.js",
+        "Size": 3755,
+        "ETag": "\"60a913781a4beff9f655c24f45ae79c4\"",
+        "LastModified": "2026-07-30T22:55:18+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/english-write-repair-20260804T021421Z/lambda-before-repair.zip",
+        "Size": 10478,
+        "ETag": "\"e455556fa48e13f3f9ad9d27e7039acb\"",
+        "LastModified": "2026-08-04T02:14:36+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_All_300_Words.html",
+        "Size": 655,
+        "ETag": "\"8c6cddce9e8d91eb45bfdd50df8d53b3\"",
+        "LastModified": "2026-07-30T23:18:50+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_All_375_Words.html",
+        "Size": 290949,
+        "ETag": "\"548d89edb1aa67a0fadc21f2e2457c4a\"",
+        "LastModified": "2026-07-30T23:19:53+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Flashcards.html",
+        "Size": 11044,
+        "ETag": "\"2225aebc20c35aefd2f4dc6204f75388\"",
+        "LastModified": "2026-07-30T23:18:52+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Flashcards_101_125.html",
+        "Size": 32976,
+        "ETag": "\"2699bb0a543aef2f1d6a05192a088668\"",
+        "LastModified": "2026-07-30T23:19:29+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Flashcards_126_150.html",
+        "Size": 32973,
+        "ETag": "\"536cc56a1e7f7197acedb4374a822372\"",
+        "LastModified": "2026-07-30T23:20:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Flashcards_151_175.html",
+        "Size": 34291,
+        "ETag": "\"6ae782425889666570575ba208c3e61c\"",
+        "LastModified": "2026-07-30T23:19:45+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Flashcards_176_200.html",
+        "Size": 34561,
+        "ETag": "\"e43e7069841deda961f0c243cbad882e\"",
+        "LastModified": "2026-07-30T23:19:03+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Flashcards_1_25.html",
+        "Size": 33841,
+        "ETag": "\"3e61fbde75d1712a216897a1238f6b7c\"",
+        "LastModified": "2026-07-30T23:18:55+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Flashcards_201_225.html",
+        "Size": 34163,
+        "ETag": "\"74d56ebaec3acb6b3ff8d1eb0181fa7a\"",
+        "LastModified": "2026-07-30T23:20:04+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Flashcards_226_250.html",
+        "Size": 34284,
+        "ETag": "\"cd0b8dab5a798ba6a9b2f6e6f87ddf31\"",
+        "LastModified": "2026-07-30T23:20:14+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Flashcards_251_275.html",
+        "Size": 34349,
+        "ETag": "\"c42edae40e81b374c70e27c920b0fc2f\"",
+        "LastModified": "2026-07-30T23:19:16+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Flashcards_26_50.html",
+        "Size": 34263,
+        "ETag": "\"0381a36d53215dbd75d5edef4163f932\"",
+        "LastModified": "2026-07-30T23:19:09+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Flashcards_276_300.html",
+        "Size": 34538,
+        "ETag": "\"288c26327723cb6a7c5665e342cb1fa0\"",
+        "LastModified": "2026-07-30T23:19:21+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Flashcards_51_75.html",
+        "Size": 34569,
+        "ETag": "\"787541421e0047edc01bf1a0272c227e\"",
+        "LastModified": "2026-07-30T23:18:29+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Flashcards_76_100.html",
+        "Size": 34635,
+        "ETag": "\"f9fc50643674075293a7c99bea39794e\"",
+        "LastModified": "2026-07-30T23:20:54+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Practice_Hub.html",
+        "Size": 11002,
+        "ETag": "\"2093ad38bf898c5d9feab4c6b6075a89\"",
+        "LastModified": "2026-07-30T23:20:33+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Progress.html",
+        "Size": 13498,
+        "ETag": "\"df70ba3ed3812740fd303fa8c9197ab1\"",
+        "LastModified": "2026-07-30T23:19:37+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Quiz.html",
+        "Size": 11800,
+        "ETag": "\"f66d58738c3a7eeb94a788b277957fcb\"",
+        "LastModified": "2026-07-30T23:20:41+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Quiz_101_125.html",
+        "Size": 32709,
+        "ETag": "\"e78536a1c56fc7fb7daa8dbc55db63ed\"",
+        "LastModified": "2026-07-30T23:18:31+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Quiz_126_150.html",
+        "Size": 32706,
+        "ETag": "\"b57abc27ffe9aa712d4ed7e55bf6ad23\"",
+        "LastModified": "2026-07-30T23:20:07+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Quiz_151_175.html",
+        "Size": 34024,
+        "ETag": "\"6c819e62120638a721739c4d3405adbd\"",
+        "LastModified": "2026-07-30T23:20:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Quiz_176_200.html",
+        "Size": 34294,
+        "ETag": "\"5fc672d07c352a355d92dfefc99f1f7a\"",
+        "LastModified": "2026-07-30T23:19:00+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Quiz_1_25.html",
+        "Size": 33586,
+        "ETag": "\"d3260c45b0bd23d6c3461e088591df01\"",
+        "LastModified": "2026-07-30T23:19:58+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Quiz_201_225.html",
+        "Size": 33896,
+        "ETag": "\"60c78fbd46b474a0af013ed1674172db\"",
+        "LastModified": "2026-07-30T23:20:09+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Quiz_226_250.html",
+        "Size": 34017,
+        "ETag": "\"30876cbdd20e506dbcd03b8ade761db4\"",
+        "LastModified": "2026-07-30T23:20:22+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Quiz_251_275.html",
+        "Size": 34082,
+        "ETag": "\"393f42039d22045cd3397108a0ba6853\"",
+        "LastModified": "2026-07-30T23:20:38+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Quiz_26_50.html",
+        "Size": 33996,
+        "ETag": "\"718fb63b582410c28c4b60d1c2d993de\"",
+        "LastModified": "2026-07-30T23:18:34+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Quiz_276_300.html",
+        "Size": 34283,
+        "ETag": "\"f4d4d26eb16ac455609691d9e97fd649\"",
+        "LastModified": "2026-07-30T23:20:28+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Quiz_51_75.html",
+        "Size": 34302,
+        "ETag": "\"d1d6155117498abe6a06ec2e23b4498a\"",
+        "LastModified": "2026-07-30T23:21:02+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Quiz_76_100.html",
+        "Size": 34368,
+        "ETag": "\"75c0b6327fb55bfb45fc2287de0fbfc4\"",
+        "LastModified": "2026-07-30T23:19:35+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Spelling.html",
+        "Size": 11646,
+        "ETag": "\"b65a8e14d408116635b596c84e3ca99f\"",
+        "LastModified": "2026-07-30T23:18:37+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Spelling_101_125.html",
+        "Size": 33785,
+        "ETag": "\"f0bde65a119e98c5861df1bdea83eb04\"",
+        "LastModified": "2026-07-30T23:19:24+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Spelling_126_150.html",
+        "Size": 33782,
+        "ETag": "\"9bb673821e789e6ade4246061f103958\"",
+        "LastModified": "2026-07-30T23:20:12+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Spelling_151_175.html",
+        "Size": 35100,
+        "ETag": "\"393283d8c79e75a714221b9e97c062e7\"",
+        "LastModified": "2026-07-30T23:19:14+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Spelling_176_200.html",
+        "Size": 35370,
+        "ETag": "\"93e6da40a84bf8fb82cf078686cc1508\"",
+        "LastModified": "2026-07-30T23:20:43+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Spelling_1_25.html",
+        "Size": 34654,
+        "ETag": "\"515e9420399b793cf3b773a98502fefa\"",
+        "LastModified": "2026-07-30T23:20:36+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Spelling_201_225.html",
+        "Size": 34972,
+        "ETag": "\"87a43c637d2f855cd6b5d31f95383ab9\"",
+        "LastModified": "2026-07-30T23:19:32+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Spelling_226_250.html",
+        "Size": 35093,
+        "ETag": "\"0aaf736882e4264877bdc990e38c669d\"",
+        "LastModified": "2026-07-30T23:19:27+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Spelling_251_275.html",
+        "Size": 35158,
+        "ETag": "\"c8f40a36e9466a1ef6ce60371043ad17\"",
+        "LastModified": "2026-07-30T23:20:20+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Spelling_26_50.html",
+        "Size": 35072,
+        "ETag": "\"01a3df3ef4bafb2b129d7f58807f041e\"",
+        "LastModified": "2026-07-30T23:18:47+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Spelling_276_300.html",
+        "Size": 35351,
+        "ETag": "\"da94ce213d3de3998379b1c3622e97e3\"",
+        "LastModified": "2026-07-30T23:18:58+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Spelling_51_75.html",
+        "Size": 35378,
+        "ETag": "\"fad7ac721a8017957b41f8871992a1e7\"",
+        "LastModified": "2026-07-30T23:19:42+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Spelling_76_100.html",
+        "Size": 35444,
+        "ETag": "\"bb60a15c79502842992f73f4d7113fa2\"",
+        "LastModified": "2026-07-30T23:19:06+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Words_101_125.html",
+        "Size": 59378,
+        "ETag": "\"a623e3a42f11c8a4edc1f81014c2863e\"",
+        "LastModified": "2026-07-30T23:19:11+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Words_126_150.html",
+        "Size": 59300,
+        "ETag": "\"1db8f137cfaec18b6d7934087bdd8f45\"",
+        "LastModified": "2026-07-30T23:19:50+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Words_151_175.html",
+        "Size": 62305,
+        "ETag": "\"5fb7148de298d9ab9fb713a8ec5e4bd0\"",
+        "LastModified": "2026-07-30T23:19:19+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Words_176_200.html",
+        "Size": 62786,
+        "ETag": "\"85abd53a9bb16017923bb1a931b296bd\"",
+        "LastModified": "2026-07-30T23:18:42+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Words_1_25.html",
+        "Size": 61871,
+        "ETag": "\"7af6f264bdfcb7cccef80b638160ad7c\"",
+        "LastModified": "2026-07-30T23:20:51+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Words_201_225.html",
+        "Size": 62222,
+        "ETag": "\"a26a7b512d101aa8b8aaf5160a8507e9\"",
+        "LastModified": "2026-07-30T23:18:39+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Words_226_250.html",
+        "Size": 62390,
+        "ETag": "\"b12593cc3b9aa8d104f286e08b9b5747\"",
+        "LastModified": "2026-07-30T23:20:17+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Words_251_275.html",
+        "Size": 62480,
+        "ETag": "\"b999c26ecf4e5a42b1a2b41f41696614\"",
+        "LastModified": "2026-07-30T23:20:46+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Words_26_50.html",
+        "Size": 62376,
+        "ETag": "\"c86ac035cb3da98bf723909c1372883b\"",
+        "LastModified": "2026-07-30T23:19:40+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Words_276_300.html",
+        "Size": 62747,
+        "ETag": "\"4f8a63b1ab3f0c5e89760d2c1295ada2\"",
+        "LastModified": "2026-07-30T23:18:45+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Words_301_325.html",
+        "Size": 41881,
+        "ETag": "\"a9893686335092d12a06aa800c7205d2\"",
+        "LastModified": "2026-07-30T23:20:30+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Words_326_350.html",
+        "Size": 40973,
+        "ETag": "\"944f88d5cf38f858a49d626df3bc7dc7\"",
+        "LastModified": "2026-07-30T23:20:01+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Words_351_375.html",
+        "Size": 41498,
+        "ETag": "\"bc1fef1c13013bae0335a1eabf354769\"",
+        "LastModified": "2026-07-30T23:20:25+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Words_51_75.html",
+        "Size": 62896,
+        "ETag": "\"7157f575a2b97b885a28a2e6b9a0845f\"",
+        "LastModified": "2026-07-30T23:19:56+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/SAT_Words_76_100.html",
+        "Size": 62868,
+        "ETag": "\"dbe2ece90b47dbff01a4a67ae560d812\"",
+        "LastModified": "2026-07-30T23:19:48+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/english/index.html",
+        "Size": 14714,
+        "ETag": "\"bd87ba179c7932999d6bf67a4231d9de\"",
+        "LastModified": "2026-07-30T23:20:57+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/index.html",
+        "Size": 27513,
+        "ETag": "\"edac7558d34123a4706e242773182ab9\"",
+        "LastModified": "2026-07-30T23:21:05+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/math/index.html",
+        "Size": 23469,
+        "ETag": "\"bc2396eb8d58680b368c171c79b21447\"",
+        "LastModified": "2026-07-30T23:18:26+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/math/set-1.html",
+        "Size": 23316,
+        "ETag": "\"7f40f0d5645c923584803349c6d7e985\"",
+        "LastModified": "2026-07-30T23:18:11+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/math/set-2-volume-1-algebra.html",
+        "Size": 94055,
+        "ETag": "\"9ca69a5bca4e5e4b9a8e0710e7130ee1\"",
+        "LastModified": "2026-07-30T23:18:13+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/math/set-2-volume-2-advanced-math.html",
+        "Size": 93859,
+        "ETag": "\"b1a84d9042d3c7e2cdc4ee666a0781c8\"",
+        "LastModified": "2026-07-30T23:18:16+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/math/set-2-volume-3-data-geometry-trigonometry.html",
+        "Size": 94029,
+        "ETag": "\"eb1d3026dda3e9489294bb3367897134\"",
+        "LastModified": "2026-07-30T23:18:05+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/math/set-2.html",
+        "Size": 23383,
+        "ETag": "\"b63588f0b0a9d70db9e54c0c3aa42d16\"",
+        "LastModified": "2026-07-30T23:18:21+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/math/volume-1-algebra-foundations.html",
+        "Size": 92541,
+        "ETag": "\"9d80d1979105757b591c098552ddd2d8\"",
+        "LastModified": "2026-07-30T23:18:18+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/math/volume-2-advanced-math.html",
+        "Size": 90889,
+        "ETag": "\"f50a3aea79cbe508709f03cadf13aa9c\"",
+        "LastModified": "2026-07-30T23:18:08+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/inactivity-20260730-231750/math/volume-3-data-geometry-trigonometry.html",
+        "Size": 89530,
+        "ETag": "\"9ee7f7311de1f5c0e6978f910f97e20b\"",
+        "LastModified": "2026-07-30T23:18:24+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/math-progress-v10-20260806T012510Z/selected-function-url-before.json",
+        "Size": 688,
+        "ETag": "\"0b42c0ef741d419bf4369f2fb1e5f7e8\"",
+        "LastModified": "2026-08-06T01:25:33+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/math-progress-v11-20260806T012900Z/selected-function-url-before.json",
+        "Size": 688,
+        "ETag": "\"6449073c201b5baba41d5c1c577016a7\"",
+        "LastModified": "2026-08-06T01:29:20+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/math-progress-v12-20260806T013312Z/selected-function-url-before.json",
+        "Size": 688,
+        "ETag": "\"ac67c24b223c9da4de88d2ace68e2433\"",
+        "LastModified": "2026-08-06T01:33:31+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/math-progress-v13-20260806T013611Z/math/app.js",
+        "Size": 62363,
+        "ETag": "\"07a54bc21fc1124f0a94fa9748805b35\"",
+        "LastModified": "2026-08-06T01:36:40+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/math-progress-v13-20260806T013611Z/math/index.html",
+        "Size": 23533,
+        "ETag": "\"201201f26fbc2f71a7e316ca68490e03\"",
+        "LastModified": "2026-08-06T01:36:41+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/math-progress-v13-20260806T013611Z/math/set-1.html",
+        "Size": 23380,
+        "ETag": "\"06f0d0c98d5707e9e1010a535de54efd\"",
+        "LastModified": "2026-08-06T01:36:42+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/math-progress-v13-20260806T013611Z/math/set-2-volume-1-algebra.html",
+        "Size": 94141,
+        "ETag": "\"ecbe6ac79dcb78e2c732f6c09621e272\"",
+        "LastModified": "2026-08-06T01:36:43+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/math-progress-v13-20260806T013611Z/math/set-2-volume-2-advanced-math.html",
+        "Size": 93945,
+        "ETag": "\"23e26e6d8dbe73f381612bde029849ba\"",
+        "LastModified": "2026-08-06T01:36:45+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/math-progress-v13-20260806T013611Z/math/set-2-volume-3-data-geometry-trigonometry.html",
+        "Size": 94115,
+        "ETag": "\"cca0324357ec192be08f3bbda5344367\"",
+        "LastModified": "2026-08-06T01:36:46+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/math-progress-v13-20260806T013611Z/math/set-2.html",
+        "Size": 23447,
+        "ETag": "\"d5be9b08011b26a1ae7e745b517b7c03\"",
+        "LastModified": "2026-08-06T01:36:47+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/math-progress-v13-20260806T013611Z/math/volume-1-algebra-foundations.html",
+        "Size": 92627,
+        "ETag": "\"3dadcbdd95a2cd22cc717e4a503b5737\"",
+        "LastModified": "2026-08-06T01:36:48+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/math-progress-v13-20260806T013611Z/math/volume-2-advanced-math.html",
+        "Size": 90975,
+        "ETag": "\"8de748fa9bb7c94157fa7e8ed2575ad2\"",
+        "LastModified": "2026-08-06T01:36:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/math-progress-v13-20260806T013611Z/math/volume-3-data-geometry-trigonometry.html",
+        "Size": 89616,
+        "ETag": "\"396112949fed1cfc904ae7957c72371e\"",
+        "LastModified": "2026-08-06T01:36:50+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/math-progress-v13-20260806T013611Z/selected-function-url-before.json",
+        "Size": 688,
+        "ETag": "\"cea07895f294b2201d14f725fbd8344b\"",
+        "LastModified": "2026-08-06T01:36:32+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/math-retry-20260801T220944Z/lambda-original.zip",
+        "Size": 7735,
+        "ETag": "\"a7563efaad9a3a492dce03ae671fbfb1\"",
+        "LastModified": "2026-08-01T22:09:54+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/math-retry-20260801T220944Z/math/app.js",
+        "Size": 41832,
+        "ETag": "\"9fa6a0a37b2bb9eaae08a6148714e4e9\"",
+        "LastModified": "2026-08-01T22:09:53+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/message-change-20260801T232228Z/math/app.js",
+        "Size": 59536,
+        "ETag": "\"d08bcadb50bceac40108a680464a9acf\"",
+        "LastModified": "2026-08-01T23:22:33+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/progress-api-cors-v8-20260804T184244Z/function-url-before.json",
+        "Size": 861,
+        "ETag": "\"f7e2431e11afe417eafc2bebf0620f8f\"",
+        "LastModified": "2026-08-04T18:42:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/progress-api-cors-v8-20260804T184244Z/lambda-policy-before.json",
+        "Size": 707,
+        "ETag": "\"4111cc0f340a415f6118a8cc85ffdd23\"",
+        "LastModified": "2026-08-04T18:43:00+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/remove-topic-strip-20260802T001102Z/math/app.js",
+        "Size": 61381,
+        "ETag": "\"c9de4881327cc7fc63de8afc2f69200d\"",
+        "LastModified": "2026-08-02T00:11:06+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T223617Z/lambda-before.zip",
+        "Size": 8854,
+        "ETag": "\"b58e8e514841a2d871e713c4f3971948\"",
+        "LastModified": "2026-08-01T22:36:41+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T223617Z/math/app.js",
+        "Size": 59358,
+        "ETag": "\"cb962fcec9efd20855f6db1d143f0a77\"",
+        "LastModified": "2026-08-01T22:36:34+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T223617Z/math/set-2-volume-1-algebra.html",
+        "Size": 94142,
+        "ETag": "\"368b0c635a413f06c67a0e95442ee5d3\"",
+        "LastModified": "2026-08-01T22:36:38+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T223617Z/math/set-2-volume-2-advanced-math.html",
+        "Size": 93946,
+        "ETag": "\"d856375a808b3bbe1aae3b5e9f6c6470\"",
+        "LastModified": "2026-08-01T22:36:39+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T223617Z/math/set-2-volume-3-data-geometry-trigonometry.html",
+        "Size": 94116,
+        "ETag": "\"8c2ac4b990c6355f5449ac0314bfe81c\"",
+        "LastModified": "2026-08-01T22:36:40+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T223617Z/math/volume-1-algebra-foundations.html",
+        "Size": 92628,
+        "ETag": "\"c8755d95c46463a35d7eeeb40762c2b3\"",
+        "LastModified": "2026-08-01T22:36:35+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T223617Z/math/volume-2-advanced-math.html",
+        "Size": 90976,
+        "ETag": "\"b5d2acb33cf950c1a99fad24c4db5535\"",
+        "LastModified": "2026-08-01T22:36:36+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T223617Z/math/volume-3-data-geometry-trigonometry.html",
+        "Size": 89617,
+        "ETag": "\"3feba80e550f338eff487e33f0c661ea\"",
+        "LastModified": "2026-08-01T22:36:37+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T223958Z/lambda-before.zip",
+        "Size": 8854,
+        "ETag": "\"b58e8e514841a2d871e713c4f3971948\"",
+        "LastModified": "2026-08-01T22:40:23+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T223958Z/math/app.js",
+        "Size": 59358,
+        "ETag": "\"cb962fcec9efd20855f6db1d143f0a77\"",
+        "LastModified": "2026-08-01T22:40:16+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T223958Z/math/set-2-volume-1-algebra.html",
+        "Size": 94142,
+        "ETag": "\"368b0c635a413f06c67a0e95442ee5d3\"",
+        "LastModified": "2026-08-01T22:40:20+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T223958Z/math/set-2-volume-2-advanced-math.html",
+        "Size": 93946,
+        "ETag": "\"d856375a808b3bbe1aae3b5e9f6c6470\"",
+        "LastModified": "2026-08-01T22:40:21+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T223958Z/math/set-2-volume-3-data-geometry-trigonometry.html",
+        "Size": 94116,
+        "ETag": "\"8c2ac4b990c6355f5449ac0314bfe81c\"",
+        "LastModified": "2026-08-01T22:40:22+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T223958Z/math/volume-1-algebra-foundations.html",
+        "Size": 92628,
+        "ETag": "\"c8755d95c46463a35d7eeeb40762c2b3\"",
+        "LastModified": "2026-08-01T22:40:17+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T223958Z/math/volume-2-advanced-math.html",
+        "Size": 90976,
+        "ETag": "\"b5d2acb33cf950c1a99fad24c4db5535\"",
+        "LastModified": "2026-08-01T22:40:18+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T223958Z/math/volume-3-data-geometry-trigonometry.html",
+        "Size": 89617,
+        "ETag": "\"3feba80e550f338eff487e33f0c661ea\"",
+        "LastModified": "2026-08-01T22:40:19+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T224242Z/lambda-before.zip",
+        "Size": 8854,
+        "ETag": "\"b58e8e514841a2d871e713c4f3971948\"",
+        "LastModified": "2026-08-01T22:43:11+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T224242Z/math/app.js",
+        "Size": 59358,
+        "ETag": "\"cb962fcec9efd20855f6db1d143f0a77\"",
+        "LastModified": "2026-08-01T22:43:03+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T224242Z/math/set-2-volume-1-algebra.html",
+        "Size": 94142,
+        "ETag": "\"368b0c635a413f06c67a0e95442ee5d3\"",
+        "LastModified": "2026-08-01T22:43:08+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T224242Z/math/set-2-volume-2-advanced-math.html",
+        "Size": 93946,
+        "ETag": "\"d856375a808b3bbe1aae3b5e9f6c6470\"",
+        "LastModified": "2026-08-01T22:43:09+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T224242Z/math/set-2-volume-3-data-geometry-trigonometry.html",
+        "Size": 94116,
+        "ETag": "\"8c2ac4b990c6355f5449ac0314bfe81c\"",
+        "LastModified": "2026-08-01T22:43:10+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T224242Z/math/volume-1-algebra-foundations.html",
+        "Size": 92628,
+        "ETag": "\"c8755d95c46463a35d7eeeb40762c2b3\"",
+        "LastModified": "2026-08-01T22:43:04+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T224242Z/math/volume-2-advanced-math.html",
+        "Size": 90976,
+        "ETag": "\"b5d2acb33cf950c1a99fad24c4db5535\"",
+        "LastModified": "2026-08-01T22:43:06+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T224242Z/math/volume-3-data-geometry-trigonometry.html",
+        "Size": 89617,
+        "ETag": "\"3feba80e550f338eff487e33f0c661ea\"",
+        "LastModified": "2026-08-01T22:43:07+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T224750Z/lambda-before.zip",
+        "Size": 8854,
+        "ETag": "\"b58e8e514841a2d871e713c4f3971948\"",
+        "LastModified": "2026-08-01T22:48:15+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T224750Z/math/app.js",
+        "Size": 59358,
+        "ETag": "\"cb962fcec9efd20855f6db1d143f0a77\"",
+        "LastModified": "2026-08-01T22:48:08+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T224750Z/math/set-2-volume-1-algebra.html",
+        "Size": 94142,
+        "ETag": "\"368b0c635a413f06c67a0e95442ee5d3\"",
+        "LastModified": "2026-08-01T22:48:12+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T224750Z/math/set-2-volume-2-advanced-math.html",
+        "Size": 93946,
+        "ETag": "\"d856375a808b3bbe1aae3b5e9f6c6470\"",
+        "LastModified": "2026-08-01T22:48:13+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T224750Z/math/set-2-volume-3-data-geometry-trigonometry.html",
+        "Size": 94116,
+        "ETag": "\"8c2ac4b990c6355f5449ac0314bfe81c\"",
+        "LastModified": "2026-08-01T22:48:14+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T224750Z/math/volume-1-algebra-foundations.html",
+        "Size": 92628,
+        "ETag": "\"c8755d95c46463a35d7eeeb40762c2b3\"",
+        "LastModified": "2026-08-01T22:48:09+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T224750Z/math/volume-2-advanced-math.html",
+        "Size": 90976,
+        "ETag": "\"b5d2acb33cf950c1a99fad24c4db5535\"",
+        "LastModified": "2026-08-01T22:48:10+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/retry-v4-20260801T224750Z/math/volume-3-data-geometry-trigonometry.html",
+        "Size": 89617,
+        "ETag": "\"3feba80e550f338eff487e33f0c661ea\"",
+        "LastModified": "2026-08-01T22:48:11+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/root-login-20260730-221459/index.html",
+        "Size": 27371,
+        "ETag": "\"e84156c7b49786e04f6fd3c3dfb628b5\"",
+        "LastModified": "2026-07-30T22:15:05+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/rw-pilot-20260803-143628/admin.html",
+        "Size": 26647,
+        "ETag": "\"9bc42adfd750a882504da54ddf30b529\"",
+        "LastModified": "2026-08-03T18:36:56+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/rw-pilot-20260803-143628/english/index.html",
+        "Size": 16177,
+        "ETag": "\"7c48be18b0931cc50905480f2264e196\"",
+        "LastModified": "2026-08-03T18:36:50+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/rw-pilot-20260803-143628/math/admin.js",
+        "Size": 22828,
+        "ETag": "\"82d1a64680b5ef751866eb7c64c28a73\"",
+        "LastModified": "2026-08-03T18:36:58+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/shared-api-repair-20260802T002605Z/lambda-before-repair.zip",
+        "Size": 9051,
+        "ETag": "\"d30595d70bf226db667b3510fe3517b4\"",
+        "LastModified": "2026-08-02T00:26:19+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/shared-api-repair-20260802T003006Z/lambda-before-repair.zip",
+        "Size": 9051,
+        "ETag": "\"d30595d70bf226db667b3510fe3517b4\"",
+        "LastModified": "2026-08-02T00:30:19+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/signout-20260730-205858/math-app.js",
+        "Size": 39757,
+        "ETag": "\"b35561f424b2a5f2e353396315bfb4ea\"",
+        "LastModified": "2026-07-30T20:59:03+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/student-fallback-20260730-210750/math/index.html",
+        "Size": 23383,
+        "ETag": "\"4eb9e0cdeae1e3546552376a4a42de37\"",
+        "LastModified": "2026-07-30T21:07:54+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/student-fallback-20260730-210750/math/set-1.html",
+        "Size": 23230,
+        "ETag": "\"bb42042989163aa09d8d106a06f87739\"",
+        "LastModified": "2026-07-30T21:07:55+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/student-fallback-20260730-210750/math/set-2-volume-1-algebra.html",
+        "Size": 93969,
+        "ETag": "\"5ba454066ecd2787653793dcc8634ca1\"",
+        "LastModified": "2026-07-30T21:07:57+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/student-fallback-20260730-210750/math/set-2-volume-2-advanced-math.html",
+        "Size": 93773,
+        "ETag": "\"9000c98c1d0502edc7e2105d58246a52\"",
+        "LastModified": "2026-07-30T21:07:58+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/student-fallback-20260730-210750/math/set-2-volume-3-data-geometry-trigonometry.html",
+        "Size": 93943,
+        "ETag": "\"22100d908f8250c6ad85f51eb6d4a034\"",
+        "LastModified": "2026-07-30T21:08:00+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/student-fallback-20260730-210750/math/set-2.html",
+        "Size": 23297,
+        "ETag": "\"db374193a62f7786213193581bfe69b6\"",
+        "LastModified": "2026-07-30T21:08:01+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/student-fallback-20260730-210750/math/volume-1-algebra-foundations.html",
+        "Size": 92455,
+        "ETag": "\"7d409c97cb5458a2b7af1860f42bb94e\"",
+        "LastModified": "2026-07-30T21:08:03+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/student-fallback-20260730-210750/math/volume-2-advanced-math.html",
+        "Size": 90803,
+        "ETag": "\"3dd4a2375e9d8f2f2ac1776f843a7811\"",
+        "LastModified": "2026-07-30T21:08:04+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/student-fallback-20260730-210750/math/volume-3-data-geometry-trigonometry.html",
+        "Size": 89444,
+        "ETag": "\"4d2e483b2cb39ca20479400850036a40\"",
+        "LastModified": "2026-07-30T21:08:05+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/ui-hide-only-20260802T003943Z/math/app.js",
+        "Size": 59514,
+        "ETag": "\"33730a4e602f216c9bd21104f49f05c5\"",
+        "LastModified": "2026-08-02T00:39:47+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/unlock-ui-20260801T234530Z/math/app.js",
+        "Size": 59514,
+        "ETag": "\"33730a4e602f216c9bd21104f49f05c5\"",
+        "LastModified": "2026-08-01T23:45:42+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/unlock-ui-20260801T234530Z/math/set-2-volume-1-algebra.html",
+        "Size": 94141,
+        "ETag": "\"ecbe6ac79dcb78e2c732f6c09621e272\"",
+        "LastModified": "2026-08-01T23:45:46+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/unlock-ui-20260801T234530Z/math/set-2-volume-2-advanced-math.html",
+        "Size": 93945,
+        "ETag": "\"23e26e6d8dbe73f381612bde029849ba\"",
+        "LastModified": "2026-08-01T23:45:47+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/unlock-ui-20260801T234530Z/math/set-2-volume-3-data-geometry-trigonometry.html",
+        "Size": 94115,
+        "ETag": "\"cca0324357ec192be08f3bbda5344367\"",
+        "LastModified": "2026-08-01T23:45:48+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/unlock-ui-20260801T234530Z/math/volume-1-algebra-foundations.html",
+        "Size": 92627,
+        "ETag": "\"3dadcbdd95a2cd22cc717e4a503b5737\"",
+        "LastModified": "2026-08-01T23:45:43+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/unlock-ui-20260801T234530Z/math/volume-2-advanced-math.html",
+        "Size": 90975,
+        "ETag": "\"8de748fa9bb7c94157fa7e8ed2575ad2\"",
+        "LastModified": "2026-08-01T23:45:44+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "backups/unlock-ui-20260801T234530Z/math/volume-3-data-geometry-trigonometry.html",
+        "Size": 89616,
+        "ETag": "\"396112949fed1cfc904ae7957c72371e\"",
+        "LastModified": "2026-08-01T23:45:45+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_101_200.pdf",
+        "Size": 95416,
+        "ETag": "\"067793bd10423a623a5017f83248fe36\"",
+        "LastModified": "2026-07-30T04:45:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_All_300_Words.html",
+        "Size": 6865,
+        "ETag": "\"37e20d99be4c3bd438ac69225e7235dc\"",
+        "LastModified": "2026-08-04T18:26:50+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_All_375_Words.html",
+        "Size": 297159,
+        "ETag": "\"b63fa69d31e03a5ae1868cec74030244\"",
+        "LastModified": "2026-08-04T18:26:51+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Flashcards.html",
+        "Size": 17254,
+        "ETag": "\"86567f372a420e982daccc7f92a5de3c\"",
+        "LastModified": "2026-08-04T18:26:52+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Flashcards_101_125.html",
+        "Size": 39275,
+        "ETag": "\"970f5ab761e6fc3801b9cf70f8afd403\"",
+        "LastModified": "2026-08-04T18:26:57+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Flashcards_126_150.html",
+        "Size": 39272,
+        "ETag": "\"ef19d814983d67ed650e7505a704c21a\"",
+        "LastModified": "2026-08-04T18:26:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Flashcards_151_175.html",
+        "Size": 40590,
+        "ETag": "\"511cb1e588affd345109e0eb5a11768b\"",
+        "LastModified": "2026-08-04T18:26:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Flashcards_176_200.html",
+        "Size": 40860,
+        "ETag": "\"86982a105d2bf9e1d50b693bd3bad0c1\"",
+        "LastModified": "2026-08-04T18:27:00+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Flashcards_1_25.html",
+        "Size": 40140,
+        "ETag": "\"d27bba239a4219fd2eb6b489f81e0c80\"",
+        "LastModified": "2026-08-04T18:27:01+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Flashcards_201_225.html",
+        "Size": 40462,
+        "ETag": "\"6cf1b9937c8db0dee2dfecd8558e31d5\"",
+        "LastModified": "2026-08-04T18:27:02+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Flashcards_226_250.html",
+        "Size": 40583,
+        "ETag": "\"b29f46592dd3fa4deebd764120e296ab\"",
+        "LastModified": "2026-08-04T18:27:03+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Flashcards_251_275.html",
+        "Size": 40648,
+        "ETag": "\"7b572c26b6e54154497e653e924f015f\"",
+        "LastModified": "2026-08-04T18:27:04+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Flashcards_26_50.html",
+        "Size": 40562,
+        "ETag": "\"84d0e97bc0a59872be8d96d3c6034739\"",
+        "LastModified": "2026-08-04T18:27:05+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Flashcards_276_300.html",
+        "Size": 40837,
+        "ETag": "\"99a1c1a1d9b7250b297a3e0347278000\"",
+        "LastModified": "2026-08-04T18:27:06+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Flashcards_51_75.html",
+        "Size": 40868,
+        "ETag": "\"ab56a8d8cd6b6019e2081c97ab3b498e\"",
+        "LastModified": "2026-08-04T18:27:07+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Flashcards_76_100.html",
+        "Size": 40934,
+        "ETag": "\"cd58572b8a80dc3c9c13015a13915103\"",
+        "LastModified": "2026-08-04T18:27:08+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Practice_Hub.html",
+        "Size": 17212,
+        "ETag": "\"051fb5be7d854eaeb527f64ff45e0e77\"",
+        "LastModified": "2026-08-04T18:27:09+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Progress.html",
+        "Size": 19708,
+        "ETag": "\"df617f9e20c4652da34d91a416fd3fdd\"",
+        "LastModified": "2026-08-04T18:27:10+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Quiz.html",
+        "Size": 18010,
+        "ETag": "\"7e8d13fbc9908c63f13f5683f8565a49\"",
+        "LastModified": "2026-08-04T18:27:11+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Quiz_101_125.html",
+        "Size": 39008,
+        "ETag": "\"c2786f9b1c5ace535bf75a8ceaae2098\"",
+        "LastModified": "2026-08-04T18:27:12+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Quiz_126_150.html",
+        "Size": 39005,
+        "ETag": "\"68f02df2fed95cc0499b5bdc1f4400b2\"",
+        "LastModified": "2026-08-04T18:27:13+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Quiz_151_175.html",
+        "Size": 40323,
+        "ETag": "\"68dc91b86d09b027263a66b3041dbe4a\"",
+        "LastModified": "2026-08-04T18:27:14+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Quiz_176_200.html",
+        "Size": 40593,
+        "ETag": "\"95436898f295926340f6afe60cba9806\"",
+        "LastModified": "2026-08-04T18:27:15+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Quiz_1_25.html",
+        "Size": 39885,
+        "ETag": "\"73b6318014a18d37f601b18869a5839b\"",
+        "LastModified": "2026-08-04T18:27:16+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Quiz_201_225.html",
+        "Size": 40195,
+        "ETag": "\"6b7e2754be993797250577b48ccfcfa2\"",
+        "LastModified": "2026-08-04T18:27:17+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Quiz_226_250.html",
+        "Size": 40316,
+        "ETag": "\"9f6b0cd8f9d290f5b937e8576a48d65f\"",
+        "LastModified": "2026-08-04T18:27:18+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Quiz_251_275.html",
+        "Size": 40381,
+        "ETag": "\"6a2457da3841ad32385580797b4e031a\"",
+        "LastModified": "2026-08-04T18:27:19+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Quiz_26_50.html",
+        "Size": 40295,
+        "ETag": "\"626f5feda72e48d39b73c0a00031e57c\"",
+        "LastModified": "2026-08-04T18:27:20+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Quiz_276_300.html",
+        "Size": 40582,
+        "ETag": "\"4b6a9fef9ce7450e8446e7bda3dc55f3\"",
+        "LastModified": "2026-08-04T18:27:21+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Quiz_51_75.html",
+        "Size": 40601,
+        "ETag": "\"a2605a44ea906455f3a63135ae9221c5\"",
+        "LastModified": "2026-08-04T18:27:22+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Quiz_76_100.html",
+        "Size": 40667,
+        "ETag": "\"fb025b8707478110d2fe288b933de837\"",
+        "LastModified": "2026-08-04T18:27:23+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Spelling.html",
+        "Size": 17856,
+        "ETag": "\"fa559e9fa298006b449e22bf2b860a85\"",
+        "LastModified": "2026-08-04T18:27:24+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Spelling_101_125.html",
+        "Size": 40084,
+        "ETag": "\"8618c072375316898b615908215f07df\"",
+        "LastModified": "2026-08-04T18:27:25+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Spelling_126_150.html",
+        "Size": 40081,
+        "ETag": "\"759c539e17c44cf14880d4cb4a5d1c4b\"",
+        "LastModified": "2026-08-04T18:27:26+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Spelling_151_175.html",
+        "Size": 41399,
+        "ETag": "\"8ec41f9432ee3ef2ae2c03d345276ba5\"",
+        "LastModified": "2026-08-04T18:27:27+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Spelling_176_200.html",
+        "Size": 41669,
+        "ETag": "\"1207aba5196579e87bf29e6eab80cec4\"",
+        "LastModified": "2026-08-04T18:27:28+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Spelling_1_25.html",
+        "Size": 40953,
+        "ETag": "\"7081e674e1c29e7162fe2a00ec0ac5d0\"",
+        "LastModified": "2026-08-04T18:27:29+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Spelling_201_225.html",
+        "Size": 41271,
+        "ETag": "\"5afdcdc39f0b3ab1513c3b0a1ff8b5c4\"",
+        "LastModified": "2026-08-04T18:27:30+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Spelling_226_250.html",
+        "Size": 41392,
+        "ETag": "\"0df266f4e8e40a89846da0cc6b90405b\"",
+        "LastModified": "2026-08-04T18:27:31+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Spelling_251_275.html",
+        "Size": 41457,
+        "ETag": "\"8fffec63ed411dae0f3224f4a46f527a\"",
+        "LastModified": "2026-08-04T18:27:32+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Spelling_26_50.html",
+        "Size": 41371,
+        "ETag": "\"63a87dcff052438dcc42b63237fc99a3\"",
+        "LastModified": "2026-08-04T18:27:36+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Spelling_276_300.html",
+        "Size": 41650,
+        "ETag": "\"13d46d7c117a1055d280be1cccd7b1c6\"",
+        "LastModified": "2026-08-04T18:27:37+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Spelling_51_75.html",
+        "Size": 41677,
+        "ETag": "\"edec728ec7579618fcdc0a50255515e3\"",
+        "LastModified": "2026-08-04T18:27:38+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Spelling_76_100.html",
+        "Size": 41743,
+        "ETag": "\"1696e3e8e0820a6588234fabce608063\"",
+        "LastModified": "2026-08-04T18:27:39+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_101_125.html",
+        "Size": 65745,
+        "ETag": "\"66b8b7c49ad23a25503bfd79c3f4eecc\"",
+        "LastModified": "2026-08-04T18:27:40+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_101_125.mp3",
+        "Size": 2113388,
+        "ETag": "\"7debd332e19c33221a977fb25f317c3f\"",
+        "LastModified": "2026-07-30T04:45:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_126_150.html",
+        "Size": 65667,
+        "ETag": "\"dcc7dd84e4f1974ad2427f9907379104\"",
+        "LastModified": "2026-08-04T18:27:41+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_126_150.mp3",
+        "Size": 2128076,
+        "ETag": "\"96001bfd2f56ff27fc7702d0a4504df1\"",
+        "LastModified": "2026-07-30T04:45:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_151_175.html",
+        "Size": 68672,
+        "ETag": "\"a4478b1bfd92c7a77b3ff0e33082fa97\"",
+        "LastModified": "2026-08-04T18:27:42+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_151_175.mp3",
+        "Size": 2244428,
+        "ETag": "\"49e7c65b354d2b6c40ef0ff4b5b11d9e\"",
+        "LastModified": "2026-07-30T04:45:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_151_175_old.mp3",
+        "Size": 2244428,
+        "ETag": "\"49e7c65b354d2b6c40ef0ff4b5b11d9e\"",
+        "LastModified": "2026-07-30T04:45:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_176_200.html",
+        "Size": 69153,
+        "ETag": "\"f23c48b1d57beee0deace0f798876a1e\"",
+        "LastModified": "2026-08-04T18:27:43+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_176_200.mp3",
+        "Size": 2308796,
+        "ETag": "\"2520547084daa9599d92969c4137464e\"",
+        "LastModified": "2026-07-30T04:45:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_1_100.pdf",
+        "Size": 110176,
+        "ETag": "\"965c650e8f81da4d95a361ebdceb01b4\"",
+        "LastModified": "2026-07-30T04:45:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_1_25.html",
+        "Size": 68238,
+        "ETag": "\"135c66344c3bd977ba8d2b070b458b0e\"",
+        "LastModified": "2026-08-04T18:27:44+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_1_25.mp3",
+        "Size": 3665951,
+        "ETag": "\"b9828028253d19557dee06d9f7a2a9e4\"",
+        "LastModified": "2026-07-30T04:45:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_1_25.pdf",
+        "Size": 26903,
+        "ETag": "\"235fa0a8126996b33203e0cdbd84a92a\"",
+        "LastModified": "2026-07-30T04:45:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_201_225.html",
+        "Size": 68589,
+        "ETag": "\"4f0868cdca3745cc979769146ab23896\"",
+        "LastModified": "2026-08-04T18:27:45+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_201_225.mp3",
+        "Size": 2269772,
+        "ETag": "\"cf6496679932163bf500470553ef233f\"",
+        "LastModified": "2026-07-30T04:45:50+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_201_300.pdf",
+        "Size": 97453,
+        "ETag": "\"268c8afed1669217aa402f0f9d39a3f5\"",
+        "LastModified": "2026-07-30T04:45:50+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_226_250.html",
+        "Size": 68757,
+        "ETag": "\"ff59e9825d036e39d8a48c1e0338abef\"",
+        "LastModified": "2026-08-04T18:27:46+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_226_250.mp3",
+        "Size": 2231468,
+        "ETag": "\"a72ca7f50c45be4c02052fbe6b20fe8c\"",
+        "LastModified": "2026-07-30T04:45:50+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_251_275.html",
+        "Size": 68847,
+        "ETag": "\"533407aeabccc361d76f737972d18d08\"",
+        "LastModified": "2026-08-04T18:27:47+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_251_275.mp3",
+        "Size": 2277260,
+        "ETag": "\"82979d86e07a3e231294b871bc3cf11b\"",
+        "LastModified": "2026-07-30T04:45:54+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_26_50.html",
+        "Size": 68743,
+        "ETag": "\"afb32f221d38d93ef31f6ec6e00eb4a6\"",
+        "LastModified": "2026-08-04T18:27:48+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_26_50.mp3",
+        "Size": 3444285,
+        "ETag": "\"2804f67d577f2282c8e11e93ee5b927c\"",
+        "LastModified": "2026-07-30T04:45:51+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_276_300.html",
+        "Size": 69114,
+        "ETag": "\"e019a57c856fbbc0c9abd26fbee597f2\"",
+        "LastModified": "2026-08-04T18:27:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_276_300.mp3",
+        "Size": 2408012,
+        "ETag": "\"50cc1e0aab1b1e5375e381a37f849d06\"",
+        "LastModified": "2026-07-30T04:45:51+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_301_325.html",
+        "Size": 46200,
+        "ETag": "\"7285942edaed1c330509d47157e4c3a8\"",
+        "LastModified": "2026-08-04T18:28:20+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_301_325.mp3",
+        "Size": 2360204,
+        "ETag": "\"d8e72ff52c0e131d9e5d07b027758d9f\"",
+        "LastModified": "2026-08-01T21:06:55+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_326_350.html",
+        "Size": 45292,
+        "ETag": "\"db6cff19fc63aae3752863416a786ad0\"",
+        "LastModified": "2026-08-04T18:28:21+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_326_350.mp3",
+        "Size": 2179916,
+        "ETag": "\"94d15800081cba6bf033a2c60857a9e6\"",
+        "LastModified": "2026-08-01T21:06:25+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_351_375.html",
+        "Size": 45817,
+        "ETag": "\"452195c122a415757570e051503766e1\"",
+        "LastModified": "2026-08-04T18:28:22+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_351_375.mp3",
+        "Size": 2217356,
+        "ETag": "\"518b222a40ed7fce2b2a16f13aba5f62\"",
+        "LastModified": "2026-08-01T21:06:40+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_51_75.html",
+        "Size": 69263,
+        "ETag": "\"27728b15dabf8a8418a43e7fded8b997\"",
+        "LastModified": "2026-08-04T18:28:23+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_51_75.mp3",
+        "Size": 2449052,
+        "ETag": "\"ddfc26c49166c850e458460811dc1ad2\"",
+        "LastModified": "2026-07-30T04:45:56+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_76_100.html",
+        "Size": 69235,
+        "ETag": "\"8c3b86267228f08a7c0ab4708514fbb2\"",
+        "LastModified": "2026-08-04T18:28:24+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_76_100.mp3",
+        "Size": 2261708,
+        "ETag": "\"852c1d54b6b9dbbd26b2b3121e27cb27\"",
+        "LastModified": "2026-07-30T04:45:56+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Words_76_100.pdf",
+        "Size": 27909,
+        "ETag": "\"2e504f239d26afeb4d85f33159d4f84b\"",
+        "LastModified": "2026-07-30T04:45:58+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/SAT_Wrods_251_275.mp3",
+        "Size": 4228299,
+        "ETag": "\"6ae49bf5f6123e90469fded1db41a83d\"",
+        "LastModified": "2026-07-30T04:45:58+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/english-progress.js",
+        "Size": 19187,
+        "ETag": "\"8a50b1b1893f600e0a55d09feb7608d5\"",
+        "LastModified": "2026-08-04T19:04:31+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/english-student.js",
+        "Size": 2432,
+        "ETag": "\"1c58cf0f88efa05b8c1a93daa48d98ac\"",
+        "LastModified": "2026-08-04T19:08:01+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/english-theme.css",
+        "Size": 7254,
+        "ETag": "\"fba559b2096e386bba3d14e7ae556df5\"",
+        "LastModified": "2026-07-30T04:45:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/index.html",
+        "Size": 21885,
+        "ETag": "\"7309496c225b08f8e72396cd38dbefd5\"",
+        "LastModified": "2026-08-04T18:28:25+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/page-reset-progress.js",
+        "Size": 2968,
+        "ETag": "\"b98d9c212144b289690d77ee01e32214\"",
+        "LastModified": "2026-08-01T19:59:19+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/reading-writing/app.js",
+        "Size": 24004,
+        "ETag": "\"74aeb2d92423d0801f16e51a0f1c3176\"",
+        "LastModified": "2026-08-04T19:08:04+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/reading-writing/index.html",
+        "Size": 12365,
+        "ETag": "\"177fcfda296099eea307faac22110114\"",
+        "LastModified": "2026-08-04T18:28:26+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/reading-writing/questions.js",
+        "Size": 46038,
+        "ETag": "\"73205d24f5ab59715a880082a47864ff\"",
+        "LastModified": "2026-08-03T18:37:02+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/reading-writing/styles.css",
+        "Size": 11224,
+        "ETag": "\"538948493c1e80a7f400ad93bb15035b\"",
+        "LastModified": "2026-08-03T18:37:01+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "english/vocabulary-data.js",
+        "Size": 111884,
+        "ETag": "\"ece6f6aaa46829ca1f3429af9510c075\"",
+        "LastModified": "2026-07-30T04:45:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "favicon-32.png",
+        "Size": 1551,
+        "ETag": "\"cd3761328f358297a96bd4b27a4fa4d7\"",
+        "LastModified": "2026-07-30T04:45:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "favicon.ico",
+        "Size": 2328,
+        "ETag": "\"31ffd5087cfd05a508d6d16dd267a139\"",
+        "LastModified": "2026-07-30T04:45:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "favicon.svg",
+        "Size": 328,
+        "ETag": "\"38ea01358f3d333dca9c6543b0e10207\"",
+        "LastModified": "2026-07-30T04:45:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "icon-192.png",
+        "Size": 9081,
+        "ETag": "\"d0131f724a4a7f6bc3cf961b3c66d414\"",
+        "LastModified": "2026-07-30T04:45:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "index.html",
+        "Size": 27577,
+        "ETag": "\"0eecf2f16ed86347356dbf96e2f1acaa\"",
+        "LastModified": "2026-08-04T19:07:31+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "js/auth-config.js",
+        "Size": 362,
+        "ETag": "\"2dfed3797dfcb19ed26b5f8ee8c937cb\"",
+        "LastModified": "2026-07-30T19:50:50+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "js/auth.js",
+        "Size": 6900,
+        "ETag": "\"33024d85ee7620166ee6952f6d8cc409\"",
+        "LastModified": "2026-07-30T21:13:09+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "js/inactivity-timeout.js",
+        "Size": 8008,
+        "ETag": "\"7435d6a3fdabb2e596e6ba5347011d9c\"",
+        "LastModified": "2026-07-30T23:18:03+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "js/section-auth-guard.js",
+        "Size": 7465,
+        "ETag": "\"6bc1a3b08ffd2c62e22e3ab0bec0d753\"",
+        "LastModified": "2026-07-30T22:55:19+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "login.html",
+        "Size": 3373,
+        "ETag": "\"46a0446b0e29c79acaa196b40e7efdbd\"",
+        "LastModified": "2026-07-30T19:50:49+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "math/INTEGRATION.md",
+        "Size": 4059,
+        "ETag": "\"01e50f37471a8f4a6d317b85c485fadd\"",
+        "LastModified": "2026-07-30T04:45:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "math/README.txt",
+        "Size": 2431,
+        "ETag": "\"90b684172a8e57655035577e96b1a2ee\"",
+        "LastModified": "2026-07-30T04:45:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "math/admin.html",
+        "Size": 429,
+        "ETag": "\"497697919c6e41efa0b084487902066e\"",
+        "LastModified": "2026-07-30T22:33:30+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "math/admin.js",
+        "Size": 23286,
+        "ETag": "\"be4c581d6a00ed089ce9df4ad67024fb\"",
+        "LastModified": "2026-08-04T19:07:37+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "math/app.js",
+        "Size": 64081,
+        "ETag": "\"91bbb64782d02418bb685463b58bb720\"",
+        "LastModified": "2026-08-06T01:36:51+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "math/handler.mjs",
+        "Size": 11264,
+        "ETag": "\"1a168a4224d271d7fa33c791a54f7463\"",
+        "LastModified": "2026-07-30T04:46:00+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "math/index.html",
+        "Size": 23574,
+        "ETag": "\"9a6f4b3e0d42d8eaa0eec7d3efd3bee1\"",
+        "LastModified": "2026-08-06T01:36:52+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "math/question-bank.json",
+        "Size": 204336,
+        "ETag": "\"7990cb935c254e826764778d0af7f2d7\"",
+        "LastModified": "2026-07-30T04:45:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "math/set-1.html",
+        "Size": 23421,
+        "ETag": "\"0dd6d9522c6a9c2e2ae775d03dd23012\"",
+        "LastModified": "2026-08-06T01:36:53+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "math/set-2-question-bank.json",
+        "Size": 219426,
+        "ETag": "\"13ea1e5151ccb49b204b3efab5617821\"",
+        "LastModified": "2026-07-30T04:45:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "math/set-2-volume-1-algebra.html",
+        "Size": 94160,
+        "ETag": "\"87b7f096fe6eaf787a389f7a04384902\"",
+        "LastModified": "2026-08-06T01:36:54+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "math/set-2-volume-2-advanced-math.html",
+        "Size": 93964,
+        "ETag": "\"39dd09eb27c26281e4abcfa87fae6514\"",
+        "LastModified": "2026-08-06T01:36:55+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "math/set-2-volume-3-data-geometry-trigonometry.html",
+        "Size": 94134,
+        "ETag": "\"216980c05581985281c69d12be9fe9dc\"",
+        "LastModified": "2026-08-06T01:36:56+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "math/set-2.html",
+        "Size": 23488,
+        "ETag": "\"1dd3f1d499408171ac8715685910731b\"",
+        "LastModified": "2026-08-06T01:36:57+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "math/styles.css",
+        "Size": 8961,
+        "ETag": "\"dcbc4fffdc6c9a1f3f8de9ece7f8ac4e\"",
+        "LastModified": "2026-07-30T04:46:00+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "math/validation-report.txt",
+        "Size": 840,
+        "ETag": "\"27f348f2d2fb3990326d42aeed915159\"",
+        "LastModified": "2026-07-30T04:46:00+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "math/volume-1-algebra-foundations.html",
+        "Size": 92646,
+        "ETag": "\"aa449162ae046510482538bb1ce4daba\"",
+        "LastModified": "2026-08-06T01:36:58+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "math/volume-2-advanced-math.html",
+        "Size": 90994,
+        "ETag": "\"9f4af8744080b75d8534a768ad711f76\"",
+        "LastModified": "2026-08-06T01:36:59+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "math/volume-3-data-geometry-trigonometry.html",
+        "Size": 89635,
+        "ETag": "\"0528ebb57dc325703aff5f75589ff863\"",
+        "LastModified": "2026-08-06T01:37:02+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "sat-nav-fix.js",
+        "Size": 2913,
+        "ETag": "\"66be42155179364dcd2807f0a62c0248\"",
+        "LastModified": "2026-07-30T22:27:53+00:00",
+        "StorageClass": "STANDARD"
+    },
+    {
+        "Key": "site.webmanifest",
+        "Size": 264,
+        "ETag": "\"f870551e3e40147c93c383d37e186eac\"",
+        "LastModified": "2026-07-30T04:46:00+00:00",
+        "StorageClass": "STANDARD"
+    }
+]

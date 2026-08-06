@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script id="sat-english-identity-v7">
+/* BEGIN SAT ENGLISH IDENTITY V7 */
+(() => {
+  'use strict';
+
+  if (window.SATEnglishIdentity?.build === '20260804-english-identity-v7-20260804T182532Z') return;
+
+  const normalize = value => {
+    const id = String(value || '').trim().toLowerCase();
+    return /^[a-z0-9_-]{1,80}$/.test(id) ? id : '';
+  };
+
+  const decodeToken = token => {
+    try {
+      const part = String(token || '').split('.')[1];
+      if (!part) return null;
+      const base64 = part.replace(/-/g, '+').replace(/_/g, '/');
+      const padded = base64 + '='.repeat((4 - base64.length % 4) % 4);
+      const binary = atob(padded);
+      const bytes = Uint8Array.from(binary, character => character.charCodeAt(0));
+      return JSON.parse(new TextDecoder().decode(bytes));
+    } catch (error) {
+      console.warn('Unable to decode the SAT Cognito identity.', error);
+      return null;
+    }
+  };
+
+  const nativeGet = URLSearchParams.prototype.get;
+  const tokenClaims = decodeToken(
+    sessionStorage.getItem('sat_id_token') ||
+    localStorage.getItem('sat_id_token')
+  );
+  const tokenStudent = normalize(
+    window.SATAuth?.studentId ||
+    window.SATAuth?.username ||
+    tokenClaims?.['cognito:username'] ||
+    tokenClaims?.username ||
+    tokenClaims?.preferred_username
+  );
+  const storedStudent = normalize(localStorage.getItem('sat_user'));
+  const pageParams = new URLSearchParams(location.search);
+  const urlStudent = normalize(nativeGet.call(pageParams, 'student'));
+  let studentId = tokenStudent || storedStudent || urlStudent;
+
+  function resolveStudentId() {
+    const claims = decodeToken(
+      sessionStorage.getItem('sat_id_token') ||
+      localStorage.getItem('sat_id_token')
+    );
+    const authenticated = normalize(
+      window.SATAuth?.studentId ||
+      window.SATAuth?.username ||
+      claims?.['cognito:username'] ||
+      claims?.username ||
+      claims?.preferred_username
+    );
+    const stored = normalize(localStorage.getItem('sat_user'));
+    studentId = authenticated || stored || studentId || urlStudent;
+    if (studentId) localStorage.setItem('sat_user', studentId);
+    return studentId;
+  }
+
+  if (!URLSearchParams.prototype.__satEnglishIdentityV7) {
+    URLSearchParams.prototype.get = function(name) {
+      const value = nativeGet.call(this, name);
+      if (String(name) === 'student' && !normalize(value)) {
+        return resolveStudentId() || value;
+      }
+      return value;
+    };
+    Object.defineProperty(URLSearchParams.prototype, '__satEnglishIdentityV7', {
+      value: true,
+      configurable: true
+    });
+  }
+
+  function cleanStudentParameter(urlValue) {
+    try {
+      const url = new URL(urlValue, location.href);
+      if (url.origin !== location.origin) return urlValue;
+      url.searchParams.delete('student');
+      return `${url.pathname}${url.search}${url.hash}`;
+    } catch (_) {
+      return urlValue;
+    }
+  }
+
+  function cleanAddressBar() {
+    const url = new URL(location.href);
+    if (!url.searchParams.has('student')) return;
+    url.searchParams.delete('student');
+    history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
+  }
+
+  function cleanStudentLinks(root = document) {
+    root.querySelectorAll?.('a[href]').forEach(anchor => {
+      const href = anchor.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('javascript:')) return;
+      const cleaned = cleanStudentParameter(href);
+      if (cleaned !== href) anchor.setAttribute('href', cleaned);
+    });
+  }
+
+  resolveStudentId();
+  cleanAddressBar();
+
+  window.SATResolveStudentId = resolveStudentId;
+  window.SATEnglishIdentity = {
+    build: '20260804-english-identity-v7-20260804T182532Z',
+    get studentId() { return resolveStudentId(); },
+    source: tokenStudent ? 'cognito' : storedStudent ? 'storage' : urlStudent ? 'url' : 'missing',
+    normalize,
+    resolveStudentId,
+    cleanStudentLinks
+  };
+
+  const ready = () => {
+    cleanStudentLinks();
+    setTimeout(cleanStudentLinks, 0);
+    setTimeout(cleanStudentLinks, 150);
+    setTimeout(cleanStudentLinks, 600);
+
+    if (document.body && window.MutationObserver) {
+      const observer = new MutationObserver(records => {
+        for (const record of records) {
+          record.addedNodes.forEach(node => {
+            if (node.nodeType === 1) cleanStudentLinks(node);
+          });
+        }
+      });
+      observer.observe(document.body, {childList: true, subtree: true});
+      setTimeout(() => observer.disconnect(), 5000);
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ready, {once: true});
+  } else {
+    ready();
+  }
+})();
+/* END SAT ENGLISH IDENTITY V7 */
+</script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>SAT Vocabulary — Words 351–375</title>
+  <style>
+    :root {
+      --page:#111214;--panel:#202226;--panel2:#181a1e;--ink:#f4f1e8;
+      --muted:#bdb7aa;--line:#4a4d53;--gold:#e7c96f;--gold2:#d4a72c;
+      --blue:#1f78b8;--teal:#149c97;--orange:#c97717;--purple:#7441a4;
+      --green:#2b7d47;--rose:#bd4f69;
+    }
+    *{box-sizing:border-box}
+    html{background:var(--page)}
+    body{margin:0;background:var(--page);color:var(--ink);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}
+    a{color:inherit}
+    .site-header{background:radial-gradient(circle at 82% 20%,rgba(212,167,44,.12),transparent 34%),linear-gradient(180deg,#17191d,#121316);border-bottom:1px solid #393c42;padding:42px 20px 34px}
+    .header-inner,main{width:min(1450px,calc(100% - 34px));margin:0 auto}
+    .back-link{display:inline-flex;align-items:center;gap:8px;color:var(--gold);text-decoration:none;font-weight:850}
+    .back-link:hover{text-decoration:underline}
+    h1{margin:18px 0 8px;font-size:clamp(2.35rem,5vw,4.6rem);line-height:1.02;letter-spacing:-.045em}
+    .subtitle{margin:0;color:#cec8bc;font-size:1.08rem}
+    .toolbar{display:flex;gap:14px;align-items:center;padding:26px 0 18px}
+    .search-wrap{flex:1}
+    input[type="search"]{width:100%;padding:15px 17px;border:1px solid #555960;border-radius:12px;color:var(--ink);background:#17191d;font:inherit;font-size:1rem;outline:none}
+    input[type="search"]:focus{border-color:var(--gold2);box-shadow:0 0 0 3px rgba(212,167,44,.14)}
+    .count{color:var(--gold);font-weight:900;white-space:nowrap}
+    .study-note,.progress-card,.audio-card{margin:0 0 22px;padding:22px;background:linear-gradient(180deg,#202226,#1c1e22);border:1px solid var(--line);border-radius:17px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+    .study-note{color:#d8d1c4;border-left:4px solid var(--gold2)}
+    .progress-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+    .progress-title,.audio-card h2{margin:0;color:var(--ink);font-size:1.28rem}
+    .progress-copy,.audio-card p{margin:5px 0 0;color:var(--muted)}
+    .progress-number{color:var(--gold);font-weight:900;white-space:nowrap}
+    .progress-track{height:11px;margin:17px 0;overflow:hidden;background:#0f1012;border:1px solid #2f3237;border-radius:999px}
+    .progress-fill{width:0;height:100%;background:linear-gradient(90deg,#e4c15f,#c9982d);border-radius:inherit;transition:width .2s ease}
+    .progress-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+    .remaining-toggle{display:inline-flex;align-items:center;gap:8px;color:#ded8cd;font-weight:750;cursor:pointer}
+    .remaining-toggle input{width:18px;height:18px;accent-color:var(--gold2)}
+    .small-btn,.audio-download{display:inline-flex;align-items:center;justify-content:center;padding:10px 13px;border:1px solid #75622f;border-radius:10px;background:#282b30;color:var(--gold);font:inherit;font-size:.92rem;font-weight:850;text-decoration:none;cursor:pointer}
+    .small-btn:hover,.audio-download:hover{background:#34312a;border-color:var(--gold2)}
+    .small-btn.reset{color:#efb4ab;border-color:#754741;background:#2a2020}
+    .audio-card-header{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}
+    .audio-card audio{width:100%;margin-top:8px;filter:sepia(.12) saturate(.75)}
+    .word-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+    .word-card{overflow:hidden;background:linear-gradient(180deg,#202226,#1c1e22);border:1px solid #4a4d53;border-radius:17px;box-shadow:0 7px 22px rgba(0,0,0,.22);transition:opacity .18s ease,transform .18s ease,border-color .18s ease}
+    .word-card:hover{transform:translateY(-2px);border-color:#666a72}
+    .word-card.learned{border-color:#6f8f58;opacity:.78}
+    .word-heading{display:flex;align-items:center;gap:11px;padding:17px 18px;color:#fff}
+    .card-1 .word-heading{background:var(--rose)}.card-2 .word-heading{background:var(--blue)}.card-3 .word-heading{background:var(--teal)}.card-4 .word-heading{background:var(--orange)}.card-5 .word-heading{background:var(--purple)}.card-6 .word-heading{background:var(--green)}
+    .word-number{color:#f4d77f;font-size:.9rem;font-weight:950;letter-spacing:.07em}
+    .word-heading h2{margin:0;font-size:clamp(1.35rem,2vw,1.7rem);line-height:1.15;letter-spacing:-.02em}
+    .part{margin-left:auto;color:#f8f3e7;font-size:.84rem;font-weight:800;opacity:.92}
+    .word-content{padding:18px 20px 20px}
+    .field{margin-bottom:14px}.field:last-child{margin-bottom:0}
+    .label{display:block;margin-bottom:4px;color:var(--gold);font-size:.78rem;font-weight:950;letter-spacing:.09em;text-transform:uppercase}
+    .field p{margin:0;color:#e3ddd2}
+    .synonyms p,.antonyms p{color:#d0c9bd}
+    .example{margin-top:16px;padding:13px 14px 14px 16px;background:rgba(212,167,44,.10);border-left:4px solid var(--gold2);border-radius:4px 10px 10px 4px}
+    .example p{font-style:italic;color:#e8e0d3}
+    .word-action{margin-top:17px;padding-top:15px;border-top:1px solid #3c3f45}
+    .learn-btn{width:100%;padding:10px 12px;border:1px solid #7e692f;border-radius:10px;background:#282b30;color:var(--gold);font:inherit;font-weight:900;cursor:pointer}
+    .learn-btn:hover{background:#34312a}
+    .word-card.learned .learn-btn{border-color:#59614f;background:#242822;color:#bad39f}
+    .bottom-nav{display:flex;flex-wrap:wrap;gap:11px;justify-content:center;padding:32px 0 48px}
+    .nav-link{display:inline-flex;padding:12px 16px;border-radius:11px;background:#282b30;border:1px solid #555960;color:#f4f1e8;text-decoration:none;font-weight:850}
+    .nav-link:hover{border-color:#8a7440;background:#303238}
+    .nav-link.home{background:linear-gradient(135deg,#e4c15f,#d2a93f);border-color:#e7c96f;color:#18191b}
+    .empty-state{display:none;margin:0;padding:34px 0 8px;text-align:center;color:var(--muted);font-weight:800}
+    footer{padding:0 16px 32px;text-align:center;color:#918c82;font-size:.92rem}
+    @media(max-width:1100px){.word-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:700px){.toolbar,.progress-top,.audio-card-header{flex-direction:column;align-items:stretch}.count{text-align:left}.word-grid{grid-template-columns:1fr}.progress-number{white-space:normal}.header-inner,main{width:min(100% - 24px,1450px)}}
+</style>
+  <script src="english-progress.js?v=20260804-english-identity-v7-20260804T182532Z"></script>
+</head>
+<body>
+  <header class="site-header"><div class="header-inner">
+    <a class="back-link" href="index.html">← SAT 375 Vocabulary Builder</a>
+    <h1>SAT Vocabulary — Words 351–375</h1>
+    <p class="subtitle">Spelling, meaning, synonyms, antonyms, and example sentences</p>
+  </div></header>
+  <main>
+    <section class="toolbar" aria-label="Vocabulary search"><div class="search-wrap"><input id="wordSearch" type="search" placeholder="Search a word, meaning, synonym, antonym, or example…" autocomplete="off"></div><div class="count" id="visibleCount">25 words</div></section>
+    <section class="progress-card" aria-label="Learning progress">
+      <div class="progress-top"><div><h2 class="progress-title">Learning Progress</h2><p class="progress-copy" id="rangeProgressText">This page: 0 of 25 learned</p></div><div class="progress-number" id="globalProgressText">0 of 375 learned</div></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-actions"><label class="remaining-toggle"><input id="remainingOnly" type="checkbox">Show remaining words only</label><a class="small-btn" href="SAT_Progress.html">View progress dashboard</a><button class="small-btn reset" id="resetProgress" type="button">Reset all progress</button></div>
+    </section>
+    <p class="study-note">Use <strong>Mark learned</strong> after you know a word. Choose <strong>Show remaining words only</strong> to focus on what is left.</p>
+    <section class="audio-card" id="audioCard" data-audio-file="SAT_Words_351_375.mp3" aria-label="Audio practice for words 351 to 375"><div class="audio-card-header"><div><h2>Listen to Words 351–375</h2><p>Play the matching vocabulary audio while studying this page.</p></div><a class="audio-download" href="SAT_Words_351_375.mp3" download>Download MP3</a></div><audio controls preload="metadata"><source src="SAT_Words_351_375.mp3" type="audio/mpeg">Your browser does not support audio playback.</audio></section>
+    <section class="word-grid" id="wordGrid">
+      <article class="word-card card-1" data-word-number="351" data-search="juxtapose verb to place two things close together for comparison or contrast. compare, contrast, set beside separate, isolate “the exhibit juxtaposes traditional tools with modern machines.”">
+        <div class="word-heading"><span class="word-number">351</span><h2>Juxtapose</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To place two things close together for comparison or contrast.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>compare, contrast, set beside</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>separate, isolate</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The exhibit juxtaposes traditional tools with modern machines.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-2" data-word-number="352" data-search="antithetical adjective directly opposed or contrary to something. opposed, contrary, incompatible compatible, similar “censorship is antithetical to the journal’s commitment to open debate.”">
+        <div class="word-heading"><span class="word-number">352</span><h2>Antithetical</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Directly opposed or contrary to something.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>opposed, contrary, incompatible</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>compatible, similar</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“Censorship is antithetical to the journal’s commitment to open debate.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-3" data-word-number="353" data-search="homogeneous adjective consisting of parts or members that are similar in kind. uniform, similar, consistent diverse, heterogeneous “because the sample was homogeneous, the results may not apply to the broader population.”">
+        <div class="word-heading"><span class="word-number">353</span><h2>Homogeneous</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Consisting of parts or members that are similar in kind.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>uniform, similar, consistent</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>diverse, heterogeneous</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“Because the sample was homogeneous, the results may not apply to the broader population.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-4" data-word-number="354" data-search="unilateral adjective done by one person, group, or country without the agreement of others. one-sided, independent, solo mutual, multilateral “the board criticized the director’s unilateral decision to cancel the program.”">
+        <div class="word-heading"><span class="word-number">354</span><h2>Unilateral</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Done by one person, group, or country without the agreement of others.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>one-sided, independent, solo</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>mutual, multilateral</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The board criticized the director’s unilateral decision to cancel the program.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-5" data-word-number="355" data-search="equivocal adjective unclear, ambiguous, or open to more than one interpretation. ambiguous, uncertain, evasive unequivocal, clear “the witness gave an equivocal response that did not confirm either account.”">
+        <div class="word-heading"><span class="word-number">355</span><h2>Equivocal</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Unclear, ambiguous, or open to more than one interpretation.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>ambiguous, uncertain, evasive</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>unequivocal, clear</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The witness gave an equivocal response that did not confirm either account.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-6" data-word-number="356" data-search="lucid adjective clear and easy to understand. clear, coherent, intelligible confusing, obscure “the textbook offers a lucid explanation of a difficult scientific concept.”">
+        <div class="word-heading"><span class="word-number">356</span><h2>Lucid</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Clear and easy to understand.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>clear, coherent, intelligible</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>confusing, obscure</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The textbook offers a lucid explanation of a difficult scientific concept.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-1" data-word-number="357" data-search="abstruse adjective difficult to understand because it is complex or highly technical. obscure, complex, recondite clear, accessible “the article translated an abstruse theory into language for general readers.”">
+        <div class="word-heading"><span class="word-number">357</span><h2>Abstruse</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Difficult to understand because it is complex or highly technical.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>obscure, complex, recondite</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>clear, accessible</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The article translated an abstruse theory into language for general readers.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-2" data-word-number="358" data-search="esoteric adjective intended for or understood by a small group with specialized knowledge. specialized, arcane, obscure common, accessible “the seminar focused on esoteric questions in medieval philosophy.”">
+        <div class="word-heading"><span class="word-number">358</span><h2>Esoteric</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Intended for or understood by a small group with specialized knowledge.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>specialized, arcane, obscure</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>common, accessible</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The seminar focused on esoteric questions in medieval philosophy.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-3" data-word-number="359" data-search="meticulous adjective extremely careful and attentive to detail. precise, thorough, painstaking careless, sloppy “her meticulous notes allowed the experiment to be replicated accurately.”">
+        <div class="word-heading"><span class="word-number">359</span><h2>Meticulous</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Extremely careful and attentive to detail.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>precise, thorough, painstaking</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>careless, sloppy</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“Her meticulous notes allowed the experiment to be replicated accurately.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-4" data-word-number="360" data-search="astute adjective showing sharp judgment and an ability to understand situations quickly. perceptive, shrewd, insightful naive, obtuse “the analyst made an astute observation about the survey’s hidden bias.”">
+        <div class="word-heading"><span class="word-number">360</span><h2>Astute</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Showing sharp judgment and an ability to understand situations quickly.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>perceptive, shrewd, insightful</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>naive, obtuse</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The analyst made an astute observation about the survey’s hidden bias.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-5" data-word-number="361" data-search="profound adjective very deep, significant, or intellectually insightful. deep, significant, far-reaching superficial, slight “the invention had a profound effect on communication and commerce.”">
+        <div class="word-heading"><span class="word-number">361</span><h2>Profound</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Very deep, significant, or intellectually insightful.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>deep, significant, far-reaching</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>superficial, slight</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The invention had a profound effect on communication and commerce.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-6" data-word-number="362" data-search="subtle adjective not obvious; delicate or difficult to detect or describe. nuanced, delicate, understated obvious, blatant “a subtle shift in tone reveals the narrator’s growing doubt.”">
+        <div class="word-heading"><span class="word-number">362</span><h2>Subtle</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Not obvious; delicate or difficult to detect or describe.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>nuanced, delicate, understated</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>obvious, blatant</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“A subtle shift in tone reveals the narrator’s growing doubt.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-1" data-word-number="363" data-search="rudimentary adjective basic, elementary, or not yet fully developed. basic, elementary, primitive advanced, sophisticated “the early device had only rudimentary controls but inspired later designs.”">
+        <div class="word-heading"><span class="word-number">363</span><h2>Rudimentary</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Basic, elementary, or not yet fully developed.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>basic, elementary, primitive</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>advanced, sophisticated</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The early device had only rudimentary controls but inspired later designs.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-2" data-word-number="364" data-search="candor noun honest, open, and direct expression. honesty, frankness, openness deception, evasion “the committee appreciated her candor about the project’s limitations.”">
+        <div class="word-heading"><span class="word-number">364</span><h2>Candor</h2><span class="part">noun</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Honest, open, and direct expression.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>honesty, frankness, openness</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>deception, evasion</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The committee appreciated her candor about the project’s limitations.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-3" data-word-number="365" data-search="reticent adjective reluctant to speak or reveal thoughts and feelings. reserved, restrained, uncommunicative outspoken, forthcoming “the normally reticent scientist spoke publicly after the results were challenged.”">
+        <div class="word-heading"><span class="word-number">365</span><h2>Reticent</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Reluctant to speak or reveal thoughts and feelings.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>reserved, restrained, uncommunicative</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>outspoken, forthcoming</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The normally reticent scientist spoke publicly after the results were challenged.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-4" data-word-number="366" data-search="cynical adjective distrustful of people’s motives and inclined to expect selfishness. skeptical, distrustful, pessimistic trusting, idealistic “the columnist was cynical about promises made during the campaign.”">
+        <div class="word-heading"><span class="word-number">366</span><h2>Cynical</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Distrustful of people’s motives and inclined to expect selfishness.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>skeptical, distrustful, pessimistic</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>trusting, idealistic</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The columnist was cynical about promises made during the campaign.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-5" data-word-number="367" data-search="denigrate verb to criticize unfairly or belittle the value or reputation of something. disparage, belittle, demean praise, exalt “the review should evaluate the theory rather than denigrate its supporters.”">
+        <div class="word-heading"><span class="word-number">367</span><h2>Denigrate</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To criticize unfairly or belittle the value or reputation of something.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>disparage, belittle, demean</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>praise, exalt</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The review should evaluate the theory rather than denigrate its supporters.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-6" data-word-number="368" data-search="admonish verb to warn or reprimand someone firmly but usually constructively. reprimand, caution, rebuke praise, encourage “the editor admonished the writer to verify every quotation.”">
+        <div class="word-heading"><span class="word-number">368</span><h2>Admonish</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To warn or reprimand someone firmly but usually constructively.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>reprimand, caution, rebuke</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>praise, encourage</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The editor admonished the writer to verify every quotation.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-1" data-word-number="369" data-search="ominous adjective suggesting that something bad or threatening may happen. threatening, foreboding, sinister reassuring, auspicious “the sudden drop in groundwater levels was an ominous sign for farmers.”">
+        <div class="word-heading"><span class="word-number">369</span><h2>Ominous</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Suggesting that something bad or threatening may happen.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>threatening, foreboding, sinister</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>reassuring, auspicious</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The sudden drop in groundwater levels was an ominous sign for farmers.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-2" data-word-number="370" data-search="auspicious adjective suggesting a favorable or successful outcome. promising, favorable, propitious ominous, unfavorable “the strong early results marked an auspicious beginning for the project.”">
+        <div class="word-heading"><span class="word-number">370</span><h2>Auspicious</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Suggesting a favorable or successful outcome.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>promising, favorable, propitious</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>ominous, unfavorable</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The strong early results marked an auspicious beginning for the project.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-3" data-word-number="371" data-search="seminal adjective highly original and influential in shaping later ideas or developments. influential, groundbreaking, foundational derivative, insignificant “her seminal study changed how researchers understood language acquisition.”">
+        <div class="word-heading"><span class="word-number">371</span><h2>Seminal</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Highly original and influential in shaping later ideas or developments.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>influential, groundbreaking, foundational</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>derivative, insignificant</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“Her seminal study changed how researchers understood language acquisition.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-4" data-word-number="372" data-search="scrupulous adjective very careful to be accurate, honest, and morally correct. conscientious, meticulous, principled careless, unscrupulous “the journalist was scrupulous about confirming facts with multiple sources.”">
+        <div class="word-heading"><span class="word-number">372</span><h2>Scrupulous</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Very careful to be accurate, honest, and morally correct.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>conscientious, meticulous, principled</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>careless, unscrupulous</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The journalist was scrupulous about confirming facts with multiple sources.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-5" data-word-number="373" data-search="trivial adjective of little importance, value, or seriousness. minor, insignificant, petty important, substantial “the author argues that the disagreement is not trivial because it affects public safety.”">
+        <div class="word-heading"><span class="word-number">373</span><h2>Trivial</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Of little importance, value, or seriousness.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>minor, insignificant, petty</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>important, substantial</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The author argues that the disagreement is not trivial because it affects public safety.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-6" data-word-number="374" data-search="futile adjective incapable of producing a useful result; pointless. pointless, ineffective, vain effective, productive “without accurate measurements, further calculations would be futile.”">
+        <div class="word-heading"><span class="word-number">374</span><h2>Futile</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Incapable of producing a useful result; pointless.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>pointless, ineffective, vain</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>effective, productive</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“Without accurate measurements, further calculations would be futile.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-1" data-word-number="375" data-search="harbor verb to hold or maintain a thought, feeling, or suspicion, often secretly. hold, entertain, conceal release, dismiss “several researchers harbored doubts about the reliability of the instrument.”">
+        <div class="word-heading"><span class="word-number">375</span><h2>Harbor</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To hold or maintain a thought, feeling, or suspicion, often secretly.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>hold, entertain, conceal</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>release, dismiss</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“Several researchers harbored doubts about the reliability of the instrument.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article></section>
+    <p class="empty-state" id="emptyState">No words match this filter. Turn off “Show remaining words only” to see learned words.</p>
+    <nav class="bottom-nav" aria-label="Study page navigation"><a class="nav-link" href="SAT_Words_326_350.html">← Words 326–350</a><a class="nav-link home" href="index.html">All Study Pages</a><a class="nav-link" href="index.html">English Home →</a></nav>
+  </main>
+  <footer>Progress is synchronized using the active student link.</footer>
+  <script>
+const SAT_PROGRESS_KEY = window.SATEnglishCloud.storageKey;
+const SAT_WORD_TOTAL = 375;
+function getProgress(){try{const raw=localStorage.getItem(SAT_PROGRESS_KEY);const saved=raw?JSON.parse(raw):{};const cleaned=Array.isArray(saved.learned)?saved.learned.map(Number).filter(n=>Number.isInteger(n)&&n>=1&&n<=SAT_WORD_TOTAL):[];return{learned:[...new Set(cleaned)]}}catch(e){return{learned:[]}}}
+function setProgress(progress){const cleaned=[...new Set((progress.learned||[]).map(Number).filter(n=>Number.isInteger(n)&&n>=1&&n<=SAT_WORD_TOTAL))];try{localStorage.setItem(SAT_PROGRESS_KEY,JSON.stringify({learned:cleaned}));window.SATEnglishCloud.queueLearnedSync(cleaned)}catch(e){}return{learned:cleaned}}
+function learnedSet(){return new Set(getProgress().learned)}
+function isLearned(number){return learnedSet().has(Number(number))}
+function markLearned(number,learned){const set=learnedSet();learned?set.add(Number(number)):set.delete(Number(number));return setProgress({learned:[...set]})}
+function resetAllProgress(){return setProgress({learned:[]})}
+function globalCounts(){const learned=learnedSet().size;return{learned,remaining:SAT_WORD_TOTAL-learned,total:SAT_WORD_TOTAL}}
+function rangeCounts(start,end){const set=learnedSet();let learned=0;for(let n=start;n<=end;n+=1)if(set.has(n))learned+=1;return{learned,remaining:end-start+1-learned,total:end-start+1}}
+const RANGE_START=351,RANGE_END=375;
+const wordSearch=document.getElementById('wordSearch');const remainingOnly=document.getElementById('remainingOnly');const cards=[...document.querySelectorAll('.word-card')];
+function refreshStudyPage(){const learned=learnedSet();const query=wordSearch.value.trim().toLowerCase();const filterRemaining=remainingOnly.checked;let visible=0;cards.forEach(card=>{const number=Number(card.dataset.wordNumber);const done=learned.has(number);const show=(!query||card.dataset.search.includes(query))&&(!filterRemaining||!done);card.classList.toggle('learned',done);card.style.display=show?'':'none';const button=card.querySelector('.learn-btn');button.textContent=done?'✓ Learned — undo':'Mark learned';button.setAttribute('aria-pressed',String(done));if(show)visible+=1});const global=globalCounts();const range=rangeCounts(RANGE_START,RANGE_END);document.getElementById('visibleCount').textContent=`${visible} word${visible===1?'':'s'} shown`;document.getElementById('rangeProgressText').textContent=`This page: ${range.learned} of ${range.total} learned · ${range.remaining} remaining`;document.getElementById('globalProgressText').textContent=`${global.learned} of ${global.total} learned · ${global.remaining} remaining`;document.getElementById('progressFill').style.width=`${(global.learned/global.total)*100}%`;document.getElementById('emptyState').style.display=visible===0?'block':'none'}
+cards.forEach(card=>card.querySelector('.learn-btn').addEventListener('click',()=>{const number=Number(card.dataset.wordNumber);markLearned(number,!isLearned(number));refreshStudyPage()}));
+wordSearch.addEventListener('input',refreshStudyPage);remainingOnly.addEventListener('change',refreshStudyPage);document.getElementById('resetProgress').addEventListener('click',()=>{if(window.confirm('Reset all learned-word progress for all 375 SAT words for this student?')){resetAllProgress();refreshStudyPage()}});
+if(new URLSearchParams(location.search).get('remaining')==='1')remainingOnly.checked=true;
+window.addEventListener('storage',refreshStudyPage);
+window.SATEnglishCloud.ready.then(()=>{refreshStudyPage()}).catch(()=>{});
+</script>
+</body>
+</html>

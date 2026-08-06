@@ -1,0 +1,2103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script id="sat-english-identity-v7">
+/* BEGIN SAT ENGLISH IDENTITY V7 */
+(() => {
+  'use strict';
+
+  if (window.SATEnglishIdentity?.build === '20260804-english-identity-v7-20260804T182532Z') return;
+
+  const normalize = value => {
+    const id = String(value || '').trim().toLowerCase();
+    return /^[a-z0-9_-]{1,80}$/.test(id) ? id : '';
+  };
+
+  const decodeToken = token => {
+    try {
+      const part = String(token || '').split('.')[1];
+      if (!part) return null;
+      const base64 = part.replace(/-/g, '+').replace(/_/g, '/');
+      const padded = base64 + '='.repeat((4 - base64.length % 4) % 4);
+      const binary = atob(padded);
+      const bytes = Uint8Array.from(binary, character => character.charCodeAt(0));
+      return JSON.parse(new TextDecoder().decode(bytes));
+    } catch (error) {
+      console.warn('Unable to decode the SAT Cognito identity.', error);
+      return null;
+    }
+  };
+
+  const nativeGet = URLSearchParams.prototype.get;
+  const tokenClaims = decodeToken(
+    sessionStorage.getItem('sat_id_token') ||
+    localStorage.getItem('sat_id_token')
+  );
+  const tokenStudent = normalize(
+    window.SATAuth?.studentId ||
+    window.SATAuth?.username ||
+    tokenClaims?.['cognito:username'] ||
+    tokenClaims?.username ||
+    tokenClaims?.preferred_username
+  );
+  const storedStudent = normalize(localStorage.getItem('sat_user'));
+  const pageParams = new URLSearchParams(location.search);
+  const urlStudent = normalize(nativeGet.call(pageParams, 'student'));
+  let studentId = tokenStudent || storedStudent || urlStudent;
+
+  function resolveStudentId() {
+    const claims = decodeToken(
+      sessionStorage.getItem('sat_id_token') ||
+      localStorage.getItem('sat_id_token')
+    );
+    const authenticated = normalize(
+      window.SATAuth?.studentId ||
+      window.SATAuth?.username ||
+      claims?.['cognito:username'] ||
+      claims?.username ||
+      claims?.preferred_username
+    );
+    const stored = normalize(localStorage.getItem('sat_user'));
+    studentId = authenticated || stored || studentId || urlStudent;
+    if (studentId) localStorage.setItem('sat_user', studentId);
+    return studentId;
+  }
+
+  if (!URLSearchParams.prototype.__satEnglishIdentityV7) {
+    URLSearchParams.prototype.get = function(name) {
+      const value = nativeGet.call(this, name);
+      if (String(name) === 'student' && !normalize(value)) {
+        return resolveStudentId() || value;
+      }
+      return value;
+    };
+    Object.defineProperty(URLSearchParams.prototype, '__satEnglishIdentityV7', {
+      value: true,
+      configurable: true
+    });
+  }
+
+  function cleanStudentParameter(urlValue) {
+    try {
+      const url = new URL(urlValue, location.href);
+      if (url.origin !== location.origin) return urlValue;
+      url.searchParams.delete('student');
+      return `${url.pathname}${url.search}${url.hash}`;
+    } catch (_) {
+      return urlValue;
+    }
+  }
+
+  function cleanAddressBar() {
+    const url = new URL(location.href);
+    if (!url.searchParams.has('student')) return;
+    url.searchParams.delete('student');
+    history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
+  }
+
+  function cleanStudentLinks(root = document) {
+    root.querySelectorAll?.('a[href]').forEach(anchor => {
+      const href = anchor.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('javascript:')) return;
+      const cleaned = cleanStudentParameter(href);
+      if (cleaned !== href) anchor.setAttribute('href', cleaned);
+    });
+  }
+
+  resolveStudentId();
+  cleanAddressBar();
+
+  window.SATResolveStudentId = resolveStudentId;
+  window.SATEnglishIdentity = {
+    build: '20260804-english-identity-v7-20260804T182532Z',
+    get studentId() { return resolveStudentId(); },
+    source: tokenStudent ? 'cognito' : storedStudent ? 'storage' : urlStudent ? 'url' : 'missing',
+    normalize,
+    resolveStudentId,
+    cleanStudentLinks
+  };
+
+  const ready = () => {
+    cleanStudentLinks();
+    setTimeout(cleanStudentLinks, 0);
+    setTimeout(cleanStudentLinks, 150);
+    setTimeout(cleanStudentLinks, 600);
+
+    if (document.body && window.MutationObserver) {
+      const observer = new MutationObserver(records => {
+        for (const record of records) {
+          record.addedNodes.forEach(node => {
+            if (node.nodeType === 1) cleanStudentLinks(node);
+          });
+        }
+      });
+      observer.observe(document.body, {childList: true, subtree: true});
+      setTimeout(() => observer.disconnect(), 5000);
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ready, {once: true});
+  } else {
+    ready();
+  }
+})();
+/* END SAT ENGLISH IDENTITY V7 */
+</script>
+
+
+<script id="sat-english-cognito-bootstrap">
+(() => {
+  'use strict';
+
+  function normalizeStudentId(value) {
+    const normalized =
+      String(value || '').trim().toLowerCase();
+
+    return /^[a-z0-9_-]{1,80}$/.test(normalized)
+      ? normalized
+      : '';
+  }
+
+  function decodeJwtPayload(token) {
+    const parts = String(token || '').split('.');
+
+    if (parts.length !== 3) {
+      return null;
+    }
+
+    const base64 = parts[1]
+      .replace(/-/g, '+')
+      .replace(/_/g, '/');
+
+    const padded =
+      base64 + '='.repeat((4 - base64.length % 4) % 4);
+
+    try {
+      const binary = atob(padded);
+      const bytes = Uint8Array.from(
+        binary,
+        character => character.charCodeAt(0)
+      );
+
+      return JSON.parse(
+        new TextDecoder().decode(bytes)
+      );
+    } catch (error) {
+      console.warn(
+        'Unable to read the SAT Cognito ID token.',
+        error
+      );
+
+      return null;
+    }
+  }
+
+  const existing =
+    normalizeStudentId(
+      window.localStorage.getItem('sat_user')
+    );
+
+  if (existing) {
+    return;
+  }
+
+  const claims =
+    decodeJwtPayload(
+      window.sessionStorage.getItem('sat_id_token')
+    );
+
+  const username =
+    normalizeStudentId(
+      claims?.['cognito:username'] ||
+      claims?.username
+    );
+
+  if (username) {
+    window.localStorage.setItem(
+      'sat_user',
+      username
+    );
+  }
+})();
+</script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAT Vocabulary — Words 201–225</title>
+  <style>
+    :root {
+      --ink: #1f2937;
+      --muted: #52616b;
+      --page: #f4f7fb;
+      --card: #ffffff;
+      --blue: #156fb0;
+      --teal: #0a968f;
+      --orange: #e47a18;
+      --purple: #7441a4;
+      --green: #2b7d47;
+      --rose: #bd4f69;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--page);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    .site-header {
+      background: linear-gradient(135deg, #133f77, #0d659d);
+      color: #ffffff;
+      padding: 34px 20px 28px;
+    }
+    .header-inner, main {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+    .back-link {
+      color: #e6f3ff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .back-link:hover { text-decoration: underline; }
+    h1 {
+      margin: 20px 0 8px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+    }
+    .subtitle {
+      margin: 0;
+      color: #dceeff;
+      font-size: 1.08rem;
+    }
+    .toolbar {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding: 22px 0 16px;
+    }
+    .search-wrap { flex: 1; }
+    input[type="search"] {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #c8d7e6;
+      border-radius: 10px;
+      color: var(--ink);
+      background: #ffffff;
+      font-size: 1rem;
+    }
+    .count {
+      color: var(--muted);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .study-note {
+      margin: 0 0 20px;
+      padding: 14px 16px;
+      background: #e8f7f4;
+      border: 1px solid #b9e4da;
+      border-radius: 10px;
+      color: #1c574e;
+    }
+    .progress-card {
+      margin: 0 0 20px;
+      padding: 18px;
+      background: #ffffff;
+      border: 1px solid #cbdff1;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(18, 44, 76, 0.08);
+    }
+    .progress-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .progress-title {
+      margin: 0;
+      color: #143d72;
+      font-size: 1.18rem;
+    }
+    .progress-copy {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .progress-number {
+      color: #143d72;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .progress-track {
+      height: 10px;
+      margin: 15px 0;
+      overflow: hidden;
+      background: #d6e0e9;
+      border-radius: 999px;
+    }
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, #156fb0, #0a968f);
+      border-radius: inherit;
+      transition: width 0.2s ease;
+    }
+    .progress-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+    .remaining-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #334155;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .remaining-toggle input {
+      width: 18px;
+      height: 18px;
+      accent-color: #156fb0;
+    }
+    .small-btn {
+      padding: 9px 12px;
+      border: 1px solid #c7d9ea;
+      border-radius: 8px;
+      background: #ffffff;
+      color: #0b63ce;
+      font-size: 0.92rem;
+      font-weight: 750;
+      cursor: pointer;
+    }
+    .small-btn:hover { background: #edf5ff; }
+    .small-btn.reset {
+      color: #a1413f;
+      border-color: #efc0be;
+      background: #fffafa;
+    }
+    .small-btn.reset:hover { background: #fff0ef; }
+    .audio-card {
+      margin: 0 0 20px;
+      padding: 18px;
+      background: #ffffff;
+      border: 1px solid #cbdff1;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(18, 44, 76, 0.08);
+    }
+    .audio-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .audio-card h2 {
+      margin: 0;
+      color: #143d72;
+      font-size: 1.18rem;
+    }
+    .audio-card p {
+      margin: 3px 0 0;
+      color: #52616b;
+      font-size: 0.94rem;
+    }
+    .audio-card audio {
+      width: 100%;
+      margin-top: 8px;
+    }
+    .audio-download {
+      display: inline-block;
+      padding: 9px 12px;
+      background: #edf5ff;
+      border: 1px solid #c9e0fb;
+      border-radius: 8px;
+      color: #0b63ce;
+      text-decoration: none;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .audio-download:hover { background: #dceeff; }
+    .word-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 18px;
+    }
+    .word-card {
+      overflow: hidden;
+      background: var(--card);
+      border: 1px solid #e0e8ef;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(18, 44, 76, 0.10);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+    .word-card.learned {
+      border-color: #8fcb70;
+      box-shadow: 0 4px 16px rgba(43, 125, 71, 0.12);
+    }
+    .word-card.learned .word-heading {
+      filter: saturate(0.62);
+    }
+    .word-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 17px;
+      color: #ffffff;
+    }
+    .card-1 .word-heading { background: var(--blue); }
+    .card-2 .word-heading { background: var(--teal); }
+    .card-3 .word-heading { background: var(--orange); }
+    .card-4 .word-heading { background: var(--purple); }
+    .card-5 .word-heading { background: var(--green); }
+    .card-6 .word-heading { background: var(--rose); }
+    .word-number {
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      opacity: 0.92;
+    }
+    .word-heading h2 {
+      margin: 0;
+      font-size: 1.55rem;
+      line-height: 1.15;
+    }
+    .word-content { padding: 16px 17px 18px; }
+    .field { margin-bottom: 12px; }
+    .field:last-child { margin-bottom: 0; }
+    .label {
+      display: block;
+      margin-bottom: 3px;
+      color: #475569;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .field p { margin: 0; }
+    .example {
+      margin-top: 15px;
+      padding: 11px 12px 12px 14px;
+      background: #f7f9fc;
+      border-left: 4px solid #cbd7e5;
+      border-radius: 4px 8px 8px 4px;
+    }
+    .example p { font-style: italic; }
+    .word-action {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid #e5edf4;
+    }
+    .learn-btn {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #a7cf97;
+      border-radius: 8px;
+      background: #f1f9ed;
+      color: #24643a;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .learn-btn:hover { background: #e5f5dd; }
+    .word-card.learned .learn-btn {
+      border-color: #cfd9e5;
+      background: #f7f9fc;
+      color: #52616b;
+    }
+    .bottom-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      padding: 28px 0 40px;
+    }
+    .nav-link {
+      display: inline-block;
+      padding: 11px 14px;
+      border-radius: 9px;
+      background: #ffffff;
+      border: 1px solid #c7d9ea;
+      color: #0b63ce;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .nav-link:hover { background: #eaf4ff; }
+    .nav-link.home {
+      background: #143d72;
+      border-color: #143d72;
+      color: #ffffff;
+    }
+    .empty-state {
+      display: none;
+      margin: 0;
+      padding: 30px 0 4px;
+      text-align: center;
+      color: var(--muted);
+      font-weight: 700;
+    }
+    footer {
+      padding: 0 16px 30px;
+      text-align: center;
+      color: #6b7280;
+      font-size: 0.92rem;
+    }
+    @media (max-width: 620px) {
+      .toolbar { flex-direction: column; align-items: stretch; }
+      .count { text-align: left; }
+      .word-grid { grid-template-columns: 1fr; }
+      .progress-top { flex-direction: column; }
+      .progress-number { white-space: normal; }
+      .audio-card-header { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+<script src="english-progress.js?v=20260804-english-identity-v7-20260804T182532Z"></script>
+<style id="sat-english-charcoal-gold-v1">
+  :root {
+    color-scheme: dark;
+    --cg-bg: #111214;
+    --cg-surface: #1d2025;
+    --cg-surface-2: #24272d;
+    --cg-surface-3: #2a2d33;
+    --cg-border: #43464d;
+    --cg-border-soft: #34373d;
+    --cg-text: #f4f1e8;
+    --cg-muted: #c0bbb0;
+    --cg-gold: #d6ae4e;
+    --cg-gold-light: #e7c96f;
+    --cg-gold-dark: #9f7620;
+    --cg-danger: #ef4444;
+    --cg-success: #22c55e;
+  }
+
+  html,
+  body {
+    background: var(--cg-bg) !important;
+    color: var(--cg-text) !important;
+  }
+
+  body {
+    min-height: 100vh;
+  }
+
+  main,
+  section,
+  article,
+  .page,
+  .container,
+  .wrapper,
+  .wrap,
+  .content,
+  .content-wrap {
+    color: var(--cg-text) !important;
+  }
+
+  /* Common SAT subject navigation */
+  #sat-global-navigation,
+  #sat-global-subject-nav,
+  #sat-subject-navigation,
+  .subject-nav {
+    background: linear-gradient(135deg, #1c1d20 0%, #24262a 100%) !important;
+    border-bottom: 1px solid #46484d !important;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .26) !important;
+  }
+
+  #sat-global-navigation > span,
+  #sat-global-subject-nav > span,
+  #sat-subject-navigation > span,
+  .subject-nav > span {
+    color: #f2eee2 !important;
+  }
+
+  #sat-global-navigation a,
+  #sat-global-subject-nav a,
+  #sat-subject-navigation a,
+  .subject-nav a {
+    background: #24262a !important;
+    border-color: #55585e !important;
+    color: #ece7dc !important;
+    box-shadow: none !important;
+  }
+
+  #sat-global-navigation a:hover,
+  #sat-global-subject-nav a:hover,
+  #sat-subject-navigation a:hover,
+  .subject-nav a:hover {
+    background: #303238 !important;
+    border-color: #777a80 !important;
+  }
+
+  #sat-global-navigation a[aria-current="page"],
+  #sat-global-subject-nav a[aria-current="page"],
+  #sat-subject-navigation a[aria-current="page"],
+  .subject-nav a[aria-current="page"] {
+    background: linear-gradient(135deg, #e4c15f, #c69a30) !important;
+    border-color: #e7c96f !important;
+    color: #18191b !important;
+    box-shadow: 0 4px 12px rgba(214, 174, 78, .20) !important;
+  }
+
+  /* English page header/navigation */
+  header,
+  .site-header,
+  .topbar,
+  .navbar,
+  .nav,
+  .header,
+  .page-header {
+    background: #17181b !important;
+    border-color: #383a40 !important;
+    color: var(--cg-text) !important;
+  }
+
+  .brand,
+  .logo,
+  .title,
+  .site-title,
+  header a,
+  .nav a,
+  .navbar a {
+    color: #f2eee2 !important;
+  }
+
+  .brand-mark,
+  .logo-mark,
+  .icon-badge,
+  .letter-badge {
+    background: linear-gradient(135deg, #f0cf76, #b68a26) !important;
+    color: #191a1c !important;
+    box-shadow: 0 6px 18px rgba(214, 174, 78, .22) !important;
+  }
+
+  header a[aria-current="page"],
+  .nav a[aria-current="page"],
+  .navbar a.active,
+  .nav a.active {
+    background: linear-gradient(135deg, #e4c15f, #c69a30) !important;
+    color: #18191b !important;
+  }
+
+  /* Hero/banner sections */
+  .hero,
+  .banner,
+  .intro,
+  .masthead,
+  .page-hero {
+    background:
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(214, 174, 78, .17),
+        transparent 33%
+      ),
+      linear-gradient(
+        145deg,
+        #1a1c20 0%,
+        #131416 58%,
+        #101113 100%
+      ) !important;
+    border-color: #34363b !important;
+    color: #fffdf5 !important;
+  }
+
+  .hero h1,
+  .hero h2,
+  .hero h3,
+  .banner h1,
+  .banner h2,
+  .intro h1,
+  .intro h2,
+  .masthead h1,
+  .masthead h2 {
+    color: #fffdf5 !important;
+  }
+
+  .hero p,
+  .banner p,
+  .intro p,
+  .masthead p,
+  .page-hero p {
+    color: #c8c2b6 !important;
+  }
+
+  /* English cards and interactive areas */
+  .panel,
+  .card,
+  .word-card,
+  .word-item,
+  .word-entry,
+  .quiz-card,
+  .question-card,
+  .spelling-card,
+  .flashcard,
+  .progress-card,
+  .practice-card,
+  .lesson-card,
+  .section-card,
+  .content-card,
+  .audio-card,
+  .stats-card,
+  .summary-card,
+  .modal-content,
+  .dialog,
+  .box,
+  .container-box,
+  .list-item {
+    background: linear-gradient(180deg, #1f2227 0%, #1a1c20 100%) !important;
+    border-color: var(--cg-border) !important;
+    color: var(--cg-text) !important;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, .30) !important;
+  }
+
+  .word-card.featured,
+  .quiz-card.featured,
+  .card.featured,
+  .active-card {
+    border-color: #8e7637 !important;
+  }
+
+  /* Typography */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  .word,
+  .term,
+  .question-title,
+  .card-title,
+  .section-title,
+  .definition-title {
+    color: #fffdf5 !important;
+  }
+
+  p,
+  li,
+  label,
+  small,
+  .muted,
+  .subtitle,
+  .description,
+  .definition,
+  .example,
+  .footer,
+  footer,
+  .meta,
+  .helper,
+  .hint,
+  .explanation,
+  .part-of-speech,
+  .pronunciation {
+    color: var(--cg-muted) !important;
+  }
+
+  .eyebrow,
+  .kicker,
+  .tagline,
+  .section-label,
+  .word-number,
+  .quiz-label {
+    color: var(--cg-gold-light) !important;
+  }
+
+  a {
+    color: #e7c96f;
+  }
+
+  a:hover {
+    color: #f4dda0;
+  }
+
+  /* Buttons and controls */
+  button,
+  .btn,
+  .button,
+  .choice,
+  .option,
+  .quiz-option,
+  .word-action,
+  .audio-button,
+  .mark-learned,
+  .card-button {
+    background: #2b2e34 !important;
+    color: #f5f0e4 !important;
+    border-color: #55585e !important;
+  }
+
+  button:hover,
+  .btn:hover,
+  .button:hover,
+  .choice:hover,
+  .option:hover,
+  .quiz-option:hover,
+  .word-action:hover,
+  .audio-button:hover,
+  .mark-learned:hover,
+  .card-button:hover {
+    background: #35383f !important;
+    border-color: #777a80 !important;
+  }
+
+  .btn.primary,
+  .button.primary,
+  .primary-button,
+  .card-button,
+  .start-button,
+  .start-quiz,
+  #start-quiz,
+  #start-spelling,
+  .actions .btn:first-child {
+    background: linear-gradient(135deg, #e4c15f, #c69a30) !important;
+    border-color: #e7c96f !important;
+    color: #18191b !important;
+    box-shadow: 0 8px 24px rgba(214, 174, 78, .22) !important;
+  }
+
+  .btn.primary:hover,
+  .button.primary:hover,
+  .primary-button:hover,
+  .card-button:hover,
+  .start-button:hover {
+    background: linear-gradient(135deg, #edcf79, #d5aa3f) !important;
+  }
+
+  .btn.secondary,
+  .btn.ghost,
+  .button.secondary {
+    background: #282b31 !important;
+    color: #eee9dd !important;
+  }
+
+  .btn.danger,
+  button.danger,
+  .reset-button {
+    background: #641b1b !important;
+    border-color: #9f2929 !important;
+    color: #fee2e2 !important;
+  }
+
+  /* Inputs */
+  input,
+  select,
+  textarea,
+  .control,
+  .answer-input,
+  .spelling-input,
+  .search-input {
+    background: #121316 !important;
+    color: var(--cg-text) !important;
+    border-color: #505258 !important;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #858178 !important;
+  }
+
+  /* States */
+  .selected,
+  .active,
+  .choice.selected,
+  .option.selected,
+  .quiz-option.selected,
+  .tab.active,
+  .filter.active {
+    background: #6f571f !important;
+    border-color: #d6ae4e !important;
+    color: #fff8e4 !important;
+  }
+
+  .learned,
+  .correct,
+  .is-correct,
+  .success,
+  .choice.correct-choice,
+  .option.correct {
+    background: #123322 !important;
+    border-color: var(--cg-success) !important;
+    color: #d9fbe5 !important;
+  }
+
+  .incorrect,
+  .wrong,
+  .is-wrong,
+  .error,
+  .choice.incorrect-choice,
+  .option.wrong {
+    background: #3b1414 !important;
+    border-color: var(--cg-danger) !important;
+    color: #fee2e2 !important;
+  }
+
+  .locked {
+    background: #26282d !important;
+    border-color: #575a60 !important;
+    color: #aaa59b !important;
+  }
+
+  /* Progress */
+  .progress-track,
+  .progress-bar,
+  .bar,
+  progress {
+    background: #0c0d0f !important;
+  }
+
+  .progress-track span,
+  .progress-bar span,
+  .bar > span,
+  .progress-fill,
+  progress::-webkit-progress-value {
+    background: linear-gradient(90deg, #e7c96f, #c99d35) !important;
+  }
+
+  /* Tags, pills, examples */
+  .chip,
+  .chips span,
+  .tag,
+  .badge,
+  .pill,
+  .part-of-speech,
+  .category,
+  .level,
+  .formula {
+    background: #282b31 !important;
+    color: #e8d59c !important;
+    border-color: #4f5156 !important;
+  }
+
+  .example,
+  .usage,
+  .memory-tip,
+  .mnemonic,
+  .note,
+  .warning {
+    background: #2b2619 !important;
+    border-color: #695522 !important;
+    color: #e9ddb7 !important;
+  }
+
+  code,
+  pre {
+    background: #0d0e10 !important;
+    color: #f0d98f !important;
+    border-color: #3f4146 !important;
+  }
+
+  /* Audio controls */
+  audio {
+    filter: sepia(.18) saturate(.75) brightness(.88) contrast(1.08);
+  }
+
+  .audio-player,
+  .audio-controls {
+    background: #202329 !important;
+    border-color: #45484e !important;
+  }
+
+  /* Tables and lists */
+  table,
+  th,
+  td {
+    background: var(--cg-surface) !important;
+    color: var(--cg-text) !important;
+    border-color: var(--cg-border) !important;
+  }
+
+  .word-list,
+  .quiz-list,
+  .practice-list {
+    background: transparent !important;
+  }
+
+  /* Footer */
+  .footer,
+  footer {
+    background: #18191c !important;
+    color: #918c82 !important;
+    border-color: #31343a !important;
+  }
+
+  hr {
+    border-color: #37393f !important;
+  }
+
+  @media print {
+    html,
+    body,
+    main,
+    section,
+    article,
+    .panel,
+    .card,
+    .word-card,
+    .question-card {
+      background: #ffffff !important;
+      color: #000000 !important;
+      box-shadow: none !important;
+    }
+  }
+</style>
+<!-- sat-favicon-v1 -->
+<link rel="icon" href="/favicon.svg?v=1" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.ico?v=1">
+<link rel="icon" href="/favicon-32.png?v=1" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=1">
+<link rel="manifest" href="/site.webmanifest?v=1">
+<meta name="theme-color" content="#111214">
+<!-- /sat-favicon-v1 -->
+
+<style id="sat-auth-visibility">
+  html { visibility: hidden; }
+</style>
+<script src="/js/section-auth-guard.js?v=20260730-1"></script>
+</head>
+<body>
+<nav id="sat-global-navigation"
+     aria-label="SAT subject navigation"
+     style="
+       position:sticky;
+       top:0;
+       z-index:2147483647;
+       display:flex;
+       flex-wrap:wrap;
+       align-items:center;
+       gap:9px;
+       width:100%;
+       min-height:58px;
+       box-sizing:border-box;
+       padding:10px 18px;
+       background:linear-gradient(135deg,#f8fbff 0%,#e9f2ff 100%);
+       border-bottom:1px solid #d5e2f3;
+       box-shadow:0 4px 16px rgba(37,99,235,.08);
+     ">
+  <span style="
+        margin-right:5px;
+        color:#1e3a5f;
+        font:800 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+        letter-spacing:.01em;
+      ">SAT Prep</span>
+
+  <a data-sat-destination="/index.html"
+     href="/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">SAT Home</a>
+
+  <a data-sat-destination="/english/index.html"
+     href="/english/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">English</a>
+
+  <a data-sat-destination="/math/index.html"
+     href="/math/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">Math</a>
+</nav>
+<script>
+(function () {
+  var student = (
+    (new URLSearchParams(window.location.search).get('student') || window.localStorage.getItem('sat_user')) || ''
+  ).trim().toLowerCase();
+
+  var currentPath = window.location.pathname.replace(/\/+/g, '/');
+
+  document
+    .querySelectorAll('#sat-global-navigation [data-sat-destination]')
+    .forEach(function (link) {
+      var destination = link.getAttribute('data-sat-destination');
+      var url = new URL(destination, window.location.origin);
+
+      if (student) {
+        url.searchParams.set('student', student);
+      }
+
+      link.href = url.href;
+
+      var active =
+        (destination === '/index.html' && currentPath === '/index.html') ||
+        (
+          destination === '/english/index.html' &&
+          currentPath.indexOf('/english/') === 0
+        ) ||
+        (
+          destination === '/math/index.html' &&
+          currentPath.indexOf('/math/') === 0
+        );
+
+      if (active) {
+        link.style.background = '#2563eb';
+        link.style.borderColor = '#2563eb';
+        link.style.color = '#ffffff';
+        link.style.boxShadow = '0 4px 10px rgba(37,99,235,.20)';
+        link.setAttribute('aria-current', 'page');
+      }
+    });
+})();
+</script>
+
+<header class="site-header">
+    <div class="header-inner">
+      <a class="back-link" href="index.html">← SAT 300 Vocabulary Builder</a>
+      <h1>SAT Vocabulary — Words 201–225</h1>
+      <p class="subtitle">Spelling, meaning, synonyms, and example sentences</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="toolbar" aria-label="Vocabulary search">
+      <div class="search-wrap">
+        <input id="wordSearch" type="search" placeholder="Search a word, meaning, or synonym…" autocomplete="off">
+      </div>
+      <div class="count" id="visibleCount">25 words</div>
+    </section>
+
+    <section class="progress-card" aria-label="Learning progress">
+      <div class="progress-top">
+        <div>
+          <h2 class="progress-title">Learning Progress</h2>
+          <p class="progress-copy" id="rangeProgressText">This page: 0 of 25 learned</p>
+        </div>
+        <div class="progress-number" id="globalProgressText">0 of 300 learned</div>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-actions">
+        <label class="remaining-toggle">
+          <input id="remainingOnly" type="checkbox">
+          Show remaining words only
+        </label>
+        <a class="small-btn" href="SAT_Progress.html">View progress dashboard</a>
+        <button class="small-btn reset" id="resetProgress" type="button">Reset this page</button>
+      </div>
+    </section>
+
+    <p class="study-note">Use <strong>Mark learned</strong> after you know a word. Choose <strong>Show remaining words only</strong> to focus on what is left.</p>
+
+    <section class="audio-card" aria-label="Audio practice for words 201 to 225">
+      <div class="audio-card-header">
+        <div>
+          <h2>Listen to Words 201–225</h2>
+          <p>Play the matching vocabulary audio while studying this page.</p>
+        </div>
+        <a class="audio-download" href="SAT_Words_201_225.mp3" download>Download MP3</a>
+      </div>
+      <audio controls preload="metadata">
+        <source src="SAT_Words_201_225.mp3" type="audio/mpeg">
+        Your browser does not support audio playback.
+      </audio>
+    </section>
+
+    <section class="word-grid" id="wordGrid">
+      
+            <article class="word-card card-3" data-word-number="201" data-search="prolific producing many works, results, or ideas in a short period of time. productive, fruitful, abundant">
+              <div class="word-heading">
+                <span class="word-number">201</span>
+                <h2>Prolific</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>P, R, O, L, I, F, I, C</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>Producing many works, results, or ideas in a short period of time.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>productive, fruitful, abundant</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“The prolific author published three novels and dozens of essays.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-4" data-word-number="202" data-search="prompt to cause, bring about, or encourage an action or response. cause, provoke, stimulate">
+              <div class="word-heading">
+                <span class="word-number">202</span>
+                <h2>Prompt</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>P, R, O, M, P, T</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>To cause, bring about, or encourage an action or response.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>cause, provoke, stimulate</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“The unexpected result prompted the researchers to repeat the experiment.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-5" data-word-number="203" data-search="propensity a natural tendency or inclination toward a particular behavior. tendency, inclination, disposition">
+              <div class="word-heading">
+                <span class="word-number">203</span>
+                <h2>Propensity</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>P, R, O, P, E, N, S, I, T, Y</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>A natural tendency or inclination toward a particular behavior.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>tendency, inclination, disposition</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“Her propensity for careful planning made her an effective project leader.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-6" data-word-number="204" data-search="prudent acting with care and good judgment, especially about the future. wise, cautious, sensible">
+              <div class="word-heading">
+                <span class="word-number">204</span>
+                <h2>Prudent</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>P, R, U, D, E, N, T</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>Acting with care and good judgment, especially about the future.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>wise, cautious, sensible</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“It was prudent to save a copy of the project before making major changes.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-1" data-word-number="205" data-search="ravenous extremely hungry; showing a very strong desire for something. famished, starving, voracious">
+              <div class="word-heading">
+                <span class="word-number">205</span>
+                <h2>Ravenous</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>R, A, V, E, N, O, U, S</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>Extremely hungry; showing a very strong desire for something.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>famished, starving, voracious</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“After the long practice, the players were ravenous and ate quickly.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-2" data-word-number="206" data-search="reconcile to restore friendly relations; to bring two ideas or facts into agreement. resolve, harmonize, reunite">
+              <div class="word-heading">
+                <span class="word-number">206</span>
+                <h2>Reconcile</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>R, E, C, O, N, C, I, L, E</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>To restore friendly relations; to bring two ideas or facts into agreement.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>resolve, harmonize, reunite</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“The two friends reconciled after discussing the misunderstanding honestly.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-3" data-word-number="207" data-search="redundant unnecessary because it is repeated or already included. repetitive, unnecessary, superfluous">
+              <div class="word-heading">
+                <span class="word-number">207</span>
+                <h2>Redundant</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>R, E, D, U, N, D, A, N, T</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>Unnecessary because it is repeated or already included.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>repetitive, unnecessary, superfluous</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“The editor removed redundant sentences that repeated the same point.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-4" data-word-number="208" data-search="refute to prove a statement, argument, or claim to be wrong. disprove, contradict, rebut">
+              <div class="word-heading">
+                <span class="word-number">208</span>
+                <h2>Refute</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>R, E, F, U, T, E</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>To prove a statement, argument, or claim to be wrong.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>disprove, contradict, rebut</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“The new evidence refuted the rumor that the bridge was unsafe.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-5" data-word-number="209" data-search="reinforce to strengthen, support, or make an idea more convincing. strengthen, support, bolster">
+              <div class="word-heading">
+                <span class="word-number">209</span>
+                <h2>Reinforce</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>R, E, I, N, F, O, R, C, E</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>To strengthen, support, or make an idea more convincing.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>strengthen, support, bolster</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“Several examples reinforced the author&#x27;s main argument.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-6" data-word-number="210" data-search="reluctant unwilling or hesitant to do something. hesitant, unwilling, resistant">
+              <div class="word-heading">
+                <span class="word-number">210</span>
+                <h2>Reluctant</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>R, E, L, U, C, T, A, N, T</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>Unwilling or hesitant to do something.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>hesitant, unwilling, resistant</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“Maya was reluctant to speak because she had not finished her research.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-1" data-word-number="211" data-search="resilient able to recover quickly after difficulties or setbacks. adaptable, hardy, strong">
+              <div class="word-heading">
+                <span class="word-number">211</span>
+                <h2>Resilient</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>R, E, S, I, L, I, E, N, T</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>Able to recover quickly after difficulties or setbacks.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>adaptable, hardy, strong</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“The resilient community rebuilt after the storm damaged several homes.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-2" data-word-number="212" data-search="revere to feel deep respect and admiration for someone or something. admire, honor, venerate">
+              <div class="word-heading">
+                <span class="word-number">212</span>
+                <h2>Revere</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>R, E, V, E, R, E</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>To feel deep respect and admiration for someone or something.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>admire, honor, venerate</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“Many students revere the teacher who inspired them to pursue science.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-3" data-word-number="213" data-search="robust strong, healthy, and able to perform well under difficult conditions. strong, sturdy, vigorous">
+              <div class="word-heading">
+                <span class="word-number">213</span>
+                <h2>Robust</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>R, O, B, U, S, T</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>Strong, healthy, and able to perform well under difficult conditions.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>strong, sturdy, vigorous</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“The engineers designed a robust system that could handle heavy use.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-4" data-word-number="214" data-search="sagacious showing wise judgment and keen understanding. wise, shrewd, discerning">
+              <div class="word-heading">
+                <span class="word-number">214</span>
+                <h2>Sagacious</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>S, A, G, A, C, I, O, U, S</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>Showing wise judgment and keen understanding.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>wise, shrewd, discerning</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“The sagacious adviser noticed risks that others had overlooked.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-5" data-word-number="215" data-search="salient most noticeable, important, or relevant. important, prominent, notable">
+              <div class="word-heading">
+                <span class="word-number">215</span>
+                <h2>Salient</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>S, A, L, I, E, N, T</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>Most noticeable, important, or relevant.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>important, prominent, notable</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“The report highlighted the salient findings from the survey.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-6" data-word-number="216" data-search="satiate to satisfy completely, especially a hunger, desire, or need. satisfy, fulfill, appease">
+              <div class="word-heading">
+                <span class="word-number">216</span>
+                <h2>Satiate</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>S, A, T, I, A, T, E</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>To satisfy completely, especially a hunger, desire, or need.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>satisfy, fulfill, appease</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“The large meal satiated the hungry travelers.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-1" data-word-number="217" data-search="scrutinize to examine something very carefully and closely. inspect, examine, analyze">
+              <div class="word-heading">
+                <span class="word-number">217</span>
+                <h2>Scrutinize</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>S, C, R, U, T, I, N, I, Z, E</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>To examine something very carefully and closely.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>inspect, examine, analyze</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“The scientists scrutinized the data before publishing their conclusions.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-2" data-word-number="218" data-search="serene calm, peaceful, and untroubled. calm, peaceful, tranquil">
+              <div class="word-heading">
+                <span class="word-number">218</span>
+                <h2>Serene</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>S, E, R, E, N, E</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>Calm, peaceful, and untroubled.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>calm, peaceful, tranquil</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“The lake looked serene in the early morning light.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-3" data-word-number="219" data-search="skeptical doubtful; not easily convinced without evidence. doubtful, questioning, suspicious">
+              <div class="word-heading">
+                <span class="word-number">219</span>
+                <h2>Skeptical</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>S, K, E, P, T, I, C, A, L</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>Doubtful; not easily convinced without evidence.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>doubtful, questioning, suspicious</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“The audience was skeptical of the advertisement&#x27;s dramatic claims.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-4" data-word-number="220" data-search="sparse thinly scattered or present in small amounts. scant, thin, limited">
+              <div class="word-heading">
+                <span class="word-number">220</span>
+                <h2>Sparse</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>S, P, A, R, S, E</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>Thinly scattered or present in small amounts.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>scant, thin, limited</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“Sparse vegetation covered the dry hillside.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-5" data-word-number="221" data-search="sporadic occurring at irregular intervals; not consistent. occasional, irregular, intermittent">
+              <div class="word-heading">
+                <span class="word-number">221</span>
+                <h2>Sporadic</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>S, P, O, R, A, D, I, C</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>Occurring at irregular intervals; not consistent.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>occasional, irregular, intermittent</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“The signal was sporadic, cutting out several times during the call.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-6" data-word-number="222" data-search="stagnant not moving, changing, or developing; inactive. motionless, inactive, stale">
+              <div class="word-heading">
+                <span class="word-number">222</span>
+                <h2>Stagnant</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>S, T, A, G, N, A, N, T</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>Not moving, changing, or developing; inactive.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>motionless, inactive, stale</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“Without fresh water, the pond became stagnant.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-1" data-word-number="223" data-search="stoic enduring hardship without showing much emotion or complaint. unemotional, composed, enduring">
+              <div class="word-heading">
+                <span class="word-number">223</span>
+                <h2>Stoic</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>S, T, O, I, C</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>Enduring hardship without showing much emotion or complaint.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>unemotional, composed, enduring</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“She remained stoic after receiving disappointing news.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-2" data-word-number="224" data-search="substantial large in amount, size, importance, or value. considerable, significant, sizable">
+              <div class="word-heading">
+                <span class="word-number">224</span>
+                <h2>Substantial</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>S, U, B, S, T, A, N, T, I, A, L</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>Large in amount, size, importance, or value.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>considerable, significant, sizable</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“The scholarship provided substantial financial support for tuition.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+
+            <article class="word-card card-3" data-word-number="225" data-search="succinct brief and clearly expressed. concise, brief, compact">
+              <div class="word-heading">
+                <span class="word-number">225</span>
+                <h2>Succinct</h2>
+              </div>
+              <div class="word-content">
+                <div class="field">
+                  <span class="label">Spelling</span>
+                  <p>S, U, C, C, I, N, C, T</p>
+                </div>
+                <div class="field">
+                  <span class="label">Meaning</span>
+                  <p>Brief and clearly expressed.</p>
+                </div>
+                <div class="field">
+                  <span class="label">Synonyms</span>
+                  <p>concise, brief, compact</p>
+                </div>
+                <div class="field example">
+                  <span class="label">Example sentence</span>
+                  <p>“The student gave a succinct summary of the article&#x27;s main claim.”</p>
+                </div>
+                <div class="word-action">
+                  <button class="learn-btn" type="button" aria-pressed="false">Mark learned</button>
+                </div>
+              </div>
+            </article>
+            
+    </section>
+    <p class="empty-state" id="emptyState">No words match this filter. Turn off “Show remaining words only” to see learned words.</p>
+
+    <nav class="bottom-nav" aria-label="Study page navigation">
+      <a class="nav-link" href="SAT_Words_176_200.html">← Words 176–200</a>
+      <a class="nav-link home" href="index.html">All Study Pages</a>
+      <a class="nav-link" href="SAT_Words_226_250.html">Words 226–250 →</a>
+    </nav>
+  </main>
+
+  <footer>Progress is saved on this browser and device.</footer>
+
+  <script>
+    
+const SAT_PROGRESS_KEY = window.SATEnglishCloud.storageKey;
+
+function getProgress() {
+  try {
+    const raw = localStorage.getItem(SAT_PROGRESS_KEY);
+    const saved = raw ? JSON.parse(raw) : {};
+    const cleaned = Array.isArray(saved.learned)
+      ? saved.learned
+          .map(Number)
+          .filter((number) => Number.isInteger(number) && number >= 1 && number <= 300)
+      : [];
+    return { learned: [...new Set(cleaned)] };
+  } catch (error) {
+    return { learned: [] };
+  }
+}
+
+function setProgress(progress) {
+  const cleaned = [...new Set((progress.learned || [])
+    .map(Number)
+    .filter((number) => Number.isInteger(number) && number >= 1 && number <= 300))];
+  try {
+    localStorage.setItem(SAT_PROGRESS_KEY, JSON.stringify({ learned: cleaned }));
+    window.SATEnglishCloud.queueLearnedSync(cleaned);
+  } catch (error) {
+    // The page remains usable if the browser does not allow localStorage.
+  }
+  return { learned: cleaned };
+}
+
+function learnedSet() {
+  return new Set(getProgress().learned);
+}
+
+function isLearned(number) {
+  return learnedSet().has(Number(number));
+}
+
+function markLearned(number, learned) {
+  const progress = getProgress();
+  const set = new Set(progress.learned);
+  if (learned) {
+    set.add(Number(number));
+  } else {
+    set.delete(Number(number));
+  }
+  return setProgress({ learned: [...set] });
+}
+
+function resetAllProgress() {
+  return setProgress({ learned: [] });
+}
+
+function globalCounts() {
+  const learned = learnedSet().size;
+  return { learned, remaining: 300 - learned };
+}
+
+function rangeCounts(start, end) {
+  const set = learnedSet();
+  let learned = 0;
+  for (let number = start; number <= end; number += 1) {
+    if (set.has(number)) learned += 1;
+  }
+  return { learned, remaining: (end - start + 1) - learned, total: end - start + 1 };
+}
+
+function askToResetProgress() {
+  return window.confirm("Reset all learned-word progress for all 300 SAT words on this browser?");
+}
+
+    const RANGE_START = 201;
+    const RANGE_END = 225;
+    const wordSearch = document.getElementById("wordSearch");
+    const remainingOnly = document.getElementById("remainingOnly");
+    const cards = [...document.querySelectorAll(".word-card")];
+
+    function refreshStudyPage() {
+      const learned = learnedSet();
+      const query = wordSearch.value.trim().toLowerCase();
+      const filterRemaining = remainingOnly.checked;
+      let visible = 0;
+
+      cards.forEach((card) => {
+        const number = Number(card.dataset.wordNumber);
+        const done = learned.has(number);
+        const matchesSearch = !query || card.dataset.search.includes(query);
+        const matchesRemaining = !filterRemaining || !done;
+        const show = matchesSearch && matchesRemaining;
+
+        card.classList.toggle("learned", done);
+        card.style.display = show ? "" : "none";
+        card.querySelector(".learn-btn").textContent = done ? "✓ Learned — undo" : "Mark learned";
+        card.querySelector(".learn-btn").setAttribute("aria-pressed", String(done));
+        if (show) visible += 1;
+      });
+
+      const global = globalCounts();
+      const range = rangeCounts(RANGE_START, RANGE_END);
+      document.getElementById("visibleCount").textContent = `${visible} word${visible === 1 ? "" : "s"} shown`;
+      document.getElementById("rangeProgressText").textContent = `This page: ${range.learned} of ${range.total} learned · ${range.remaining} remaining`;
+      document.getElementById("globalProgressText").textContent = `${global.learned} of 300 learned · ${global.remaining} remaining`;
+      document.getElementById("progressFill").style.width = `${(global.learned / 300) * 100}%`;
+      document.getElementById("emptyState").style.display = visible === 0 ? "block" : "none";
+    }
+
+    cards.forEach((card) => {
+      const button = card.querySelector(".learn-btn");
+      button.addEventListener("click", () => {
+        const number = Number(card.dataset.wordNumber);
+        markLearned(number, !isLearned(number));
+        refreshStudyPage();
+      });
+    });
+
+    wordSearch.addEventListener("input", refreshStudyPage);
+    remainingOnly.addEventListener("change", refreshStudyPage);
+    document.getElementById("resetProgress").addEventListener("click", () => {
+      if (askToResetProgress()) {
+        resetAllProgress();
+        refreshStudyPage();
+      }
+    });
+
+    if (new URLSearchParams(window.location.search).get("remaining") === "1") {
+      remainingOnly.checked = true;
+    }
+
+    window.addEventListener("storage", refreshStudyPage);
+    window.SATEnglishCloud.ready.then(refreshStudyPage).catch(() => {});
+  </script>
+<script src="/sat-nav-fix.js?v=20260729-4"></script>
+<script src="/js/inactivity-timeout.js?v=20260730-1"></script>
+
+<script src="page-reset-progress.js?v=20260731-page-reset1"></script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script id="sat-english-identity-v7">
+/* BEGIN SAT ENGLISH IDENTITY V7 */
+(() => {
+  'use strict';
+
+  if (window.SATEnglishIdentity?.build === '20260804-english-identity-v7-20260804T182532Z') return;
+
+  const normalize = value => {
+    const id = String(value || '').trim().toLowerCase();
+    return /^[a-z0-9_-]{1,80}$/.test(id) ? id : '';
+  };
+
+  const decodeToken = token => {
+    try {
+      const part = String(token || '').split('.')[1];
+      if (!part) return null;
+      const base64 = part.replace(/-/g, '+').replace(/_/g, '/');
+      const padded = base64 + '='.repeat((4 - base64.length % 4) % 4);
+      const binary = atob(padded);
+      const bytes = Uint8Array.from(binary, character => character.charCodeAt(0));
+      return JSON.parse(new TextDecoder().decode(bytes));
+    } catch (error) {
+      console.warn('Unable to decode the SAT Cognito identity.', error);
+      return null;
+    }
+  };
+
+  const nativeGet = URLSearchParams.prototype.get;
+  const tokenClaims = decodeToken(
+    sessionStorage.getItem('sat_id_token') ||
+    localStorage.getItem('sat_id_token')
+  );
+  const tokenStudent = normalize(
+    window.SATAuth?.studentId ||
+    window.SATAuth?.username ||
+    tokenClaims?.['cognito:username'] ||
+    tokenClaims?.username ||
+    tokenClaims?.preferred_username
+  );
+  const storedStudent = normalize(localStorage.getItem('sat_user'));
+  const pageParams = new URLSearchParams(location.search);
+  const urlStudent = normalize(nativeGet.call(pageParams, 'student'));
+  let studentId = tokenStudent || storedStudent || urlStudent;
+
+  function resolveStudentId() {
+    const claims = decodeToken(
+      sessionStorage.getItem('sat_id_token') ||
+      localStorage.getItem('sat_id_token')
+    );
+    const authenticated = normalize(
+      window.SATAuth?.studentId ||
+      window.SATAuth?.username ||
+      claims?.['cognito:username'] ||
+      claims?.username ||
+      claims?.preferred_username
+    );
+    const stored = normalize(localStorage.getItem('sat_user'));
+    studentId = authenticated || stored || studentId || urlStudent;
+    if (studentId) localStorage.setItem('sat_user', studentId);
+    return studentId;
+  }
+
+  if (!URLSearchParams.prototype.__satEnglishIdentityV7) {
+    URLSearchParams.prototype.get = function(name) {
+      const value = nativeGet.call(this, name);
+      if (String(name) === 'student' && !normalize(value)) {
+        return resolveStudentId() || value;
+      }
+      return value;
+    };
+    Object.defineProperty(URLSearchParams.prototype, '__satEnglishIdentityV7', {
+      value: true,
+      configurable: true
+    });
+  }
+
+  function cleanStudentParameter(urlValue) {
+    try {
+      const url = new URL(urlValue, location.href);
+      if (url.origin !== location.origin) return urlValue;
+      url.searchParams.delete('student');
+      return `${url.pathname}${url.search}${url.hash}`;
+    } catch (_) {
+      return urlValue;
+    }
+  }
+
+  function cleanAddressBar() {
+    const url = new URL(location.href);
+    if (!url.searchParams.has('student')) return;
+    url.searchParams.delete('student');
+    history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
+  }
+
+  function cleanStudentLinks(root = document) {
+    root.querySelectorAll?.('a[href]').forEach(anchor => {
+      const href = anchor.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('javascript:')) return;
+      const cleaned = cleanStudentParameter(href);
+      if (cleaned !== href) anchor.setAttribute('href', cleaned);
+    });
+  }
+
+  resolveStudentId();
+  cleanAddressBar();
+
+  window.SATResolveStudentId = resolveStudentId;
+  window.SATEnglishIdentity = {
+    build: '20260804-english-identity-v7-20260804T182532Z',
+    get studentId() { return resolveStudentId(); },
+    source: tokenStudent ? 'cognito' : storedStudent ? 'storage' : urlStudent ? 'url' : 'missing',
+    normalize,
+    resolveStudentId,
+    cleanStudentLinks
+  };
+
+  const ready = () => {
+    cleanStudentLinks();
+    setTimeout(cleanStudentLinks, 0);
+    setTimeout(cleanStudentLinks, 150);
+    setTimeout(cleanStudentLinks, 600);
+
+    if (document.body && window.MutationObserver) {
+      const observer = new MutationObserver(records => {
+        for (const record of records) {
+          record.addedNodes.forEach(node => {
+            if (node.nodeType === 1) cleanStudentLinks(node);
+          });
+        }
+      });
+      observer.observe(document.body, {childList: true, subtree: true});
+      setTimeout(() => observer.disconnect(), 5000);
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ready, {once: true});
+  } else {
+    ready();
+  }
+})();
+/* END SAT ENGLISH IDENTITY V7 */
+</script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Digital SAT Reading and Writing 40-question pilot practice for sat.denduluru.com">
+  <title>SAT Reading &amp; Writing — 40 Question Pilot</title>
+  <link rel="stylesheet" href="styles.css?v=20260803-rw1">
+  <script src="questions.js?v=20260803-rw1" defer></script>
+  <script src="app.js?v=20260803-rw1" defer></script>
+</head>
+<body>
+  <header class="global-header">
+    <div class="nav-inner">
+      <a class="brand" href="/english/index.html">SAT English</a>
+      <nav aria-label="SAT subjects">
+        <a href="/index.html">SAT Home</a>
+        <a href="/english/index.html">Vocabulary</a>
+        <a href="./" aria-current="page">Reading &amp; Writing</a>
+        <a href="/math/index.html">Math</a>
+      </nav>
+      <div class="student-chip">Student: <strong id="student-name">Loading…</strong></div>
+    </div>
+  </header>
+
+  <main class="shell" id="app-shell" aria-busy="true">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Digital SAT pilot</p>
+        <h1>Reading &amp; Writing<br><span>40 Question Pilot</span></h1>
+        <p>Ten original questions in each official SAT domain. Practice by skill, take a mixed set, or complete a timed 27-question module.</p>
+      </div>
+      <div class="hero-score" aria-label="Overall progress">
+        <span id="mastered-count">0</span>
+        <strong>of 40 mastered</strong>
+        <div class="progress-track"><span id="overall-bar"></span></div>
+        <small id="attempted-label">0 attempted</small>
+      </div>
+    </section>
+
+    <section id="status-panel" class="status-panel" hidden role="status"></section>
+
+    <section class="domain-grid" aria-label="Progress by domain">
+      <button class="domain-card craft" data-domain="Craft and Structure" type="button">
+        <span>01</span><h2>Craft and Structure</h2><p>Words in Context · Purpose · Cross-Text</p><strong data-domain-progress="Craft and Structure">0/10 mastered</strong>
+      </button>
+      <button class="domain-card ideas" data-domain="Information and Ideas" type="button">
+        <span>02</span><h2>Information and Ideas</h2><p>Main Ideas · Inferences · Evidence</p><strong data-domain-progress="Information and Ideas">0/10 mastered</strong>
+      </button>
+      <button class="domain-card conventions" data-domain="Standard English Conventions" type="button">
+        <span>03</span><h2>Standard English Conventions</h2><p>Boundaries · Form, Structure, and Sense</p><strong data-domain-progress="Standard English Conventions">0/10 mastered</strong>
+      </button>
+      <button class="domain-card expression" data-domain="Expression of Ideas" type="button">
+        <span>04</span><h2>Expression of Ideas</h2><p>Transitions · Rhetorical Synthesis</p><strong data-domain-progress="Expression of Ideas">0/10 mastered</strong>
+      </button>
+    </section>
+
+    <section class="mode-panel">
+      <div>
+        <p class="eyebrow">Choose a practice mode</p>
+        <h2>Build accuracy first, then add time pressure.</h2>
+      </div>
+      <div class="mode-actions">
+        <button id="all-mode" class="button primary" type="button">Practice all 40</button>
+        <button id="mixed-mode" class="button" type="button">Mixed 10</button>
+        <button id="timed-mode" class="button" type="button">Timed 27 · 32 min</button>
+        <button id="incorrect-mode" class="button" type="button">Review incorrect</button>
+      </div>
+    </section>
+
+    <section class="workspace" id="practice-workspace">
+      <aside class="practice-sidebar" aria-label="Question filters and navigation">
+        <div class="sidebar-head">
+          <div><p class="eyebrow">Question bank</p><h2 id="set-title">All 40</h2></div>
+          <button id="exit-mode" class="text-button" type="button" hidden>Exit mode</button>
+        </div>
+
+        <div class="filters" id="filters">
+          <label>Domain
+            <select id="domain-filter"><option value="">All domains</option></select>
+          </label>
+          <label>Skill
+            <select id="skill-filter"><option value="">All skills</option></select>
+          </label>
+          <label>Difficulty
+            <select id="difficulty-filter">
+              <option value="">All difficulties</option><option>Easy</option><option>Medium</option><option>Hard</option>
+            </select>
+          </label>
+          <label>Status
+            <select id="status-filter">
+              <option value="">All statuses</option><option value="unanswered">Unanswered</option><option value="correct">Mastered</option><option value="incorrect">Incorrect</option><option value="available">Correction available</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="timer" id="timer" hidden aria-live="polite">
+          <span>Time remaining</span><strong id="timer-value">32:00</strong>
+          <button id="finish-timed" class="button small" type="button">Finish module</button>
+        </div>
+
+        <div class="navigator" id="question-nav" aria-label="Question navigator"></div>
+        <p class="nav-legend"><span class="dot mastered"></span> Mastered <span class="dot incorrect"></span> Incorrect <span class="dot available"></span> Correction available</p>
+      </aside>
+
+      <article class="question-card" id="question-card" tabindex="-1">
+        <div id="empty-state" class="empty-state">
+          <h2>Select a question to begin.</h2>
+          <p>Use the question navigator or choose a practice mode.</p>
+        </div>
+        <div id="question-content" hidden>
+          <div class="question-meta">
+            <span id="question-number">Question 1 of 40</span>
+            <span id="question-domain" class="pill"></span>
+            <span id="question-skill" class="pill muted"></span>
+            <span id="question-difficulty" class="pill muted"></span>
+          </div>
+
+          <div id="passage-area" class="passage-area"></div>
+          <h2 id="question-prompt" class="question-prompt"></h2>
+          <form id="answer-form">
+            <fieldset id="answer-options"><legend class="sr-only">Answer choices</legend></fieldset>
+            <div class="question-actions">
+              <button id="previous-question" class="button" type="button">Previous</button>
+              <button id="submit-answer" class="button primary" type="submit">Submit answer</button>
+              <button id="next-question" class="button" type="button">Next</button>
+            </div>
+          </form>
+
+          <section id="answer-feedback" class="feedback" hidden aria-live="polite"></section>
+
+          <details class="notes-panel">
+            <summary>My notes for this question</summary>
+            <textarea id="question-notes" rows="4" placeholder="Write the rule, evidence, or mistake you want to remember."></textarea>
+            <button id="save-note" class="button small" type="button">Save note</button>
+            <span id="note-status" role="status"></span>
+          </details>
+        </div>
+      </article>
+    </section>
+
+    <section id="timed-summary" class="timed-summary" hidden>
+      <p class="eyebrow">Timed module result</p>
+      <h2 id="timed-score">0 of 27 correct</h2>
+      <p id="timed-detail"></p>
+      <button id="return-to-practice" class="button primary" type="button">Return to practice</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>Original Digital SAT-style practice. Not affiliated with or endorsed by College Board.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script id="sat-english-identity-v7">
+/* BEGIN SAT ENGLISH IDENTITY V7 */
+(() => {
+  'use strict';
+
+  if (window.SATEnglishIdentity?.build === '20260804-english-identity-v7-20260804T182532Z') return;
+
+  const normalize = value => {
+    const id = String(value || '').trim().toLowerCase();
+    return /^[a-z0-9_-]{1,80}$/.test(id) ? id : '';
+  };
+
+  const decodeToken = token => {
+    try {
+      const part = String(token || '').split('.')[1];
+      if (!part) return null;
+      const base64 = part.replace(/-/g, '+').replace(/_/g, '/');
+      const padded = base64 + '='.repeat((4 - base64.length % 4) % 4);
+      const binary = atob(padded);
+      const bytes = Uint8Array.from(binary, character => character.charCodeAt(0));
+      return JSON.parse(new TextDecoder().decode(bytes));
+    } catch (error) {
+      console.warn('Unable to decode the SAT Cognito identity.', error);
+      return null;
+    }
+  };
+
+  const nativeGet = URLSearchParams.prototype.get;
+  const tokenClaims = decodeToken(
+    sessionStorage.getItem('sat_id_token') ||
+    localStorage.getItem('sat_id_token')
+  );
+  const tokenStudent = normalize(
+    window.SATAuth?.studentId ||
+    window.SATAuth?.username ||
+    tokenClaims?.['cognito:username'] ||
+    tokenClaims?.username ||
+    tokenClaims?.preferred_username
+  );
+  const storedStudent = normalize(localStorage.getItem('sat_user'));
+  const pageParams = new URLSearchParams(location.search);
+  const urlStudent = normalize(nativeGet.call(pageParams, 'student'));
+  let studentId = tokenStudent || storedStudent || urlStudent;
+
+  function resolveStudentId() {
+    const claims = decodeToken(
+      sessionStorage.getItem('sat_id_token') ||
+      localStorage.getItem('sat_id_token')
+    );
+    const authenticated = normalize(
+      window.SATAuth?.studentId ||
+      window.SATAuth?.username ||
+      claims?.['cognito:username'] ||
+      claims?.username ||
+      claims?.preferred_username
+    );
+    const stored = normalize(localStorage.getItem('sat_user'));
+    studentId = authenticated || stored || studentId || urlStudent;
+    if (studentId) localStorage.setItem('sat_user', studentId);
+    return studentId;
+  }
+
+  if (!URLSearchParams.prototype.__satEnglishIdentityV7) {
+    URLSearchParams.prototype.get = function(name) {
+      const value = nativeGet.call(this, name);
+      if (String(name) === 'student' && !normalize(value)) {
+        return resolveStudentId() || value;
+      }
+      return value;
+    };
+    Object.defineProperty(URLSearchParams.prototype, '__satEnglishIdentityV7', {
+      value: true,
+      configurable: true
+    });
+  }
+
+  function cleanStudentParameter(urlValue) {
+    try {
+      const url = new URL(urlValue, location.href);
+      if (url.origin !== location.origin) return urlValue;
+      url.searchParams.delete('student');
+      return `${url.pathname}${url.search}${url.hash}`;
+    } catch (_) {
+      return urlValue;
+    }
+  }
+
+  function cleanAddressBar() {
+    const url = new URL(location.href);
+    if (!url.searchParams.has('student')) return;
+    url.searchParams.delete('student');
+    history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
+  }
+
+  function cleanStudentLinks(root = document) {
+    root.querySelectorAll?.('a[href]').forEach(anchor => {
+      const href = anchor.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('javascript:')) return;
+      const cleaned = cleanStudentParameter(href);
+      if (cleaned !== href) anchor.setAttribute('href', cleaned);
+    });
+  }
+
+  resolveStudentId();
+  cleanAddressBar();
+
+  window.SATResolveStudentId = resolveStudentId;
+  window.SATEnglishIdentity = {
+    build: '20260804-english-identity-v7-20260804T182532Z',
+    get studentId() { return resolveStudentId(); },
+    source: tokenStudent ? 'cognito' : storedStudent ? 'storage' : urlStudent ? 'url' : 'missing',
+    normalize,
+    resolveStudentId,
+    cleanStudentLinks
+  };
+
+  const ready = () => {
+    cleanStudentLinks();
+    setTimeout(cleanStudentLinks, 0);
+    setTimeout(cleanStudentLinks, 150);
+    setTimeout(cleanStudentLinks, 600);
+
+    if (document.body && window.MutationObserver) {
+      const observer = new MutationObserver(records => {
+        for (const record of records) {
+          record.addedNodes.forEach(node => {
+            if (node.nodeType === 1) cleanStudentLinks(node);
+          });
+        }
+      });
+      observer.observe(document.body, {childList: true, subtree: true});
+      setTimeout(() => observer.disconnect(), 5000);
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ready, {once: true});
+  } else {
+    ready();
+  }
+})();
+/* END SAT ENGLISH IDENTITY V7 */
+</script>
+
+
+<script id="sat-english-cognito-bootstrap">
+(() => {
+  'use strict';
+
+  function normalizeStudentId(value) {
+    const normalized =
+      String(value || '').trim().toLowerCase();
+
+    return /^[a-z0-9_-]{1,80}$/.test(normalized)
+      ? normalized
+      : '';
+  }
+
+  function decodeJwtPayload(token) {
+    const parts = String(token || '').split('.');
+
+    if (parts.length !== 3) {
+      return null;
+    }
+
+    const base64 = parts[1]
+      .replace(/-/g, '+')
+      .replace(/_/g, '/');
+
+    const padded =
+      base64 + '='.repeat((4 - base64.length % 4) % 4);
+
+    try {
+      const binary = atob(padded);
+      const bytes = Uint8Array.from(
+        binary,
+        character => character.charCodeAt(0)
+      );
+
+      return JSON.parse(
+        new TextDecoder().decode(bytes)
+      );
+    } catch (error) {
+      console.warn(
+        'Unable to read the SAT Cognito ID token.',
+        error
+      );
+
+      return null;
+    }
+  }
+
+  const existing =
+    normalizeStudentId(
+      window.localStorage.getItem('sat_user')
+    );
+
+  if (existing) {
+    return;
+  }
+
+  const claims =
+    decodeJwtPayload(
+      window.sessionStorage.getItem('sat_id_token')
+    );
+
+  const username =
+    normalizeStudentId(
+      claims?.['cognito:username'] ||
+      claims?.username
+    );
+
+  if (username) {
+    window.localStorage.setItem(
+      'sat_user',
+      username
+    );
+  }
+})();
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAT Flashcards — Words 1–25</title>
+<style>
+:root{--bg:#171717;--panel:#262626;--line:#515151;--text:#f5f3ef;--muted:#c8c5bd;--blue:#89b9ef;--green:#9cde62;--red:#ff9d98}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.45}
+.app{width:min(1120px,calc(100% - 32px));margin:0 auto;padding:26px 0 48px}
+.topbar{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:22px}
+.back{color:var(--muted);text-decoration:none;font-size:.97rem;font-weight:750}
+.back:hover{color:#fff}
+.set-title{margin:0;color:var(--muted);font-weight:750}
+.mode-nav{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:22px}
+.mode-link{min-height:60px;display:inline-flex;align-items:center;padding:0 24px;border:1px solid #5a5a5a;border-radius:15px;background:#202020;color:#f7f7f7;text-decoration:none;font-size:1.22rem;font-weight:800}
+.mode-link:hover{background:#2d2d2d}
+.mode-link.active{border-color:#88b8ee;background:#2f527c;box-shadow:0 0 0 1px rgba(137,185,239,.20) inset}
+.audio-box{margin-bottom:22px;padding:15px 17px;border:1px solid var(--line);border-radius:15px;background:#202020}
+.audio-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:9px}
+.audio-head b{color:var(--muted);font-size:.94rem}
+.audio-head a{color:var(--blue);font-weight:750;text-decoration:none;font-size:.9rem}
+.audio-box audio{width:100%}
+
+    .progress-panel{margin:0 0 22px;padding:16px 17px;border:1px solid #515151;border-radius:15px;background:#202020}
+    .progress-summary{display:flex;align-items:center;justify-content:space-between;gap:14px}
+    .progress-summary strong{display:block;color:#f7f7f7;font-size:1rem}
+    .progress-summary span{display:block;margin-top:3px;color:var(--muted);font-size:.9rem}
+    .remaining-control{display:inline-flex;align-items:center;gap:8px;color:#e5e2da;font-weight:750;cursor:pointer;white-space:nowrap}
+    .remaining-control input{width:18px;height:18px;accent-color:#89b9ef}
+    .global-track{height:8px;margin:13px 0 11px;overflow:hidden;border-radius:999px;background:#424242}
+    .global-fill{width:0;height:100%;border-radius:inherit;background:#89b9ef;transition:width .2s ease}
+    .progress-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+    .progress-actions a,.progress-actions button{border:0;background:transparent;color:#89b9ef;font:inherit;font-size:.9rem;font-weight:750;padding:0;cursor:pointer;text-decoration:none}
+    .progress-actions button{color:#ffaaa5}
+    @media(max-width:680px){.progress-summary{align-items:flex-start;flex-direction:column}.remaining-control{white-space:normal}}
+    
+.status{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px;color:var(--muted);font-size:1.18rem;font-weight:760}
+.track{width:100%;height:8px;margin-bottom:29px;border-radius:999px;background:#424242;overflow:hidden}
+.fill{height:100%;width:0;border-radius:inherit;background:var(--blue);transition:width .2s ease}
+.card{border:1px solid #525252;border-radius:23px;background:#2a2a2a;box-shadow:0 10px 25px rgba(0,0,0,.25)}
+.flash-card{min-height:340px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:35px;text-align:center;cursor:pointer;user-select:none}
+.flash-card:focus-visible{outline:3px solid #89b9ef;outline-offset:3px}
+.flash-word{margin:0;font-size:clamp(2.4rem,6vw,4.25rem);font-weight:800;letter-spacing:-.03em}
+.flash-prompt{margin:11px 0 0;color:#aaa69f;font-size:1.3rem;font-weight:650}
+.flash-answer{display:none;max-width:820px}
+.flash-card.revealed .flash-answer{display:block}
+.flash-card.revealed .flash-prompt{display:none}
+.flash-answer .meaning{margin:0;font-size:clamp(1.42rem,3.1vw,2.15rem);font-weight:750}
+.flash-answer .synonyms{margin:15px 0 0;color:var(--muted);font-size:1.15rem}
+.flash-answer .example{margin:18px 0 0;color:#d5d1c8;font-size:1.12rem;font-style:italic}
+.control{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin-top:23px}
+.middle{display:flex;justify-content:center;gap:14px}
+.right{justify-self:end}
+.btn{min-height:58px;padding:0 23px;border:1px solid #5b5b5b;border-radius:14px;background:#1f1f1f;color:#f5f5f5;font-size:1.16rem;font-weight:800;cursor:pointer}
+.btn:hover{background:#2d2d2d;transform:translateY(-1px)}
+.btn:disabled{opacity:.42;cursor:not-allowed;transform:none}
+.btn.primary{background:#2f5786;border-color:#78a7dc}
+.btn.hard{color:var(--red)}
+.btn.good{color:var(--green)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.stat{padding:16px;border:1px solid #454545;border-radius:14px;background:#202020;text-align:center}
+.stat b{display:block;font-size:1.55rem}
+.stat span{color:var(--muted);font-size:.9rem;font-weight:700}
+.complete{padding:48px 28px;text-align:center}
+.complete h1{margin:0;font-size:clamp(2rem,5vw,3.2rem)}
+.complete p{margin:14px 0 26px;color:var(--muted);font-size:1.12rem}
+.bottom-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:40px}
+.bottom-nav a{padding:11px 15px;border:1px solid #5b5b5b;border-radius:11px;background:#202020;color:#f3f3f3;text-decoration:none;font-weight:750}
+.bottom-nav a:hover{background:#2c2c2c}
+@media(max-width:680px){.app{width:min(100% - 24px,1120px);padding-top:17px}.topbar{align-items:flex-start;flex-direction:column}.set-title{text-align:left}.mode-link{min-height:54px;padding:0 17px;font-size:1.05rem}.status{font-size:1rem}.btn{font-size:1rem;padding:0 17px}.control{grid-template-columns:1fr 1fr}.middle{grid-column:1/-1;grid-row:2}.right{justify-self:stretch}.stats{grid-template-columns:repeat(3,1fr)}}
+</style>
+<script src="english-progress.js?v=20260804-english-identity-v7-20260804T182532Z"></script>
+<style id="sat-english-charcoal-gold-v1">
+  :root {
+    color-scheme: dark;
+    --cg-bg: #111214;
+    --cg-surface: #1d2025;
+    --cg-surface-2: #24272d;
+    --cg-surface-3: #2a2d33;
+    --cg-border: #43464d;
+    --cg-border-soft: #34373d;
+    --cg-text: #f4f1e8;
+    --cg-muted: #c0bbb0;
+    --cg-gold: #d6ae4e;
+    --cg-gold-light: #e7c96f;
+    --cg-gold-dark: #9f7620;
+    --cg-danger: #ef4444;
+    --cg-success: #22c55e;
+  }
+
+  html,
+  body {
+    background: var(--cg-bg) !important;
+    color: var(--cg-text) !important;
+  }
+
+  body {
+    min-height: 100vh;
+  }
+
+  main,
+  section,
+  article,
+  .page,
+  .container,
+  .wrapper,
+  .wrap,
+  .content,
+  .content-wrap {
+    color: var(--cg-text) !important;
+  }
+
+  /* Common SAT subject navigation */
+  #sat-global-navigation,
+  #sat-global-subject-nav,
+  #sat-subject-navigation,
+  .subject-nav {
+    background: linear-gradient(135deg, #1c1d20 0%, #24262a 100%) !important;
+    border-bottom: 1px solid #46484d !important;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .26) !important;
+  }
+
+  #sat-global-navigation > span,
+  #sat-global-subject-nav > span,
+  #sat-subject-navigation > span,
+  .subject-nav > span {
+    color: #f2eee2 !important;
+  }
+
+  #sat-global-navigation a,
+  #sat-global-subject-nav a,
+  #sat-subject-navigation a,
+  .subject-nav a {
+    background: #24262a !important;
+    border-color: #55585e !important;
+    color: #ece7dc !important;
+    box-shadow: none !important;
+  }
+
+  #sat-global-navigation a:hover,
+  #sat-global-subject-nav a:hover,
+  #sat-subject-navigation a:hover,
+  .subject-nav a:hover {
+    background: #303238 !important;
+    border-color: #777a80 !important;
+  }
+
+  #sat-global-navigation a[aria-current="page"],
+  #sat-global-subject-nav a[aria-current="page"],
+  #sat-subject-navigation a[aria-current="page"],
+  .subject-nav a[aria-current="page"] {
+    background: linear-gradient(135deg, #e4c15f, #c69a30) !important;
+    border-color: #e7c96f !important;
+    color: #18191b !important;
+    box-shadow: 0 4px 12px rgba(214, 174, 78, .20) !important;
+  }
+
+  /* English page header/navigation */
+  header,
+  .site-header,
+  .topbar,
+  .navbar,
+  .nav,
+  .header,
+  .page-header {
+    background: #17181b !important;
+    border-color: #383a40 !important;
+    color: var(--cg-text) !important;
+  }
+
+  .brand,
+  .logo,
+  .title,
+  .site-title,
+  header a,
+  .nav a,
+  .navbar a {
+    color: #f2eee2 !important;
+  }
+
+  .brand-mark,
+  .logo-mark,
+  .icon-badge,
+  .letter-badge {
+    background: linear-gradient(135deg, #f0cf76, #b68a26) !important;
+    color: #191a1c !important;
+    box-shadow: 0 6px 18px rgba(214, 174, 78, .22) !important;
+  }
+
+  header a[aria-current="page"],
+  .nav a[aria-current="page"],
+  .navbar a.active,
+  .nav a.active {
+    background: linear-gradient(135deg, #e4c15f, #c69a30) !important;
+    color: #18191b !important;
+  }
+
+  /* Hero/banner sections */
+  .hero,
+  .banner,
+  .intro,
+  .masthead,
+  .page-hero {
+    background:
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(214, 174, 78, .17),
+        transparent 33%
+      ),
+      linear-gradient(
+        145deg,
+        #1a1c20 0%,
+        #131416 58%,
+        #101113 100%
+      ) !important;
+    border-color: #34363b !important;
+    color: #fffdf5 !important;
+  }
+
+  .hero h1,
+  .hero h2,
+  .hero h3,
+  .banner h1,
+  .banner h2,
+  .intro h1,
+  .intro h2,
+  .masthead h1,
+  .masthead h2 {
+    color: #fffdf5 !important;
+  }
+
+  .hero p,
+  .banner p,
+  .intro p,
+  .masthead p,
+  .page-hero p {
+    color: #c8c2b6 !important;
+  }
+
+  /* English cards and interactive areas */
+  .panel,
+  .card,
+  .word-card,
+  .word-item,
+  .word-entry,
+  .quiz-card,
+  .question-card,
+  .spelling-card,
+  .flashcard,
+  .progress-card,
+  .practice-card,
+  .lesson-card,
+  .section-card,
+  .content-card,
+  .audio-card,
+  .stats-card,
+  .summary-card,
+  .modal-content,
+  .dialog,
+  .box,
+  .container-box,
+  .list-item {
+    background: linear-gradient(180deg, #1f2227 0%, #1a1c20 100%) !important;
+    border-color: var(--cg-border) !important;
+    color: var(--cg-text) !important;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, .30) !important;
+  }
+
+  .word-card.featured,
+  .quiz-card.featured,
+  .card.featured,
+  .active-card {
+    border-color: #8e7637 !important;
+  }
+
+  /* Typography */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  .word,
+  .term,
+  .question-title,
+  .card-title,
+  .section-title,
+  .definition-title {
+    color: #fffdf5 !important;
+  }
+
+  p,
+  li,
+  label,
+  small,
+  .muted,
+  .subtitle,
+  .description,
+  .definition,
+  .example,
+  .footer,
+  footer,
+  .meta,
+  .helper,
+  .hint,
+  .explanation,
+  .part-of-speech,
+  .pronunciation {
+    color: var(--cg-muted) !important;
+  }
+
+  .eyebrow,
+  .kicker,
+  .tagline,
+  .section-label,
+  .word-number,
+  .quiz-label {
+    color: var(--cg-gold-light) !important;
+  }
+
+  a {
+    color: #e7c96f;
+  }
+
+  a:hover {
+    color: #f4dda0;
+  }
+
+  /* Buttons and controls */
+  button,
+  .btn,
+  .button,
+  .choice,
+  .option,
+  .quiz-option,
+  .word-action,
+  .audio-button,
+  .mark-learned,
+  .card-button {
+    background: #2b2e34 !important;
+    color: #f5f0e4 !important;
+    border-color: #55585e !important;
+  }
+
+  button:hover,
+  .btn:hover,
+  .button:hover,
+  .choice:hover,
+  .option:hover,
+  .quiz-option:hover,
+  .word-action:hover,
+  .audio-button:hover,
+  .mark-learned:hover,
+  .card-button:hover {
+    background: #35383f !important;
+    border-color: #777a80 !important;
+  }
+
+  .btn.primary,
+  .button.primary,
+  .primary-button,
+  .card-button,
+  .start-button,
+  .start-quiz,
+  #start-quiz,
+  #start-spelling,
+  .actions .btn:first-child {
+    background: linear-gradient(135deg, #e4c15f, #c69a30) !important;
+    border-color: #e7c96f !important;
+    color: #18191b !important;
+    box-shadow: 0 8px 24px rgba(214, 174, 78, .22) !important;
+  }
+
+  .btn.primary:hover,
+  .button.primary:hover,
+  .primary-button:hover,
+  .card-button:hover,
+  .start-button:hover {
+    background: linear-gradient(135deg, #edcf79, #d5aa3f) !important;
+  }
+
+  .btn.secondary,
+  .btn.ghost,
+  .button.secondary {
+    background: #282b31 !important;
+    color: #eee9dd !important;
+  }
+
+  .btn.danger,
+  button.danger,
+  .reset-button {
+    background: #641b1b !important;
+    border-color: #9f2929 !important;
+    color: #fee2e2 !important;
+  }
+
+  /* Inputs */
+  input,
+  select,
+  textarea,
+  .control,
+  .answer-input,
+  .spelling-input,
+  .search-input {
+    background: #121316 !important;
+    color: var(--cg-text) !important;
+    border-color: #505258 !important;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #858178 !important;
+  }
+
+  /* States */
+  .selected,
+  .active,
+  .choice.selected,
+  .option.selected,
+  .quiz-option.selected,
+  .tab.active,
+  .filter.active {
+    background: #6f571f !important;
+    border-color: #d6ae4e !important;
+    color: #fff8e4 !important;
+  }
+
+  .learned,
+  .correct,
+  .is-correct,
+  .success,
+  .choice.correct-choice,
+  .option.correct {
+    background: #123322 !important;
+    border-color: var(--cg-success) !important;
+    color: #d9fbe5 !important;
+  }
+
+  .incorrect,
+  .wrong,
+  .is-wrong,
+  .error,
+  .choice.incorrect-choice,
+  .option.wrong {
+    background: #3b1414 !important;
+    border-color: var(--cg-danger) !important;
+    color: #fee2e2 !important;
+  }
+
+  .locked {
+    background: #26282d !important;
+    border-color: #575a60 !important;
+    color: #aaa59b !important;
+  }
+
+  /* Progress */
+  .progress-track,
+  .progress-bar,
+  .bar,
+  progress {
+    background: #0c0d0f !important;
+  }
+
+  .progress-track span,
+  .progress-bar span,
+  .bar > span,
+  .progress-fill,
+  progress::-webkit-progress-value {
+    background: linear-gradient(90deg, #e7c96f, #c99d35) !important;
+  }
+
+  /* Tags, pills, examples */
+  .chip,
+  .chips span,
+  .tag,
+  .badge,
+  .pill,
+  .part-of-speech,
+  .category,
+  .level,
+  .formula {
+    background: #282b31 !important;
+    color: #e8d59c !important;
+    border-color: #4f5156 !important;
+  }
+
+  .example,
+  .usage,
+  .memory-tip,
+  .mnemonic,
+  .note,
+  .warning {
+    background: #2b2619 !important;
+    border-color: #695522 !important;
+    color: #e9ddb7 !important;
+  }
+
+  code,
+  pre {
+    background: #0d0e10 !important;
+    color: #f0d98f !important;
+    border-color: #3f4146 !important;
+  }
+
+  /* Audio controls */
+  audio {
+    filter: sepia(.18) saturate(.75) brightness(.88) contrast(1.08);
+  }
+
+  .audio-player,
+  .audio-controls {
+    background: #202329 !important;
+    border-color: #45484e !important;
+  }
+
+  /* Tables and lists */
+  table,
+  th,
+  td {
+    background: var(--cg-surface) !important;
+    color: var(--cg-text) !important;
+    border-color: var(--cg-border) !important;
+  }
+
+  .word-list,
+  .quiz-list,
+  .practice-list {
+    background: transparent !important;
+  }
+
+  /* Footer */
+  .footer,
+  footer {
+    background: #18191c !important;
+    color: #918c82 !important;
+    border-color: #31343a !important;
+  }
+
+  hr {
+    border-color: #37393f !important;
+  }
+
+  @media print {
+    html,
+    body,
+    main,
+    section,
+    article,
+    .panel,
+    .card,
+    .word-card,
+    .question-card {
+      background: #ffffff !important;
+      color: #000000 !important;
+      box-shadow: none !important;
+    }
+  }
+</style>
+<!-- sat-favicon-v1 -->
+<link rel="icon" href="/favicon.svg?v=1" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.ico?v=1">
+<link rel="icon" href="/favicon-32.png?v=1" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=1">
+<link rel="manifest" href="/site.webmanifest?v=1">
+<meta name="theme-color" content="#111214">
+<!-- /sat-favicon-v1 -->
+
+<style id="sat-auth-visibility">
+  html { visibility: hidden; }
+</style>
+<script src="/js/section-auth-guard.js?v=20260730-1"></script>
+</head>
+<body>
+<nav id="sat-global-navigation"
+     aria-label="SAT subject navigation"
+     style="
+       position:sticky;
+       top:0;
+       z-index:2147483647;
+       display:flex;
+       flex-wrap:wrap;
+       align-items:center;
+       gap:9px;
+       width:100%;
+       min-height:58px;
+       box-sizing:border-box;
+       padding:10px 18px;
+       background:linear-gradient(135deg,#f8fbff 0%,#e9f2ff 100%);
+       border-bottom:1px solid #d5e2f3;
+       box-shadow:0 4px 16px rgba(37,99,235,.08);
+     ">
+  <span style="
+        margin-right:5px;
+        color:#1e3a5f;
+        font:800 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+        letter-spacing:.01em;
+      ">SAT Prep</span>
+
+  <a data-sat-destination="/index.html"
+     href="/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">SAT Home</a>
+
+  <a data-sat-destination="/english/index.html"
+     href="/english/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">English</a>
+
+  <a data-sat-destination="/math/index.html"
+     href="/math/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">Math</a>
+</nav>
+<script>
+(function () {
+  var student = (
+    (new URLSearchParams(window.location.search).get('student') || window.localStorage.getItem('sat_user')) || ''
+  ).trim().toLowerCase();
+
+  var currentPath = window.location.pathname.replace(/\/+/g, '/');
+
+  document
+    .querySelectorAll('#sat-global-navigation [data-sat-destination]')
+    .forEach(function (link) {
+      var destination = link.getAttribute('data-sat-destination');
+      var url = new URL(destination, window.location.origin);
+
+      if (student) {
+        url.searchParams.set('student', student);
+      }
+
+      link.href = url.href;
+
+      var active =
+        (destination === '/index.html' && currentPath === '/index.html') ||
+        (
+          destination === '/english/index.html' &&
+          currentPath.indexOf('/english/') === 0
+        ) ||
+        (
+          destination === '/math/index.html' &&
+          currentPath.indexOf('/math/') === 0
+        );
+
+      if (active) {
+        link.style.background = '#2563eb';
+        link.style.borderColor = '#2563eb';
+        link.style.color = '#ffffff';
+        link.style.boxShadow = '0 4px 10px rgba(37,99,235,.20)';
+        link.setAttribute('aria-current', 'page');
+      }
+    });
+})();
+</script>
+
+<main class="app">
+<header class="topbar"><a class="back" href="SAT_Practice_Hub.html">← Practice Hub</a><p class="set-title">Words 1–25</p></header>
+<nav class="mode-nav"><a class="mode-link active" href="SAT_Flashcards_1_25.html">🃏 Flashcards</a><a class="mode-link" href="SAT_Quiz_1_25.html">❔ Quiz</a><a class="mode-link" href="SAT_Spelling_1_25.html">✎ Spelling</a></nav>
+<section class="audio-box"><div class="audio-head"><b>Listen to Words 1–25</b><a href="SAT_Words_1_25.mp3" download>Download MP3</a></div><audio controls preload="metadata"><source src="SAT_Words_1_25.mp3" type="audio/mpeg">Your browser does not support audio playback.</audio></section>
+
+    <section class="progress-panel" aria-label="Learning progress">
+      <div class="progress-summary">
+        <div>
+          <strong id="globalLearned">0 / 300 learned</strong>
+          <span id="globalRemaining">300 remaining</span>
+        </div>
+        <label class="remaining-control">
+          <input id="remainingOnly" type="checkbox" checked>
+          Study remaining only
+        </label>
+      </div>
+      <div class="global-track"><div class="global-fill" id="globalFill"></div></div>
+      <div class="progress-actions">
+        <a href="SAT_Progress.html">Progress dashboard</a>
+        <button type="button" id="resetProgress">Reset all progress</button>
+      </div>
+    </section>
+    
+<section id="flashView">
+  <div class="status"><span id="count">Card 1 of 25</span><button class="btn" id="shuffle" type="button">⟳ Shuffle</button></div>
+  <div class="track"><div class="fill" id="progress"></div></div>
+  <div class="card flash-card" id="card" tabindex="0" role="button" aria-label="Tap to reveal answer">
+    <h1 class="flash-word" id="word"></h1>
+    <p class="flash-prompt">Tap to see meaning</p>
+    <div class="flash-answer"><p class="meaning" id="meaning"></p><p class="synonyms" id="synonyms"></p><p class="example" id="example"></p></div>
+  </div>
+  <div class="control"><button class="btn" id="prev" type="button">← Prev</button><div class="middle"><button class="btn hard" id="hard" type="button">Hard</button><button class="btn good" id="got" type="button">Got it — Mark learned</button></div><button class="btn right" id="next" type="button">Next →</button></div>
+  <div class="stats"><div class="stat"><b id="hardCount">0</b><span>Hard</span></div><div class="stat"><b id="current">1</b><span>Current</span></div><div class="stat"><b id="gotCount">0</b><span>Marked learned</span></div></div>
+</section>
+<nav class="bottom-nav"><a href="SAT_Practice_Hub.html">Practice Hub</a><a href="SAT_Flashcards_26_50.html">Flashcards 26–50 →</a></nav>
+</main>
+<script>
+
+const SAT_PROGRESS_KEY = window.SATEnglishCloud.storageKey;
+
+function getProgress() {
+  try {
+    const raw = localStorage.getItem(SAT_PROGRESS_KEY);
+    const saved = raw ? JSON.parse(raw) : {};
+    const cleaned = Array.isArray(saved.learned)
+      ? saved.learned
+          .map(Number)
+          .filter((number) => Number.isInteger(number) && number >= 1 && number <= 300)
+      : [];
+    return { learned: [...new Set(cleaned)] };
+  } catch (error) {
+    return { learned: [] };
+  }
+}
+
+function setProgress(progress) {
+  const cleaned = [...new Set((progress.learned || [])
+    .map(Number)
+    .filter((number) => Number.isInteger(number) && number >= 1 && number <= 300))];
+  try {
+    localStorage.setItem(SAT_PROGRESS_KEY, JSON.stringify({ learned: cleaned }));
+    window.SATEnglishCloud.queueLearnedSync(cleaned);
+  } catch (error) {
+    // The page remains usable if the browser does not allow localStorage.
+  }
+  return { learned: cleaned };
+}
+
+function learnedSet() {
+  return new Set(getProgress().learned);
+}
+
+function isLearned(number) {
+  return learnedSet().has(Number(number));
+}
+
+function markLearned(number, learned) {
+  const progress = getProgress();
+  const set = new Set(progress.learned);
+  if (learned) {
+    set.add(Number(number));
+  } else {
+    set.delete(Number(number));
+  }
+  return setProgress({ learned: [...set] });
+}
+
+function resetAllProgress() {
+  return setProgress({ learned: [] });
+}
+
+function globalCounts() {
+  const learned = learnedSet().size;
+  return { learned, remaining: 300 - learned };
+}
+
+function rangeCounts(start, end) {
+  const set = learnedSet();
+  let learned = 0;
+  for (let number = start; number <= end; number += 1) {
+    if (set.has(number)) learned += 1;
+  }
+  return { learned, remaining: (end - start + 1) - learned, total: end - start + 1 };
+}
+
+function askToResetProgress() {
+  return window.confirm("Reset all learned-word progress for all 300 SAT words on this browser?");
+}
+
+const WORDS = [{"number": 1, "word": "Abate", "spelling": "A, B, A, T, E", "meaning": "To become less intense or widespread; to decrease.", "synonyms": "lessen, diminish, subside", "example": "The storm began to abate after several hours of heavy rain."}, {"number": 2, "word": "Aberration", "spelling": "A, B, E, R, R, A, T, I, O, N", "meaning": "A departure from what is normal, expected, or usual.", "synonyms": "anomaly, deviation, exception", "example": "The student's low quiz score was an aberration because she usually earned A's."}, {"number": 3, "word": "Abhor", "spelling": "A, B, H, O, R", "meaning": "To hate deeply or regard with intense dislike.", "synonyms": "detest, loathe, despise", "example": "Many people abhor dishonesty in public officials."}, {"number": 4, "word": "Acclaim", "spelling": "A, C, C, L, A, I, M", "meaning": "Enthusiastic praise or approval; to praise enthusiastically.", "synonyms": "praise, applause, commendation", "example": "The novel received widespread acclaim from critics."}, {"number": 5, "word": "Acquiesce", "spelling": "A, C, Q, U, I, E, S, C, E", "meaning": "To accept or comply reluctantly without arguing further.", "synonyms": "yield, comply, consent", "example": "After hours of discussion, she acquiesced to the committee's decision."}, {"number": 6, "word": "Acrimony", "spelling": "A, C, R, I, M, O, N, Y", "meaning": "Bitterness or hostility in speech, behavior, or feeling.", "synonyms": "bitterness, resentment, hostility", "example": "The discussion ended with unexpected acrimony."}, {"number": 7, "word": "Adept", "spelling": "A, D, E, P, T", "meaning": "Highly skilled or proficient at doing something.", "synonyms": "skilled, proficient, capable", "example": "She is adept at solving complex equations."}, {"number": 8, "word": "Adversity", "spelling": "A, D, V, E, R, S, I, T, Y", "meaning": "A difficult or unfavorable situation; hardship.", "synonyms": "hardship, difficulty, struggle", "example": "Despite adversity, she graduated with honors."}, {"number": 9, "word": "Aesthetic", "spelling": "A, E, S, T, H, E, T, I, C", "meaning": "Concerned with beauty, art, or visual appearance.", "synonyms": "artistic, visual, beautiful", "example": "The architect designed the library to improve its aesthetic appeal."}, {"number": 10, "word": "Agile", "spelling": "A, G, I, L, E", "meaning": "Able to move quickly and easily; mentally quick and flexible.", "synonyms": "nimble, swift, flexible", "example": "The agile athlete changed direction before the defender could react."}, {"number": 11, "word": "Alienate", "spelling": "A, L, I, E, N, A, T, E", "meaning": "To cause someone to feel isolated, estranged, or no longer supportive.", "synonyms": "isolate, estrange, drive away", "example": "His rude comments alienated several of his friends."}, {"number": 12, "word": "Ambiguous", "spelling": "A, M, B, I, G, U, O, U, S", "meaning": "Unclear or open to more than one interpretation.", "synonyms": "vague, unclear, uncertain", "example": "The instructions were ambiguous, so students asked for clarification."}, {"number": 13, "word": "Ambivalent", "spelling": "A, M, B, I, V, A, L, E, N, T", "meaning": "Having mixed or conflicting feelings about something.", "synonyms": "conflicted, uncertain, torn", "example": "She felt ambivalent about moving away from her friends."}, {"number": 14, "word": "Ameliorate", "spelling": "A, M, E, L, I, O, R, A, T, E", "meaning": "To make a difficult situation better; to improve.", "synonyms": "improve, enhance, relieve", "example": "The reforms helped ameliorate working conditions."}, {"number": 15, "word": "Amiable", "spelling": "A, M, I, A, B, L, E", "meaning": "Friendly, pleasant, and easy to get along with.", "synonyms": "friendly, agreeable, pleasant", "example": "The amiable host greeted every guest warmly."}, {"number": 16, "word": "Anomaly", "spelling": "A, N, O, M, A, L, Y", "meaning": "Something unusual that does not fit the expected pattern.", "synonyms": "irregularity, deviation, oddity", "example": "Scientists noticed an anomaly in the temperature data."}, {"number": 17, "word": "Antagonize", "spelling": "A, N, T, A, G, O, N, I, Z, E", "meaning": "To provoke, irritate, or cause hostility in someone.", "synonyms": "provoke, irritate, anger", "example": "His comments antagonized the audience."}, {"number": 18, "word": "Apathy", "spelling": "A, P, A, T, H, Y", "meaning": "A lack of interest, enthusiasm, or concern.", "synonyms": "indifference, disinterest, unconcern", "example": "Student apathy concerned the teachers because few students joined clubs."}, {"number": 19, "word": "Appease", "spelling": "A, P, P, E, A, S, E", "meaning": "To calm, satisfy, or reduce the anger of someone.", "synonyms": "pacify, soothe, satisfy", "example": "The company lowered prices to appease frustrated customers."}, {"number": 20, "word": "Apprehensive", "spelling": "A, P, P, R, E, H, E, N, S, I, V, E", "meaning": "Anxious or worried about what may happen.", "synonyms": "nervous, uneasy, anxious", "example": "She felt apprehensive before the interview."}, {"number": 21, "word": "Arbitrary", "spelling": "A, R, B, I, T, R, A, R, Y", "meaning": "Based on random choice, personal whim, or no clear reason.", "synonyms": "random, capricious, unreasonable", "example": "The rule seemed arbitrary and unfair because no reason was given for it."}, {"number": 22, "word": "Arduous", "spelling": "A, R, D, U, O, U, S", "meaning": "Very difficult and requiring substantial effort.", "synonyms": "difficult, strenuous, demanding", "example": "Training for the marathon was an arduous process."}, {"number": 23, "word": "Articulate", "spelling": "A, R, T, I, C, U, L, A, T, E", "meaning": "Able to express ideas clearly and effectively; to express clearly.", "synonyms": "eloquent, expressive, clear", "example": "She gave an articulate explanation of her research."}, {"number": 24, "word": "Aspire", "spelling": "A, S, P, I, R, E", "meaning": "To aim for or seek a high goal.", "synonyms": "seek, strive, aim", "example": "Joshua aspires to earn a high SAT score."}, {"number": 25, "word": "Capricious", "spelling": "C, A, P, R, I, C, I, O, U, S", "meaning": "Given to sudden, unpredictable changes in mood or behavior.", "synonyms": "unpredictable, erratic, impulsive", "example": "The weather was capricious all week, changing from sun to rain without warning."}];
+let remainingOnly = true;
+let order = [];
+let index = 0;
+let revealed = false;
+let hardCount = 0;
+let gotCount = 0;
+
+const $ = (id) => document.getElementById(id);
+function shuffle(values) {
+  const result = [...values];
+  for (let i = result.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+function rebuildDeck() {
+  const set = learnedSet();
+  order = shuffle(WORDS.filter((word) => !remainingOnly || !set.has(word.number)).map((word) => word.number));
+  index = 0;
+  revealed = false;
+}
+function currentWord() {
+  const currentNumber = order[index];
+  return WORDS.find((word) => word.number === currentNumber);
+}
+function updateProgressPanel() {
+  const global = globalCounts();
+  $("globalLearned").textContent = `${global.learned} / 300 learned`;
+  $("globalRemaining").textContent = `${global.remaining} remaining`;
+  $("globalFill").style.width = `${(global.learned / 300) * 100}%`;
+}
+function render() {
+  updateProgressPanel();
+  if (index >= order.length || order.length === 0) {
+    $("flashView").innerHTML = `<div class="card complete"><h1>${remainingOnly ? "No remaining words in this set" : "Flashcards complete"}</h1><p>${remainingOnly ? "All words in this 25-word set are marked learned." : "You reviewed this set."}</p><button class="btn primary" id="restart">Study remaining words</button> <button class="btn" id="studyAll">Study all 25 words</button></div>`;
+    $("restart").onclick = () => { remainingOnly = true; $("remainingOnly").checked = true; rebuildDeck(); render(); };
+    $("studyAll").onclick = () => { remainingOnly = false; $("remainingOnly").checked = false; rebuildDeck(); render(); };
+    return;
+  }
+  const word = currentWord();
+  $("count").textContent = `Card ${index + 1} of ${order.length}`;
+  $("progress").style.width = `${((index + 1) / order.length) * 100}%`;
+  $("word").textContent = word.word;
+  $("meaning").textContent = word.meaning;
+  $("synonyms").textContent = `Synonyms: ${word.synonyms}`;
+  $("example").textContent = `“${word.example}”`;
+  $("card").classList.toggle("revealed", revealed);
+  $("prev").disabled = index === 0;
+  $("current").textContent = index + 1;
+  $("hardCount").textContent = hardCount;
+  $("gotCount").textContent = gotCount;
+}
+function advance() {
+  index += 1;
+  revealed = false;
+  render();
+}
+$("card").onclick = () => { revealed = !revealed; render(); };
+$("card").onkeydown = (event) => {
+  if (event.key === "Enter" || event.key === " ") { event.preventDefault(); revealed = !revealed; render(); }
+};
+$("prev").onclick = () => { if (index > 0) { index -= 1; revealed = false; render(); } };
+$("next").onclick = advance;
+$("hard").onclick = () => { hardCount += 1; advance(); };
+$("got").onclick = () => {
+  const word = currentWord();
+  markLearned(word.number, true);
+  gotCount += 1;
+  if (remainingOnly) {
+    order.splice(index, 1);
+    revealed = false;
+    render();
+  } else {
+    advance();
+  }
+};
+$("shuffle").onclick = () => { rebuildDeck(); hardCount = 0; gotCount = 0; render(); };
+$("remainingOnly").addEventListener("change", (event) => { remainingOnly = event.target.checked; rebuildDeck(); render(); });
+$("resetProgress").addEventListener("click", () => {
+  if (askToResetProgress()) { resetAllProgress(); rebuildDeck(); render(); }
+});
+window.addEventListener("storage", () => { if (remainingOnly) { rebuildDeck(); } render(); });
+window.SATEnglishCloud.ready.then(() => { rebuildDeck(); render(); }).catch(() => {});
+</script>
+<script src="/sat-nav-fix.js?v=20260729-4"></script>
+<script src="/js/inactivity-timeout.js?v=20260730-1"></script>
+</body>
+</html>

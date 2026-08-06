@@ -1,0 +1,1274 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Advanced rates, percentages, statistics, probability, geometry, coordinate reasoning, trigonometry, and circles."><title>Set 2 · Volume 3: Data, Geometry, and Trigonometry | SAT Math 600</title>
+<link rel="stylesheet" href="styles.css"><style>:root{--accent:#0f766e;--accent-soft:#ccfbf1}</style><style id="sat-math-charcoal-gold-v1">
+  :root {
+    color-scheme: dark;
+    --cg-bg: #111214;
+    --cg-surface: #1d2025;
+    --cg-surface-2: #24272d;
+    --cg-surface-3: #2a2d33;
+    --cg-border: #43464d;
+    --cg-border-soft: #34373d;
+    --cg-text: #f4f1e8;
+    --cg-muted: #c0bbb0;
+    --cg-gold: #d6ae4e;
+    --cg-gold-light: #e7c96f;
+    --cg-gold-dark: #9f7620;
+    --cg-danger: #ef4444;
+    --cg-success: #22c55e;
+  }
+
+  html,
+  body {
+    background: var(--cg-bg) !important;
+    color: var(--cg-text) !important;
+  }
+
+  body {
+    min-height: 100vh;
+  }
+
+  main,
+  section,
+  article,
+  .page,
+  .container,
+  .wrapper,
+  .wrap {
+    color: var(--cg-text) !important;
+  }
+
+  /* Common SAT subject navigation */
+  #sat-global-navigation,
+  #sat-global-subject-nav,
+  #sat-subject-navigation,
+  .subject-nav {
+    background: linear-gradient(135deg, #1c1d20 0%, #24262a 100%) !important;
+    border-bottom: 1px solid #46484d !important;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .26) !important;
+  }
+
+  #sat-global-navigation > span,
+  #sat-global-subject-nav > span,
+  #sat-subject-navigation > span,
+  .subject-nav > span {
+    color: #f2eee2 !important;
+  }
+
+  #sat-global-navigation a,
+  #sat-global-subject-nav a,
+  #sat-subject-navigation a,
+  .subject-nav a {
+    background: #24262a !important;
+    border-color: #55585e !important;
+    color: #ece7dc !important;
+    box-shadow: none !important;
+  }
+
+  #sat-global-navigation a:hover,
+  #sat-global-subject-nav a:hover,
+  #sat-subject-navigation a:hover,
+  .subject-nav a:hover {
+    background: #303238 !important;
+    border-color: #777a80 !important;
+  }
+
+  #sat-global-navigation a[aria-current="page"],
+  #sat-global-subject-nav a[aria-current="page"],
+  #sat-subject-navigation a[aria-current="page"],
+  .subject-nav a[aria-current="page"] {
+    background: linear-gradient(135deg, #e4c15f, #c69a30) !important;
+    border-color: #e7c96f !important;
+    color: #18191b !important;
+    box-shadow: 0 4px 12px rgba(214, 174, 78, .20) !important;
+  }
+
+  /* Math-specific header/navigation */
+  .site-header,
+  header.site-header,
+  .nav,
+  .navbar,
+  .topbar {
+    background: #17181b !important;
+    border-color: #383a40 !important;
+    color: var(--cg-text) !important;
+  }
+
+  .brand,
+  .math-brand,
+  .nav a,
+  .nav-links a,
+  .navbar a {
+    color: #f2eee2 !important;
+  }
+
+  .brand-mark,
+  .sigma {
+    background: linear-gradient(135deg, #f0cf76, #b68a26) !important;
+    color: #191a1c !important;
+    box-shadow: 0 6px 18px rgba(214, 174, 78, .22) !important;
+  }
+
+  .nav-links a[aria-current="page"],
+  .nav-links a.active,
+  .nav a[aria-current="page"],
+  .navbar a.active {
+    background: linear-gradient(135deg, #e4c15f, #c69a30) !important;
+    color: #18191b !important;
+  }
+
+  /* Hero */
+  .hero {
+    background:
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(214, 174, 78, .18),
+        transparent 33%
+      ),
+      linear-gradient(
+        145deg,
+        #1a1c20 0%,
+        #131416 58%,
+        #101113 100%
+      ) !important;
+    border-bottom: 1px solid #34363b !important;
+    color: #fffdf5 !important;
+  }
+
+  .hero::before,
+  .hero::after {
+    opacity: .12 !important;
+  }
+
+  .hero-inner {
+    background: transparent !important;
+    color: #fffdf5 !important;
+  }
+
+  .hero h1,
+  .hero h2,
+  .hero h3,
+  .hero strong {
+    color: #fffdf5 !important;
+    text-shadow: none !important;
+  }
+
+  .hero p,
+  .hero span,
+  .hero .eyebrow {
+    color: #c8c2b6 !important;
+  }
+
+  .eyebrow {
+    color: var(--cg-gold-light) !important;
+  }
+
+  /* Cards and panels */
+  .panel,
+  .card,
+  .hero-card,
+  .volume-card,
+  .overall-card,
+  .lesson,
+  .question,
+  .stat,
+  .controls,
+  .quiz-banner,
+  .set-card,
+  .progress-card,
+  .practice-card,
+  .section-card,
+  .content-card,
+  .modal-content,
+  .dialog,
+  .box {
+    background: linear-gradient(180deg, #1f2227 0%, #1a1c20 100%) !important;
+    border-color: var(--cg-border) !important;
+    color: var(--cg-text) !important;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, .30) !important;
+  }
+
+  .set-card.featured,
+  .volume-card.featured,
+  .question.featured {
+    border-color: #8e7637 !important;
+  }
+
+  .set-number {
+    color: var(--cg-gold-light) !important;
+    opacity: .09 !important;
+  }
+
+  /* Text */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  .title,
+  .word,
+  .question-title,
+  .q-number {
+    color: #fffdf5 !important;
+  }
+
+  p,
+  li,
+  label,
+  small,
+  .muted,
+  .subtitle,
+  .description,
+  .footer,
+  footer,
+  .meta,
+  .helper,
+  .hint,
+  .explanation {
+    color: var(--cg-muted) !important;
+  }
+
+  a {
+    color: #e7c96f;
+  }
+
+  a:hover {
+    color: #f4dda0;
+  }
+
+  /* Buttons */
+  button,
+  .btn,
+  .choice,
+  .topic-nav button,
+  .card-button,
+  .primary-button {
+    background: #2b2e34 !important;
+    color: #f5f0e4 !important;
+    border-color: #55585e !important;
+  }
+
+  button:hover,
+  .btn:hover,
+  .choice:hover,
+  .topic-nav button:hover,
+  .card-button:hover,
+  .primary-button:hover {
+    background: #35383f !important;
+    border-color: #777a80 !important;
+  }
+
+  .btn.primary,
+  .primary-button,
+  .card-button,
+  #start-quiz,
+  .actions-row .btn:first-child {
+    background: linear-gradient(135deg, #e4c15f, #c69a30) !important;
+    border-color: #e7c96f !important;
+    color: #18191b !important;
+    box-shadow: 0 8px 24px rgba(214, 174, 78, .22) !important;
+  }
+
+  .btn.primary:hover,
+  .primary-button:hover,
+  .card-button:hover,
+  #start-quiz:hover {
+    background: linear-gradient(135deg, #edcf79, #d5aa3f) !important;
+  }
+
+  .btn.secondary,
+  .btn.ghost {
+    background: #282b31 !important;
+    color: #eee9dd !important;
+  }
+
+  .btn.danger,
+  button.danger {
+    background: #641b1b !important;
+    border-color: #9f2929 !important;
+    color: #fee2e2 !important;
+  }
+
+  /* Inputs and filters */
+  input,
+  select,
+  textarea,
+  .control,
+  .numeric-answer {
+    background: #121316 !important;
+    color: var(--cg-text) !important;
+    border-color: #505258 !important;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #858178 !important;
+  }
+
+  /* Active/selected states */
+  .choice.selected,
+  .topic-nav button.active,
+  .filter.active,
+  .tab.active {
+    background: #6f571f !important;
+    border-color: #d6ae4e !important;
+    color: #fff8e4 !important;
+  }
+
+  .correct,
+  .question.correct,
+  .choice.correct-choice {
+    background: #123322 !important;
+    border-color: var(--cg-success) !important;
+  }
+
+  .incorrect,
+  .question.incorrect,
+  .choice.incorrect-choice,
+  .choice.wrong-choice {
+    background: #3b1414 !important;
+    border-color: var(--cg-danger) !important;
+  }
+
+  /* Progress */
+  .progress-track,
+  .bar,
+  progress {
+    background: #0c0d0f !important;
+  }
+
+  .progress-track span,
+  .bar > span,
+  .progress-fill,
+  progress::-webkit-progress-value {
+    background: linear-gradient(90deg, #e7c96f, #c99d35) !important;
+  }
+
+  /* Chips/tags/formulas */
+  .chips span,
+  .tag,
+  .badge,
+  .pill,
+  .formula {
+    background: #282b31 !important;
+    color: #e8d59c !important;
+    border-color: #4f5156 !important;
+  }
+
+  .warning {
+    background: #3a2d13 !important;
+    border-color: #8a6a21 !important;
+    color: #f3dfa2 !important;
+  }
+
+  code,
+  pre {
+    background: #0d0e10 !important;
+    color: #f0d98f !important;
+    border-color: #3f4146 !important;
+  }
+
+  /* Tables */
+  table,
+  th,
+  td {
+    background: var(--cg-surface) !important;
+    color: var(--cg-text) !important;
+    border-color: var(--cg-border) !important;
+  }
+
+  /* Footer */
+  .footer,
+  footer {
+    background: #18191c !important;
+    color: #918c82 !important;
+    border-color: #31343a !important;
+  }
+
+  hr {
+    border-color: #37393f !important;
+  }
+
+  @media print {
+    html,
+    body,
+    main,
+    section,
+    article,
+    .panel,
+    .card,
+    .question {
+      background: #ffffff !important;
+      color: #000000 !important;
+      box-shadow: none !important;
+    }
+  }
+</style>
+<style id="sat-math-clean-donut-corrected-v2">
+  .hero .hero-inner > .hero-card {
+    display: grid !important;
+    place-items: center !important;
+    width: min(100%, 430px) !important;
+    min-width: 0 !important;
+    min-height: 320px !important;
+    margin: 0 !important;
+    padding: 32px !important;
+    overflow: hidden !important;
+    border: 1px solid #46494f !important;
+    border-radius: 28px !important;
+    background: linear-gradient(180deg,#202329,#1a1c20) !important;
+    box-shadow: 0 18px 44px rgba(0,0,0,.28) !important;
+  }
+
+  .hero .hero-inner > .hero-card > .progress-ring {
+    position: relative !important;
+    inset: auto !important;
+    transform: none !important;
+    display: grid !important;
+    place-items: center !important;
+    width: min(100%, 225px) !important;
+    height: auto !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    aspect-ratio: 1 / 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border: 0 !important;
+    border-radius: 50% !important;
+    background:
+      radial-gradient(circle at center,#1d2025 0 66%,transparent 67%),
+      conic-gradient(
+        #d6ae4e 0 var(--progress,0%),
+        #30333a var(--progress,0%) 100%
+      ) !important;
+    box-shadow:
+      inset 0 0 0 1px #46494f,
+      0 12px 28px rgba(0,0,0,.24) !important;
+  }
+
+  .hero .hero-inner > .hero-card > .progress-ring::before,
+  .hero .hero-inner > .hero-card > .progress-ring::after,
+  .hero .hero-inner > .hero-card > .progress-ring > div::before,
+  .hero .hero-inner > .hero-card > .progress-ring > div::after,
+  .hero .hero-inner > .hero-card > .progress-ring strong::before,
+  .hero .hero-inner > .hero-card > .progress-ring strong::after,
+  .hero .hero-inner > .hero-card > .progress-ring span::before,
+  .hero .hero-inner > .hero-card > .progress-ring span::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  .hero .hero-inner > .hero-card > .progress-ring > div {
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    width: 72% !important;
+    height: auto !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-align: center !important;
+  }
+
+  .hero .hero-inner > .hero-card > .progress-ring strong {
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    color: #fffdf5 !important;
+    font-size: clamp(2.75rem,5vw,3.4rem) !important;
+    font-weight: 950 !important;
+    line-height: 1 !important;
+    letter-spacing: -.04em !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    box-shadow: none !important;
+  }
+
+  .hero .hero-inner > .hero-card > .progress-ring span {
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    display: block !important;
+    width: auto !important;
+    max-width: 170px !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    color: #c0bbb0 !important;
+    font-size: .88rem !important;
+    font-weight: 650 !important;
+    line-height: 1.35 !important;
+    white-space: normal !important;
+    text-align: center !important;
+    box-shadow: none !important;
+  }
+
+  @media (max-width: 760px) {
+    .hero .hero-inner > .hero-card {
+      width: min(100%,390px) !important;
+      min-height: 290px !important;
+      padding: 27px !important;
+      justify-self: center !important;
+    }
+
+    .hero .hero-inner > .hero-card > .progress-ring {
+      width: min(100%,210px) !important;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .hero .hero-inner > .hero-card {
+      min-height: 260px !important;
+      padding: 21px !important;
+    }
+
+    .hero .hero-inner > .hero-card > .progress-ring {
+      width: min(100%,185px) !important;
+    }
+
+    .hero .hero-inner > .hero-card > .progress-ring strong {
+      font-size: 2.55rem !important;
+    }
+
+    .hero .hero-inner > .hero-card > .progress-ring span {
+      max-width: 140px !important;
+      font-size: .8rem !important;
+    }
+  }
+</style>
+<style id="sat-template-3-light-question-panel">
+/* SAT Math — Template 3: Light Question Panel + Dark Answers */
+#question-list .question.panel{
+  background:linear-gradient(180deg,#202226,#1d1f23) !important;
+  border:1px solid #4a4d53 !important;
+  border-radius:28px !important;
+  padding:24px !important;
+  box-shadow:0 18px 42px rgba(0,0,0,.22) !important;
+  overflow:hidden !important;
+}
+
+#question-list .question .q-top{
+  display:flex !important;
+  justify-content:space-between !important;
+  align-items:flex-start !important;
+  gap:16px !important;
+  padding:18px 20px !important;
+  margin-bottom:16px !important;
+  background:linear-gradient(180deg,#f2ead8,#e6dac0) !important;
+  border:1px solid #d2c092 !important;
+  border-radius:18px !important;
+}
+
+#question-list .question .q-number{
+  color:#25272b !important;
+  font-size:1.05rem !important;
+  font-weight:900 !important;
+  letter-spacing:-0.01em !important;
+}
+
+#question-list .question .tags{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:8px !important;
+  justify-content:flex-end !important;
+}
+
+#question-list .question .tag{
+  background:#fffaf0 !important;
+  color:#7b5e18 !important;
+  border:1px solid #d3c399 !important;
+  border-radius:999px !important;
+  font-weight:800 !important;
+}
+
+#question-list .question .tag.topic{
+  background:#efe4c9 !important;
+  color:#6b4f10 !important;
+}
+
+#question-list .question .prompt{
+  background:#eee5d2 !important;
+  color:#26282c !important;
+  border:1px solid #d6c59a !important;
+  border-radius:20px !important;
+  padding:20px 22px !important;
+  margin-bottom:18px !important;
+  font-size:1.22rem !important;
+  line-height:1.55 !important;
+  font-weight:850 !important;
+}
+
+#question-list .question .choices{
+  display:grid !important;
+  gap:12px !important;
+  margin-bottom:18px !important;
+}
+
+#question-list .question .choice{
+  display:flex !important;
+  align-items:center !important;
+  gap:14px !important;
+  width:100% !important;
+  text-align:left !important;
+  padding:14px 16px !important;
+  background:#2c2f35 !important;
+  color:#f5f2ea !important;
+  border:1px solid #555960 !important;
+  border-radius:16px !important;
+  transition:all .18s ease !important;
+  box-shadow:none !important;
+}
+
+#question-list .question .choice:hover{
+  border-color:#e4bf62 !important;
+  transform:translateY(-1px) !important;
+}
+
+#question-list .question .choice.selected{
+  background:#343841 !important;
+  border-color:#e0bb60 !important;
+  box-shadow:0 0 0 2px rgba(224,187,96,.18) inset !important;
+}
+
+#question-list .question .choice.correct-choice{
+  background:#0f4330 !important;
+  border-color:#1fc97d !important;
+  color:#f7fbf8 !important;
+}
+
+#question-list .question .choice.wrong-choice{
+  background:#47292b !important;
+  border-color:#d67676 !important;
+  color:#fff5f5 !important;
+}
+
+#question-list .question .choice-letter{
+  width:36px !important;
+  height:36px !important;
+  min-width:36px !important;
+  display:grid !important;
+  place-items:center !important;
+  background:#f4ebd7 !important;
+  color:#8c6920 !important;
+  border:1px solid #d2c194 !important;
+  border-radius:10px !important;
+  font-weight:900 !important;
+}
+
+#question-list .question .numeric-wrap{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  align-items:center !important;
+  gap:12px !important;
+  padding:14px 16px !important;
+  margin-bottom:18px !important;
+  background:#2b2e34 !important;
+  border:1px solid #555960 !important;
+  border-radius:16px !important;
+}
+
+#question-list .question .numeric-answer{
+  min-width:220px !important;
+  padding:12px 14px !important;
+  background:#faf6ed !important;
+  color:#232529 !important;
+  border:1px solid #d2c194 !important;
+  border-radius:12px !important;
+  font-size:1rem !important;
+  font-weight:700 !important;
+}
+
+#question-list .question .q-actions{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:10px !important;
+  margin-top:4px !important;
+}
+
+#question-list .question .q-actions .btn{
+  border-radius:14px !important;
+  font-weight:850 !important;
+}
+
+#question-list .question .q-actions .btn.check{
+  background:linear-gradient(135deg,#e5c465,#d6ac43) !important;
+  color:#18191b !important;
+  border:1px solid #e7c96f !important;
+}
+
+#question-list .question .q-actions .btn.ghost{
+  background:#292c31 !important;
+  color:#f3efe6 !important;
+  border:1px solid #575a61 !important;
+}
+
+#question-list .question .feedback{
+  margin-top:14px !important;
+  border-radius:14px !important;
+  font-weight:800 !important;
+}
+
+#question-list .question .feedback.good{
+  background:#133626 !important;
+  color:#d7f7e7 !important;
+  border:1px solid #1fc97d !important;
+}
+
+#question-list .question .feedback.bad{
+  background:#412527 !important;
+  color:#ffe6e6 !important;
+  border:1px solid #d67676 !important;
+}
+
+#question-list .question .detail{
+  margin-top:12px !important;
+  background:#26292e !important;
+  color:#ebe7dc !important;
+  border:1px solid #4d525a !important;
+  border-radius:16px !important;
+  padding:14px 16px !important;
+}
+
+#question-list .question.correct{
+  border-color:#1fc97d !important;
+  box-shadow:0 0 0 1px rgba(31,201,125,.22), 0 18px 42px rgba(0,0,0,.22) !important;
+}
+
+#question-list .question.incorrect{
+  border-color:#d67676 !important;
+  box-shadow:0 0 0 1px rgba(214,118,118,.18), 0 18px 42px rgba(0,0,0,.22) !important;
+}
+
+@media (max-width: 860px){
+  #question-list .question.panel{padding:18px !important}
+  #question-list .question .q-top{
+    flex-direction:column !important;
+    align-items:flex-start !important;
+  }
+  #question-list .question .tags{
+    justify-content:flex-start !important;
+  }
+  #question-list .question .prompt{
+    font-size:1.08rem !important;
+    padding:16px 18px !important;
+  }
+  #question-list .question .choice{
+    padding:13px 14px !important;
+  }
+  #question-list .question .numeric-answer{
+    min-width:100% !important;
+  }
+}
+</style>
+<style id="sat-math-two-row-hierarchy-v1">
+  .site-header .nav {
+    align-items: flex-start !important;
+    flex-wrap: wrap !important;
+  }
+
+  .site-header .nav-links {
+    display: block !important;
+    flex: 1 1 620px !important;
+    min-width: 0 !important;
+  }
+
+  .sat-math-nav-top-row,
+  .sat-math-nav-volume-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+  }
+
+  .sat-math-nav-volume-row {
+    margin-top: 14px !important;
+    padding-top: 14px !important;
+    border-top: 1px solid #35383e !important;
+  }
+
+  .sat-math-nav-label {
+    margin-right: 4px !important;
+    color: #8f8a80 !important;
+    font-size: .72rem !important;
+    font-weight: 950 !important;
+    letter-spacing: .13em !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+  }
+
+  .sat-math-nav-top-row a,
+  .sat-math-nav-volume-row a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 12px 17px !important;
+    border: 1px solid transparent !important;
+    border-radius: 13px !important;
+    background: transparent !important;
+    color: #f3efe6 !important;
+    font-weight: 900 !important;
+    line-height: 1.2 !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+  }
+
+  .sat-math-nav-top-row a:hover,
+  .sat-math-nav-volume-row a:hover {
+    background: #292c31 !important;
+    border-color: #55585e !important;
+  }
+
+  .sat-math-nav-top-row a.sat-parent-selected {
+    border-color: #d6ae4e !important;
+    background: rgba(214, 174, 78, .09) !important;
+    color: #f4d77f !important;
+    box-shadow: inset 0 0 0 1px rgba(214, 174, 78, .11) !important;
+  }
+
+  .sat-math-nav-volume-row a.sat-child-selected {
+    border-color: #e7c96f !important;
+    background: linear-gradient(
+      135deg,
+      #e4c15f,
+      #c69a30
+    ) !important;
+    color: #18191b !important;
+    box-shadow: 0 7px 20px rgba(214, 174, 78, .18) !important;
+  }
+
+  .sat-math-nav-top-row a[aria-current="page"],
+  .sat-math-nav-volume-row a[aria-current="page"] {
+    text-decoration: none !important;
+  }
+
+  @media (max-width: 980px) {
+    .site-header .nav-links {
+      flex-basis: 100% !important;
+      width: 100% !important;
+      margin-top: 12px !important;
+    }
+
+    .sat-math-nav-top-row,
+    .sat-math-nav-volume-row {
+      justify-content: flex-start !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .sat-math-nav-top-row a,
+    .sat-math-nav-volume-row a {
+      padding: 10px 13px !important;
+      font-size: .9rem !important;
+    }
+
+    .sat-math-nav-label {
+      width: 100% !important;
+      margin-bottom: 2px !important;
+    }
+  }
+</style>
+<!-- sat-favicon-v1 -->
+<link rel="icon" href="/favicon.svg?v=1" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.ico?v=1">
+<link rel="icon" href="/favicon-32.png?v=1" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=1">
+<link rel="manifest" href="/site.webmanifest?v=1">
+<meta name="theme-color" content="#111214">
+<!-- /sat-favicon-v1 -->
+</head><body>
+<nav id="sat-global-navigation"
+     aria-label="SAT subject navigation"
+     style="
+       position:sticky;
+       top:0;
+       z-index:2147483647;
+       display:flex;
+       flex-wrap:wrap;
+       align-items:center;
+       gap:9px;
+       width:100%;
+       min-height:58px;
+       box-sizing:border-box;
+       padding:10px 18px;
+       background:linear-gradient(135deg,#f8fbff 0%,#e9f2ff 100%);
+       border-bottom:1px solid #d5e2f3;
+       box-shadow:0 4px 16px rgba(37,99,235,.08);
+     ">
+  <span style="
+        margin-right:5px;
+        color:#1e3a5f;
+        font:800 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+        letter-spacing:.01em;
+      ">SAT Prep</span>
+
+  <a data-sat-destination="/index.html"
+     href="/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">SAT Home</a>
+
+  <a data-sat-destination="/english/index.html"
+     href="/english/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">English</a>
+
+  <a data-sat-destination="/math/index.html"
+     href="/math/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">Math</a>
+</nav>
+<script>
+(function () {
+  var student = (
+    new URLSearchParams(window.location.search).get('student') || window.localStorage.getItem('sat_user') || ''
+  ).trim().toLowerCase();
+
+  var currentPath = window.location.pathname.replace(/\/+/g, '/');
+
+  document
+    .querySelectorAll('#sat-global-navigation [data-sat-destination]')
+    .forEach(function (link) {
+      var destination = link.getAttribute('data-sat-destination');
+      var url = new URL(destination, window.location.origin);
+
+      if (student) {
+        url.searchParams.set('student', student);
+      }
+
+      link.href = url.href;
+
+      var active =
+        (destination === '/index.html' && currentPath === '/index.html') ||
+        (
+          destination === '/english/index.html' &&
+          currentPath.indexOf('/english/') === 0
+        ) ||
+        (
+          destination === '/math/index.html' &&
+          currentPath.indexOf('/math/') === 0
+        );
+
+      if (active) {
+        link.style.background = '#2563eb';
+        link.style.borderColor = '#2563eb';
+        link.style.color = '#ffffff';
+        link.style.boxShadow = '0 4px 10px rgba(37,99,235,.20)';
+        link.setAttribute('aria-current', 'page');
+      }
+    });
+})();
+</script>
+
+<header class="site-header"><nav class="nav">
+<a class="brand" href="index.html"><span class="brand-mark">Σ</span><span>SAT Math 600</span></a>
+<div class="nav-links"><a href="index.html">Home</a><a href="set-1.html">Set 1</a><a href="set-2.html">Set 2</a><a href="set-2-volume-1-algebra.html">Volume 1</a><a href="set-2-volume-2-advanced-math.html">Volume 2</a><a href="set-2-volume-3-data-geometry-trigonometry.html" aria-current="page">Volume 3</a></div>
+<label style="font-size:.85rem;color:#6b6f76;margin-left:12px;">Student: <input id="student-name" type="text" style="width:90px;"></label>
+</nav></header>
+<section class="hero"><div class="hero-inner"><div>
+<div class="eyebrow">Set 2 · Medium to Challenge · 100 questions</div>
+<h1>Volume 3: Data, Geometry, and Trigonometry</h1><p>Advanced rates, percentages, statistics, probability, geometry, coordinate reasoning, trigonometry, and circles. This set starts at medium difficulty and builds toward harder SAT-style reasoning.</p>
+<div class="actions-row"><button id="start-quiz" class="btn">Start 10-question quiz</button><a class="btn secondary" href="#practice">Go to practice</a></div>
+</div><div class="hero-card"><div class="progress-ring" style="--progress:0%"><div><strong>0%</strong><span>0 of 100 mastered</span></div></div></div></div></section>
+<main><section class="stats">
+<div class="stat"><strong id="stat-mastered">0</strong><span>Mastered</span></div>
+<div class="stat"><strong id="stat-attempted">0</strong><span>Attempted</span></div>
+<div class="stat"><strong id="stat-remaining">100</strong><span>Remaining</span></div>
+<div class="stat"><strong id="stat-visible">100</strong><span>Currently visible</span></div>
+</section>
+<section><div class="section-heading"><div><div class="eyebrow">Review before practice</div><h2>Topic guides and formulas</h2></div>
+<p>Use these cards as a concise reference, then solve without looking back when possible.</p></div>
+<div class="lesson-grid"><article class="lesson panel" data-topic="Ratios, Rates, Proportions, and Units">
+<div class="eyebrow">Concept guide</div><h2>Ratios, Rates, Proportions, and Units</h2>
+<p>Solve multi-step rate, scale, density, and conversion problems.</p><ul><li>Build unit rates by division.</li><li>Scale proportional quantities with one multiplier.</li><li>Arrange conversion factors so units cancel.</li></ul><div><span class="formula">rate=quantity/time</span><span class="formula">density=mass/volume</span></div>
+<div class="warning"><strong>Common mistake:</strong> Mixing units before conversion produces invalid rates.</div></article><article class="lesson panel" data-topic="Percentages and Multi-Step Percent Change">
+<div class="eyebrow">Concept guide</div><h2>Percentages and Multi-Step Percent Change</h2>
+<p>Apply, combine, and reverse percentage multipliers.</p><ul><li>Discount uses 1−r.</li><li>Tax or markup uses 1+r.</li><li>Successive percent changes multiply.</li></ul><div><span class="formula">new=original(1±r)</span><span class="formula">original=final/multiplier</span></div>
+<div class="warning"><strong>Common mistake:</strong> An increase and equal decrease do not cancel.</div></article><article class="lesson panel" data-topic="Statistics and Data Distributions">
+<div class="eyebrow">Concept guide</div><h2>Statistics and Data Distributions</h2>
+<p>Reason about totals, transformations, center, and spread.</p><ul><li>Mean × count reconstructs the total.</li><li>Adding a constant shifts the mean only.</li><li>Multiplying values scales mean and standard deviation.</li></ul><div><span class="formula">mean=sum/count</span><span class="formula">SD(ax+b)=|a|SD(x)</span></div>
+<div class="warning"><strong>Common mistake:</strong> Do not average averages without considering group sizes.</div></article><article class="lesson panel" data-topic="Scatterplots and Mathematical Models">
+<div class="eyebrow">Concept guide</div><h2>Scatterplots and Mathematical Models</h2>
+<p>Interpret slope, predictions, residuals, and model limits.</p><ul><li>Residual is observed minus predicted.</li><li>Slope gives predicted change per unit x.</li><li>Avoid extrapolation beyond the model&#x27;s stated range.</li></ul><div><span class="formula">ŷ=mx+b</span><span class="formula">residual=y−ŷ</span></div>
+<div class="warning"><strong>Common mistake:</strong> Reversing residual subtraction changes its sign.</div></article><article class="lesson panel" data-topic="Probability, Counting, and Sampling">
+<div class="eyebrow">Concept guide</div><h2>Probability, Counting, and Sampling</h2>
+<p>Handle dependence, arrangements, combinations, and inference.</p><ul><li>Without replacement changes probabilities.</li><li>Distinct roles mean order matters.</li><li>Representative random samples support population estimates.</li></ul><div><span class="formula">P(A∩B)=P(A)P(B|A)</span><span class="formula">P(A∪B)=P(A)+P(B)−P(A∩B)</span></div>
+<div class="warning"><strong>Common mistake:</strong> Do not treat dependent events as independent.</div></article><article class="lesson panel" data-topic="Area, Surface Area, Volume, and Similarity">
+<div class="eyebrow">Concept guide</div><h2>Area, Surface Area, Volume, and Similarity</h2>
+<p>Combine solids and apply linear, area, and volume scale factors.</p><ul><li>Area scales by k².</li><li>Volume scales by k³.</li><li>Composite measurements use addition or subtraction.</li></ul><div><span class="formula">Vcylinder=πr²h</span><span class="formula">Vcone=(1/3)πr²h</span></div>
+<div class="warning"><strong>Common mistake:</strong> A radius scale factor does not apply directly to volume.</div></article><article class="lesson panel" data-topic="Lines, Angles, and Triangles">
+<div class="eyebrow">Concept guide</div><h2>Lines, Angles, and Triangles</h2>
+<p>Use angle algebra, parallel-line relationships, and similarity.</p><ul><li>Triangle angles sum to 180°.</li><li>Same-side interior angles are supplementary.</li><li>Corresponding sides of similar triangles share one scale factor.</li></ul><div><span class="formula">exterior angle=sum of remote interiors</span></div>
+<div class="warning"><strong>Common mistake:</strong> Match corresponding sides before forming proportions.</div></article><article class="lesson panel" data-topic="Coordinate Geometry">
+<div class="eyebrow">Concept guide</div><h2>Coordinate Geometry</h2>
+<p>Use midpoint, distance, slope, perpendicularity, and polygon area.</p><ul><li>Midpoint averages coordinates.</li><li>Distance comes from the Pythagorean theorem.</li><li>Perpendicular slopes are opposite reciprocals.</li></ul><div><span class="formula">d=√((x₂−x₁)²+(y₂−y₁)²)</span><span class="formula">m₁m₂=−1</span></div>
+<div class="warning"><strong>Common mistake:</strong> Vertical lines require special care because slope is undefined.</div></article><article class="lesson panel" data-topic="Right Triangles and Trigonometry">
+<div class="eyebrow">Concept guide</div><h2>Right Triangles and Trigonometry</h2>
+<p>Connect side ratios, special triangles, and contextual lengths.</p><ul><li>SOH-CAH-TOA links angles and sides.</li><li>30-60-90 sides follow 1:√3:2.</li><li>45-45-90 sides follow 1:1:√2.</li></ul><div><span class="formula">a²+b²=c²</span><span class="formula">sin=opp/hyp</span></div>
+<div class="warning"><strong>Common mistake:</strong> Identify the hypotenuse before choosing a trig ratio.</div></article><article class="lesson panel" data-topic="Circles">
+<div class="eyebrow">Concept guide</div><h2>Circles</h2>
+<p>Work with arcs, sectors, equations, and tangency.</p><ul><li>Arc length uses the angle fraction of circumference.</li><li>Sector area uses the angle fraction of area.</li><li>Tangency radius is perpendicular to the tangent line.</li></ul><div><span class="formula">L=(θ/360)2πr</span><span class="formula">Asector=(θ/360)πr²</span></div>
+<div class="warning"><strong>Common mistake:</strong> In a circle equation, the right side is r², not r.</div></article></div></section>
+<section id="practice"><div class="section-heading"><div><div class="eyebrow">100 original questions</div><h2>Set 2 practice bank</h2></div>
+<p>Progress syncs by the administrator-created student link.</p></div>
+<div id="quiz-banner" class="quiz-banner"><div><strong>Quick Quiz Mode</strong><br><span><span id="quiz-count">10</span> mixed questions from this volume</span></div>
+<button id="exit-quiz" class="btn secondary">Exit quiz</button></div>
+<div class="controls panel">
+<input id="search" class="control" type="search" placeholder="Search questions or skills">
+<select id="topic-filter" class="control" aria-label="Filter by topic"></select>
+<select id="difficulty-filter" class="control"><option>All levels</option><option>Medium</option><option>Hard</option><option>Challenge</option></select>
+<select id="status-filter" class="control"><option>All questions</option><option>Not attempted</option><option>Correct</option><option>Needs review</option></select>
+</div><div id="topic-nav" class="topic-nav"></div>
+<div class="actions-row"><button id="print-page" class="btn ghost">Print / Save as PDF</button><button id="reset-volume" class="btn danger">Reset this volume</button></div>
+<div id="question-list" class="question-list"></div></section></main>
+<footer class="footer"><div class="footer-inner"><span>Original SAT-style practice material. Not affiliated with or endorsed by College Board.</span>
+<span>Incorrect answers remain locked until the administrator allows a correction.</span></div></footer>
+<script>window.SAT_PAGE={"set":2,"volume":3,"questions":[{"id":"s2v3q001","number":1,"topic":"Ratios, Rates, Proportions, and Units","skill":"Unit rates with decimals","difficulty":"Medium","kind":"numeric","prompt":"A vehicle travels 168 miles in 3.5 hours at a constant rate. What is its speed in miles per hour?","choices":null,"answer_index":null,"answer":"48","tolerance":1e-06,"hint":"Divide total distance by total time.","explanation":"Speed = 168/3.5 = 48 miles per hour.","fast_method":"Clear decimals or use an equivalent fraction before dividing."},{"id":"s2v3q002","number":2,"topic":"Ratios, Rates, Proportions, and Units","skill":"Unit rates with decimals","difficulty":"Medium","kind":"numeric","prompt":"A vehicle travels 245 miles in 4.375 hours at a constant rate. What is its speed in miles per hour?","choices":null,"answer_index":null,"answer":"56","tolerance":1e-06,"hint":"Divide total distance by total time.","explanation":"Speed = 245/4.375 = 56 miles per hour.","fast_method":"Clear decimals or use an equivalent fraction before dividing."},{"id":"s2v3q003","number":3,"topic":"Ratios, Rates, Proportions, and Units","skill":"Unit rates with decimals","difficulty":"Medium","kind":"numeric","prompt":"A vehicle travels 312 miles in 4.8 hours at a constant rate. What is its speed in miles per hour?","choices":null,"answer_index":null,"answer":"65","tolerance":1e-06,"hint":"Divide total distance by total time.","explanation":"Speed = 312/4.8 = 65 miles per hour.","fast_method":"Clear decimals or use an equivalent fraction before dividing."},{"id":"s2v3q004","number":4,"topic":"Ratios, Rates, Proportions, and Units","skill":"Unit rates with decimals","difficulty":"Medium","kind":"numeric","prompt":"A vehicle travels 198 miles in 3.3 hours at a constant rate. What is its speed in miles per hour?","choices":null,"answer_index":null,"answer":"60","tolerance":1e-06,"hint":"Divide total distance by total time.","explanation":"Speed = 198/3.3 = 60 miles per hour.","fast_method":"Clear decimals or use an equivalent fraction before dividing."},{"id":"s2v3q005","number":5,"topic":"Ratios, Rates, Proportions, and Units","skill":"Proportional scaling","difficulty":"Hard","kind":"numeric","prompt":"A recipe uses 4.5 cups of an ingredient for 6 servings. How many cups are needed for 14 servings?","choices":null,"answer_index":null,"answer":"21/2","tolerance":1e-06,"hint":"Multiply the amount per serving by the new number of servings.","explanation":"The unit rate is 4.5/6 cup per serving, so the required amount is 21/2 cups.","fast_method":"Scale by target servings ÷ original servings."},{"id":"s2v3q006","number":6,"topic":"Ratios, Rates, Proportions, and Units","skill":"Proportional scaling","difficulty":"Hard","kind":"numeric","prompt":"A recipe uses 6.25 cups of an ingredient for 8 servings. How many cups are needed for 20 servings?","choices":null,"answer_index":null,"answer":"125/8","tolerance":1e-06,"hint":"Multiply the amount per serving by the new number of servings.","explanation":"The unit rate is 6.25/8 cup per serving, so the required amount is 125/8 cups.","fast_method":"Scale by target servings ÷ original servings."},{"id":"s2v3q007","number":7,"topic":"Ratios, Rates, Proportions, and Units","skill":"Proportional scaling","difficulty":"Hard","kind":"numeric","prompt":"A recipe uses 3.75 cups of an ingredient for 5 servings. How many cups are needed for 18 servings?","choices":null,"answer_index":null,"answer":"27/2","tolerance":1e-06,"hint":"Multiply the amount per serving by the new number of servings.","explanation":"The unit rate is 3.75/5 cup per serving, so the required amount is 27/2 cups.","fast_method":"Scale by target servings ÷ original servings."},{"id":"s2v3q008","number":8,"topic":"Ratios, Rates, Proportions, and Units","skill":"Proportional scaling","difficulty":"Hard","kind":"numeric","prompt":"A recipe uses 10.5 cups of an ingredient for 12 servings. How many cups are needed for 30 servings?","choices":null,"answer_index":null,"answer":"105/4","tolerance":1e-06,"hint":"Multiply the amount per serving by the new number of servings.","explanation":"The unit rate is 10.5/12 cup per serving, so the required amount is 105/4 cups.","fast_method":"Scale by target servings ÷ original servings."},{"id":"s2v3q009","number":9,"topic":"Ratios, Rates, Proportions, and Units","skill":"Derived units and scale","difficulty":"Challenge","kind":"numeric","prompt":"A material has density 7.8 grams per cubic centimeter. What is the mass, in grams, of 250 cubic centimeters of the material?","choices":null,"answer_index":null,"answer":"1950","tolerance":1e-06,"hint":"Use the units to decide whether to multiply or divide.","explanation":"Mass = density × volume = 7.8(250) = 1950 grams.","fast_method":"Arrange the calculation so unwanted units cancel."},{"id":"s2v3q010","number":10,"topic":"Ratios, Rates, Proportions, and Units","skill":"Derived units and scale","difficulty":"Challenge","kind":"numeric","prompt":"A map scale is 1 inch to 18 miles. Two cities are 7.5 inches apart on the map. How many miles apart are they?","choices":null,"answer_index":null,"answer":"135","tolerance":1e-06,"hint":"Use the units to decide whether to multiply or divide.","explanation":"Actual distance = 7.5 × 18 = 135 miles.","fast_method":"Arrange the calculation so unwanted units cancel."},{"id":"s2v3q011","number":11,"topic":"Percentages and Multi-Step Percent Change","skill":"Discount followed by tax","difficulty":"Medium","kind":"numeric","prompt":"An item costs $240. It is discounted by 25% and then taxed at 8% on the discounted price. What is the final price?","choices":null,"answer_index":null,"answer":"194.4","tolerance":1e-06,"hint":"Apply the discount multiplier first, then the tax multiplier.","explanation":"Final price = 240(0.75)(1.08) = $194.4.","fast_method":"Successive percentages multiply; they do not simply add or subtract."},{"id":"s2v3q012","number":12,"topic":"Percentages and Multi-Step Percent Change","skill":"Discount followed by tax","difficulty":"Medium","kind":"numeric","prompt":"An item costs $175. It is discounted by 18% and then taxed at 6% on the discounted price. What is the final price?","choices":null,"answer_index":null,"answer":"152.11","tolerance":1e-06,"hint":"Apply the discount multiplier first, then the tax multiplier.","explanation":"Final price = 175(0.82)(1.06) = $152.11.","fast_method":"Successive percentages multiply; they do not simply add or subtract."},{"id":"s2v3q013","number":13,"topic":"Percentages and Multi-Step Percent Change","skill":"Discount followed by tax","difficulty":"Medium","kind":"numeric","prompt":"An item costs $320. It is discounted by 35% and then taxed at 7.5% on the discounted price. What is the final price?","choices":null,"answer_index":null,"answer":"223.6","tolerance":1e-06,"hint":"Apply the discount multiplier first, then the tax multiplier.","explanation":"Final price = 320(0.65)(1.075) = $223.6.","fast_method":"Successive percentages multiply; they do not simply add or subtract."},{"id":"s2v3q014","number":14,"topic":"Percentages and Multi-Step Percent Change","skill":"Discount followed by tax","difficulty":"Medium","kind":"numeric","prompt":"An item costs $96. It is discounted by 12.5% and then taxed at 10% on the discounted price. What is the final price?","choices":null,"answer_index":null,"answer":"92.4","tolerance":1e-06,"hint":"Apply the discount multiplier first, then the tax multiplier.","explanation":"Final price = 96(0.875)(1.1) = $92.4.","fast_method":"Successive percentages multiply; they do not simply add or subtract."},{"id":"s2v3q015","number":15,"topic":"Percentages and Multi-Step Percent Change","skill":"Successive percent change","difficulty":"Hard","kind":"numeric","prompt":"A quantity increases by 20% and then decreases by 10%. What is the overall percent change from the original value? Enter an increase as positive and a decrease as negative.","choices":null,"answer_index":null,"answer":"8","tolerance":1e-06,"hint":"Multiply the two change factors, then compare the result with 1.","explanation":"The net multiplier is (1.2)(0.9) = 1.08, so the overall change is 8.0%.","fast_method":"Use multipliers; opposite percentage changes do not cancel."},{"id":"s2v3q016","number":16,"topic":"Percentages and Multi-Step Percent Change","skill":"Successive percent change","difficulty":"Hard","kind":"numeric","prompt":"A quantity increases by 15% and then decreases by 25%. What is the overall percent change from the original value? Enter an increase as positive and a decrease as negative.","choices":null,"answer_index":null,"answer":"-13.75","tolerance":1e-06,"hint":"Multiply the two change factors, then compare the result with 1.","explanation":"The net multiplier is (1.15)(0.75) = 0.8625, so the overall change is -13.75%.","fast_method":"Use multipliers; opposite percentage changes do not cancel."},{"id":"s2v3q017","number":17,"topic":"Percentages and Multi-Step Percent Change","skill":"Successive percent change","difficulty":"Hard","kind":"numeric","prompt":"A quantity increases by 32% and then decreases by 20%. What is the overall percent change from the original value? Enter an increase as positive and a decrease as negative.","choices":null,"answer_index":null,"answer":"5.6","tolerance":1e-06,"hint":"Multiply the two change factors, then compare the result with 1.","explanation":"The net multiplier is (1.32)(0.8) = 1.056, so the overall change is 5.6%.","fast_method":"Use multipliers; opposite percentage changes do not cancel."},{"id":"s2v3q018","number":18,"topic":"Percentages and Multi-Step Percent Change","skill":"Successive percent change","difficulty":"Hard","kind":"numeric","prompt":"A quantity increases by 10% and then decreases by 18%. What is the overall percent change from the original value? Enter an increase as positive and a decrease as negative.","choices":null,"answer_index":null,"answer":"-9.8","tolerance":1e-06,"hint":"Multiply the two change factors, then compare the result with 1.","explanation":"The net multiplier is (1.1)(0.82) = 0.902, so the overall change is -9.8%.","fast_method":"Use multipliers; opposite percentage changes do not cancel."},{"id":"s2v3q019","number":19,"topic":"Percentages and Multi-Step Percent Change","skill":"Reverse percentages","difficulty":"Challenge","kind":"numeric","prompt":"After a 20% increase followed by a 25% decrease, a value is 360. What was the original value?","choices":null,"answer_index":null,"answer":"400","tolerance":1e-06,"hint":"Divide the final value by the complete percent multiplier.","explanation":"The combined multiplier is 1.20 × 0.75 = 0.90, so original = 360/0.90 = 400.","fast_method":"To reverse a percent change, divide rather than subtract the percent."},{"id":"s2v3q020","number":20,"topic":"Percentages and Multi-Step Percent Change","skill":"Reverse percentages","difficulty":"Challenge","kind":"numeric","prompt":"A price after an 8% tax is $145.80. What was the pre-tax price?","choices":null,"answer_index":null,"answer":"135","tolerance":1e-06,"hint":"Divide the final value by the complete percent multiplier.","explanation":"Pre-tax price = 145.80/1.08 = 135.","fast_method":"To reverse a percent change, divide rather than subtract the percent."},{"id":"s2v3q021","number":21,"topic":"Statistics and Data Distributions","skill":"Updating a mean","difficulty":"Medium","kind":"numeric","prompt":"The data set 8, 12, 15, 17, 18, 20 gains the value 26. What is the new mean?","choices":null,"answer_index":null,"answer":"116/7","tolerance":1e-06,"hint":"Add the new value to the old total and divide by the new count.","explanation":"The new total is 116 across 7 values, so the mean is 116/7.","fast_method":"Track total and count rather than recomputing each intermediate mean."},{"id":"s2v3q022","number":22,"topic":"Statistics and Data Distributions","skill":"Updating a mean","difficulty":"Medium","kind":"numeric","prompt":"The data set 4, 9, 11, 13, 16, 19, 26 gains the value 30. What is the new mean?","choices":null,"answer_index":null,"answer":"16","tolerance":1e-06,"hint":"Add the new value to the old total and divide by the new count.","explanation":"The new total is 128 across 8 values, so the mean is 16.","fast_method":"Track total and count rather than recomputing each intermediate mean."},{"id":"s2v3q023","number":23,"topic":"Statistics and Data Distributions","skill":"Updating a mean","difficulty":"Medium","kind":"numeric","prompt":"The data set 22, 24, 25, 27, 31, 35 gains the value 41. What is the new mean?","choices":null,"answer_index":null,"answer":"205/7","tolerance":1e-06,"hint":"Add the new value to the old total and divide by the new count.","explanation":"The new total is 205 across 7 values, so the mean is 205/7.","fast_method":"Track total and count rather than recomputing each intermediate mean."},{"id":"s2v3q024","number":24,"topic":"Statistics and Data Distributions","skill":"Updating a mean","difficulty":"Medium","kind":"numeric","prompt":"The data set 3, 7, 12, 18, 21, 29, 36, 42 gains the value 14. What is the new mean?","choices":null,"answer_index":null,"answer":"182/9","tolerance":1e-06,"hint":"Add the new value to the old total and divide by the new count.","explanation":"The new total is 182 across 9 values, so the mean is 182/9.","fast_method":"Track total and count rather than recomputing each intermediate mean."},{"id":"s2v3q025","number":25,"topic":"Statistics and Data Distributions","skill":"Transforming data sets","difficulty":"Hard","kind":"numeric","prompt":"Every value in a data set is increased by 7. If the original mean is 24 and standard deviation is 5, what is the new mean?","choices":null,"answer_index":null,"answer":"31","tolerance":1e-06,"hint":"A shift changes the mean but not standard deviation; scaling changes both by the scale factor.","explanation":"Adding 7 to every value adds 7 to the mean, so the new mean is 31.","fast_method":"For y=ax+b, mean becomes a·mean+b and standard deviation becomes |a|·SD."},{"id":"s2v3q026","number":26,"topic":"Statistics and Data Distributions","skill":"Transforming data sets","difficulty":"Hard","kind":"numeric","prompt":"Every value in a data set is multiplied by 3. If the original standard deviation is 4, what is the new standard deviation?","choices":null,"answer_index":null,"answer":"12","tolerance":1e-06,"hint":"A shift changes the mean but not standard deviation; scaling changes both by the scale factor.","explanation":"Multiplying every value by 3 multiplies standard deviation by |3|, giving 12.","fast_method":"For y=ax+b, mean becomes a·mean+b and standard deviation becomes |a|·SD."},{"id":"s2v3q027","number":27,"topic":"Statistics and Data Distributions","skill":"Transforming data sets","difficulty":"Hard","kind":"numeric","prompt":"A data set has mean 18. Each value is transformed by y = 2x − 5. What is the mean of the transformed data?","choices":null,"answer_index":null,"answer":"31","tolerance":1e-06,"hint":"A shift changes the mean but not standard deviation; scaling changes both by the scale factor.","explanation":"The transformed mean is 2(18) − 5 = 31.","fast_method":"For y=ax+b, mean becomes a·mean+b and standard deviation becomes |a|·SD."},{"id":"s2v3q028","number":28,"topic":"Statistics and Data Distributions","skill":"Transforming data sets","difficulty":"Hard","kind":"numeric","prompt":"A data set has standard deviation 6. Each value is transformed by y = −2x + 9. What is the new standard deviation?","choices":null,"answer_index":null,"answer":"12","tolerance":1e-06,"hint":"A shift changes the mean but not standard deviation; scaling changes both by the scale factor.","explanation":"The shift does not affect spread, and multiplying by −2 doubles standard deviation to 12.","fast_method":"For y=ax+b, mean becomes a·mean+b and standard deviation becomes |a|·SD."},{"id":"s2v3q029","number":29,"topic":"Statistics and Data Distributions","skill":"Reconstructing data","difficulty":"Challenge","kind":"numeric","prompt":"A data set of 12 values has mean 18. One value was recorded as 42 but should have been 24. What is the corrected mean?","choices":null,"answer_index":null,"answer":"33/2","tolerance":1e-06,"hint":"Use mean × count to reconstruct the total, then adjust or find the missing value.","explanation":"Corrected total = 216 − 42 + 24 = 198, so corrected mean = 33/2.","fast_method":"Convert the mean into a total before correcting data."},{"id":"s2v3q030","number":30,"topic":"Statistics and Data Distributions","skill":"Reconstructing data","difficulty":"Challenge","kind":"numeric","prompt":"The median of five ordered values is 18. The first four values are 4, 11, 18, and 23. If the mean is 17, what is the fifth value?","choices":null,"answer_index":null,"answer":"29","tolerance":1e-06,"hint":"Use mean × count to reconstruct the total, then adjust or find the missing value.","explanation":"The total must be 5(17)=85. The known values sum to 56, so the fifth value is 29.","fast_method":"Convert the mean into a total before correcting data."},{"id":"s2v3q031","number":31,"topic":"Scatterplots and Mathematical Models","skill":"Residuals","difficulty":"Medium","kind":"numeric","prompt":"A line of best fit is ŷ = 3.2x + 42. At x = 6, the observed y-value is 64. What is the residual?","choices":null,"answer_index":null,"answer":"2.8","tolerance":1e-06,"hint":"Residual = observed − predicted.","explanation":"The predicted value is 61.2, so the residual is 64 − 61.2 = 2.8.","fast_method":"Substitute x first, then do actual minus predicted."},{"id":"s2v3q032","number":32,"topic":"Scatterplots and Mathematical Models","skill":"Residuals","difficulty":"Medium","kind":"numeric","prompt":"A line of best fit is ŷ = -1.5x + 90. At x = 12, the observed y-value is 70. What is the residual?","choices":null,"answer_index":null,"answer":"-2","tolerance":1e-06,"hint":"Residual = observed − predicted.","explanation":"The predicted value is 72, so the residual is 70 − 72 = -2.0.","fast_method":"Substitute x first, then do actual minus predicted."},{"id":"s2v3q033","number":33,"topic":"Scatterplots and Mathematical Models","skill":"Residuals","difficulty":"Medium","kind":"numeric","prompt":"A line of best fit is ŷ = 4.8x + 18. At x = 7, the observed y-value is 55. What is the residual?","choices":null,"answer_index":null,"answer":"3.4","tolerance":1e-06,"hint":"Residual = observed − predicted.","explanation":"The predicted value is 51.6, so the residual is 55 − 51.6 = 3.4.","fast_method":"Substitute x first, then do actual minus predicted."},{"id":"s2v3q034","number":34,"topic":"Scatterplots and Mathematical Models","skill":"Residuals","difficulty":"Medium","kind":"numeric","prompt":"A line of best fit is ŷ = -2.4x + 75. At x = 15, the observed y-value is 42. What is the residual?","choices":null,"answer_index":null,"answer":"3","tolerance":1e-06,"hint":"Residual = observed − predicted.","explanation":"The predicted value is 39, so the residual is 42 − 39 = 3.0.","fast_method":"Substitute x first, then do actual minus predicted."},{"id":"s2v3q035","number":35,"topic":"Scatterplots and Mathematical Models","skill":"Interpreting model slope","difficulty":"Hard","kind":"numeric","prompt":"A linear model has slope 2.5. According to the model, by how much does the predicted y-value change when x increases by 4?","choices":null,"answer_index":null,"answer":"10","tolerance":1e-06,"hint":"Multiply the slope by the change in x.","explanation":"Predicted change = 2.5(4) = 10.","fast_method":"Slope is change in y per one unit of x."},{"id":"s2v3q036","number":36,"topic":"Scatterplots and Mathematical Models","skill":"Interpreting model slope","difficulty":"Hard","kind":"numeric","prompt":"A linear model has slope -4. According to the model, by how much does the predicted y-value change when x increases by 3?","choices":null,"answer_index":null,"answer":"-12","tolerance":1e-06,"hint":"Multiply the slope by the change in x.","explanation":"Predicted change = -4(3) = -12.","fast_method":"Slope is change in y per one unit of x."},{"id":"s2v3q037","number":37,"topic":"Scatterplots and Mathematical Models","skill":"Interpreting model slope","difficulty":"Hard","kind":"numeric","prompt":"A linear model has slope 0.75. According to the model, by how much does the predicted y-value change when x increases by 20?","choices":null,"answer_index":null,"answer":"15","tolerance":1e-06,"hint":"Multiply the slope by the change in x.","explanation":"Predicted change = 0.75(20) = 15.","fast_method":"Slope is change in y per one unit of x."},{"id":"s2v3q038","number":38,"topic":"Scatterplots and Mathematical Models","skill":"Interpreting model slope","difficulty":"Hard","kind":"numeric","prompt":"A linear model has slope 6. According to the model, by how much does the predicted y-value change when x increases by 5?","choices":null,"answer_index":null,"answer":"30","tolerance":1e-06,"hint":"Multiply the slope by the change in x.","explanation":"Predicted change = 6(5) = 30.","fast_method":"Slope is change in y per one unit of x."},{"id":"s2v3q039","number":39,"topic":"Scatterplots and Mathematical Models","skill":"Using regression information","difficulty":"Challenge","kind":"numeric","prompt":"A regression model predicts a value of 68 for x = 10. The residual at that point is −7. What is the observed value?","choices":null,"answer_index":null,"answer":"61","tolerance":1e-06,"hint":"Use the residual definition or identify the appropriate input before substituting.","explanation":"Residual = observed − predicted, so observed = 68 + (−7) = 61.","fast_method":"Keep observed, predicted, and residual roles distinct."},{"id":"s2v3q040","number":40,"topic":"Scatterplots and Mathematical Models","skill":"Using regression information","difficulty":"Challenge","kind":"numeric","prompt":"A model ŷ = 5x + 12 is used only for 2 ≤ x ≤ 20. What is the predicted value at the midpoint of the model's stated x-range?","choices":null,"answer_index":null,"answer":"67","tolerance":1e-06,"hint":"Use the residual definition or identify the appropriate input before substituting.","explanation":"The midpoint is (2+20)/2 = 11, and ŷ = 5(11)+12 = 67.","fast_method":"Keep observed, predicted, and residual roles distinct."},{"id":"s2v3q041","number":41,"topic":"Probability, Counting, and Sampling","skill":"Dependent probability","difficulty":"Medium","kind":"numeric","prompt":"A bag contains 5 red and 6 blue marbles. Two marbles are drawn without replacement. What is the probability both are red?","choices":null,"answer_index":null,"answer":"2/11","tolerance":1e-06,"hint":"Multiply the first probability by the updated second probability.","explanation":"P(both red) = 5/11 × 4/10 = 2/11.","fast_method":"Without replacement, both numerator and denominator change after the first draw."},{"id":"s2v3q042","number":42,"topic":"Probability, Counting, and Sampling","skill":"Dependent probability","difficulty":"Medium","kind":"numeric","prompt":"A bag contains 7 red and 5 blue marbles. Two marbles are drawn without replacement. What is the probability both are red?","choices":null,"answer_index":null,"answer":"7/22","tolerance":1e-06,"hint":"Multiply the first probability by the updated second probability.","explanation":"P(both red) = 7/12 × 6/11 = 7/22.","fast_method":"Without replacement, both numerator and denominator change after the first draw."},{"id":"s2v3q043","number":43,"topic":"Probability, Counting, and Sampling","skill":"Dependent probability","difficulty":"Medium","kind":"numeric","prompt":"A bag contains 4 red and 9 blue marbles. Two marbles are drawn without replacement. What is the probability both are red?","choices":null,"answer_index":null,"answer":"1/13","tolerance":1e-06,"hint":"Multiply the first probability by the updated second probability.","explanation":"P(both red) = 4/13 × 3/12 = 1/13.","fast_method":"Without replacement, both numerator and denominator change after the first draw."},{"id":"s2v3q044","number":44,"topic":"Probability, Counting, and Sampling","skill":"Dependent probability","difficulty":"Medium","kind":"numeric","prompt":"A bag contains 8 red and 7 blue marbles. Two marbles are drawn without replacement. What is the probability both are red?","choices":null,"answer_index":null,"answer":"4/15","tolerance":1e-06,"hint":"Multiply the first probability by the updated second probability.","explanation":"P(both red) = 8/15 × 7/14 = 4/15.","fast_method":"Without replacement, both numerator and denominator change after the first draw."},{"id":"s2v3q045","number":45,"topic":"Probability, Counting, and Sampling","skill":"Counting principle and combinations","difficulty":"Hard","kind":"numeric","prompt":"A code consists of 2 distinct letters followed by 3 digits. Letters cannot repeat, but digits may repeat. How many codes are possible?","choices":null,"answer_index":null,"answer":"650000","tolerance":1e-06,"hint":"Determine whether order matters, then multiply stages or use combinations.","explanation":"There are 26 choices, then 25 choices, then 10 choices for each of three digits: 26·25·10³ = 650000.","fast_method":"Label positions or roles before counting."},{"id":"s2v3q046","number":46,"topic":"Probability, Counting, and Sampling","skill":"Counting principle and combinations","difficulty":"Hard","kind":"numeric","prompt":"From 8 students, a president, vice president, and secretary are selected. How many different officer groups are possible?","choices":null,"answer_index":null,"answer":"336","tolerance":1e-06,"hint":"Determine whether order matters, then multiply stages or use combinations.","explanation":"The positions are distinct, so there are 8·7·6 = 336 arrangements.","fast_method":"Label positions or roles before counting."},{"id":"s2v3q047","number":47,"topic":"Probability, Counting, and Sampling","skill":"Counting principle and combinations","difficulty":"Hard","kind":"numeric","prompt":"A restaurant offers 5 entrées, 4 sides, and 3 drinks. A meal chooses one of each, but 2 entrée-side combinations are unavailable for every drink. How many meals are possible?","choices":null,"answer_index":null,"answer":"54","tolerance":1e-06,"hint":"Determine whether order matters, then multiply stages or use combinations.","explanation":"There are 20 entrée-side pairs, 2 unavailable, leaving 18; with 3 drinks, 18·3 = 54.","fast_method":"Label positions or roles before counting."},{"id":"s2v3q048","number":48,"topic":"Probability, Counting, and Sampling","skill":"Counting principle and combinations","difficulty":"Hard","kind":"numeric","prompt":"A fair coin is tossed 5 times. How many outcomes contain exactly 3 heads?","choices":null,"answer_index":null,"answer":"10","tolerance":1e-06,"hint":"Determine whether order matters, then multiply stages or use combinations.","explanation":"Choose which 3 of the 5 positions are heads: C(5,3) = 10.","fast_method":"Label positions or roles before counting."},{"id":"s2v3q049","number":49,"topic":"Probability, Counting, and Sampling","skill":"Probability and inference","difficulty":"Challenge","kind":"numeric","prompt":"In a survey, 60% like math, 45% like science, and 25% like both. What percent like at least one of the two subjects?","choices":null,"answer_index":null,"answer":"80","tolerance":1e-06,"hint":"Use inclusion-exclusion or scale the sample proportion to the population.","explanation":"P(M∪S)=60%+45%−25%=80%.","fast_method":"Translate the situation into a proportion before calculating."},{"id":"s2v3q050","number":50,"topic":"Probability, Counting, and Sampling","skill":"Probability and inference","difficulty":"Challenge","kind":"numeric","prompt":"A random sample of 400 voters finds 232 support a proposal. Based on the sample, how many of 12,500 voters would be predicted to support it?","choices":null,"answer_index":null,"answer":"7250","tolerance":1e-06,"hint":"Use inclusion-exclusion or scale the sample proportion to the population.","explanation":"The sample proportion is 232/400 = 0.58, and 0.58(12500) = 7250.","fast_method":"Translate the situation into a proportion before calculating."},{"id":"s2v3q051","number":51,"topic":"Area, Surface Area, Volume, and Similarity","skill":"Volume of composite solids","difficulty":"Medium","kind":"numeric","prompt":"A rectangular prism has dimensions 8, 5, and 12. A smaller prism measuring 3 by 2 by 4 is removed. What is the remaining volume?","choices":null,"answer_index":null,"answer":"456","tolerance":1e-06,"hint":"Choose the correct volume formula and combine solids by addition or subtraction.","explanation":"Remaining volume = 480 − 24 = 456 cubic units.","fast_method":"Track cubic units and delay rounding."},{"id":"s2v3q052","number":52,"topic":"Area, Surface Area, Volume, and Similarity","skill":"Volume of composite solids","difficulty":"Medium","kind":"numeric","prompt":"A cylinder has radius 6 and height 10. Its volume is kπ. What is k?","choices":null,"answer_index":null,"answer":"360","tolerance":1e-06,"hint":"Choose the correct volume formula and combine solids by addition or subtraction.","explanation":"V=πr²h=π(6²)(10)=360π, so k=360.","fast_method":"Track cubic units and delay rounding."},{"id":"s2v3q053","number":53,"topic":"Area, Surface Area, Volume, and Similarity","skill":"Volume of composite solids","difficulty":"Medium","kind":"numeric","prompt":"A cone has radius 9 and height 12. Its volume is kπ. What is k?","choices":null,"answer_index":null,"answer":"324","tolerance":1e-06,"hint":"Choose the correct volume formula and combine solids by addition or subtraction.","explanation":"V=(1/3)πr²h=(1/3)π(81)(12)=324π.","fast_method":"Track cubic units and delay rounding."},{"id":"s2v3q054","number":54,"topic":"Area, Surface Area, Volume, and Similarity","skill":"Volume of composite solids","difficulty":"Medium","kind":"numeric","prompt":"A rectangular tank measures 2.5 m by 1.8 m by 1.2 m. What is its volume in cubic meters?","choices":null,"answer_index":null,"answer":"5.4","tolerance":1e-06,"hint":"Choose the correct volume formula and combine solids by addition or subtraction.","explanation":"V=2.5·1.8·1.2=5.4 cubic meters.","fast_method":"Track cubic units and delay rounding."},{"id":"s2v3q055","number":55,"topic":"Area, Surface Area, Volume, and Similarity","skill":"Similarity and area scale","difficulty":"Hard","kind":"numeric","prompt":"Two similar figures have a side-length scale factor of 1.5 from smaller to larger. If the smaller area is 40, what is the larger area?","choices":null,"answer_index":null,"answer":"90","tolerance":1e-06,"hint":"Areas scale by the square of the side-length factor.","explanation":"Larger area = 40(1.5)² = 90.","fast_method":"Length k, area k², volume k³."},{"id":"s2v3q056","number":56,"topic":"Area, Surface Area, Volume, and Similarity","skill":"Similarity and area scale","difficulty":"Hard","kind":"numeric","prompt":"Two similar figures have a side-length scale factor of 2 from smaller to larger. If the smaller area is 72, what is the larger area?","choices":null,"answer_index":null,"answer":"288","tolerance":1e-06,"hint":"Areas scale by the square of the side-length factor.","explanation":"Larger area = 72(2)² = 288.","fast_method":"Length k, area k², volume k³."},{"id":"s2v3q057","number":57,"topic":"Area, Surface Area, Volume, and Similarity","skill":"Similarity and area scale","difficulty":"Hard","kind":"numeric","prompt":"Two similar figures have a side-length scale factor of 2.5 from smaller to larger. If the smaller area is 24, what is the larger area?","choices":null,"answer_index":null,"answer":"150","tolerance":1e-06,"hint":"Areas scale by the square of the side-length factor.","explanation":"Larger area = 24(2.5)² = 150.","fast_method":"Length k, area k², volume k³."},{"id":"s2v3q058","number":58,"topic":"Area, Surface Area, Volume, and Similarity","skill":"Similarity and area scale","difficulty":"Hard","kind":"numeric","prompt":"Two similar figures have a side-length scale factor of 3 from smaller to larger. If the smaller area is 35, what is the larger area?","choices":null,"answer_index":null,"answer":"315","tolerance":1e-06,"hint":"Areas scale by the square of the side-length factor.","explanation":"Larger area = 35(3)² = 315.","fast_method":"Length k, area k², volume k³."},{"id":"s2v3q059","number":59,"topic":"Area, Surface Area, Volume, and Similarity","skill":"Three-dimensional scale factors","difficulty":"Challenge","kind":"mcq","prompt":"Two similar solids have volume ratio 343:125. What is the ratio of corresponding side lengths?","choices":["7:5","343:125","49:25","5:7"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Take the cube root of the volume ratio.","explanation":"The side-length ratio is the cube root of 343:125, which is 7:5.","fast_method":"Volume ratios are cubes of side-length ratios."},{"id":"s2v3q060","number":60,"topic":"Area, Surface Area, Volume, and Similarity","skill":"Three-dimensional scale factors","difficulty":"Challenge","kind":"numeric","prompt":"A sphere's radius is increased by 20%. By what percent does its volume increase?","choices":null,"answer_index":null,"answer":"72.8","tolerance":1e-06,"hint":"Volume scales by the cube of the radius multiplier.","explanation":"The volume multiplier is 1.2³ = 1.728, so the increase is 72.8%.","fast_method":"Cube the linear scale factor, then subtract 1."},{"id":"s2v3q061","number":61,"topic":"Lines, Angles, and Triangles","skill":"Angle algebra in triangles","difficulty":"Medium","kind":"numeric","prompt":"A triangle has angles (2x + 10)°, (3x + 20)°, and 50°. What is x?","choices":null,"answer_index":null,"answer":"20","tolerance":1e-06,"hint":"Set the sum of the three angles equal to 180°.","explanation":"Combining the angle expressions gives an equation whose solution is x = 20.","fast_method":"Use the triangle angle sum before evaluating individual angles."},{"id":"s2v3q062","number":62,"topic":"Lines, Angles, and Triangles","skill":"Angle algebra in triangles","difficulty":"Medium","kind":"numeric","prompt":"A triangle has angles (3x − 5)°, (2x + 25)°, and 85°. What is x?","choices":null,"answer_index":null,"answer":"15","tolerance":1e-06,"hint":"Set the sum of the three angles equal to 180°.","explanation":"Combining the angle expressions gives an equation whose solution is x = 15.","fast_method":"Use the triangle angle sum before evaluating individual angles."},{"id":"s2v3q063","number":63,"topic":"Lines, Angles, and Triangles","skill":"Angle algebra in triangles","difficulty":"Medium","kind":"numeric","prompt":"A triangle has angles (4x + 8)°, (1x + 30)°, and 52°. What is x?","choices":null,"answer_index":null,"answer":"18","tolerance":1e-06,"hint":"Set the sum of the three angles equal to 180°.","explanation":"Combining the angle expressions gives an equation whose solution is x = 18.","fast_method":"Use the triangle angle sum before evaluating individual angles."},{"id":"s2v3q064","number":64,"topic":"Lines, Angles, and Triangles","skill":"Angle algebra in triangles","difficulty":"Medium","kind":"numeric","prompt":"A triangle has angles (5x + 15)°, (4x − 3)°, and 60°. What is x?","choices":null,"answer_index":null,"answer":"12","tolerance":1e-06,"hint":"Set the sum of the three angles equal to 180°.","explanation":"Combining the angle expressions gives an equation whose solution is x = 12.","fast_method":"Use the triangle angle sum before evaluating individual angles."},{"id":"s2v3q065","number":65,"topic":"Lines, Angles, and Triangles","skill":"Similar triangles","difficulty":"Hard","kind":"numeric","prompt":"Two triangles are similar. A side of length 6 corresponds to 15. If another side of the smaller triangle is 10, what is the corresponding side of the larger triangle?","choices":null,"answer_index":null,"answer":"25","tolerance":1e-06,"hint":"Find the scale factor from a known pair of corresponding sides.","explanation":"The scale factor is 15/6. Multiplying 10 by this factor gives 25.","fast_method":"Keep corresponding sides in the same order."},{"id":"s2v3q066","number":66,"topic":"Lines, Angles, and Triangles","skill":"Similar triangles","difficulty":"Hard","kind":"numeric","prompt":"Two triangles are similar. A side of length 8 corresponds to 20. If another side of the smaller triangle is 14, what is the corresponding side of the larger triangle?","choices":null,"answer_index":null,"answer":"35","tolerance":1e-06,"hint":"Find the scale factor from a known pair of corresponding sides.","explanation":"The scale factor is 20/8. Multiplying 14 by this factor gives 35.","fast_method":"Keep corresponding sides in the same order."},{"id":"s2v3q067","number":67,"topic":"Lines, Angles, and Triangles","skill":"Similar triangles","difficulty":"Hard","kind":"numeric","prompt":"Two triangles are similar. A side of length 9 corresponds to 24. If another side of the smaller triangle is 18, what is the corresponding side of the larger triangle?","choices":null,"answer_index":null,"answer":"48","tolerance":1e-06,"hint":"Find the scale factor from a known pair of corresponding sides.","explanation":"The scale factor is 24/9. Multiplying 18 by this factor gives 48.","fast_method":"Keep corresponding sides in the same order."},{"id":"s2v3q068","number":68,"topic":"Lines, Angles, and Triangles","skill":"Similar triangles","difficulty":"Hard","kind":"numeric","prompt":"Two triangles are similar. A side of length 12 corresponds to 30. If another side of the smaller triangle is 22, what is the corresponding side of the larger triangle?","choices":null,"answer_index":null,"answer":"55","tolerance":1e-06,"hint":"Find the scale factor from a known pair of corresponding sides.","explanation":"The scale factor is 30/12. Multiplying 22 by this factor gives 55.","fast_method":"Keep corresponding sides in the same order."},{"id":"s2v3q069","number":69,"topic":"Lines, Angles, and Triangles","skill":"Advanced angle relationships","difficulty":"Challenge","kind":"numeric","prompt":"In an isosceles triangle, the vertex angle is (4x − 10)° and each base angle is (2x + 5)°. What is x?","choices":null,"answer_index":null,"answer":"45/2","tolerance":1e-06,"hint":"Use the relevant angle sum: 180° for a triangle or supplementary same-side angles.","explanation":"(4x−10)+2(2x+5)=180 gives 8x=180, so x=45/2.","fast_method":"Translate the geometry relationship into one linear equation."},{"id":"s2v3q070","number":70,"topic":"Lines, Angles, and Triangles","skill":"Advanced angle relationships","difficulty":"Challenge","kind":"numeric","prompt":"Two parallel lines are cut by a transversal. Same-side interior angles measure (3x + 12)° and (5x − 8)°. What is x?","choices":null,"answer_index":null,"answer":"22","tolerance":1e-06,"hint":"Use the relevant angle sum: 180° for a triangle or supplementary same-side angles.","explanation":"Same-side interior angles are supplementary: 3x+12+5x−8=180, so 8x=176 and x=22.","fast_method":"Translate the geometry relationship into one linear equation."},{"id":"s2v3q071","number":71,"topic":"Coordinate Geometry","skill":"Midpoint formula","difficulty":"Medium","kind":"numeric","prompt":"The midpoint of the segment joining (-3, 7) and (5, -1) is (a, b). What is a + b?","choices":null,"answer_index":null,"answer":"4","tolerance":1e-06,"hint":"Average the x-coordinates and average the y-coordinates.","explanation":"The midpoint is (1, 3), so a + b = 4.","fast_method":"Midpoint means coordinate-wise average."},{"id":"s2v3q072","number":72,"topic":"Coordinate Geometry","skill":"Midpoint formula","difficulty":"Medium","kind":"numeric","prompt":"The midpoint of the segment joining (2, -1) and (8, 11) is (a, b). What is a + b?","choices":null,"answer_index":null,"answer":"10","tolerance":1e-06,"hint":"Average the x-coordinates and average the y-coordinates.","explanation":"The midpoint is (5, 5), so a + b = 10.","fast_method":"Midpoint means coordinate-wise average."},{"id":"s2v3q073","number":73,"topic":"Coordinate Geometry","skill":"Midpoint formula","difficulty":"Medium","kind":"numeric","prompt":"The midpoint of the segment joining (-5, 6) and (1, -2) is (a, b). What is a + b?","choices":null,"answer_index":null,"answer":"0","tolerance":1e-06,"hint":"Average the x-coordinates and average the y-coordinates.","explanation":"The midpoint is (-2, 2), so a + b = 0.","fast_method":"Midpoint means coordinate-wise average."},{"id":"s2v3q074","number":74,"topic":"Coordinate Geometry","skill":"Midpoint formula","difficulty":"Medium","kind":"numeric","prompt":"The midpoint of the segment joining (4, 3) and (-2, 9) is (a, b). What is a + b?","choices":null,"answer_index":null,"answer":"7","tolerance":1e-06,"hint":"Average the x-coordinates and average the y-coordinates.","explanation":"The midpoint is (1, 6), so a + b = 7.","fast_method":"Midpoint means coordinate-wise average."},{"id":"s2v3q075","number":75,"topic":"Coordinate Geometry","skill":"Distance formula","difficulty":"Hard","kind":"numeric","prompt":"What is the distance between (0, 0) and (6, 8)?","choices":null,"answer_index":null,"answer":"10","tolerance":1e-06,"hint":"Use √[(Δx)² + (Δy)²].","explanation":"The coordinate changes are 6 and 8, so the distance is √(36+64) = 10.","fast_method":"Treat the horizontal and vertical changes as legs of a right triangle."},{"id":"s2v3q076","number":76,"topic":"Coordinate Geometry","skill":"Distance formula","difficulty":"Hard","kind":"numeric","prompt":"What is the distance between (-2, 4) and (3, 16)?","choices":null,"answer_index":null,"answer":"13","tolerance":1e-06,"hint":"Use √[(Δx)² + (Δy)²].","explanation":"The coordinate changes are 5 and 12, so the distance is √(25+144) = 13.","fast_method":"Treat the horizontal and vertical changes as legs of a right triangle."},{"id":"s2v3q077","number":77,"topic":"Coordinate Geometry","skill":"Distance formula","difficulty":"Hard","kind":"numeric","prompt":"What is the distance between (3, -1) and (11, 14)?","choices":null,"answer_index":null,"answer":"17","tolerance":1e-06,"hint":"Use √[(Δx)² + (Δy)²].","explanation":"The coordinate changes are 8 and 15, so the distance is √(64+225) = 17.","fast_method":"Treat the horizontal and vertical changes as legs of a right triangle."},{"id":"s2v3q078","number":78,"topic":"Coordinate Geometry","skill":"Distance formula","difficulty":"Hard","kind":"numeric","prompt":"What is the distance between (-5, 2) and (4, 14)?","choices":null,"answer_index":null,"answer":"15","tolerance":1e-06,"hint":"Use √[(Δx)² + (Δy)²].","explanation":"The coordinate changes are 9 and 12, so the distance is √(81+144) = 15.","fast_method":"Treat the horizontal and vertical changes as legs of a right triangle."},{"id":"s2v3q079","number":79,"topic":"Coordinate Geometry","skill":"Advanced coordinate geometry","difficulty":"Challenge","kind":"numeric","prompt":"The points (0,0), (4,1), (3,5), and (−1,4) are consecutive vertices of a quadrilateral. What is its area?","choices":null,"answer_index":null,"answer":"17","tolerance":1e-06,"hint":"Use the shoelace formula for area or opposite reciprocal slopes for perpendicular lines.","explanation":"Using the shoelace formula gives area 17 square units.","fast_method":"Convert geometric conditions into coordinate formulas."},{"id":"s2v3q080","number":80,"topic":"Coordinate Geometry","skill":"Advanced coordinate geometry","difficulty":"Challenge","kind":"numeric","prompt":"A line through (2, −3) is perpendicular to the line 3x − 2y = 8. What is the y-intercept of the perpendicular line?","choices":null,"answer_index":null,"answer":"-5/3","tolerance":1e-06,"hint":"Use the shoelace formula for area or opposite reciprocal slopes for perpendicular lines.","explanation":"The given slope is 3/2, so the perpendicular slope is −2/3. Substituting (2,−3) gives b=−5/3.","fast_method":"Convert geometric conditions into coordinate formulas."},{"id":"s2v3q081","number":81,"topic":"Right Triangles and Trigonometry","skill":"Trigonometric ratios","difficulty":"Medium","kind":"numeric","prompt":"In a right triangle relative to angle θ, the opposite side is 5, the adjacent side is 12, and the hypotenuse is 13. What is sin(θ)?","choices":null,"answer_index":null,"answer":"5/13","tolerance":1e-06,"hint":"Use SOH-CAH-TOA.","explanation":"sin(θ) = 5/13.","fast_method":"Label opposite, adjacent, and hypotenuse relative to the named angle."},{"id":"s2v3q082","number":82,"topic":"Right Triangles and Trigonometry","skill":"Trigonometric ratios","difficulty":"Medium","kind":"numeric","prompt":"In a right triangle relative to angle θ, the opposite side is 8, the adjacent side is 15, and the hypotenuse is 17. What is cos(θ)?","choices":null,"answer_index":null,"answer":"15/17","tolerance":1e-06,"hint":"Use SOH-CAH-TOA.","explanation":"cos(θ) = 15/17.","fast_method":"Label opposite, adjacent, and hypotenuse relative to the named angle."},{"id":"s2v3q083","number":83,"topic":"Right Triangles and Trigonometry","skill":"Trigonometric ratios","difficulty":"Medium","kind":"numeric","prompt":"In a right triangle relative to angle θ, the opposite side is 7, the adjacent side is 24, and the hypotenuse is 25. What is tan(θ)?","choices":null,"answer_index":null,"answer":"7/24","tolerance":1e-06,"hint":"Use SOH-CAH-TOA.","explanation":"tan(θ) = 7/24.","fast_method":"Label opposite, adjacent, and hypotenuse relative to the named angle."},{"id":"s2v3q084","number":84,"topic":"Right Triangles and Trigonometry","skill":"Trigonometric ratios","difficulty":"Medium","kind":"numeric","prompt":"In a right triangle relative to angle θ, the opposite side is 20, the adjacent side is 21, and the hypotenuse is 29. What is sin(θ)?","choices":null,"answer_index":null,"answer":"20/29","tolerance":1e-06,"hint":"Use SOH-CAH-TOA.","explanation":"sin(θ) = 20/29.","fast_method":"Label opposite, adjacent, and hypotenuse relative to the named angle."},{"id":"s2v3q085","number":85,"topic":"Right Triangles and Trigonometry","skill":"Special right triangles and applications","difficulty":"Hard","kind":"mcq","prompt":"A 20-foot ladder makes a 60° angle with the ground. How high up a wall does it reach?","choices":["10√3","20","20√3","10"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Use special-triangle ratios or first find the missing side.","explanation":"Height is opposite the 60° angle: 20 sin60° = 20(√3/2) = 10√3.","fast_method":"Recognize standard ratios before using a calculator."},{"id":"s2v3q086","number":86,"topic":"Right Triangles and Trigonometry","skill":"Special right triangles and applications","difficulty":"Hard","kind":"mcq","prompt":"In a 45-45-90 triangle, the hypotenuse is 18. What is the length of each leg?","choices":["6√2","9√2","9","18√2"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Use special-triangle ratios or first find the missing side.","explanation":"Each leg is 18/√2 = 9√2.","fast_method":"Recognize standard ratios before using a calculator."},{"id":"s2v3q087","number":87,"topic":"Right Triangles and Trigonometry","skill":"Special right triangles and applications","difficulty":"Hard","kind":"mcq","prompt":"In a 30-60-90 triangle, the longer leg is 12√3. What is the hypotenuse?","choices":["24","12","6√3","24√3"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Use special-triangle ratios or first find the missing side.","explanation":"The longer leg is short leg·√3, so the short leg is 12 and the hypotenuse is 24.","fast_method":"Recognize standard ratios before using a calculator."},{"id":"s2v3q088","number":88,"topic":"Right Triangles and Trigonometry","skill":"Special right triangles and applications","difficulty":"Hard","kind":"mcq","prompt":"A right triangle has legs 10 and 24. What is the sine of the angle opposite the shorter leg?","choices":["12/13","5/13","5/12","10/24"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Use special-triangle ratios or first find the missing side.","explanation":"The hypotenuse is 26, so sine = 10/26 = 5/13.","fast_method":"Recognize standard ratios before using a calculator."},{"id":"s2v3q089","number":89,"topic":"Right Triangles and Trigonometry","skill":"Advanced trigonometric reasoning","difficulty":"Challenge","kind":"numeric","prompt":"In a right triangle, tan θ = 3/4 and the hypotenuse is 25. What is the length of the side opposite θ?","choices":null,"answer_index":null,"answer":"15","tolerance":1e-06,"hint":"Use a Pythagorean triple or complementary-angle identity.","explanation":"The side ratio is 3:4:5. Scaling the hypotenuse from 5 to 25 multiplies all sides by 5, so opposite=15.","fast_method":"Convert the ratio to a familiar triangle when possible."},{"id":"s2v3q090","number":90,"topic":"Right Triangles and Trigonometry","skill":"Advanced trigonometric reasoning","difficulty":"Challenge","kind":"numeric","prompt":"A right triangle has acute angles A and B. If cos A = 12/13, what is sin B?","choices":null,"answer_index":null,"answer":"12/13","tolerance":1e-06,"hint":"Use a Pythagorean triple or complementary-angle identity.","explanation":"A and B are complementary, so sin B = cos A = 12/13.","fast_method":"Convert the ratio to a familiar triangle when possible."},{"id":"s2v3q091","number":91,"topic":"Circles","skill":"Arc length","difficulty":"Medium","kind":"numeric","prompt":"A circle has radius 6. An arc is subtended by a central angle of 150°. Its length is kπ. What is k?","choices":null,"answer_index":null,"answer":"5","tolerance":1e-06,"hint":"Arc length = (central angle/360)·2πr.","explanation":"k = (150/360)·2(6) = 5.","fast_method":"Use the same fraction of the circumference as the central angle is of 360°."},{"id":"s2v3q092","number":92,"topic":"Circles","skill":"Arc length","difficulty":"Medium","kind":"numeric","prompt":"A circle has radius 8. An arc is subtended by a central angle of 135°. Its length is kπ. What is k?","choices":null,"answer_index":null,"answer":"6","tolerance":1e-06,"hint":"Arc length = (central angle/360)·2πr.","explanation":"k = (135/360)·2(8) = 6.","fast_method":"Use the same fraction of the circumference as the central angle is of 360°."},{"id":"s2v3q093","number":93,"topic":"Circles","skill":"Arc length","difficulty":"Medium","kind":"numeric","prompt":"A circle has radius 10. An arc is subtended by a central angle of 72°. Its length is kπ. What is k?","choices":null,"answer_index":null,"answer":"4","tolerance":1e-06,"hint":"Arc length = (central angle/360)·2πr.","explanation":"k = (72/360)·2(10) = 4.","fast_method":"Use the same fraction of the circumference as the central angle is of 360°."},{"id":"s2v3q094","number":94,"topic":"Circles","skill":"Arc length","difficulty":"Medium","kind":"numeric","prompt":"A circle has radius 12. An arc is subtended by a central angle of 210°. Its length is kπ. What is k?","choices":null,"answer_index":null,"answer":"14","tolerance":1e-06,"hint":"Arc length = (central angle/360)·2πr.","explanation":"k = (210/360)·2(12) = 14.","fast_method":"Use the same fraction of the circumference as the central angle is of 360°."},{"id":"s2v3q095","number":95,"topic":"Circles","skill":"Sector area","difficulty":"Hard","kind":"numeric","prompt":"A circle has radius 9. A sector has central angle 80°. Its area is kπ. What is k?","choices":null,"answer_index":null,"answer":"18","tolerance":1e-06,"hint":"Sector area = (central angle/360)·πr².","explanation":"k = (80/360)(81) = 18.","fast_method":"Use the angle fraction of the full circle area."},{"id":"s2v3q096","number":96,"topic":"Circles","skill":"Sector area","difficulty":"Hard","kind":"numeric","prompt":"A circle has radius 7. A sector has central angle 120°. Its area is kπ. What is k?","choices":null,"answer_index":null,"answer":"49/3","tolerance":1e-06,"hint":"Sector area = (central angle/360)·πr².","explanation":"k = (120/360)(49) = 49/3.","fast_method":"Use the angle fraction of the full circle area."},{"id":"s2v3q097","number":97,"topic":"Circles","skill":"Sector area","difficulty":"Hard","kind":"numeric","prompt":"A circle has radius 12. A sector has central angle 45°. Its area is kπ. What is k?","choices":null,"answer_index":null,"answer":"18","tolerance":1e-06,"hint":"Sector area = (central angle/360)·πr².","explanation":"k = (45/360)(144) = 18.","fast_method":"Use the angle fraction of the full circle area."},{"id":"s2v3q098","number":98,"topic":"Circles","skill":"Sector area","difficulty":"Hard","kind":"numeric","prompt":"A circle has radius 15. A sector has central angle 144°. Its area is kπ. What is k?","choices":null,"answer_index":null,"answer":"90","tolerance":1e-06,"hint":"Sector area = (central angle/360)·πr².","explanation":"k = (144/360)(225) = 90.","fast_method":"Use the angle fraction of the full circle area."},{"id":"s2v3q099","number":99,"topic":"Circles","skill":"Circle equations and tangency","difficulty":"Challenge","kind":"numeric","prompt":"The circle x² + y² − 6x + 8y + k = 0 has radius 7. What is k?","choices":null,"answer_index":null,"answer":"-24","tolerance":1e-06,"hint":"Complete the square and compare with (x−h)²+(y−k)²=r².","explanation":"Completing squares gives (x−3)²+(y+4)²=25−k. Since r²=49, 25−k=49, so k=−24.","fast_method":"Collect constants carefully after completing both squares."},{"id":"s2v3q100","number":100,"topic":"Circles","skill":"Circle equations and tangency","difficulty":"Challenge","kind":"mcq","prompt":"A circle has center (4, −3) and is tangent to the y-axis. What is its area in terms of π?","choices":["25π","16π","9π","4π"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Use center-radius form or distance from the center to the tangent line.","explanation":"The radius is the distance from the center to the y-axis, 4, so area=π(4²)=16π.","fast_method":"Tangency radius is perpendicular distance to the line."}]};</script><script src="app.js?v=20260805-math-progress-v13-20260806T013611Z"></script><script>initVolumePage();</script>
+<script id="sat-math-two-row-hierarchy-script-v1">
+(function () {
+  const SET_1_VOLUMES = [
+    {
+      label: 'Volume 1',
+      href: 'volume-1-algebra-foundations.html',
+      files: ['volume-1-algebra-foundations.html']
+    },
+    {
+      label: 'Volume 2',
+      href: 'volume-2-advanced-math.html',
+      files: ['volume-2-advanced-math.html']
+    },
+    {
+      label: 'Volume 3',
+      href: 'volume-3-data-geometry-trigonometry.html',
+      files: ['volume-3-data-geometry-trigonometry.html']
+    }
+  ];
+
+  const SET_2_VOLUMES = [
+    {
+      label: 'Volume 1',
+      href: 'set-2-volume-1-algebra.html',
+      files: ['set-2-volume-1-algebra.html']
+    },
+    {
+      label: 'Volume 2',
+      href: 'set-2-volume-2-advanced-math.html',
+      files: ['set-2-volume-2-advanced-math.html']
+    },
+    {
+      label: 'Volume 3',
+      href: 'set-2-volume-3-data-geometry-trigonometry.html',
+      files: ['set-2-volume-3-data-geometry-trigonometry.html']
+    }
+  ];
+
+  function currentFile() {
+    const path = window.location.pathname;
+    return path.split('/').pop() || 'index.html';
+  }
+
+  function studentId() {
+    return new URLSearchParams(window.location.search).get('student') || window.localStorage.getItem('sat_user') || '';
+  }
+
+  function hrefWithStudent(href) {
+    const student = studentId();
+
+    if (!student) {
+      return href;
+    }
+
+    const url = new URL(href, window.location.href);
+    url.searchParams.set('student', student);
+
+    return `${url.pathname.split('/').pop()}${url.search}${url.hash}`;
+  }
+
+  function makeLink(label, href, className, current) {
+    const anchor = document.createElement('a');
+    anchor.textContent = label;
+    anchor.href = hrefWithStudent(href);
+
+    if (className) {
+      anchor.className = className;
+    }
+
+    if (current) {
+      anchor.setAttribute('aria-current', 'page');
+    }
+
+    return anchor;
+  }
+
+  function activeSet(file) {
+    if (
+      file === 'set-2.html' ||
+      SET_2_VOLUMES.some(volume => volume.files.includes(file))
+    ) {
+      return 2;
+    }
+
+    if (
+      file === 'set-1.html' ||
+      SET_1_VOLUMES.some(volume => volume.files.includes(file))
+    ) {
+      return 1;
+    }
+
+    return 0;
+  }
+
+  function activeVolume(file, volumes) {
+    return volumes.findIndex(volume => volume.files.includes(file));
+  }
+
+  function buildNavigation() {
+    const navLinks =
+      document.querySelector('.site-header .nav-links') ||
+      document.querySelector('.nav-links');
+
+    if (!navLinks) {
+      console.warn('Two-row Math navigation skipped: .nav-links not found.');
+      return;
+    }
+
+    const file = currentFile();
+    const setNumber = activeSet(file);
+
+    const topRow = document.createElement('div');
+    topRow.className = 'sat-math-nav-top-row';
+
+    topRow.append(
+      makeLink(
+        'Home',
+        'index.html',
+        '',
+        file === 'index.html'
+      ),
+      makeLink(
+        'Set 1',
+        'set-1.html',
+        setNumber === 1 ? 'sat-parent-selected' : '',
+        file === 'set-1.html'
+      ),
+      makeLink(
+        'Set 2',
+        'set-2.html',
+        setNumber === 2 ? 'sat-parent-selected' : '',
+        file === 'set-2.html'
+      )
+    );
+
+    const fragment = document.createDocumentFragment();
+    fragment.appendChild(topRow);
+
+    if (setNumber === 1 || setNumber === 2) {
+      const volumeRow = document.createElement('div');
+      volumeRow.className = 'sat-math-nav-volume-row';
+
+      const label = document.createElement('span');
+      label.className = 'sat-math-nav-label';
+      label.textContent = `SET ${setNumber} VOLUMES`;
+
+      volumeRow.appendChild(label);
+
+      const volumes = setNumber === 1
+        ? SET_1_VOLUMES
+        : SET_2_VOLUMES;
+
+      const selectedIndex = activeVolume(file, volumes);
+
+      volumes.forEach((volume, index) => {
+        volumeRow.appendChild(
+          makeLink(
+            volume.label,
+            volume.href,
+            index === selectedIndex ? 'sat-child-selected' : '',
+            index === selectedIndex
+          )
+        );
+      });
+
+      fragment.appendChild(volumeRow);
+    }
+
+    navLinks.replaceChildren(fragment);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener(
+      'DOMContentLoaded',
+      buildNavigation,
+      { once: true }
+    );
+  } else {
+    buildNavigation();
+  }
+})();
+</script>
+<script src="/sat-nav-fix.js?v=20260729-4"></script>
+<script src="/js/inactivity-timeout.js?v=20260730-1"></script>
+</body></html>

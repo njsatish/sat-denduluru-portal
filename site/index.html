@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Combined SAT English and Math preparation portal.">
+  <title>SAT Preparation</title>
+  <style>
+    :root{color-scheme:light;--ink:#172033;--muted:#5d677a;--line:#dfe5ee;--blue:#235fc7;--purple:#7552c8;--bg:#f3f6fb}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    .wrap{width:min(1080px,calc(100% - 32px));margin:0 auto;padding:56px 0 72px}.hero{text-align:center;margin-bottom:30px}.eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:.78rem;font-weight:800;color:#56627a}.hero h1{margin:8px 0 10px;font-size:clamp(2.3rem,6vw,4.5rem);letter-spacing:-.04em}.hero p{max-width:720px;margin:0 auto;color:var(--muted);font-size:1.08rem;line-height:1.65}
+    .student{display:inline-flex;margin-top:18px;padding:8px 13px;border:1px solid var(--line);border-radius:999px;background:#fff;font-weight:750}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.card{padding:28px;border:1px solid var(--line);border-radius:22px;background:#fff;box-shadow:0 12px 30px rgba(35,45,70,.08)}.icon{font-size:2.5rem}.card h2{margin:14px 0 8px;font-size:1.65rem}.card p{color:var(--muted);line-height:1.55}.metric{margin:20px 0;padding:13px 15px;border-radius:13px;background:#f5f8ff;font-weight:750}.btn{display:inline-block;padding:13px 18px;border-radius:12px;color:#fff;text-decoration:none;font-weight:800}.english .btn{background:var(--purple)}.math .btn{background:var(--blue)}.status{margin:28px auto 0;max-width:720px;padding:17px;border-radius:14px;background:#fff;border:1px solid var(--line);text-align:center;color:var(--muted)}
+    @media(max-width:720px){.grid{grid-template-columns:1fr}.wrap{padding-top:34px}}
+
+    .subject-nav{position:sticky;top:0;z-index:10000;display:flex;align-items:center;gap:7px;width:100%;padding:9px 12px;background:#111827;box-shadow:0 2px 10px rgba(0,0,0,.18)}
+    .subject-nav a{display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border:1px solid rgba(255,255,255,.24);border-radius:9px;color:#e5e7eb;text-decoration:none;font-weight:800;font-size:.82rem}
+    .subject-nav a[aria-current="page"]{background:#fff;color:#111827}
+  </style>
+<style id="sat-home-editorial-exact-v2">
+  :root {
+    color-scheme: dark;
+    --ed-bg: #111214;
+    --ed-surface: #1d2025;
+    --ed-surface-top: #202329;
+    --ed-border: #46494f;
+    --ed-text: #f4f1e8;
+    --ed-muted: #c0bbb0;
+    --ed-gold: #d6ae4e;
+    --ed-gold-light: #e7c96f;
+  }
+
+  html,
+  body {
+    margin: 0 !important;
+    min-height: 100% !important;
+    background: var(--ed-bg) !important;
+    color: var(--ed-text) !important;
+  }
+
+  body {
+    min-height: 100vh !important;
+  }
+
+  #sat-global-navigation,
+  #sat-global-subject-nav,
+  #sat-subject-navigation,
+  .subject-nav {
+    position: relative !important;
+    z-index: 20 !important;
+    background: linear-gradient(135deg, #1c1d20 0%, #24262a 100%) !important;
+    border-bottom: 1px solid #46484d !important;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .26) !important;
+  }
+
+  #sat-global-navigation > span,
+  #sat-global-subject-nav > span,
+  #sat-subject-navigation > span,
+  .subject-nav > span {
+    color: #f2eee2 !important;
+  }
+
+  #sat-global-navigation a,
+  #sat-global-subject-nav a,
+  #sat-subject-navigation a,
+  .subject-nav a {
+    background: #24262a !important;
+    border-color: #55585e !important;
+    color: #ece7dc !important;
+    box-shadow: none !important;
+  }
+
+  #sat-global-navigation a:hover,
+  #sat-global-subject-nav a:hover,
+  #sat-subject-navigation a:hover,
+  .subject-nav a:hover {
+    background: #303238 !important;
+    border-color: #777a80 !important;
+  }
+
+  #sat-global-navigation a[aria-current="page"],
+  #sat-global-subject-nav a[aria-current="page"],
+  #sat-subject-navigation a[aria-current="page"],
+  .subject-nav a[aria-current="page"] {
+    background: linear-gradient(135deg, #e4c15f, #c69a30) !important;
+    border-color: #e7c96f !important;
+    color: #18191b !important;
+  }
+
+  #sat-editorial-home-v2 {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: var(--ed-bg) !important;
+    color: var(--ed-text) !important;
+  }
+
+  #sat-editorial-home-v2 * {
+    box-sizing: border-box !important;
+  }
+
+  .sat-editorial-hero {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.2fr) minmax(330px, .8fr) !important;
+    gap: 52px !important;
+    align-items: end !important;
+    min-height: 350px !important;
+    padding: 62px clamp(28px, 5vw, 78px) 52px !important;
+    background:
+      radial-gradient(
+        circle at 82% 22%,
+        rgba(214, 174, 78, .13),
+        transparent 34%
+      ),
+      linear-gradient(180deg, #18191c 0%, #111214 100%) !important;
+    border-bottom: 1px solid #34363b !important;
+  }
+
+  .sat-editorial-hero-copy {
+    min-width: 0 !important;
+  }
+
+  .sat-editorial-kicker {
+    color: var(--ed-gold-light) !important;
+    font-size: .78rem !important;
+    font-weight: 950 !important;
+    letter-spacing: .18em !important;
+    line-height: 1.4 !important;
+    text-transform: uppercase !important;
+  }
+
+  .sat-editorial-title {
+    max-width: 830px !important;
+    margin: 18px 0 0 !important;
+    color: #fffdf5 !important;
+    font-size: clamp(4rem, 7vw, 7.4rem) !important;
+    font-weight: 900 !important;
+    line-height: .87 !important;
+    letter-spacing: -.07em !important;
+    text-align: left !important;
+    text-shadow: none !important;
+  }
+
+  .sat-editorial-title span {
+    display: block !important;
+    color: inherit !important;
+  }
+
+  .sat-editorial-hero-note {
+    align-self: center !important;
+    max-width: 520px !important;
+    padding-top: 34px !important;
+  }
+
+  #student-name {
+    display: inline-flex !important;
+    align-items: center !important;
+    width: auto !important;
+    margin: 0 0 22px !important;
+    padding: 12px 20px !important;
+    border: 1px solid #5a5d63 !important;
+    border-radius: 999px !important;
+    background: #282b31 !important;
+    color: #f5f0e4 !important;
+    font-size: 1.05rem !important;
+    font-weight: 850 !important;
+    line-height: 1.2 !important;
+    box-shadow: none !important;
+  }
+
+  #status {
+    display: block !important;
+    max-width: 520px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    color: var(--ed-muted) !important;
+    font-size: 1.05rem !important;
+    line-height: 1.65 !important;
+    text-align: left !important;
+    box-shadow: none !important;
+  }
+
+  #subject-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 38px !important;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 44px clamp(28px, 5vw, 78px) 90px !important;
+    background: var(--ed-bg) !important;
+  }
+
+  #subject-grid[hidden] {
+    display: none !important;
+  }
+
+  #english-link,
+  #math-link {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+    min-height: 560px !important;
+    margin: 0 !important;
+    padding: 42px !important;
+    overflow: hidden !important;
+    border: 1px solid var(--ed-border) !important;
+    border-radius: 30px !important;
+    background: linear-gradient(
+      180deg,
+      var(--ed-surface-top) 0%,
+      #1a1c20 100%
+    ) !important;
+    color: var(--ed-text) !important;
+    text-decoration: none !important;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, .30) !important;
+    transition:
+      transform .18s ease,
+      border-color .18s ease,
+      box-shadow .18s ease !important;
+  }
+
+  #english-link:hover,
+  #math-link:hover {
+    transform: translateY(-4px) !important;
+    border-color: #8e7637 !important;
+    box-shadow: 0 24px 56px rgba(0, 0, 0, .36) !important;
+  }
+
+  #english-link::after,
+  #math-link::after {
+    position: absolute !important;
+    right: 24px !important;
+    top: 18px !important;
+    z-index: 0 !important;
+    color: var(--ed-gold-light) !important;
+    font-size: clamp(7rem, 11vw, 10rem) !important;
+    font-weight: 950 !important;
+    line-height: 1 !important;
+    opacity: .065 !important;
+    pointer-events: none !important;
+  }
+
+  #english-link::after {
+    content: "01" !important;
+  }
+
+  #math-link::after {
+    content: "02" !important;
+  }
+
+  .sat-editorial-program-label {
+    position: relative !important;
+    z-index: 1 !important;
+    margin-bottom: 14px !important;
+    color: var(--ed-gold-light) !important;
+    font-size: .77rem !important;
+    font-weight: 950 !important;
+    letter-spacing: .17em !important;
+    line-height: 1.4 !important;
+    text-transform: uppercase !important;
+  }
+
+  .sat-editorial-icon {
+    position: relative !important;
+    z-index: 1 !important;
+    width: 62px !important;
+    height: 62px !important;
+    display: grid !important;
+    place-items: center !important;
+    margin: 0 0 28px !important;
+    border-radius: 18px !important;
+    background: linear-gradient(135deg, #f0cf76, #b68a26) !important;
+    color: #191a1c !important;
+    font-size: 1.65rem !important;
+    font-weight: 950 !important;
+    box-shadow: 0 6px 18px rgba(214, 174, 78, .22) !important;
+  }
+
+  .sat-editorial-card-title {
+    position: relative !important;
+    z-index: 1 !important;
+    max-width: 82% !important;
+    margin: 0 0 24px !important;
+    color: #fffdf5 !important;
+    font-size: clamp(2.8rem, 4vw, 4.2rem) !important;
+    font-weight: 900 !important;
+    line-height: .96 !important;
+    letter-spacing: -.052em !important;
+  }
+
+  .sat-editorial-card-title span {
+    display: block !important;
+    color: inherit !important;
+  }
+
+  .sat-editorial-description {
+    position: relative !important;
+    z-index: 1 !important;
+    max-width: 650px !important;
+    margin: 0 !important;
+    color: var(--ed-muted) !important;
+    font-size: 1.08rem !important;
+    line-height: 1.68 !important;
+  }
+
+  #english-progress,
+  #math-progress {
+    position: relative !important;
+    z-index: 1 !important;
+    display: block !important;
+    margin: auto 0 0 !important;
+    padding: 36px 0 20px !important;
+    border: 0 !important;
+    background: transparent !important;
+    color: #c9c2b6 !important;
+    font-size: 1rem !important;
+    font-weight: 650 !important;
+    line-height: 1.4 !important;
+    box-shadow: none !important;
+  }
+
+  .sat-editorial-action {
+    position: relative !important;
+    z-index: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-self: flex-start !important;
+    margin: 0 !important;
+    padding: 13px 20px !important;
+    border: 1px solid #e7c96f !important;
+    border-radius: 16px !important;
+    background: linear-gradient(135deg, #e4c15f, #d2a93f) !important;
+    color: #18191b !important;
+    font-size: .96rem !important;
+    font-weight: 900 !important;
+    line-height: 1.2 !important;
+    box-shadow: 0 8px 24px rgba(214, 174, 78, .20) !important;
+  }
+
+  .sat-editorial-footer {
+    padding: 28px 20px !important;
+    border-top: 1px solid #31343a !important;
+    background: #18191c !important;
+    color: #918c82 !important;
+    font-size: .84rem !important;
+    text-align: center !important;
+  }
+
+  @media (max-width: 920px) {
+    .sat-editorial-hero {
+      grid-template-columns: 1fr !important;
+      min-height: 0 !important;
+      gap: 30px !important;
+    }
+
+    .sat-editorial-hero-note {
+      padding-top: 0 !important;
+    }
+
+    #subject-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .sat-editorial-hero {
+      padding: 48px 20px 38px !important;
+    }
+
+    .sat-editorial-title {
+      font-size: clamp(3.4rem, 18vw, 5.2rem) !important;
+    }
+
+    #subject-grid {
+      gap: 24px !important;
+      padding: 30px 18px 64px !important;
+    }
+
+    #english-link,
+    #math-link {
+      min-height: 500px !important;
+      padding: 30px !important;
+      border-radius: 24px !important;
+    }
+
+    .sat-editorial-card-title {
+      max-width: 90% !important;
+      font-size: clamp(2.5rem, 12vw, 3.5rem) !important;
+    }
+  }
+</style>
+<!-- sat-favicon-v1 -->
+<link rel="icon" href="/favicon.svg?v=1" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.ico?v=1">
+<link rel="icon" href="/favicon-32.png?v=1" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=1">
+<link rel="manifest" href="/site.webmanifest?v=1">
+<meta name="theme-color" content="#111214">
+<!-- /sat-favicon-v1 -->
+</head>
+<body>
+<nav id="sat-global-navigation"
+     aria-label="SAT subject navigation"
+     style="
+       position:sticky;
+       top:0;
+       z-index:2147483647;
+       display:flex;
+       flex-wrap:wrap;
+       align-items:center;
+       gap:9px;
+       width:100%;
+       min-height:58px;
+       box-sizing:border-box;
+       padding:10px 18px;
+       background:linear-gradient(135deg,#f8fbff 0%,#e9f2ff 100%);
+       border-bottom:1px solid #d5e2f3;
+       box-shadow:0 4px 16px rgba(37,99,235,.08);
+     ">
+  <span style="
+        margin-right:5px;
+        color:#1e3a5f;
+        font:800 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+        letter-spacing:.01em;
+      ">SAT Prep</span>
+
+  <a data-sat-destination="/index.html"
+     href="/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">SAT Home</a>
+
+  <a data-sat-destination="/english/index.html"
+     href="/english/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">English</a>
+
+  <a data-sat-destination="/math/index.html"
+     href="/math/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">Math</a>
+</nav>
+<script>
+(function () {
+  var student = (
+    new URLSearchParams(window.location.search).get('student') || window.localStorage.getItem('sat_user') || ''
+  ).trim().toLowerCase();
+
+  var currentPath = window.location.pathname.replace(/\/+/g, '/');
+
+  document
+    .querySelectorAll('#sat-global-navigation [data-sat-destination]')
+    .forEach(function (link) {
+      var destination = link.getAttribute('data-sat-destination');
+      var url = new URL(destination, window.location.origin);
+
+      if (student) {
+        url.searchParams.set('student', student);
+      }
+
+      link.href = url.href;
+
+      var active =
+        (destination === '/index.html' && currentPath === '/index.html') ||
+        (
+          destination === '/english/index.html' &&
+          currentPath.indexOf('/english/') === 0
+        ) ||
+        (
+          destination === '/math/index.html' &&
+          currentPath.indexOf('/math/') === 0
+        );
+
+      if (active) {
+        link.style.background = '#2563eb';
+        link.style.borderColor = '#2563eb';
+        link.style.color = '#ffffff';
+        link.style.boxShadow = '0 4px 10px rgba(37,99,235,.20)';
+        link.setAttribute('aria-current', 'page');
+      }
+    });
+})();
+</script>
+
+<main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">English + Math</div>
+      <h1>SAT Preparation</h1>
+      <p>Choose a subject and continue with the same student account. Progress is synchronized across browsers and devices.</p>
+      <div class="student" id="student-name">Verifying student…</div>
+    </section>
+    <section class="grid" id="subject-grid" hidden>
+      <article class="card english">
+        <div class="icon">📚</div><h2>English Vocabulary</h2>
+        <p>Study 300 SAT words through vocabulary pages, flashcards, quizzes, and spelling practice.</p>
+        <div class="metric" id="english-progress">Loading progress…</div>
+        <a class="btn" id="english-link" href="english/index.html">Open English</a>
+      </article>
+      <article class="card math">
+        <div class="icon">∑</div><h2>SAT Math</h2>
+        <p>Continue through both 300-question math sets with medium, hard, and challenge practice.</p>
+        <div class="metric" id="math-progress">Loading progress…</div>
+        <a class="btn" id="math-link" href="math/index.html">Open Math</a>
+      </article>
+    </section>
+    <div class="status" id="status">Checking your direct student link…</div>
+  </main>
+<script>
+const API = 'https://l2m5cxuri2eojykndfbabmuthi0xfjya.lambda-url.us-east-1.on.aws/';
+const student = (
+  new URLSearchParams(location.search).get('student') || window.localStorage.getItem('sat_user') || ''
+).trim().toLowerCase();
+
+const statusEl = document.getElementById('status');
+const studentNameEl = document.getElementById('student-name');
+const subjectGridEl = document.getElementById('subject-grid');
+const englishProgressEl = document.getElementById('english-progress');
+const mathProgressEl = document.getElementById('math-progress');
+
+async function call(payload) {
+  const response = await fetch(API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+    cache: 'no-store'
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    const error = new Error(
+      data.message || data.error || `Request failed (${response.status})`
+    );
+    error.status = response.status;
+    error.code = data.code;
+    throw error;
+  }
+
+  return data;
+}
+
+function studentLink(path) {
+  const cleanPath = `/${String(path).replace(/^\/+/, '')}`;
+  const url = new URL(cleanPath, location.origin);
+  url.searchParams.set('student', student);
+  return url.href;
+}
+
+function updatePortalLinks() {
+  const links = {
+    'english-link': '/english/index.html',
+    'math-link': '/math/index.html',
+    'nav-home': '/index.html',
+    'nav-english': '/english/index.html',
+    'nav-math': '/math/index.html'
+  };
+
+  Object.entries(links).forEach(([id, path]) => {
+    const element = document.getElementById(id);
+    if (element) element.href = studentLink(path);
+  });
+
+  document
+    .querySelectorAll(
+      '#sat-global-navigation [data-sat-destination], ' +
+      '#sat-global-subject-nav [data-sat-link], ' +
+      '#sat-subject-navigation [data-sat-destination]'
+    )
+    .forEach(link => {
+      const path =
+        link.getAttribute('data-sat-destination') ||
+        link.getAttribute('data-sat-link');
+
+      if (path) link.href = studentLink(path);
+    });
+}
+
+function showInvalidStudent(message) {
+  studentNameEl.innerHTML =
+    '<a href="/login.html?returnTo=%2Findex.html" ' +
+    'style="color:inherit;text-decoration:none;">Student login</a>';
+  subjectGridEl.hidden = true;
+  statusEl.textContent =
+    message ||
+    'Sign in with an active student account.';
+}
+
+async function loadEnglishProgress() {
+  try {
+    const data = await call({
+      action: 'englishProgress',
+      userId: student
+    });
+
+    const learned = Array.isArray(data.learned) ? data.learned.length : 0;
+    englishProgressEl.textContent = `${learned} of 300 words learned`;
+    return true;
+  } catch (error) {
+    console.warn('English progress could not be loaded:', error);
+    englishProgressEl.textContent = 'Progress temporarily unavailable';
+    return false;
+  }
+}
+
+async function loadMathProgress() {
+  try {
+    const data = await call({
+      action: 'progress',
+      userId: student
+    });
+
+    const mathItems = (data.items || []).filter(item =>
+      /^(?:v[123]q|s2v[123]q)\d{3}$/.test(item.questionId || '')
+    );
+
+    const mastered = mathItems.filter(
+      item => (item.correctCount || 0) > 0
+    ).length;
+
+    mathProgressEl.textContent =
+      `${mastered} mastered · ${mathItems.length} attempted`;
+
+    return true;
+  } catch (error) {
+    console.warn('Math progress could not be loaded:', error);
+    mathProgressEl.textContent = 'Progress temporarily unavailable';
+    return false;
+  }
+}
+
+(async function initializePortal() {
+  updatePortalLinks();
+
+  if (!/^[a-z0-9_-]{1,80}$/.test(student)) {
+    showInvalidStudent(
+      'Sign in with your student username and password.'
+    );
+    return;
+  }
+
+  try {
+    // Verify the student independently. Progress errors must not invalidate
+    // an otherwise valid administrator-created student link.
+    const studentData = await call({
+      action: 'getStudent',
+      userId: student
+    });
+
+    const profile = studentData.student;
+
+    if (!profile || profile.active === false) {
+      showInvalidStudent('This student account is inactive.');
+      return;
+    }
+
+    studentNameEl.textContent =
+      `Student: ${profile.displayName || student}`;
+
+    subjectGridEl.hidden = false;
+    statusEl.textContent = 'Loading saved progress…';
+
+    const [englishLoaded, mathLoaded] = await Promise.all([
+      loadEnglishProgress(),
+      loadMathProgress()
+    ]);
+
+    if (englishLoaded && mathLoaded) {
+      statusEl.textContent =
+        'Progress is saved in the same DynamoDB-backed student account.';
+    } else {
+      statusEl.textContent =
+        'Student link verified. Some progress totals are temporarily unavailable.';
+    }
+  } catch (error) {
+    console.warn('Student verification failed:', error);
+
+    if (
+      error.status === 404 ||
+      error.status === 403 ||
+      error.code === 'STUDENT_NOT_FOUND' ||
+      error.code === 'STUDENT_INACTIVE'
+    ) {
+      showInvalidStudent(error.message);
+    } else {
+      studentNameEl.textContent = `Student: ${student}`;
+      subjectGridEl.hidden = false;
+      statusEl.textContent =
+        'Unable to verify the student service temporarily. English and Math links remain available.';
+    }
+  }
+})();
+</script>
+<script id="sat-home-editorial-layout-v2">
+(function () {
+  function makeElement(tag, className, text) {
+    const element = document.createElement(tag);
+    if (className) element.className = className;
+    if (text !== undefined) element.textContent = text;
+    return element;
+  }
+
+  function buildCard(link, options) {
+    const progress = document.getElementById(options.progressId);
+
+    if (!progress) {
+      throw new Error(`Missing progress element: ${options.progressId}`);
+    }
+
+    const label = makeElement(
+      'div',
+      'sat-editorial-program-label',
+      options.label
+    );
+
+    const icon = makeElement(
+      'div',
+      'sat-editorial-icon',
+      options.icon
+    );
+
+    const title = makeElement(
+      'h2',
+      'sat-editorial-card-title'
+    );
+
+    options.titleLines.forEach(line => {
+      title.appendChild(makeElement('span', '', line));
+    });
+
+    const description = makeElement(
+      'p',
+      'sat-editorial-description',
+      options.description
+    );
+
+    const action = makeElement(
+      'span',
+      'sat-editorial-action',
+      options.action
+    );
+
+    // Reuse the original progress node so any existing JavaScript reference
+    // continues to update the same element after the layout is rebuilt.
+    link.replaceChildren(
+      label,
+      icon,
+      title,
+      description,
+      progress,
+      action
+    );
+
+    return link;
+  }
+
+  function applyEditorialLayout() {
+    if (document.getElementById('sat-editorial-home-v2')) return;
+
+    const studentName = document.getElementById('student-name');
+    const status = document.getElementById('status');
+    const subjectGrid = document.getElementById('subject-grid');
+    const englishLink = document.getElementById('english-link');
+    const mathLink = document.getElementById('math-link');
+
+    if (
+      !studentName ||
+      !status ||
+      !subjectGrid ||
+      !englishLink ||
+      !mathLink
+    ) {
+      console.warn(
+        'Editorial SAT Home layout skipped because required elements are missing.'
+      );
+      return;
+    }
+
+    const main =
+      document.querySelector('main') ||
+      makeElement('main');
+
+    main.id = 'sat-editorial-home-v2';
+
+    const hero = makeElement(
+      'section',
+      'sat-editorial-hero'
+    );
+
+    const heroCopy = makeElement(
+      'div',
+      'sat-editorial-hero-copy'
+    );
+
+    const kicker = makeElement(
+      'div',
+      'sat-editorial-kicker',
+      'ENGLISH + MATH · ONE STUDENT ACCOUNT'
+    );
+
+    const heading = makeElement(
+      'h1',
+      'sat-editorial-title'
+    );
+
+    heading.append(
+      makeElement('span', '', 'SAT'),
+      makeElement('span', '', 'Preparation')
+    );
+
+    heroCopy.append(kicker, heading);
+
+    const heroNote = makeElement(
+      'div',
+      'sat-editorial-hero-note'
+    );
+
+    heroNote.append(studentName, status);
+    hero.append(heroCopy, heroNote);
+
+    buildCard(englishLink, {
+      progressId: 'english-progress',
+      label: 'ENGLISH PROGRAM',
+      icon: '📚',
+      titleLines: ['Vocabulary', 'Builder'],
+      description:
+        'Study 300 SAT words using flashcards, spelling, quizzes, audio, and progress tracking.',
+      action: 'Open English'
+    });
+
+    buildCard(mathLink, {
+      progressId: 'math-progress',
+      label: 'MATH PROGRAM',
+      icon: 'Σ',
+      titleLines: ['Math 600', 'Mastery'],
+      description:
+        'Complete two 300-question programs with separate mastery records and correction controls.',
+      action: 'Open Math'
+    });
+
+    subjectGrid.replaceChildren(englishLink, mathLink);
+
+    const footer = makeElement(
+      'footer',
+      'sat-editorial-footer',
+      'Original SAT-style preparation material · Progress synchronized by student account.'
+    );
+
+    // Keep the original main node so other code holding a reference to it does
+    // not lose that reference. Replace only its visual contents.
+    main.replaceChildren(hero, subjectGrid, footer);
+
+    if (!main.isConnected) {
+      const navigation =
+        document.getElementById('sat-global-navigation') ||
+        document.getElementById('sat-global-subject-nav') ||
+        document.getElementById('sat-subject-navigation');
+
+      if (navigation) {
+        navigation.insertAdjacentElement('afterend', main);
+      } else {
+        document.body.prepend(main);
+      }
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener(
+      'DOMContentLoaded',
+      applyEditorialLayout,
+      { once: true }
+    );
+  } else {
+    applyEditorialLayout();
+  }
+})();
+</script>
+<script src="/sat-nav-fix.js?v=20260729-4"></script>
+<script src="/js/inactivity-timeout.js?v=20260730-1"></script>
+</body></html>

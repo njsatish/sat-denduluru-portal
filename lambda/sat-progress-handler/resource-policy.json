@@ -1,0 +1,4 @@
+{
+    "Policy": "{\"Version\":\"2012-10-17\",\"Id\":\"default\",\"Statement\":[{\"Sid\":\"FunctionURLAllowPublicAccess\",\"Effect\":\"Allow\",\"Principal\":\"*\",\"Action\":\"lambda:InvokeFunctionUrl\",\"Resource\":\"arn:aws:lambda:us-east-1:989174615155:function:sat-progress-handler\",\"Condition\":{\"StringEquals\":{\"lambda:FunctionUrlAuthType\":\"NONE\"}}},{\"Sid\":\"FunctionURLInvokeAllowPublicAccess\",\"Effect\":\"Allow\",\"Principal\":\"*\",\"Action\":\"lambda:InvokeFunction\",\"Resource\":\"arn:aws:lambda:us-east-1:989174615155:function:sat-progress-handler\",\"Condition\":{\"Bool\":{\"lambda:InvokedViaFunctionUrl\":\"true\"}}}]}",
+    "RevisionId": "deb90254-e54e-4d2f-badb-95e3fa40e7bd"
+}

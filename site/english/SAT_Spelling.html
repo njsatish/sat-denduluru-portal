@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script id="sat-english-identity-v7">
+/* BEGIN SAT ENGLISH IDENTITY V7 */
+(() => {
+  'use strict';
+
+  if (window.SATEnglishIdentity?.build === '20260804-english-identity-v7-20260804T182532Z') return;
+
+  const normalize = value => {
+    const id = String(value || '').trim().toLowerCase();
+    return /^[a-z0-9_-]{1,80}$/.test(id) ? id : '';
+  };
+
+  const decodeToken = token => {
+    try {
+      const part = String(token || '').split('.')[1];
+      if (!part) return null;
+      const base64 = part.replace(/-/g, '+').replace(/_/g, '/');
+      const padded = base64 + '='.repeat((4 - base64.length % 4) % 4);
+      const binary = atob(padded);
+      const bytes = Uint8Array.from(binary, character => character.charCodeAt(0));
+      return JSON.parse(new TextDecoder().decode(bytes));
+    } catch (error) {
+      console.warn('Unable to decode the SAT Cognito identity.', error);
+      return null;
+    }
+  };
+
+  const nativeGet = URLSearchParams.prototype.get;
+  const tokenClaims = decodeToken(
+    sessionStorage.getItem('sat_id_token') ||
+    localStorage.getItem('sat_id_token')
+  );
+  const tokenStudent = normalize(
+    window.SATAuth?.studentId ||
+    window.SATAuth?.username ||
+    tokenClaims?.['cognito:username'] ||
+    tokenClaims?.username ||
+    tokenClaims?.preferred_username
+  );
+  const storedStudent = normalize(localStorage.getItem('sat_user'));
+  const pageParams = new URLSearchParams(location.search);
+  const urlStudent = normalize(nativeGet.call(pageParams, 'student'));
+  let studentId = tokenStudent || storedStudent || urlStudent;
+
+  function resolveStudentId() {
+    const claims = decodeToken(
+      sessionStorage.getItem('sat_id_token') ||
+      localStorage.getItem('sat_id_token')
+    );
+    const authenticated = normalize(
+      window.SATAuth?.studentId ||
+      window.SATAuth?.username ||
+      claims?.['cognito:username'] ||
+      claims?.username ||
+      claims?.preferred_username
+    );
+    const stored = normalize(localStorage.getItem('sat_user'));
+    studentId = authenticated || stored || studentId || urlStudent;
+    if (studentId) localStorage.setItem('sat_user', studentId);
+    return studentId;
+  }
+
+  if (!URLSearchParams.prototype.__satEnglishIdentityV7) {
+    URLSearchParams.prototype.get = function(name) {
+      const value = nativeGet.call(this, name);
+      if (String(name) === 'student' && !normalize(value)) {
+        return resolveStudentId() || value;
+      }
+      return value;
+    };
+    Object.defineProperty(URLSearchParams.prototype, '__satEnglishIdentityV7', {
+      value: true,
+      configurable: true
+    });
+  }
+
+  function cleanStudentParameter(urlValue) {
+    try {
+      const url = new URL(urlValue, location.href);
+      if (url.origin !== location.origin) return urlValue;
+      url.searchParams.delete('student');
+      return `${url.pathname}${url.search}${url.hash}`;
+    } catch (_) {
+      return urlValue;
+    }
+  }
+
+  function cleanAddressBar() {
+    const url = new URL(location.href);
+    if (!url.searchParams.has('student')) return;
+    url.searchParams.delete('student');
+    history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
+  }
+
+  function cleanStudentLinks(root = document) {
+    root.querySelectorAll?.('a[href]').forEach(anchor => {
+      const href = anchor.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('javascript:')) return;
+      const cleaned = cleanStudentParameter(href);
+      if (cleaned !== href) anchor.setAttribute('href', cleaned);
+    });
+  }
+
+  resolveStudentId();
+  cleanAddressBar();
+
+  window.SATResolveStudentId = resolveStudentId;
+  window.SATEnglishIdentity = {
+    build: '20260804-english-identity-v7-20260804T182532Z',
+    get studentId() { return resolveStudentId(); },
+    source: tokenStudent ? 'cognito' : storedStudent ? 'storage' : urlStudent ? 'url' : 'missing',
+    normalize,
+    resolveStudentId,
+    cleanStudentLinks
+  };
+
+  const ready = () => {
+    cleanStudentLinks();
+    setTimeout(cleanStudentLinks, 0);
+    setTimeout(cleanStudentLinks, 150);
+    setTimeout(cleanStudentLinks, 600);
+
+    if (document.body && window.MutationObserver) {
+      const observer = new MutationObserver(records => {
+        for (const record of records) {
+          record.addedNodes.forEach(node => {
+            if (node.nodeType === 1) cleanStudentLinks(node);
+          });
+        }
+      });
+      observer.observe(document.body, {childList: true, subtree: true});
+      setTimeout(() => observer.disconnect(), 5000);
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ready, {once: true});
+  } else {
+    ready();
+  }
+})();
+/* END SAT ENGLISH IDENTITY V7 */
+</script>
+
+
+<script id="sat-english-cognito-bootstrap">
+(() => {
+  'use strict';
+
+  function normalizeStudentId(value) {
+    const normalized =
+      String(value || '').trim().toLowerCase();
+
+    return /^[a-z0-9_-]{1,80}$/.test(normalized)
+      ? normalized
+      : '';
+  }
+
+  function decodeJwtPayload(token) {
+    const parts = String(token || '').split('.');
+
+    if (parts.length !== 3) {
+      return null;
+    }
+
+    const base64 = parts[1]
+      .replace(/-/g, '+')
+      .replace(/_/g, '/');
+
+    const padded =
+      base64 + '='.repeat((4 - base64.length % 4) % 4);
+
+    try {
+      const binary = atob(padded);
+      const bytes = Uint8Array.from(
+        binary,
+        character => character.charCodeAt(0)
+      );
+
+      return JSON.parse(
+        new TextDecoder().decode(bytes)
+      );
+    } catch (error) {
+      console.warn(
+        'Unable to read the SAT Cognito ID token.',
+        error
+      );
+
+      return null;
+    }
+  }
+
+  const existing =
+    normalizeStudentId(
+      window.localStorage.getItem('sat_user')
+    );
+
+  if (existing) {
+    return;
+  }
+
+  const claims =
+    decodeJwtPayload(
+      window.sessionStorage.getItem('sat_id_token')
+    );
+
+  const username =
+    normalizeStudentId(
+      claims?.['cognito:username'] ||
+      claims?.username
+    );
+
+  if (username) {
+    window.localStorage.setItem(
+      'sat_user',
+      username
+    );
+  }
+})();
+</script>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1.0" name="viewport"/><title>SAT Vocabulary Spelling Practice</title><style>
+:root{--ink:#1f2937;--muted:#52616b;--page:#f4f7fb;--card:#fff;--blue:#143d72;--link:#0b63ce;--teal:#0a968f;--purple:#6f3fa0;--gold:#d4a72c;--line:#cbdff1;--good:#08783f;--bad:#b42318}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--page);color:var(--ink)}a{color:var(--link)}
+.topbar{background:#101827;color:#fff}.topbar-inner{width:min(1120px,calc(100% - 32px));margin:auto;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}.brand{color:#fff;text-decoration:none;font-weight:900}.topnav{display:flex;gap:8px;flex-wrap:wrap}.topnav a{color:#e5e7eb;text-decoration:none;padding:8px 11px;border-radius:8px}.topnav a[aria-current="page"],.topnav a:hover{background:#303744;color:#fff}
+.container{width:min(1050px,calc(100% - 32px));margin:0 auto;padding:32px 0 56px}.hero{background:linear-gradient(135deg,#143d72,#0d659d);color:#fff;border-radius:18px;padding:30px;margin-bottom:24px;box-shadow:0 12px 30px rgba(20,61,114,.18)}.hero h1{margin:5px 0 10px;font-size:clamp(2rem,5vw,3.4rem);line-height:1.05}.hero p{margin:0;color:#dceeff;line-height:1.55}.eyebrow{font-weight:900;letter-spacing:.12em;font-size:.75rem;text-transform:uppercase;color:#b9ddff}
+.card{background:var(--card);border:1px solid #e0e7ef;border-radius:15px;padding:22px;margin-bottom:20px;box-shadow:0 3px 14px rgba(16,24,40,.07)}h2{color:var(--blue);margin:0 0 10px}.muted{color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--link);background:var(--link);color:#fff;text-decoration:none;border-radius:10px;padding:11px 15px;font:inherit;font-weight:800;cursor:pointer}.btn:hover{filter:brightness(.94)}.btn.secondary{background:#fff;color:var(--link)}.btn.danger{border-color:#d92d20;background:#fff;color:#b42318}.btn.small{padding:8px 11px;font-size:.87rem}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.progress-track{height:11px;background:#d8e2eb;border-radius:99px;overflow:hidden}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#156fb0,#0a968f);transition:width .2s}.progress-row{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}.progress-number{font-weight:900;color:var(--blue)}
+.toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:18px}.toolbar input,.toolbar select{padding:11px 12px;border:1px solid #bdc9d6;border-radius:9px;font:inherit;background:#fff}.toolbar input[type="search"]{flex:1;min-width:220px}.count{font-weight:800;color:var(--muted)}
+.study-grid,.range-grid,.mode-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:13px}.study-link,.range-link{display:block;text-decoration:none;background:#edf5ff;border:1px solid #cfe3ff;border-radius:11px;padding:14px;font-weight:800}.study-link:hover,.range-link:hover{background:#dceeff}.study-link span,.range-link span{display:block}.study-link small,.range-link small{display:block;margin-top:5px;color:#5b728a;font-weight:600}
+.word-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:18px}.word-card,.word-row{background:#fff;border:1px solid #dfe7ef;border-radius:14px;overflow:hidden;box-shadow:0 3px 13px rgba(16,24,40,.07)}.word-card.learned,.word-row.learned{border-color:#74c69d;background:#f4fff8}.word-head,.word-top{display:flex;align-items:center;gap:10px;padding:14px 16px;background:#143d72;color:#fff}.word-head h2,.word-name{margin:0;color:#fff;text-decoration:none;font-size:1.35rem;font-weight:900}.word-number,.number{font-weight:900;opacity:.9}.part{margin-left:auto;font-size:.82rem;font-weight:700;opacity:.9}.word-body{padding:16px}.word-body dl{margin:0}.word-body dt{font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;font-weight:900;color:#405061;margin-top:11px}.word-body dt:first-child{margin-top:0}.word-body dd{margin:3px 0 0;line-height:1.5}.learn-btn{margin-left:auto;border:1px solid rgba(255,255,255,.65);background:rgba(255,255,255,.13);color:#fff;border-radius:8px;padding:7px 9px;font:inherit;font-size:.78rem;font-weight:800;cursor:pointer}.word-row{padding:0;margin-bottom:13px;overflow:hidden}.word-row .word-top{background:#fff;color:var(--ink);border-bottom:1px solid #e5e7eb}.word-row .word-name{color:var(--blue)}.word-row .learn-btn{color:var(--link);border-color:#b9d3ef;background:#fff}.word-row>p,.word-row>details{margin-left:16px;margin-right:16px}.word-row>details{margin-bottom:15px}.meaning{line-height:1.5}.synonyms{color:var(--muted)}
+.mode-card{display:flex;flex-direction:column;min-height:190px}.mode-card .btn{margin-top:auto;align-self:flex-start}.practice-panel{min-height:340px}.flash-word{font-size:clamp(2.2rem,6vw,4.4rem);color:var(--blue);margin:25px 0 10px}.answer-panel{background:#f1f6fb;border-radius:12px;padding:18px;margin-top:18px}.choice{display:block;width:100%;text-align:left;margin:9px 0;padding:13px;border:1px solid #c8d6e4;border-radius:9px;background:#fff;cursor:pointer;font:inherit}.choice:hover{background:#edf5ff}.choice.correct{border-color:#2f9e62;background:#ecfff3}.choice.wrong{border-color:#d92d20;background:#fff1f0}.feedback{font-weight:800;margin-top:14px}.good{color:var(--good)}.bad{color:var(--bad)}.spelling-input{width:min(460px,100%);padding:14px;font:inherit;font-size:1.15rem;border:1px solid #bdc9d6;border-radius:10px}
+footer{text-align:center;color:#6b7280;padding:0 16px 30px;font-size:.88rem}@media(max-width:650px){.topbar-inner,.progress-row{align-items:flex-start;flex-direction:column}.word-grid{grid-template-columns:1fr}}
+</style><link href="english-theme.css?v=3" rel="stylesheet"/><script src="english-student.js?v=3"></script>
+<style id="sat-auth-visibility">
+  html { visibility: hidden; }
+</style>
+<script src="/js/section-auth-guard.js?v=20260730-1"></script>
+</head><body><header class="sat-global-nav"><div class="sat-global-inner"><a class="sat-brand" href="../index.html">SAT Prep</a><nav aria-label="SAT subject navigation"><a href="../index.html">SAT Home</a><a aria-current="page" class="active" href="index.html">English</a><a href="../math/index.html">Math</a></nav><div class="sat-student">Student: <strong data-student-name="">Student</strong></div></div></header><main class="container"><section class="hero"><div class="eyebrow">Listen and recall</div><h1>Spelling Practice</h1><p id="rangeLabel"></p><div class="actions"><a class="btn secondary" href="SAT_Practice_Hub.html">Practice Hub</a></div></section><section class="card practice-panel"><div class="progress-row"><span class="count" id="spellCount"></span><span class="progress-number" id="spellScore">Correct: 0</span></div><p class="muted" id="meaningHint"></p><div class="actions"><button class="btn" id="speakBtn">🔊 Hear word</button><button class="btn secondary" id="slowBtn">Hear slowly</button></div><form id="spellForm" style="margin-top:24px"><input autocapitalize="none" autocomplete="off" class="spelling-input" id="spellInput" placeholder="Type the word" spellcheck="false"/><button class="btn" type="submit">Check spelling</button></form><div class="feedback" id="spellFeedback"></div><button class="btn" hidden="" id="nextSpell">Next Word</button></section></main><footer>Original SAT-style vocabulary practice · Progress is preserved in this browser.</footer><script src="vocabulary-data.js"></script><script>
+const SAT_PROGRESS_KEY = window.SATEnglishStudent.storageKey;
+const SAT_WORD_TOTAL = 375;
+function getProgress(){try{const raw=localStorage.getItem(SAT_PROGRESS_KEY);const saved=raw?JSON.parse(raw):{};const cleaned=Array.isArray(saved.learned)?saved.learned.map(Number).filter(n=>Number.isInteger(n)&&n>=1&&n<=SAT_WORD_TOTAL):[];return{learned:[...new Set(cleaned)]}}catch(e){return{learned:[]}}}
+function setProgress(progress){const cleaned=[...new Set((progress.learned||[]).map(Number).filter(n=>Number.isInteger(n)&&n>=1&&n<=SAT_WORD_TOTAL))];try{localStorage.setItem(SAT_PROGRESS_KEY,JSON.stringify({learned:cleaned}))}catch(e){}return{learned:cleaned}}
+function learnedSet(){return new Set(getProgress().learned)}
+function isLearned(number){return learnedSet().has(Number(number))}
+function markLearned(number,learned){const set=learnedSet();learned?set.add(Number(number)):set.delete(Number(number));return setProgress({learned:[...set]})}
+function resetAllProgress(){return setProgress({learned:[]})}
+function globalCounts(){const learned=learnedSet().size;return{learned,remaining:SAT_WORD_TOTAL-learned,total:SAT_WORD_TOTAL}}
+function rangeCounts(start,end){const set=learnedSet();let learned=0;for(let n=start;n<=end;n+=1)if(set.has(n))learned+=1;return{learned,remaining:end-start+1-learned,total:end-start+1}}
+function updateProgressBar(detailId,percentId,fillId){const c=globalCounts();const pct=Math.round(c.learned/c.total*100);if(detailId)document.getElementById(detailId).textContent=`${c.learned} of ${c.total} words learned · ${c.remaining} remaining`;if(percentId)document.getElementById(percentId).textContent=`${pct}% complete`;if(fillId)document.getElementById(fillId).style.width=`${pct}%`}
+
+function selectedRange(){const p=new URLSearchParams(location.search);let start=Number(p.get('start'))||1;let end=Number(p.get('end'))||start+24;if(start<1||end>SAT_WORD_TOTAL||end<start){start=1;end=25}return{start,end}}
+function rangeWords(){const r=selectedRange();return SAT_VOCABULARY.filter(w=>w.number>=r.start&&w.number<=r.end)}
+function shuffled(items){const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+let words=shuffled(rangeWords()),idx=0,score=0,checked=false;const r=selectedRange();document.getElementById('rangeLabel').textContent=`Words ${r.start}–${r.end}`;
+function speak(rate=0.85){if(!('speechSynthesis'in window)){alert('Browser speech is not available.');return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(words[idx].word);u.rate=rate;u.lang='en-US';speechSynthesis.speak(u)}
+function render(){checked=false;const w=words[idx];document.getElementById('spellCount').textContent=`Word ${idx+1} of ${words.length}`;document.getElementById('spellScore').textContent=`Correct: ${score}`;document.getElementById('meaningHint').textContent=`Meaning hint: ${w.meaning}`;document.getElementById('spellInput').value='';document.getElementById('spellInput').disabled=false;document.getElementById('spellFeedback').textContent='';document.getElementById('spellFeedback').className='feedback';document.getElementById('nextSpell').hidden=true;setTimeout(()=>speak(),150)}
+document.getElementById('speakBtn').onclick=()=>speak();document.getElementById('slowBtn').onclick=()=>speak(.55);document.getElementById('spellForm').onsubmit=e=>{e.preventDefault();if(checked)return;checked=true;const w=words[idx],guess=document.getElementById('spellInput').value.trim().toLowerCase(),ok=guess===w.word.toLowerCase(),f=document.getElementById('spellFeedback');if(ok){score++;markLearned(w.number,true);f.textContent='Correct.';f.className='feedback good'}else{f.textContent=`The correct spelling is: ${w.word}`;f.className='feedback bad'}document.getElementById('spellInput').disabled=true;document.getElementById('spellScore').textContent=`Correct: ${score}`;document.getElementById('nextSpell').hidden=false};document.getElementById('nextSpell').onclick=()=>{idx=(idx+1)%words.length;render()};render();</script><script src="/sat-nav-fix.js?v=20260729-4"></script>
+<script src="/js/inactivity-timeout.js?v=20260730-1"></script>
+</body></html>

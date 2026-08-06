@@ -1,0 +1,354 @@
+// SAT progress tracker — practical family version.
+// Node.js 20/22 Lambda runtime; AWS SDK v3 is available in the runtime.
+
+import { randomUUID, timingSafeEqual } from 'node:crypto';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import {
+  DynamoDBDocumentClient,
+  GetCommand,
+  PutCommand,
+  QueryCommand,
+  UpdateCommand
+} from '@aws-sdk/lib-dynamodb';
+
+const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}), {
+  marshallOptions: { removeUndefinedValues: true }
+});
+
+const TABLE = process.env.TABLE_NAME || 'sat-progress';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '';
+const STUDENT_DIRECTORY = '__students__';
+const STUDENT_PREFIX = 'student#';
+
+const CORS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+  'Content-Type': 'application/json'
+};
+
+class HttpError extends Error {
+  constructor(statusCode, code, message) {
+    super(message);
+    this.statusCode = statusCode;
+    this.code = code;
+  }
+}
+
+export const handler = async event => {
+  const method = event.requestContext?.http?.method || event.httpMethod;
+  if (method === 'OPTIONS') return { statusCode: 204, headers: CORS, body: '' };
+  if (method !== 'POST') return resp(405, { code: 'METHOD_NOT_ALLOWED', error: 'method not allowed' });
+
+  let body;
+  try {
+    body = JSON.parse(event.body || '{}');
+  } catch {
+    return resp(400, { code: 'INVALID_JSON', error: 'invalid JSON' });
+  }
+
+  try {
+    switch (body.action) {
+      case 'record': {
+        const userId = requireStudentId(body.userId);
+        await requireActiveStudent(userId);
+        return resp(200, await recordAttempt({ ...body, userId }));
+      }
+      case 'progress': {
+        const userId = requireStudentId(body.userId);
+        await requireActiveStudent(userId);
+        return resp(200, await getProgress(userId));
+      }
+      case 'getStudent': {
+        const userId = requireStudentId(body.userId);
+        const student = await getStudent(userId);
+        if (!student) throw new HttpError(404, 'STUDENT_NOT_FOUND', 'Student was not found');
+        return resp(200, { student });
+      }
+      case 'createStudent':
+        assertAdmin(body.adminPassword);
+        return resp(201, { student: await createStudent(body.displayName, body.requestedStudentId) });
+      case 'listStudents':
+        assertAdmin(body.adminPassword);
+        return resp(200, { students: await listStudents() });
+      case 'adminProgress': {
+        assertAdmin(body.adminPassword);
+        const studentId = requireStudentId(body.studentId);
+        return resp(200, await getProgress(studentId));
+      }
+      case 'unlockQuestion': {
+        assertAdmin(body.adminPassword);
+        const studentId = requireStudentId(body.studentId);
+        const questionId = requireQuestionId(body.questionId);
+        return resp(200, await unlockQuestion(studentId, questionId));
+      }
+      default:
+        throw new HttpError(400, 'UNKNOWN_ACTION', `unknown action: ${body.action}`);
+    }
+  } catch (error) {
+    if (error instanceof HttpError) {
+      return resp(error.statusCode, { code: error.code, error: error.message, message: error.message });
+    }
+    console.error(error);
+    return resp(500, { code: 'INTERNAL_ERROR', error: 'internal error' });
+  }
+};
+
+function normalizeStudentId(value) {
+  const normalized = String(value || '').trim().toLowerCase();
+  return /^[a-z0-9_-]{1,80}$/.test(normalized) ? normalized : '';
+}
+
+function requireStudentId(value) {
+  const studentId = normalizeStudentId(value);
+  if (!studentId) throw new HttpError(400, 'INVALID_STUDENT_ID', 'A valid student ID is required');
+  return studentId;
+}
+
+function requireQuestionId(value) {
+  const questionId = String(value || '').trim();
+  if (!/^[a-zA-Z0-9_-]{1,100}$/.test(questionId)) {
+    throw new HttpError(400, 'INVALID_QUESTION_ID', 'A valid question ID is required');
+  }
+  return questionId;
+}
+
+function assertAdmin(suppliedPassword) {
+  if (!ADMIN_PASSWORD) {
+    throw new HttpError(503, 'ADMIN_PASSWORD_NOT_CONFIGURED', 'ADMIN_PASSWORD is not configured in Lambda');
+  }
+
+  const expected = Buffer.from(ADMIN_PASSWORD);
+  const supplied = Buffer.from(String(suppliedPassword || ''));
+  if (expected.length !== supplied.length || !timingSafeEqual(expected, supplied)) {
+    throw new HttpError(403, 'ADMIN_FORBIDDEN', 'Invalid administrator password');
+  }
+}
+
+async function recordAttempt({ userId, questionId, correct, choice, category }) {
+  const validQuestionId = requireQuestionId(questionId);
+  const now = new Date().toISOString();
+
+  try {
+    const result = await ddb.send(new UpdateCommand({
+      TableName: TABLE,
+      Key: { userId, questionId: validQuestionId },
+      UpdateExpression:
+        'ADD #attempts :one, #correctCount :correctIncrement ' +
+        'SET #lastResult = :result, #lastChoice = :choice, #lastAt = :now, ' +
+        '#category = :category, #firstAt = if_not_exists(#firstAt, :now), ' +
+        '#locked = :true, #correctionAllowed = :false',
+      ConditionExpression: 'attribute_not_exists(#lastResult) OR #locked = :false',
+      ExpressionAttributeNames: {
+        '#attempts': 'attempts',
+        '#correctCount': 'correctCount',
+        '#lastResult': 'lastResult',
+        '#lastChoice': 'lastChoice',
+        '#lastAt': 'lastAt',
+        '#category': 'category',
+        '#firstAt': 'firstAt',
+        '#locked': 'locked',
+        '#correctionAllowed': 'correctionAllowed'
+      },
+      ExpressionAttributeValues: {
+        ':one': 1,
+        ':correctIncrement': correct ? 1 : 0,
+        ':result': correct ? 'correct' : 'incorrect',
+        ':choice': choice ?? null,
+        ':now': now,
+        ':category': category ?? 'unknown',
+        ':true': true,
+        ':false': false
+      },
+      ReturnValues: 'ALL_NEW'
+    }));
+
+    return normalizeProgressItem(result.Attributes);
+  } catch (error) {
+    if (error?.name === 'ConditionalCheckFailedException') {
+      throw new HttpError(409, 'QUESTION_LOCKED', 'This question is locked until the administrator allows another attempt');
+    }
+    throw error;
+  }
+}
+
+function normalizeProgressItem(item) {
+  const attempted = Boolean(item?.lastResult);
+  const locked = typeof item?.locked === 'boolean' ? item.locked : attempted;
+  return {
+    ...item,
+    locked,
+    correctionAllowed: attempted && item.lastResult === 'incorrect' && !locked
+  };
+}
+
+async function getProgress(userId) {
+  const result = await ddb.send(new QueryCommand({
+    TableName: TABLE,
+    KeyConditionExpression: 'userId = :userId',
+    ExpressionAttributeValues: { ':userId': userId }
+  }));
+
+  const items = (result.Items || []).map(normalizeProgressItem);
+  const summary = items.reduce((value, item) => {
+    const everCorrect = (item.correctCount || 0) > 0;
+    const category = item.category || 'unknown';
+    value.attempted += 1;
+    value.totalAttempts += item.attempts || 0;
+    value.totalCorrect += item.correctCount || 0;
+    value.mastered += everCorrect ? 1 : 0;
+    value.lockedIncorrect += item.lastResult === 'incorrect' && item.locked ? 1 : 0;
+    value.byCategory[category] ||= { attempted: 0, mastered: 0 };
+    value.byCategory[category].attempted += 1;
+    if (everCorrect) value.byCategory[category].mastered += 1;
+    return value;
+  }, {
+    attempted: 0,
+    mastered: 0,
+    totalAttempts: 0,
+    totalCorrect: 0,
+    lockedIncorrect: 0,
+    byCategory: {}
+  });
+
+  summary.accuracy = summary.totalAttempts > 0
+    ? +(summary.totalCorrect / summary.totalAttempts).toFixed(3)
+    : 0;
+
+  return { items, summary };
+}
+
+async function createStudent(displayNameValue, requestedStudentIdValue) {
+  const displayName = String(displayNameValue || '').trim();
+  if (!displayName || displayName.length > 80) {
+    throw new HttpError(400, 'INVALID_DISPLAY_NAME', 'Student name must be between 1 and 80 characters');
+  }
+
+  const requested = String(requestedStudentIdValue || '').trim();
+  const studentId = requested
+    ? requireStudentId(requested)
+    : `st_${randomUUID().replaceAll('-', '').slice(0, 16)}`;
+  const now = new Date().toISOString();
+
+  const student = {
+    userId: STUDENT_DIRECTORY,
+    questionId: `${STUDENT_PREFIX}${studentId}`,
+    entityType: 'student',
+    studentId,
+    displayName,
+    active: true,
+    createdAt: now,
+    updatedAt: now
+  };
+
+  try {
+    await ddb.send(new PutCommand({
+      TableName: TABLE,
+      Item: student,
+      ConditionExpression: 'attribute_not_exists(userId) AND attribute_not_exists(questionId)'
+    }));
+  } catch (error) {
+    if (error?.name === 'ConditionalCheckFailedException') {
+      throw new HttpError(409, 'STUDENT_ALREADY_EXISTS', 'A student with that ID already exists');
+    }
+    throw error;
+  }
+
+  return publicStudent(student);
+}
+
+async function listStudents() {
+  const result = await ddb.send(new QueryCommand({
+    TableName: TABLE,
+    KeyConditionExpression: 'userId = :directory AND begins_with(questionId, :prefix)',
+    ExpressionAttributeValues: {
+      ':directory': STUDENT_DIRECTORY,
+      ':prefix': STUDENT_PREFIX
+    }
+  }));
+
+  return (result.Items || [])
+    .map(publicStudent)
+    .sort((left, right) => left.displayName.localeCompare(right.displayName));
+}
+
+async function getStudent(studentId) {
+  const result = await ddb.send(new GetCommand({
+    TableName: TABLE,
+    Key: {
+      userId: STUDENT_DIRECTORY,
+      questionId: `${STUDENT_PREFIX}${studentId}`
+    }
+  }));
+
+  return result.Item ? publicStudent(result.Item) : null;
+}
+
+async function requireActiveStudent(studentId) {
+  const student = await getStudent(studentId);
+
+  if (!student) {
+    throw new HttpError(
+      404,
+      'STUDENT_NOT_FOUND',
+      'This student link was not created by the administrator'
+    );
+  }
+
+  if (!student.active) {
+    throw new HttpError(
+      403,
+      'STUDENT_INACTIVE',
+      'This student link is inactive'
+    );
+  }
+
+  return student;
+}
+
+function publicStudent(item) {
+  return {
+    studentId: item.studentId,
+    displayName: item.displayName,
+    active: item.active !== false,
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt
+  };
+}
+
+async function unlockQuestion(studentId, questionId) {
+  const now = new Date().toISOString();
+
+  try {
+    const result = await ddb.send(new UpdateCommand({
+      TableName: TABLE,
+      Key: { userId: studentId, questionId },
+      UpdateExpression: 'SET #locked = :false, #correctionAllowed = :true, #unlockedAt = :now',
+      ConditionExpression: '#lastResult = :incorrect',
+      ExpressionAttributeNames: {
+        '#locked': 'locked',
+        '#correctionAllowed': 'correctionAllowed',
+        '#unlockedAt': 'unlockedAt',
+        '#lastResult': 'lastResult'
+      },
+      ExpressionAttributeValues: {
+        ':false': false,
+        ':true': true,
+        ':now': now,
+        ':incorrect': 'incorrect'
+      },
+      ReturnValues: 'ALL_NEW'
+    }));
+
+    return normalizeProgressItem(result.Attributes);
+  } catch (error) {
+    if (error?.name === 'ConditionalCheckFailedException') {
+      throw new HttpError(409, 'NOT_UNLOCKABLE', 'Only an incorrectly answered question can be unlocked');
+    }
+    throw error;
+  }
+}
+
+function resp(statusCode, body) {
+  return { statusCode, headers: CORS, body: JSON.stringify(body) };
+}

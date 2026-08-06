@@ -1,0 +1,28 @@
+{
+    "FunctionUrl": "https://qi7mrsjuu5jj4nsmiukcprtvya0scnrg.lambda-url.us-east-1.on.aws/",
+    "FunctionArn": "arn:aws:lambda:us-east-1:989174615155:function:sat-progress-handler",
+    "AuthType": "NONE",
+    "Cors": {
+        "AllowCredentials": false,
+        "AllowHeaders": [
+            "content-type",
+            "authorization",
+            "cache-control",
+            "pragma"
+        ],
+        "AllowMethods": [
+            "POST",
+            "GET"
+        ],
+        "AllowOrigins": [
+            "https://sat.denduluru.com"
+        ],
+        "ExposeHeaders": [
+            "content-type"
+        ],
+        "MaxAge": 86400
+    },
+    "CreationTime": "2026-07-30T05:41:33.034290782Z",
+    "LastModifiedTime": "2026-08-06T01:36:32.488045933Z",
+    "InvokeMode": "BUFFERED"
+}

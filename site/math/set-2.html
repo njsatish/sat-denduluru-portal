@@ -1,0 +1,867 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A second, independent 300-question program containing no foundation-level questions."><title>Set 2: Higher-Difficulty Practice | SAT Math 600</title>
+<link rel="stylesheet" href="styles.css"><style id="sat-math-charcoal-gold-v1">
+  :root {
+    color-scheme: dark;
+    --cg-bg: #111214;
+    --cg-surface: #1d2025;
+    --cg-surface-2: #24272d;
+    --cg-surface-3: #2a2d33;
+    --cg-border: #43464d;
+    --cg-border-soft: #34373d;
+    --cg-text: #f4f1e8;
+    --cg-muted: #c0bbb0;
+    --cg-gold: #d6ae4e;
+    --cg-gold-light: #e7c96f;
+    --cg-gold-dark: #9f7620;
+    --cg-danger: #ef4444;
+    --cg-success: #22c55e;
+  }
+
+  html,
+  body {
+    background: var(--cg-bg) !important;
+    color: var(--cg-text) !important;
+  }
+
+  body {
+    min-height: 100vh;
+  }
+
+  main,
+  section,
+  article,
+  .page,
+  .container,
+  .wrapper,
+  .wrap {
+    color: var(--cg-text) !important;
+  }
+
+  /* Common SAT subject navigation */
+  #sat-global-navigation,
+  #sat-global-subject-nav,
+  #sat-subject-navigation,
+  .subject-nav {
+    background: linear-gradient(135deg, #1c1d20 0%, #24262a 100%) !important;
+    border-bottom: 1px solid #46484d !important;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .26) !important;
+  }
+
+  #sat-global-navigation > span,
+  #sat-global-subject-nav > span,
+  #sat-subject-navigation > span,
+  .subject-nav > span {
+    color: #f2eee2 !important;
+  }
+
+  #sat-global-navigation a,
+  #sat-global-subject-nav a,
+  #sat-subject-navigation a,
+  .subject-nav a {
+    background: #24262a !important;
+    border-color: #55585e !important;
+    color: #ece7dc !important;
+    box-shadow: none !important;
+  }
+
+  #sat-global-navigation a:hover,
+  #sat-global-subject-nav a:hover,
+  #sat-subject-navigation a:hover,
+  .subject-nav a:hover {
+    background: #303238 !important;
+    border-color: #777a80 !important;
+  }
+
+  #sat-global-navigation a[aria-current="page"],
+  #sat-global-subject-nav a[aria-current="page"],
+  #sat-subject-navigation a[aria-current="page"],
+  .subject-nav a[aria-current="page"] {
+    background: linear-gradient(135deg, #e4c15f, #c69a30) !important;
+    border-color: #e7c96f !important;
+    color: #18191b !important;
+    box-shadow: 0 4px 12px rgba(214, 174, 78, .20) !important;
+  }
+
+  /* Math-specific header/navigation */
+  .site-header,
+  header.site-header,
+  .nav,
+  .navbar,
+  .topbar {
+    background: #17181b !important;
+    border-color: #383a40 !important;
+    color: var(--cg-text) !important;
+  }
+
+  .brand,
+  .math-brand,
+  .nav a,
+  .nav-links a,
+  .navbar a {
+    color: #f2eee2 !important;
+  }
+
+  .brand-mark,
+  .sigma {
+    background: linear-gradient(135deg, #f0cf76, #b68a26) !important;
+    color: #191a1c !important;
+    box-shadow: 0 6px 18px rgba(214, 174, 78, .22) !important;
+  }
+
+  .nav-links a[aria-current="page"],
+  .nav-links a.active,
+  .nav a[aria-current="page"],
+  .navbar a.active {
+    background: linear-gradient(135deg, #e4c15f, #c69a30) !important;
+    color: #18191b !important;
+  }
+
+  /* Hero */
+  .hero {
+    background:
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(214, 174, 78, .18),
+        transparent 33%
+      ),
+      linear-gradient(
+        145deg,
+        #1a1c20 0%,
+        #131416 58%,
+        #101113 100%
+      ) !important;
+    border-bottom: 1px solid #34363b !important;
+    color: #fffdf5 !important;
+  }
+
+  .hero::before,
+  .hero::after {
+    opacity: .12 !important;
+  }
+
+  .hero-inner {
+    background: transparent !important;
+    color: #fffdf5 !important;
+  }
+
+  .hero h1,
+  .hero h2,
+  .hero h3,
+  .hero strong {
+    color: #fffdf5 !important;
+    text-shadow: none !important;
+  }
+
+  .hero p,
+  .hero span,
+  .hero .eyebrow {
+    color: #c8c2b6 !important;
+  }
+
+  .eyebrow {
+    color: var(--cg-gold-light) !important;
+  }
+
+  /* Cards and panels */
+  .panel,
+  .card,
+  .hero-card,
+  .volume-card,
+  .overall-card,
+  .lesson,
+  .question,
+  .stat,
+  .controls,
+  .quiz-banner,
+  .set-card,
+  .progress-card,
+  .practice-card,
+  .section-card,
+  .content-card,
+  .modal-content,
+  .dialog,
+  .box {
+    background: linear-gradient(180deg, #1f2227 0%, #1a1c20 100%) !important;
+    border-color: var(--cg-border) !important;
+    color: var(--cg-text) !important;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, .30) !important;
+  }
+
+  .set-card.featured,
+  .volume-card.featured,
+  .question.featured {
+    border-color: #8e7637 !important;
+  }
+
+  .set-number {
+    color: var(--cg-gold-light) !important;
+    opacity: .09 !important;
+  }
+
+  /* Text */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  .title,
+  .word,
+  .question-title,
+  .q-number {
+    color: #fffdf5 !important;
+  }
+
+  p,
+  li,
+  label,
+  small,
+  .muted,
+  .subtitle,
+  .description,
+  .footer,
+  footer,
+  .meta,
+  .helper,
+  .hint,
+  .explanation {
+    color: var(--cg-muted) !important;
+  }
+
+  a {
+    color: #e7c96f;
+  }
+
+  a:hover {
+    color: #f4dda0;
+  }
+
+  /* Buttons */
+  button,
+  .btn,
+  .choice,
+  .topic-nav button,
+  .card-button,
+  .primary-button {
+    background: #2b2e34 !important;
+    color: #f5f0e4 !important;
+    border-color: #55585e !important;
+  }
+
+  button:hover,
+  .btn:hover,
+  .choice:hover,
+  .topic-nav button:hover,
+  .card-button:hover,
+  .primary-button:hover {
+    background: #35383f !important;
+    border-color: #777a80 !important;
+  }
+
+  .btn.primary,
+  .primary-button,
+  .card-button,
+  #start-quiz,
+  .actions-row .btn:first-child {
+    background: linear-gradient(135deg, #e4c15f, #c69a30) !important;
+    border-color: #e7c96f !important;
+    color: #18191b !important;
+    box-shadow: 0 8px 24px rgba(214, 174, 78, .22) !important;
+  }
+
+  .btn.primary:hover,
+  .primary-button:hover,
+  .card-button:hover,
+  #start-quiz:hover {
+    background: linear-gradient(135deg, #edcf79, #d5aa3f) !important;
+  }
+
+  .btn.secondary,
+  .btn.ghost {
+    background: #282b31 !important;
+    color: #eee9dd !important;
+  }
+
+  .btn.danger,
+  button.danger {
+    background: #641b1b !important;
+    border-color: #9f2929 !important;
+    color: #fee2e2 !important;
+  }
+
+  /* Inputs and filters */
+  input,
+  select,
+  textarea,
+  .control,
+  .numeric-answer {
+    background: #121316 !important;
+    color: var(--cg-text) !important;
+    border-color: #505258 !important;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #858178 !important;
+  }
+
+  /* Active/selected states */
+  .choice.selected,
+  .topic-nav button.active,
+  .filter.active,
+  .tab.active {
+    background: #6f571f !important;
+    border-color: #d6ae4e !important;
+    color: #fff8e4 !important;
+  }
+
+  .correct,
+  .question.correct,
+  .choice.correct-choice {
+    background: #123322 !important;
+    border-color: var(--cg-success) !important;
+  }
+
+  .incorrect,
+  .question.incorrect,
+  .choice.incorrect-choice,
+  .choice.wrong-choice {
+    background: #3b1414 !important;
+    border-color: var(--cg-danger) !important;
+  }
+
+  /* Progress */
+  .progress-track,
+  .bar,
+  progress {
+    background: #0c0d0f !important;
+  }
+
+  .progress-track span,
+  .bar > span,
+  .progress-fill,
+  progress::-webkit-progress-value {
+    background: linear-gradient(90deg, #e7c96f, #c99d35) !important;
+  }
+
+  /* Chips/tags/formulas */
+  .chips span,
+  .tag,
+  .badge,
+  .pill,
+  .formula {
+    background: #282b31 !important;
+    color: #e8d59c !important;
+    border-color: #4f5156 !important;
+  }
+
+  .warning {
+    background: #3a2d13 !important;
+    border-color: #8a6a21 !important;
+    color: #f3dfa2 !important;
+  }
+
+  code,
+  pre {
+    background: #0d0e10 !important;
+    color: #f0d98f !important;
+    border-color: #3f4146 !important;
+  }
+
+  /* Tables */
+  table,
+  th,
+  td {
+    background: var(--cg-surface) !important;
+    color: var(--cg-text) !important;
+    border-color: var(--cg-border) !important;
+  }
+
+  /* Footer */
+  .footer,
+  footer {
+    background: #18191c !important;
+    color: #918c82 !important;
+    border-color: #31343a !important;
+  }
+
+  hr {
+    border-color: #37393f !important;
+  }
+
+  @media print {
+    html,
+    body,
+    main,
+    section,
+    article,
+    .panel,
+    .card,
+    .question {
+      background: #ffffff !important;
+      color: #000000 !important;
+      box-shadow: none !important;
+    }
+  }
+</style>
+<style id="sat-math-two-row-hierarchy-v1">
+  .site-header .nav {
+    align-items: flex-start !important;
+    flex-wrap: wrap !important;
+  }
+
+  .site-header .nav-links {
+    display: block !important;
+    flex: 1 1 620px !important;
+    min-width: 0 !important;
+  }
+
+  .sat-math-nav-top-row,
+  .sat-math-nav-volume-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+  }
+
+  .sat-math-nav-volume-row {
+    margin-top: 14px !important;
+    padding-top: 14px !important;
+    border-top: 1px solid #35383e !important;
+  }
+
+  .sat-math-nav-label {
+    margin-right: 4px !important;
+    color: #8f8a80 !important;
+    font-size: .72rem !important;
+    font-weight: 950 !important;
+    letter-spacing: .13em !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+  }
+
+  .sat-math-nav-top-row a,
+  .sat-math-nav-volume-row a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 12px 17px !important;
+    border: 1px solid transparent !important;
+    border-radius: 13px !important;
+    background: transparent !important;
+    color: #f3efe6 !important;
+    font-weight: 900 !important;
+    line-height: 1.2 !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+  }
+
+  .sat-math-nav-top-row a:hover,
+  .sat-math-nav-volume-row a:hover {
+    background: #292c31 !important;
+    border-color: #55585e !important;
+  }
+
+  .sat-math-nav-top-row a.sat-parent-selected {
+    border-color: #d6ae4e !important;
+    background: rgba(214, 174, 78, .09) !important;
+    color: #f4d77f !important;
+    box-shadow: inset 0 0 0 1px rgba(214, 174, 78, .11) !important;
+  }
+
+  .sat-math-nav-volume-row a.sat-child-selected {
+    border-color: #e7c96f !important;
+    background: linear-gradient(
+      135deg,
+      #e4c15f,
+      #c69a30
+    ) !important;
+    color: #18191b !important;
+    box-shadow: 0 7px 20px rgba(214, 174, 78, .18) !important;
+  }
+
+  .sat-math-nav-top-row a[aria-current="page"],
+  .sat-math-nav-volume-row a[aria-current="page"] {
+    text-decoration: none !important;
+  }
+
+  @media (max-width: 980px) {
+    .site-header .nav-links {
+      flex-basis: 100% !important;
+      width: 100% !important;
+      margin-top: 12px !important;
+    }
+
+    .sat-math-nav-top-row,
+    .sat-math-nav-volume-row {
+      justify-content: flex-start !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .sat-math-nav-top-row a,
+    .sat-math-nav-volume-row a {
+      padding: 10px 13px !important;
+      font-size: .9rem !important;
+    }
+
+    .sat-math-nav-label {
+      width: 100% !important;
+      margin-bottom: 2px !important;
+    }
+  }
+</style>
+<!-- sat-favicon-v1 -->
+<link rel="icon" href="/favicon.svg?v=1" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.ico?v=1">
+<link rel="icon" href="/favicon-32.png?v=1" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=1">
+<link rel="manifest" href="/site.webmanifest?v=1">
+<meta name="theme-color" content="#111214">
+<!-- /sat-favicon-v1 -->
+</head><body>
+<nav id="sat-global-navigation"
+     aria-label="SAT subject navigation"
+     style="
+       position:sticky;
+       top:0;
+       z-index:2147483647;
+       display:flex;
+       flex-wrap:wrap;
+       align-items:center;
+       gap:9px;
+       width:100%;
+       min-height:58px;
+       box-sizing:border-box;
+       padding:10px 18px;
+       background:linear-gradient(135deg,#f8fbff 0%,#e9f2ff 100%);
+       border-bottom:1px solid #d5e2f3;
+       box-shadow:0 4px 16px rgba(37,99,235,.08);
+     ">
+  <span style="
+        margin-right:5px;
+        color:#1e3a5f;
+        font:800 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+        letter-spacing:.01em;
+      ">SAT Prep</span>
+
+  <a data-sat-destination="/index.html"
+     href="/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">SAT Home</a>
+
+  <a data-sat-destination="/english/index.html"
+     href="/english/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">English</a>
+
+  <a data-sat-destination="/math/index.html"
+     href="/math/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">Math</a>
+</nav>
+<script>
+(function () {
+  var student = (
+    new URLSearchParams(window.location.search).get('student') || window.localStorage.getItem('sat_user') || ''
+  ).trim().toLowerCase();
+
+  var currentPath = window.location.pathname.replace(/\/+/g, '/');
+
+  document
+    .querySelectorAll('#sat-global-navigation [data-sat-destination]')
+    .forEach(function (link) {
+      var destination = link.getAttribute('data-sat-destination');
+      var url = new URL(destination, window.location.origin);
+
+      if (student) {
+        url.searchParams.set('student', student);
+      }
+
+      link.href = url.href;
+
+      var active =
+        (destination === '/index.html' && currentPath === '/index.html') ||
+        (
+          destination === '/english/index.html' &&
+          currentPath.indexOf('/english/') === 0
+        ) ||
+        (
+          destination === '/math/index.html' &&
+          currentPath.indexOf('/math/') === 0
+        );
+
+      if (active) {
+        link.style.background = '#2563eb';
+        link.style.borderColor = '#2563eb';
+        link.style.color = '#ffffff';
+        link.style.boxShadow = '0 4px 10px rgba(37,99,235,.20)';
+        link.setAttribute('aria-current', 'page');
+      }
+    });
+})();
+</script>
+
+<header class="site-header"><nav class="nav">
+<a class="brand" href="index.html"><span class="brand-mark">Σ</span><span>SAT Math 600</span></a>
+<div class="nav-links" data-volume-navigation="set-2">
+<a href="index.html">Home</a>
+<a href="set-1.html">Set 1</a>
+<a href="set-2.html" aria-current="page">Set 2</a>
+<a href="set-2-volume-1-algebra.html">Volume 1</a>
+<a href="set-2-volume-2-advanced-math.html">Volume 2</a>
+<a href="set-2-volume-3-data-geometry-trigonometry.html">Volume 3</a>
+</div>
+<label style="font-size:.85rem;color:#6b6f76;margin-left:12px;">Student: <input id="student-name" type="text" style="width:90px;"></label>
+</nav></header>
+<section class="hero"><div class="hero-inner"><div><div class="eyebrow">Set 2 · Three volumes · 300 questions</div>
+<h1>Set 2: Higher-Difficulty Practice</h1><p>A second, independent 300-question program containing no foundation-level questions.</p>
+<div class="actions-row"><a class="btn" href="set-2-volume-1-algebra.html">Begin Volume 1</a><a class="btn secondary" href="index.html">Choose another set</a></div>
+</div><div class="hero-card"><div class="eyebrow">Set 2 progress</div><h2 id="overall-mastered" style="font-size:2.2rem;margin:.4rem 0">0 / 300</h2>
+<div class="bar"><span id="overall-bar"></span></div><p><strong id="overall-percent">0%</strong> mastered</p></div></div></section>
+<main><section class="overall-card panel"><div class="section-heading"><div><div class="eyebrow">Difficulty range</div>
+<h2>Medium, Hard, and Challenge only</h2></div></div>
+<p>Use topic guides, complete focused practice, review locked mistakes with the administrator, and retest only after correction access is granted.</p>
+</section>
+<section id="volumes"><div class="section-heading"><div><div class="eyebrow">Choose a volume</div><h2>Complete SAT Math coverage</h2></div>
+<p>All progress is stored separately by question ID and synced across devices.</p></div>
+<div class="home-grid"><article class="volume-card panel" style="--accent:#1d4ed8;--accent-soft:#dbeafe">
+<div class="num">01</div><h2>Volume 1: Algebra and Linear Relationships</h2>
+<p><strong>Equations, inequalities, systems, functions, sequences, and parameters</strong></p><p>One hundred new questions beginning at medium difficulty.</p>
+<div class="bar"><span id="s2v1-bar"></span></div><p id="s2v1-progress">0 of 100 mastered</p>
+<a class="btn" href="set-2-volume-1-algebra.html">Open Volume 1</a></article><article class="volume-card panel" style="--accent:#7c3aed;--accent-soft:#ede9fe">
+<div class="num">02</div><h2>Volume 2: Advanced Math</h2>
+<p><strong>Quadratics, polynomials, radicals, rational expressions, and exponentials</strong></p><p>One hundred new questions emphasizing multi-step and structural reasoning.</p>
+<div class="bar"><span id="s2v2-bar"></span></div><p id="s2v2-progress">0 of 100 mastered</p>
+<a class="btn" href="set-2-volume-2-advanced-math.html">Open Volume 2</a></article><article class="volume-card panel" style="--accent:#0f766e;--accent-soft:#ccfbf1">
+<div class="num">03</div><h2>Volume 3: Data, Geometry, and Trigonometry</h2>
+<p><strong>Data analysis, probability, coordinate geometry, trigonometry, and circles</strong></p><p>One hundred new questions focused on medium through challenge difficulty.</p>
+<div class="bar"><span id="s2v3-bar"></span></div><p id="s2v3-progress">0 of 100 mastered</p>
+<a class="btn" href="set-2-volume-3-data-geometry-trigonometry.html">Open Volume 3</a></article></div></section></main>
+<footer class="footer"><div class="footer-inner"><span>Original SAT-style material. Not affiliated with or endorsed by College Board.</span>
+<span>Use official Bluebook tests to measure readiness.</span></div></footer>
+<script>window.SAT_HOME={"set":2,"volumes":[{"key":"s2v1","prefix":"s2v1q","count":100},{"key":"s2v2","prefix":"s2v2q","count":100},{"key":"s2v3","prefix":"s2v3q","count":100}]};</script><script src="app.js?v=20260805-math-progress-v13-20260806T013611Z"></script><script>initHomePage();</script>
+<script id="sat-math-two-row-hierarchy-script-v1">
+(function () {
+  const SET_1_VOLUMES = [
+    {
+      label: 'Volume 1',
+      href: 'volume-1-algebra-foundations.html',
+      files: ['volume-1-algebra-foundations.html']
+    },
+    {
+      label: 'Volume 2',
+      href: 'volume-2-advanced-math.html',
+      files: ['volume-2-advanced-math.html']
+    },
+    {
+      label: 'Volume 3',
+      href: 'volume-3-data-geometry-trigonometry.html',
+      files: ['volume-3-data-geometry-trigonometry.html']
+    }
+  ];
+
+  const SET_2_VOLUMES = [
+    {
+      label: 'Volume 1',
+      href: 'set-2-volume-1-algebra.html',
+      files: ['set-2-volume-1-algebra.html']
+    },
+    {
+      label: 'Volume 2',
+      href: 'set-2-volume-2-advanced-math.html',
+      files: ['set-2-volume-2-advanced-math.html']
+    },
+    {
+      label: 'Volume 3',
+      href: 'set-2-volume-3-data-geometry-trigonometry.html',
+      files: ['set-2-volume-3-data-geometry-trigonometry.html']
+    }
+  ];
+
+  function currentFile() {
+    const path = window.location.pathname;
+    return path.split('/').pop() || 'index.html';
+  }
+
+  function studentId() {
+    return new URLSearchParams(window.location.search).get('student') || window.localStorage.getItem('sat_user') || '';
+  }
+
+  function hrefWithStudent(href) {
+    const student = studentId();
+
+    if (!student) {
+      return href;
+    }
+
+    const url = new URL(href, window.location.href);
+    url.searchParams.set('student', student);
+
+    return `${url.pathname.split('/').pop()}${url.search}${url.hash}`;
+  }
+
+  function makeLink(label, href, className, current) {
+    const anchor = document.createElement('a');
+    anchor.textContent = label;
+    anchor.href = hrefWithStudent(href);
+
+    if (className) {
+      anchor.className = className;
+    }
+
+    if (current) {
+      anchor.setAttribute('aria-current', 'page');
+    }
+
+    return anchor;
+  }
+
+  function activeSet(file) {
+    if (
+      file === 'set-2.html' ||
+      SET_2_VOLUMES.some(volume => volume.files.includes(file))
+    ) {
+      return 2;
+    }
+
+    if (
+      file === 'set-1.html' ||
+      SET_1_VOLUMES.some(volume => volume.files.includes(file))
+    ) {
+      return 1;
+    }
+
+    return 0;
+  }
+
+  function activeVolume(file, volumes) {
+    return volumes.findIndex(volume => volume.files.includes(file));
+  }
+
+  function buildNavigation() {
+    const navLinks =
+      document.querySelector('.site-header .nav-links') ||
+      document.querySelector('.nav-links');
+
+    if (!navLinks) {
+      console.warn('Two-row Math navigation skipped: .nav-links not found.');
+      return;
+    }
+
+    const file = currentFile();
+    const setNumber = activeSet(file);
+
+    const topRow = document.createElement('div');
+    topRow.className = 'sat-math-nav-top-row';
+
+    topRow.append(
+      makeLink(
+        'Home',
+        'index.html',
+        '',
+        file === 'index.html'
+      ),
+      makeLink(
+        'Set 1',
+        'set-1.html',
+        setNumber === 1 ? 'sat-parent-selected' : '',
+        file === 'set-1.html'
+      ),
+      makeLink(
+        'Set 2',
+        'set-2.html',
+        setNumber === 2 ? 'sat-parent-selected' : '',
+        file === 'set-2.html'
+      )
+    );
+
+    const fragment = document.createDocumentFragment();
+    fragment.appendChild(topRow);
+
+    if (setNumber === 1 || setNumber === 2) {
+      const volumeRow = document.createElement('div');
+      volumeRow.className = 'sat-math-nav-volume-row';
+
+      const label = document.createElement('span');
+      label.className = 'sat-math-nav-label';
+      label.textContent = `SET ${setNumber} VOLUMES`;
+
+      volumeRow.appendChild(label);
+
+      const volumes = setNumber === 1
+        ? SET_1_VOLUMES
+        : SET_2_VOLUMES;
+
+      const selectedIndex = activeVolume(file, volumes);
+
+      volumes.forEach((volume, index) => {
+        volumeRow.appendChild(
+          makeLink(
+            volume.label,
+            volume.href,
+            index === selectedIndex ? 'sat-child-selected' : '',
+            index === selectedIndex
+          )
+        );
+      });
+
+      fragment.appendChild(volumeRow);
+    }
+
+    navLinks.replaceChildren(fragment);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener(
+      'DOMContentLoaded',
+      buildNavigation,
+      { once: true }
+    );
+  } else {
+    buildNavigation();
+  }
+})();
+</script>
+<script src="/sat-nav-fix.js?v=20260729-4"></script>
+<script src="/js/inactivity-timeout.js?v=20260730-1"></script>
+</body></html>

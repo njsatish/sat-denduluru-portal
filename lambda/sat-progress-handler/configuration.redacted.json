@@ -1,0 +1,45 @@
+{
+  "Architectures": [
+    "x86_64"
+  ],
+  "CodeSha256": "LEkNk+mwSsAYehkq7saVM6D6zU6+bO1rtfveAYgn5sM=",
+  "CodeSize": 11340,
+  "Description": "",
+  "Environment": {
+    "Variables": {
+      "ADMIN_PASSWORD": "<redacted>",
+      "SHARED_SECRET": "<redacted>",
+      "TABLE_NAME": "<redacted>"
+    }
+  },
+  "EphemeralStorage": {
+    "Size": 512
+  },
+  "FunctionArn": "arn:aws:lambda:us-east-1:989174615155:function:sat-progress-handler",
+  "FunctionName": "sat-progress-handler",
+  "Handler": "index.handler",
+  "LastModified": "2026-08-04T02:20:09.000+0000",
+  "LastUpdateStatus": "Successful",
+  "LoggingConfig": {
+    "LogFormat": "Text",
+    "LogGroup": "/aws/lambda/sat-progress-handler"
+  },
+  "MemorySize": 128,
+  "PackageType": "Zip",
+  "RevisionId": "96660827-c6df-4668-93ae-066a501f3e17",
+  "Role": "arn:aws:iam::989174615155:role/sat-progress-lambda-role",
+  "Runtime": "nodejs22.x",
+  "RuntimeVersionConfig": {
+    "RuntimeVersionArn": "arn:aws:lambda:us-east-1::runtime:b622a446846abb5404881e3bf1df4c22b6ffd2566f14e5e3f600aa9c252d86de"
+  },
+  "SnapStart": {
+    "ApplyOn": "None",
+    "OptimizationStatus": "Off"
+  },
+  "State": "Active",
+  "Timeout": 3,
+  "TracingConfig": {
+    "Mode": "PassThrough"
+  },
+  "Version": "$LATEST"
+}

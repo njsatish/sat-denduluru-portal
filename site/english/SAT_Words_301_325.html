@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script id="sat-english-identity-v7">
+/* BEGIN SAT ENGLISH IDENTITY V7 */
+(() => {
+  'use strict';
+
+  if (window.SATEnglishIdentity?.build === '20260804-english-identity-v7-20260804T182532Z') return;
+
+  const normalize = value => {
+    const id = String(value || '').trim().toLowerCase();
+    return /^[a-z0-9_-]{1,80}$/.test(id) ? id : '';
+  };
+
+  const decodeToken = token => {
+    try {
+      const part = String(token || '').split('.')[1];
+      if (!part) return null;
+      const base64 = part.replace(/-/g, '+').replace(/_/g, '/');
+      const padded = base64 + '='.repeat((4 - base64.length % 4) % 4);
+      const binary = atob(padded);
+      const bytes = Uint8Array.from(binary, character => character.charCodeAt(0));
+      return JSON.parse(new TextDecoder().decode(bytes));
+    } catch (error) {
+      console.warn('Unable to decode the SAT Cognito identity.', error);
+      return null;
+    }
+  };
+
+  const nativeGet = URLSearchParams.prototype.get;
+  const tokenClaims = decodeToken(
+    sessionStorage.getItem('sat_id_token') ||
+    localStorage.getItem('sat_id_token')
+  );
+  const tokenStudent = normalize(
+    window.SATAuth?.studentId ||
+    window.SATAuth?.username ||
+    tokenClaims?.['cognito:username'] ||
+    tokenClaims?.username ||
+    tokenClaims?.preferred_username
+  );
+  const storedStudent = normalize(localStorage.getItem('sat_user'));
+  const pageParams = new URLSearchParams(location.search);
+  const urlStudent = normalize(nativeGet.call(pageParams, 'student'));
+  let studentId = tokenStudent || storedStudent || urlStudent;
+
+  function resolveStudentId() {
+    const claims = decodeToken(
+      sessionStorage.getItem('sat_id_token') ||
+      localStorage.getItem('sat_id_token')
+    );
+    const authenticated = normalize(
+      window.SATAuth?.studentId ||
+      window.SATAuth?.username ||
+      claims?.['cognito:username'] ||
+      claims?.username ||
+      claims?.preferred_username
+    );
+    const stored = normalize(localStorage.getItem('sat_user'));
+    studentId = authenticated || stored || studentId || urlStudent;
+    if (studentId) localStorage.setItem('sat_user', studentId);
+    return studentId;
+  }
+
+  if (!URLSearchParams.prototype.__satEnglishIdentityV7) {
+    URLSearchParams.prototype.get = function(name) {
+      const value = nativeGet.call(this, name);
+      if (String(name) === 'student' && !normalize(value)) {
+        return resolveStudentId() || value;
+      }
+      return value;
+    };
+    Object.defineProperty(URLSearchParams.prototype, '__satEnglishIdentityV7', {
+      value: true,
+      configurable: true
+    });
+  }
+
+  function cleanStudentParameter(urlValue) {
+    try {
+      const url = new URL(urlValue, location.href);
+      if (url.origin !== location.origin) return urlValue;
+      url.searchParams.delete('student');
+      return `${url.pathname}${url.search}${url.hash}`;
+    } catch (_) {
+      return urlValue;
+    }
+  }
+
+  function cleanAddressBar() {
+    const url = new URL(location.href);
+    if (!url.searchParams.has('student')) return;
+    url.searchParams.delete('student');
+    history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
+  }
+
+  function cleanStudentLinks(root = document) {
+    root.querySelectorAll?.('a[href]').forEach(anchor => {
+      const href = anchor.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('javascript:')) return;
+      const cleaned = cleanStudentParameter(href);
+      if (cleaned !== href) anchor.setAttribute('href', cleaned);
+    });
+  }
+
+  resolveStudentId();
+  cleanAddressBar();
+
+  window.SATResolveStudentId = resolveStudentId;
+  window.SATEnglishIdentity = {
+    build: '20260804-english-identity-v7-20260804T182532Z',
+    get studentId() { return resolveStudentId(); },
+    source: tokenStudent ? 'cognito' : storedStudent ? 'storage' : urlStudent ? 'url' : 'missing',
+    normalize,
+    resolveStudentId,
+    cleanStudentLinks
+  };
+
+  const ready = () => {
+    cleanStudentLinks();
+    setTimeout(cleanStudentLinks, 0);
+    setTimeout(cleanStudentLinks, 150);
+    setTimeout(cleanStudentLinks, 600);
+
+    if (document.body && window.MutationObserver) {
+      const observer = new MutationObserver(records => {
+        for (const record of records) {
+          record.addedNodes.forEach(node => {
+            if (node.nodeType === 1) cleanStudentLinks(node);
+          });
+        }
+      });
+      observer.observe(document.body, {childList: true, subtree: true});
+      setTimeout(() => observer.disconnect(), 5000);
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ready, {once: true});
+  } else {
+    ready();
+  }
+})();
+/* END SAT ENGLISH IDENTITY V7 */
+</script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>SAT Vocabulary — Words 301–325</title>
+  <style>
+    :root {
+      --page:#111214;--panel:#202226;--panel2:#181a1e;--ink:#f4f1e8;
+      --muted:#bdb7aa;--line:#4a4d53;--gold:#e7c96f;--gold2:#d4a72c;
+      --blue:#1f78b8;--teal:#149c97;--orange:#c97717;--purple:#7441a4;
+      --green:#2b7d47;--rose:#bd4f69;
+    }
+    *{box-sizing:border-box}
+    html{background:var(--page)}
+    body{margin:0;background:var(--page);color:var(--ink);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}
+    a{color:inherit}
+    .site-header{background:radial-gradient(circle at 82% 20%,rgba(212,167,44,.12),transparent 34%),linear-gradient(180deg,#17191d,#121316);border-bottom:1px solid #393c42;padding:42px 20px 34px}
+    .header-inner,main{width:min(1450px,calc(100% - 34px));margin:0 auto}
+    .back-link{display:inline-flex;align-items:center;gap:8px;color:var(--gold);text-decoration:none;font-weight:850}
+    .back-link:hover{text-decoration:underline}
+    h1{margin:18px 0 8px;font-size:clamp(2.35rem,5vw,4.6rem);line-height:1.02;letter-spacing:-.045em}
+    .subtitle{margin:0;color:#cec8bc;font-size:1.08rem}
+    .toolbar{display:flex;gap:14px;align-items:center;padding:26px 0 18px}
+    .search-wrap{flex:1}
+    input[type="search"]{width:100%;padding:15px 17px;border:1px solid #555960;border-radius:12px;color:var(--ink);background:#17191d;font:inherit;font-size:1rem;outline:none}
+    input[type="search"]:focus{border-color:var(--gold2);box-shadow:0 0 0 3px rgba(212,167,44,.14)}
+    .count{color:var(--gold);font-weight:900;white-space:nowrap}
+    .study-note,.progress-card,.audio-card{margin:0 0 22px;padding:22px;background:linear-gradient(180deg,#202226,#1c1e22);border:1px solid var(--line);border-radius:17px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+    .study-note{color:#d8d1c4;border-left:4px solid var(--gold2)}
+    .progress-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+    .progress-title,.audio-card h2{margin:0;color:var(--ink);font-size:1.28rem}
+    .progress-copy,.audio-card p{margin:5px 0 0;color:var(--muted)}
+    .progress-number{color:var(--gold);font-weight:900;white-space:nowrap}
+    .progress-track{height:11px;margin:17px 0;overflow:hidden;background:#0f1012;border:1px solid #2f3237;border-radius:999px}
+    .progress-fill{width:0;height:100%;background:linear-gradient(90deg,#e4c15f,#c9982d);border-radius:inherit;transition:width .2s ease}
+    .progress-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+    .remaining-toggle{display:inline-flex;align-items:center;gap:8px;color:#ded8cd;font-weight:750;cursor:pointer}
+    .remaining-toggle input{width:18px;height:18px;accent-color:var(--gold2)}
+    .small-btn,.audio-download{display:inline-flex;align-items:center;justify-content:center;padding:10px 13px;border:1px solid #75622f;border-radius:10px;background:#282b30;color:var(--gold);font:inherit;font-size:.92rem;font-weight:850;text-decoration:none;cursor:pointer}
+    .small-btn:hover,.audio-download:hover{background:#34312a;border-color:var(--gold2)}
+    .small-btn.reset{color:#efb4ab;border-color:#754741;background:#2a2020}
+    .audio-card-header{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}
+    .audio-card audio{width:100%;margin-top:8px;filter:sepia(.12) saturate(.75)}
+    .word-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+    .word-card{overflow:hidden;background:linear-gradient(180deg,#202226,#1c1e22);border:1px solid #4a4d53;border-radius:17px;box-shadow:0 7px 22px rgba(0,0,0,.22);transition:opacity .18s ease,transform .18s ease,border-color .18s ease}
+    .word-card:hover{transform:translateY(-2px);border-color:#666a72}
+    .word-card.learned{border-color:#6f8f58;opacity:.78}
+    .word-heading{display:flex;align-items:center;gap:11px;padding:17px 18px;color:#fff}
+    .card-1 .word-heading{background:var(--rose)}.card-2 .word-heading{background:var(--blue)}.card-3 .word-heading{background:var(--teal)}.card-4 .word-heading{background:var(--orange)}.card-5 .word-heading{background:var(--purple)}.card-6 .word-heading{background:var(--green)}
+    .word-number{color:#f4d77f;font-size:.9rem;font-weight:950;letter-spacing:.07em}
+    .word-heading h2{margin:0;font-size:clamp(1.35rem,2vw,1.7rem);line-height:1.15;letter-spacing:-.02em}
+    .part{margin-left:auto;color:#f8f3e7;font-size:.84rem;font-weight:800;opacity:.92}
+    .word-content{padding:18px 20px 20px}
+    .field{margin-bottom:14px}.field:last-child{margin-bottom:0}
+    .label{display:block;margin-bottom:4px;color:var(--gold);font-size:.78rem;font-weight:950;letter-spacing:.09em;text-transform:uppercase}
+    .field p{margin:0;color:#e3ddd2}
+    .synonyms p,.antonyms p{color:#d0c9bd}
+    .example{margin-top:16px;padding:13px 14px 14px 16px;background:rgba(212,167,44,.10);border-left:4px solid var(--gold2);border-radius:4px 10px 10px 4px}
+    .example p{font-style:italic;color:#e8e0d3}
+    .word-action{margin-top:17px;padding-top:15px;border-top:1px solid #3c3f45}
+    .learn-btn{width:100%;padding:10px 12px;border:1px solid #7e692f;border-radius:10px;background:#282b30;color:var(--gold);font:inherit;font-weight:900;cursor:pointer}
+    .learn-btn:hover{background:#34312a}
+    .word-card.learned .learn-btn{border-color:#59614f;background:#242822;color:#bad39f}
+    .bottom-nav{display:flex;flex-wrap:wrap;gap:11px;justify-content:center;padding:32px 0 48px}
+    .nav-link{display:inline-flex;padding:12px 16px;border-radius:11px;background:#282b30;border:1px solid #555960;color:#f4f1e8;text-decoration:none;font-weight:850}
+    .nav-link:hover{border-color:#8a7440;background:#303238}
+    .nav-link.home{background:linear-gradient(135deg,#e4c15f,#d2a93f);border-color:#e7c96f;color:#18191b}
+    .empty-state{display:none;margin:0;padding:34px 0 8px;text-align:center;color:var(--muted);font-weight:800}
+    footer{padding:0 16px 32px;text-align:center;color:#918c82;font-size:.92rem}
+    @media(max-width:1100px){.word-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:700px){.toolbar,.progress-top,.audio-card-header{flex-direction:column;align-items:stretch}.count{text-align:left}.word-grid{grid-template-columns:1fr}.progress-number{white-space:normal}.header-inner,main{width:min(100% - 24px,1450px)}}
+</style>
+  <script src="english-progress.js?v=20260804-english-identity-v7-20260804T182532Z"></script>
+</head>
+<body>
+  <header class="site-header"><div class="header-inner">
+    <a class="back-link" href="index.html">← SAT 375 Vocabulary Builder</a>
+    <h1>SAT Vocabulary — Words 301–325</h1>
+    <p class="subtitle">Spelling, meaning, synonyms, antonyms, and example sentences</p>
+  </div></header>
+  <main>
+    <section class="toolbar" aria-label="Vocabulary search"><div class="search-wrap"><input id="wordSearch" type="search" placeholder="Search a word, meaning, synonym, antonym, or example…" autocomplete="off"></div><div class="count" id="visibleCount">25 words</div></section>
+    <section class="progress-card" aria-label="Learning progress">
+      <div class="progress-top"><div><h2 class="progress-title">Learning Progress</h2><p class="progress-copy" id="rangeProgressText">This page: 0 of 25 learned</p></div><div class="progress-number" id="globalProgressText">0 of 375 learned</div></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-actions"><label class="remaining-toggle"><input id="remainingOnly" type="checkbox">Show remaining words only</label><a class="small-btn" href="SAT_Progress.html">View progress dashboard</a><button class="small-btn reset" id="resetProgress" type="button">Reset all progress</button></div>
+    </section>
+    <p class="study-note">Use <strong>Mark learned</strong> after you know a word. Choose <strong>Show remaining words only</strong> to focus on what is left.</p>
+    <section class="audio-card" id="audioCard" data-audio-file="SAT_Words_301_325.mp3" aria-label="Audio practice for words 301 to 325"><div class="audio-card-header"><div><h2>Listen to Words 301–325</h2><p>Play the matching vocabulary audio while studying this page.</p></div><a class="audio-download" href="SAT_Words_301_325.mp3" download>Download MP3</a></div><audio controls preload="metadata"><source src="SAT_Words_301_325.mp3" type="audio/mpeg">Your browser does not support audio playback.</audio></section>
+    <section class="word-grid" id="wordGrid">
+      <article class="word-card card-1" data-word-number="301" data-search="substantiate verb to support or prove a claim with evidence or facts. support, verify, corroborate refute, disprove “the researcher used additional data to substantiate her conclusion.”">
+        <div class="word-heading"><span class="word-number">301</span><h2>Substantiate</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To support or prove a claim with evidence or facts.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>support, verify, corroborate</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>refute, disprove</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The researcher used additional data to substantiate her conclusion.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-2" data-word-number="302" data-search="caveat noun a warning, condition, or limitation that must be considered. warning, qualification, proviso assurance, guarantee “the recommendation came with the caveat that the study involved only a small sample.”">
+        <div class="word-heading"><span class="word-number">302</span><h2>Caveat</h2><span class="part">noun</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>A warning, condition, or limitation that must be considered.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>warning, qualification, proviso</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>assurance, guarantee</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The recommendation came with the caveat that the study involved only a small sample.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-3" data-word-number="303" data-search="corollary noun a result or conclusion that follows naturally from an established fact or principle. consequence, result, deduction premise, cause “a corollary of longer life expectancy is a growing need for elder care.”">
+        <div class="word-heading"><span class="word-number">303</span><h2>Corollary</h2><span class="part">noun</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>A result or conclusion that follows naturally from an established fact or principle.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>consequence, result, deduction</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>premise, cause</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“A corollary of longer life expectancy is a growing need for elder care.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-4" data-word-number="304" data-search="dichotomy noun a division or contrast between two sharply different ideas or groups. division, contrast, split unity, continuity “the essay challenges the false dichotomy between economic growth and environmental protection.”">
+        <div class="word-heading"><span class="word-number">304</span><h2>Dichotomy</h2><span class="part">noun</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>A division or contrast between two sharply different ideas or groups.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>division, contrast, split</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>unity, continuity</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The essay challenges the false dichotomy between economic growth and environmental protection.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-5" data-word-number="305" data-search="ramification noun a consequence, especially one that is indirect or complicated. consequence, implication, repercussion cause, origin “the committee considered every ramification of changing the admission policy.”">
+        <div class="word-heading"><span class="word-number">305</span><h2>Ramification</h2><span class="part">noun</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>A consequence, especially one that is indirect or complicated.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>consequence, implication, repercussion</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>cause, origin</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The committee considered every ramification of changing the admission policy.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-6" data-word-number="306" data-search="tangential adjective only slightly related to the main subject; moving away from the central point. peripheral, digressive, incidental central, relevant “the speaker omitted a tangential anecdote so the presentation would remain focused.”">
+        <div class="word-heading"><span class="word-number">306</span><h2>Tangential</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Only slightly related to the main subject; moving away from the central point.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>peripheral, digressive, incidental</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>central, relevant</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The speaker omitted a tangential anecdote so the presentation would remain focused.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-1" data-word-number="307" data-search="assert verb to state a claim confidently and forcefully. declare, maintain, affirm deny, retract “the author asserts that public libraries strengthen civic participation.”">
+        <div class="word-heading"><span class="word-number">307</span><h2>Assert</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To state a claim confidently and forcefully.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>declare, maintain, affirm</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>deny, retract</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The author asserts that public libraries strengthen civic participation.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-2" data-word-number="308" data-search="conjecture noun / verb a conclusion or prediction based on incomplete evidence; to form such a conclusion. speculation, hypothesis, surmise certainty, proof “without additional records, the historian could only conjecture why the settlement was abandoned.”">
+        <div class="word-heading"><span class="word-number">308</span><h2>Conjecture</h2><span class="part">noun / verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>A conclusion or prediction based on incomplete evidence; to form such a conclusion.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>speculation, hypothesis, surmise</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>certainty, proof</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“Without additional records, the historian could only conjecture why the settlement was abandoned.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-3" data-word-number="309" data-search="postulate verb / noun to propose an idea as a basis for reasoning or discussion. propose, presume, theorize disprove, reject “the model postulates that access to transportation affects employment rates.”">
+        <div class="word-heading"><span class="word-number">309</span><h2>Postulate</h2><span class="part">verb / noun</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To propose an idea as a basis for reasoning or discussion.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>propose, presume, theorize</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>disprove, reject</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The model postulates that access to transportation affects employment rates.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-4" data-word-number="310" data-search="delineate verb to describe, define, or mark the limits of something precisely. outline, define, depict obscure, blur “the report clearly delineates the responsibilities of each agency.”">
+        <div class="word-heading"><span class="word-number">310</span><h2>Delineate</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To describe, define, or mark the limits of something precisely.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>outline, define, depict</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>obscure, blur</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The report clearly delineates the responsibilities of each agency.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-5" data-word-number="311" data-search="stipulate verb to state a condition or requirement explicitly as part of an agreement. specify, require, prescribe waive, omit “the grant rules stipulate that all funds must be used for educational programs.”">
+        <div class="word-heading"><span class="word-number">311</span><h2>Stipulate</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To state a condition or requirement explicitly as part of an agreement.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>specify, require, prescribe</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>waive, omit</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The grant rules stipulate that all funds must be used for educational programs.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-6" data-word-number="312" data-search="qualify verb to limit, modify, or make a statement less absolute. modify, limit, temper intensify, generalize “the critic qualified her praise by noting that the final chapter felt rushed.”">
+        <div class="word-heading"><span class="word-number">312</span><h2>Qualify</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To limit, modify, or make a statement less absolute.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>modify, limit, temper</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>intensify, generalize</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The critic qualified her praise by noting that the final chapter felt rushed.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-1" data-word-number="313" data-search="elicit verb to draw out or bring forth a response, reaction, or piece of information. evoke, prompt, extract suppress, stifle “the interviewer asked open-ended questions to elicit detailed responses.”">
+        <div class="word-heading"><span class="word-number">313</span><h2>Elicit</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To draw out or bring forth a response, reaction, or piece of information.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>evoke, prompt, extract</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>suppress, stifle</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The interviewer asked open-ended questions to elicit detailed responses.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-2" data-word-number="314" data-search="exemplify verb to serve as a clear example of a quality, idea, or pattern. illustrate, demonstrate, embody contradict, misrepresent “the building exemplifies the architect’s preference for simple geometric forms.”">
+        <div class="word-heading"><span class="word-number">314</span><h2>Exemplify</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To serve as a clear example of a quality, idea, or pattern.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>illustrate, demonstrate, embody</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>contradict, misrepresent</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The building exemplifies the architect’s preference for simple geometric forms.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-3" data-word-number="315" data-search="paradigm noun a model, pattern, or widely accepted way of understanding something. model, framework, pattern anomaly, exception “the discovery produced a new paradigm for understanding planetary formation.”">
+        <div class="word-heading"><span class="word-number">315</span><h2>Paradigm</h2><span class="part">noun</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>A model, pattern, or widely accepted way of understanding something.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>model, framework, pattern</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>anomaly, exception</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The discovery produced a new paradigm for understanding planetary formation.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-4" data-word-number="316" data-search="proponent noun a person who supports or advocates for an idea or proposal. advocate, supporter, champion opponent, critic “proponents of the plan argue that it will reduce traffic congestion.”">
+        <div class="word-heading"><span class="word-number">316</span><h2>Proponent</h2><span class="part">noun</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>A person who supports or advocates for an idea or proposal.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>advocate, supporter, champion</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>opponent, critic</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“Proponents of the plan argue that it will reduce traffic congestion.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-5" data-word-number="317" data-search="partisan adjective / noun strongly committed to one side, often in a way that limits objectivity. biased, one-sided, sectarian impartial, nonpartisan “the article’s partisan tone made its analysis seem less trustworthy.”">
+        <div class="word-heading"><span class="word-number">317</span><h2>Partisan</h2><span class="part">adjective / noun</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Strongly committed to one side, often in a way that limits objectivity.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>biased, one-sided, sectarian</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>impartial, nonpartisan</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The article’s partisan tone made its analysis seem less trustworthy.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-6" data-word-number="318" data-search="subjective adjective based on personal feelings, interpretations, or opinions rather than objective facts. personal, interpretive, biased objective, factual “judgments about beauty are often subjective and vary across cultures.”">
+        <div class="word-heading"><span class="word-number">318</span><h2>Subjective</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Based on personal feelings, interpretations, or opinions rather than objective facts.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>personal, interpretive, biased</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>objective, factual</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“Judgments about beauty are often subjective and vary across cultures.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-1" data-word-number="319" data-search="intrinsic adjective belonging naturally or essentially to something; inherent. inherent, essential, innate extrinsic, external “curiosity has intrinsic value even when it produces no immediate practical benefit.”">
+        <div class="word-heading"><span class="word-number">319</span><h2>Intrinsic</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Belonging naturally or essentially to something; inherent.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>inherent, essential, innate</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>extrinsic, external</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“Curiosity has intrinsic value even when it produces no immediate practical benefit.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-2" data-word-number="320" data-search="tacit adjective understood or implied without being stated directly. implicit, unspoken, understood explicit, stated “by remaining silent, the committee gave tacit approval to the proposal.”">
+        <div class="word-heading"><span class="word-number">320</span><h2>Tacit</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Understood or implied without being stated directly.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>implicit, unspoken, understood</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>explicit, stated</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“By remaining silent, the committee gave tacit approval to the proposal.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-3" data-word-number="321" data-search="prescient adjective showing accurate knowledge of or insight into future events. foresighted, prophetic, far-seeing shortsighted, unaware “her prescient warning about water shortages prompted early conservation efforts.”">
+        <div class="word-heading"><span class="word-number">321</span><h2>Prescient</h2><span class="part">adjective</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>Showing accurate knowledge of or insight into future events.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>foresighted, prophetic, far-seeing</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>shortsighted, unaware</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“Her prescient warning about water shortages prompted early conservation efforts.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-4" data-word-number="322" data-search="discern verb to recognize, detect, or understand something that is not immediately obvious. perceive, detect, distinguish overlook, miss “researchers could discern a pattern only after combining several years of data.”">
+        <div class="word-heading"><span class="word-number">322</span><h2>Discern</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To recognize, detect, or understand something that is not immediately obvious.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>perceive, detect, distinguish</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>overlook, miss</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“Researchers could discern a pattern only after combining several years of data.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-5" data-word-number="323" data-search="obfuscate verb to make something unclear, confusing, or difficult to understand. obscure, confuse, cloud clarify, explain “the excessive jargon served to obfuscate a relatively simple argument.”">
+        <div class="word-heading"><span class="word-number">323</span><h2>Obfuscate</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To make something unclear, confusing, or difficult to understand.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>obscure, confuse, cloud</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>clarify, explain</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The excessive jargon served to obfuscate a relatively simple argument.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-6" data-word-number="324" data-search="belie verb to contradict or give a false impression of something. contradict, misrepresent, disguise confirm, reveal “her calm expression belied the anxiety she felt before the performance.”">
+        <div class="word-heading"><span class="word-number">324</span><h2>Belie</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To contradict or give a false impression of something.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>contradict, misrepresent, disguise</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>confirm, reveal</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“Her calm expression belied the anxiety she felt before the performance.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article>
+      <article class="word-card card-1" data-word-number="325" data-search="subsume verb to include or absorb something within a broader category or concept. include, incorporate, encompass exclude, separate “the broad category of renewable energy subsumes solar, wind, and hydroelectric power.”">
+        <div class="word-heading"><span class="word-number">325</span><h2>Subsume</h2><span class="part">verb</span></div>
+        <div class="word-content">
+          <div class="field"><span class="label">Meaning</span><p>To include or absorb something within a broader category or concept.</p></div>
+          <div class="field synonyms"><span class="label">Synonyms</span><p>include, incorporate, encompass</p></div>
+          <div class="field antonyms"><span class="label">Antonyms</span><p>exclude, separate</p></div>
+          <div class="field example"><span class="label">Example sentence</span><p>“The broad category of renewable energy subsumes solar, wind, and hydroelectric power.”</p></div>
+          <div class="word-action"><button class="learn-btn" type="button" aria-pressed="false">Mark learned</button></div>
+        </div>
+      </article></section>
+    <p class="empty-state" id="emptyState">No words match this filter. Turn off “Show remaining words only” to see learned words.</p>
+    <nav class="bottom-nav" aria-label="Study page navigation"><a class="nav-link" href="SAT_Words_276_300.html">← Words 276–300</a><a class="nav-link home" href="index.html">All Study Pages</a><a class="nav-link" href="SAT_Words_326_350.html">Words 326–350 →</a></nav>
+  </main>
+  <footer>Progress is synchronized using the active student link.</footer>
+  <script>
+const SAT_PROGRESS_KEY = window.SATEnglishCloud.storageKey;
+const SAT_WORD_TOTAL = 375;
+function getProgress(){try{const raw=localStorage.getItem(SAT_PROGRESS_KEY);const saved=raw?JSON.parse(raw):{};const cleaned=Array.isArray(saved.learned)?saved.learned.map(Number).filter(n=>Number.isInteger(n)&&n>=1&&n<=SAT_WORD_TOTAL):[];return{learned:[...new Set(cleaned)]}}catch(e){return{learned:[]}}}
+function setProgress(progress){const cleaned=[...new Set((progress.learned||[]).map(Number).filter(n=>Number.isInteger(n)&&n>=1&&n<=SAT_WORD_TOTAL))];try{localStorage.setItem(SAT_PROGRESS_KEY,JSON.stringify({learned:cleaned}));window.SATEnglishCloud.queueLearnedSync(cleaned)}catch(e){}return{learned:cleaned}}
+function learnedSet(){return new Set(getProgress().learned)}
+function isLearned(number){return learnedSet().has(Number(number))}
+function markLearned(number,learned){const set=learnedSet();learned?set.add(Number(number)):set.delete(Number(number));return setProgress({learned:[...set]})}
+function resetAllProgress(){return setProgress({learned:[]})}
+function globalCounts(){const learned=learnedSet().size;return{learned,remaining:SAT_WORD_TOTAL-learned,total:SAT_WORD_TOTAL}}
+function rangeCounts(start,end){const set=learnedSet();let learned=0;for(let n=start;n<=end;n+=1)if(set.has(n))learned+=1;return{learned,remaining:end-start+1-learned,total:end-start+1}}
+const RANGE_START=301,RANGE_END=325;
+const wordSearch=document.getElementById('wordSearch');const remainingOnly=document.getElementById('remainingOnly');const cards=[...document.querySelectorAll('.word-card')];
+function refreshStudyPage(){const learned=learnedSet();const query=wordSearch.value.trim().toLowerCase();const filterRemaining=remainingOnly.checked;let visible=0;cards.forEach(card=>{const number=Number(card.dataset.wordNumber);const done=learned.has(number);const show=(!query||card.dataset.search.includes(query))&&(!filterRemaining||!done);card.classList.toggle('learned',done);card.style.display=show?'':'none';const button=card.querySelector('.learn-btn');button.textContent=done?'✓ Learned — undo':'Mark learned';button.setAttribute('aria-pressed',String(done));if(show)visible+=1});const global=globalCounts();const range=rangeCounts(RANGE_START,RANGE_END);document.getElementById('visibleCount').textContent=`${visible} word${visible===1?'':'s'} shown`;document.getElementById('rangeProgressText').textContent=`This page: ${range.learned} of ${range.total} learned · ${range.remaining} remaining`;document.getElementById('globalProgressText').textContent=`${global.learned} of ${global.total} learned · ${global.remaining} remaining`;document.getElementById('progressFill').style.width=`${(global.learned/global.total)*100}%`;document.getElementById('emptyState').style.display=visible===0?'block':'none'}
+cards.forEach(card=>card.querySelector('.learn-btn').addEventListener('click',()=>{const number=Number(card.dataset.wordNumber);markLearned(number,!isLearned(number));refreshStudyPage()}));
+wordSearch.addEventListener('input',refreshStudyPage);remainingOnly.addEventListener('change',refreshStudyPage);document.getElementById('resetProgress').addEventListener('click',()=>{if(window.confirm('Reset all learned-word progress for all 375 SAT words for this student?')){resetAllProgress();refreshStudyPage()}});
+if(new URLSearchParams(location.search).get('remaining')==='1')remainingOnly.checked=true;
+window.addEventListener('storage',refreshStudyPage);
+window.SATEnglishCloud.ready.then(()=>{refreshStudyPage()}).catch(()=>{});
+</script>
+</body>
+</html>

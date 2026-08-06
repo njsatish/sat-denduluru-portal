@@ -1,0 +1,79 @@
+/* SAT English 375 — Charcoal + Gold theme */
+:root{
+  --ink:#f4f1e8;--muted:#c0bbb0;--page:#111214;--card:#202226;
+  --blue:#fffdf5;--link:#e7c96f;--teal:#d6ae4e;--purple:#d6ae4e;
+  --gold:#d6ae4e;--gold-light:#e7c96f;--line:#4a4d53;
+  --good:#74c69d;--bad:#ff8f87;
+}
+html{scroll-behavior:smooth;background:#111214}
+body{margin:0;background:
+  radial-gradient(circle at 82% 5%,rgba(214,174,78,.12),transparent 29rem),
+  linear-gradient(180deg,#151619 0,#111214 34rem,#111214 100%);
+  color:#f4f1e8;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+a{color:#e7c96f}
+
+/* One shared subject-navigation row. */
+.topbar{display:none!important}
+.sat-global-nav{position:sticky;top:0;z-index:1000;background:linear-gradient(135deg,#1c1d20,#24262a);border-bottom:1px solid #46484d;box-shadow:0 6px 24px rgba(0,0,0,.22)}
+.sat-global-inner{width:min(1480px,calc(100% - 36px));min-height:72px;margin:auto;display:flex;align-items:center;gap:18px;padding:10px 0}
+.sat-brand{color:#fffdf5;text-decoration:none;font-weight:950;font-size:1.08rem;white-space:nowrap}
+.sat-global-nav nav{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.sat-global-nav nav a{display:inline-flex;align-items:center;justify-content:center;padding:11px 17px;border-radius:13px;border:1px solid #55585e;background:#24262a;color:#ece7dc;text-decoration:none;font-weight:850}
+.sat-global-nav nav a:hover{border-color:#8f7637;background:#2b2d31}
+.sat-global-nav nav a.active{background:linear-gradient(135deg,#e4c15f,#c69a30);border-color:#e7c96f;color:#18191b;box-shadow:0 7px 18px rgba(214,174,78,.18)}
+.sat-student{margin-left:auto;color:#c0bbb0;white-space:nowrap}.sat-student strong{color:#fffdf5}
+
+.container{width:min(1260px,calc(100% - 40px));margin:0 auto;padding:46px 0 80px}
+.hero{background:linear-gradient(180deg,#202226,#1a1c20);border:1px solid #46494f;border-radius:28px;padding:clamp(28px,5vw,54px);margin-bottom:28px;box-shadow:0 18px 45px rgba(0,0,0,.25);color:#f4f1e8}
+.hero h1{color:#fffdf5;font-size:clamp(2.8rem,6vw,5.8rem);line-height:.96;letter-spacing:-.055em;margin:16px 0 16px}
+.hero p{color:#c0bbb0;max-width:880px;font-size:1.05rem;line-height:1.65}
+.eyebrow,.kicker{color:#e7c96f!important;font-size:.76rem!important;font-weight:950!important;letter-spacing:.16em!important;text-transform:uppercase}
+
+.card,.mode-card,.practice-panel{background:linear-gradient(180deg,#202226,#1d1f23);border:1px solid #4a4d53;border-radius:26px;color:#f4f1e8;box-shadow:0 15px 38px rgba(0,0,0,.18)}
+.card{padding:28px;margin-bottom:22px}
+h1,h2,h3{color:#fffdf5} h2{font-size:clamp(1.45rem,2.6vw,2rem);letter-spacing:-.025em}
+.muted,.section-note,.status,.count,.synonyms{color:#bdb7aa!important}
+
+.btn,.practice-link,.progress-button,.action{display:inline-flex;align-items:center;justify-content:center;border-radius:14px;border:1px solid #e7c96f;background:linear-gradient(135deg,#e4c15f,#d2a93f);color:#18191b;text-decoration:none;font-weight:900;padding:12px 18px;cursor:pointer;box-shadow:0 8px 20px rgba(214,174,78,.13)}
+.btn:hover,.practice-link:hover,.progress-button:hover,.action:hover{filter:brightness(1.04);transform:translateY(-1px)}
+.btn.secondary,.progress-button{background:#292c31;border-color:#55585e;color:#f4f1e8;box-shadow:none}
+.btn.secondary:hover,.progress-button:hover{border-color:#8f7637;background:#31343a}
+.btn.danger,.progress-button.reset{background:#2a2020;border-color:#81504c;color:#ffb1aa;box-shadow:none}
+
+.progress-track,.progress{height:11px;background:#0c0d0f;border-radius:999px;overflow:hidden;border:1px solid #25272b}
+.progress-fill,.progress span{height:100%;background:linear-gradient(90deg,#e7c96f,#c99d35);border-radius:inherit}
+.progress-number{color:#e7c96f!important;font-weight:950}
+
+/* Numbered Learning Path — the previously selected English layout. */
+.study-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.study-link{position:relative;display:flex;min-height:230px;flex-direction:column;align-items:center;text-align:center;padding:25px 20px;border-radius:27px;background:linear-gradient(180deg,#202226,#1d1f23);border:1px solid #4a4d53;color:#f4f1e8;text-decoration:none;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.study-link:hover{transform:translateY(-3px);border-color:#8f7637;background:linear-gradient(180deg,#24262a,#202226);box-shadow:0 18px 40px rgba(0,0,0,.28)}
+.study-link .path-number{width:68px;height:68px;display:grid;place-items:center;border-radius:50%;background:#282b31;border:2px solid #d6ae4e;color:#e7c96f;font-size:1.25rem;font-weight:950}
+.study-link>span:not(.path-action):not(.path-number){margin:18px 0 8px;color:#fffdf5;font-size:1.25rem;font-weight:900;letter-spacing:-.02em}
+.study-link small{display:block;color:#bdb7aa!important;font-weight:650;line-height:1.45}
+.study-link .path-action{margin-top:auto;display:inline-flex;padding:10px 15px;border-radius:13px;background:linear-gradient(135deg,#e4c15f,#d2a93f);color:#18191b;font-weight:900}
+
+.range-grid,.mode-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.range-link,.mode-card{background:linear-gradient(180deg,#202226,#1d1f23);border:1px solid #4a4d53;border-radius:23px;color:#f4f1e8;text-decoration:none;padding:22px}
+.range-link:hover{border-color:#8f7637;background:#24262a}
+.range-link span{color:#fffdf5;font-weight:900}.range-link small{color:#bdb7aa!important}
+
+.toolbar input,.toolbar select,.spelling-input{background:#181a1e;color:#fffdf5;border:1px solid #55585e;border-radius:12px}
+.toolbar input::placeholder,.spelling-input::placeholder{color:#8f8a80}
+
+.word-grid{gap:20px}
+.word-card,.word-row{background:linear-gradient(180deg,#202226,#1d1f23);border:1px solid #4a4d53;border-radius:24px;color:#f4f1e8;box-shadow:0 14px 34px rgba(0,0,0,.18)}
+.word-card.learned,.word-row.learned{border-color:#587b65;background:linear-gradient(180deg,#203027,#1b2721)}
+.word-head,.word-top{background:#181a1e!important;border-bottom:1px solid #4a4d53;color:#fffdf5!important}
+.word-head h2,.word-name{color:#fffdf5!important}.word-number,.number{color:#e7c96f}.part{color:#d8d1c2}
+.word-body dt{color:#e7c96f}.word-body dd,.meaning{color:#e8e2d7}
+.learn-btn{border-color:#8f7637!important;background:#292c31!important;color:#f4f1e8!important}
+
+.answer-panel{background:#181a1e;border:1px solid #404349}.flash-word{color:#fffdf5}.choice{background:#292c31;border-color:#55585e;color:#f4f1e8}.choice:hover{background:#34373d;border-color:#8f7637}.choice.correct{border-color:#5fa274;background:#1f3928}.choice.wrong{border-color:#a75b55;background:#3a2220}
+.good{color:#87d4a2}.bad{color:#ff9b93}
+footer{color:#918c82;border-top:1px solid #31343a;padding:26px 16px 34px}
+
+@media(max-width:1000px){.study-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){.sat-global-inner{align-items:flex-start;flex-wrap:wrap}.sat-student{margin-left:0;width:100%}.container{width:min(100% - 28px,1260px);padding-top:28px}.study-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero h1{font-size:clamp(2.5rem,12vw,4rem)}}
+@media(max-width:480px){.study-grid{grid-template-columns:1fr}.sat-global-nav nav a{padding:9px 12px}.card{padding:21px}.hero{padding:25px}}

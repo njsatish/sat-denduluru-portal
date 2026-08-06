@@ -1,0 +1,1207 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Build fluency with the nonlinear structures that dominate higher-difficulty SAT questions."><title>Volume 2: Advanced Math | SAT Math 300</title><link rel="stylesheet" href="styles.css"><style>:root{--accent:#7c3aed;--accent-soft:#ede9fe}</style><style id="sat-math-charcoal-gold-v1">
+  :root {
+    color-scheme: dark;
+    --cg-bg: #111214;
+    --cg-surface: #1d2025;
+    --cg-surface-2: #24272d;
+    --cg-surface-3: #2a2d33;
+    --cg-border: #43464d;
+    --cg-border-soft: #34373d;
+    --cg-text: #f4f1e8;
+    --cg-muted: #c0bbb0;
+    --cg-gold: #d6ae4e;
+    --cg-gold-light: #e7c96f;
+    --cg-gold-dark: #9f7620;
+    --cg-danger: #ef4444;
+    --cg-success: #22c55e;
+  }
+
+  html,
+  body {
+    background: var(--cg-bg) !important;
+    color: var(--cg-text) !important;
+  }
+
+  body {
+    min-height: 100vh;
+  }
+
+  main,
+  section,
+  article,
+  .page,
+  .container,
+  .wrapper,
+  .wrap {
+    color: var(--cg-text) !important;
+  }
+
+  /* Common SAT subject navigation */
+  #sat-global-navigation,
+  #sat-global-subject-nav,
+  #sat-subject-navigation,
+  .subject-nav {
+    background: linear-gradient(135deg, #1c1d20 0%, #24262a 100%) !important;
+    border-bottom: 1px solid #46484d !important;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .26) !important;
+  }
+
+  #sat-global-navigation > span,
+  #sat-global-subject-nav > span,
+  #sat-subject-navigation > span,
+  .subject-nav > span {
+    color: #f2eee2 !important;
+  }
+
+  #sat-global-navigation a,
+  #sat-global-subject-nav a,
+  #sat-subject-navigation a,
+  .subject-nav a {
+    background: #24262a !important;
+    border-color: #55585e !important;
+    color: #ece7dc !important;
+    box-shadow: none !important;
+  }
+
+  #sat-global-navigation a:hover,
+  #sat-global-subject-nav a:hover,
+  #sat-subject-navigation a:hover,
+  .subject-nav a:hover {
+    background: #303238 !important;
+    border-color: #777a80 !important;
+  }
+
+  #sat-global-navigation a[aria-current="page"],
+  #sat-global-subject-nav a[aria-current="page"],
+  #sat-subject-navigation a[aria-current="page"],
+  .subject-nav a[aria-current="page"] {
+    background: linear-gradient(135deg, #e4c15f, #c69a30) !important;
+    border-color: #e7c96f !important;
+    color: #18191b !important;
+    box-shadow: 0 4px 12px rgba(214, 174, 78, .20) !important;
+  }
+
+  /* Math-specific header/navigation */
+  .site-header,
+  header.site-header,
+  .nav,
+  .navbar,
+  .topbar {
+    background: #17181b !important;
+    border-color: #383a40 !important;
+    color: var(--cg-text) !important;
+  }
+
+  .brand,
+  .math-brand,
+  .nav a,
+  .nav-links a,
+  .navbar a {
+    color: #f2eee2 !important;
+  }
+
+  .brand-mark,
+  .sigma {
+    background: linear-gradient(135deg, #f0cf76, #b68a26) !important;
+    color: #191a1c !important;
+    box-shadow: 0 6px 18px rgba(214, 174, 78, .22) !important;
+  }
+
+  .nav-links a[aria-current="page"],
+  .nav-links a.active,
+  .nav a[aria-current="page"],
+  .navbar a.active {
+    background: linear-gradient(135deg, #e4c15f, #c69a30) !important;
+    color: #18191b !important;
+  }
+
+  /* Hero */
+  .hero {
+    background:
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(214, 174, 78, .18),
+        transparent 33%
+      ),
+      linear-gradient(
+        145deg,
+        #1a1c20 0%,
+        #131416 58%,
+        #101113 100%
+      ) !important;
+    border-bottom: 1px solid #34363b !important;
+    color: #fffdf5 !important;
+  }
+
+  .hero::before,
+  .hero::after {
+    opacity: .12 !important;
+  }
+
+  .hero-inner {
+    background: transparent !important;
+    color: #fffdf5 !important;
+  }
+
+  .hero h1,
+  .hero h2,
+  .hero h3,
+  .hero strong {
+    color: #fffdf5 !important;
+    text-shadow: none !important;
+  }
+
+  .hero p,
+  .hero span,
+  .hero .eyebrow {
+    color: #c8c2b6 !important;
+  }
+
+  .eyebrow {
+    color: var(--cg-gold-light) !important;
+  }
+
+  /* Cards and panels */
+  .panel,
+  .card,
+  .hero-card,
+  .volume-card,
+  .overall-card,
+  .lesson,
+  .question,
+  .stat,
+  .controls,
+  .quiz-banner,
+  .set-card,
+  .progress-card,
+  .practice-card,
+  .section-card,
+  .content-card,
+  .modal-content,
+  .dialog,
+  .box {
+    background: linear-gradient(180deg, #1f2227 0%, #1a1c20 100%) !important;
+    border-color: var(--cg-border) !important;
+    color: var(--cg-text) !important;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, .30) !important;
+  }
+
+  .set-card.featured,
+  .volume-card.featured,
+  .question.featured {
+    border-color: #8e7637 !important;
+  }
+
+  .set-number {
+    color: var(--cg-gold-light) !important;
+    opacity: .09 !important;
+  }
+
+  /* Text */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  .title,
+  .word,
+  .question-title,
+  .q-number {
+    color: #fffdf5 !important;
+  }
+
+  p,
+  li,
+  label,
+  small,
+  .muted,
+  .subtitle,
+  .description,
+  .footer,
+  footer,
+  .meta,
+  .helper,
+  .hint,
+  .explanation {
+    color: var(--cg-muted) !important;
+  }
+
+  a {
+    color: #e7c96f;
+  }
+
+  a:hover {
+    color: #f4dda0;
+  }
+
+  /* Buttons */
+  button,
+  .btn,
+  .choice,
+  .topic-nav button,
+  .card-button,
+  .primary-button {
+    background: #2b2e34 !important;
+    color: #f5f0e4 !important;
+    border-color: #55585e !important;
+  }
+
+  button:hover,
+  .btn:hover,
+  .choice:hover,
+  .topic-nav button:hover,
+  .card-button:hover,
+  .primary-button:hover {
+    background: #35383f !important;
+    border-color: #777a80 !important;
+  }
+
+  .btn.primary,
+  .primary-button,
+  .card-button,
+  #start-quiz,
+  .actions-row .btn:first-child {
+    background: linear-gradient(135deg, #e4c15f, #c69a30) !important;
+    border-color: #e7c96f !important;
+    color: #18191b !important;
+    box-shadow: 0 8px 24px rgba(214, 174, 78, .22) !important;
+  }
+
+  .btn.primary:hover,
+  .primary-button:hover,
+  .card-button:hover,
+  #start-quiz:hover {
+    background: linear-gradient(135deg, #edcf79, #d5aa3f) !important;
+  }
+
+  .btn.secondary,
+  .btn.ghost {
+    background: #282b31 !important;
+    color: #eee9dd !important;
+  }
+
+  .btn.danger,
+  button.danger {
+    background: #641b1b !important;
+    border-color: #9f2929 !important;
+    color: #fee2e2 !important;
+  }
+
+  /* Inputs and filters */
+  input,
+  select,
+  textarea,
+  .control,
+  .numeric-answer {
+    background: #121316 !important;
+    color: var(--cg-text) !important;
+    border-color: #505258 !important;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #858178 !important;
+  }
+
+  /* Active/selected states */
+  .choice.selected,
+  .topic-nav button.active,
+  .filter.active,
+  .tab.active {
+    background: #6f571f !important;
+    border-color: #d6ae4e !important;
+    color: #fff8e4 !important;
+  }
+
+  .correct,
+  .question.correct,
+  .choice.correct-choice {
+    background: #123322 !important;
+    border-color: var(--cg-success) !important;
+  }
+
+  .incorrect,
+  .question.incorrect,
+  .choice.incorrect-choice,
+  .choice.wrong-choice {
+    background: #3b1414 !important;
+    border-color: var(--cg-danger) !important;
+  }
+
+  /* Progress */
+  .progress-track,
+  .bar,
+  progress {
+    background: #0c0d0f !important;
+  }
+
+  .progress-track span,
+  .bar > span,
+  .progress-fill,
+  progress::-webkit-progress-value {
+    background: linear-gradient(90deg, #e7c96f, #c99d35) !important;
+  }
+
+  /* Chips/tags/formulas */
+  .chips span,
+  .tag,
+  .badge,
+  .pill,
+  .formula {
+    background: #282b31 !important;
+    color: #e8d59c !important;
+    border-color: #4f5156 !important;
+  }
+
+  .warning {
+    background: #3a2d13 !important;
+    border-color: #8a6a21 !important;
+    color: #f3dfa2 !important;
+  }
+
+  code,
+  pre {
+    background: #0d0e10 !important;
+    color: #f0d98f !important;
+    border-color: #3f4146 !important;
+  }
+
+  /* Tables */
+  table,
+  th,
+  td {
+    background: var(--cg-surface) !important;
+    color: var(--cg-text) !important;
+    border-color: var(--cg-border) !important;
+  }
+
+  /* Footer */
+  .footer,
+  footer {
+    background: #18191c !important;
+    color: #918c82 !important;
+    border-color: #31343a !important;
+  }
+
+  hr {
+    border-color: #37393f !important;
+  }
+
+  @media print {
+    html,
+    body,
+    main,
+    section,
+    article,
+    .panel,
+    .card,
+    .question {
+      background: #ffffff !important;
+      color: #000000 !important;
+      box-shadow: none !important;
+    }
+  }
+</style>
+<style id="sat-math-clean-donut-corrected-v2">
+  .hero .hero-inner > .hero-card {
+    display: grid !important;
+    place-items: center !important;
+    width: min(100%, 430px) !important;
+    min-width: 0 !important;
+    min-height: 320px !important;
+    margin: 0 !important;
+    padding: 32px !important;
+    overflow: hidden !important;
+    border: 1px solid #46494f !important;
+    border-radius: 28px !important;
+    background: linear-gradient(180deg,#202329,#1a1c20) !important;
+    box-shadow: 0 18px 44px rgba(0,0,0,.28) !important;
+  }
+
+  .hero .hero-inner > .hero-card > .progress-ring {
+    position: relative !important;
+    inset: auto !important;
+    transform: none !important;
+    display: grid !important;
+    place-items: center !important;
+    width: min(100%, 225px) !important;
+    height: auto !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    aspect-ratio: 1 / 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border: 0 !important;
+    border-radius: 50% !important;
+    background:
+      radial-gradient(circle at center,#1d2025 0 66%,transparent 67%),
+      conic-gradient(
+        #d6ae4e 0 var(--progress,0%),
+        #30333a var(--progress,0%) 100%
+      ) !important;
+    box-shadow:
+      inset 0 0 0 1px #46494f,
+      0 12px 28px rgba(0,0,0,.24) !important;
+  }
+
+  .hero .hero-inner > .hero-card > .progress-ring::before,
+  .hero .hero-inner > .hero-card > .progress-ring::after,
+  .hero .hero-inner > .hero-card > .progress-ring > div::before,
+  .hero .hero-inner > .hero-card > .progress-ring > div::after,
+  .hero .hero-inner > .hero-card > .progress-ring strong::before,
+  .hero .hero-inner > .hero-card > .progress-ring strong::after,
+  .hero .hero-inner > .hero-card > .progress-ring span::before,
+  .hero .hero-inner > .hero-card > .progress-ring span::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  .hero .hero-inner > .hero-card > .progress-ring > div {
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    width: 72% !important;
+    height: auto !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-align: center !important;
+  }
+
+  .hero .hero-inner > .hero-card > .progress-ring strong {
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    color: #fffdf5 !important;
+    font-size: clamp(2.75rem,5vw,3.4rem) !important;
+    font-weight: 950 !important;
+    line-height: 1 !important;
+    letter-spacing: -.04em !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    box-shadow: none !important;
+  }
+
+  .hero .hero-inner > .hero-card > .progress-ring span {
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    display: block !important;
+    width: auto !important;
+    max-width: 170px !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    color: #c0bbb0 !important;
+    font-size: .88rem !important;
+    font-weight: 650 !important;
+    line-height: 1.35 !important;
+    white-space: normal !important;
+    text-align: center !important;
+    box-shadow: none !important;
+  }
+
+  @media (max-width: 760px) {
+    .hero .hero-inner > .hero-card {
+      width: min(100%,390px) !important;
+      min-height: 290px !important;
+      padding: 27px !important;
+      justify-self: center !important;
+    }
+
+    .hero .hero-inner > .hero-card > .progress-ring {
+      width: min(100%,210px) !important;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .hero .hero-inner > .hero-card {
+      min-height: 260px !important;
+      padding: 21px !important;
+    }
+
+    .hero .hero-inner > .hero-card > .progress-ring {
+      width: min(100%,185px) !important;
+    }
+
+    .hero .hero-inner > .hero-card > .progress-ring strong {
+      font-size: 2.55rem !important;
+    }
+
+    .hero .hero-inner > .hero-card > .progress-ring span {
+      max-width: 140px !important;
+      font-size: .8rem !important;
+    }
+  }
+</style>
+<style id="sat-template-3-light-question-panel">
+/* SAT Math — Template 3: Light Question Panel + Dark Answers */
+#question-list .question.panel{
+  background:linear-gradient(180deg,#202226,#1d1f23) !important;
+  border:1px solid #4a4d53 !important;
+  border-radius:28px !important;
+  padding:24px !important;
+  box-shadow:0 18px 42px rgba(0,0,0,.22) !important;
+  overflow:hidden !important;
+}
+
+#question-list .question .q-top{
+  display:flex !important;
+  justify-content:space-between !important;
+  align-items:flex-start !important;
+  gap:16px !important;
+  padding:18px 20px !important;
+  margin-bottom:16px !important;
+  background:linear-gradient(180deg,#f2ead8,#e6dac0) !important;
+  border:1px solid #d2c092 !important;
+  border-radius:18px !important;
+}
+
+#question-list .question .q-number{
+  color:#25272b !important;
+  font-size:1.05rem !important;
+  font-weight:900 !important;
+  letter-spacing:-0.01em !important;
+}
+
+#question-list .question .tags{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:8px !important;
+  justify-content:flex-end !important;
+}
+
+#question-list .question .tag{
+  background:#fffaf0 !important;
+  color:#7b5e18 !important;
+  border:1px solid #d3c399 !important;
+  border-radius:999px !important;
+  font-weight:800 !important;
+}
+
+#question-list .question .tag.topic{
+  background:#efe4c9 !important;
+  color:#6b4f10 !important;
+}
+
+#question-list .question .prompt{
+  background:#eee5d2 !important;
+  color:#26282c !important;
+  border:1px solid #d6c59a !important;
+  border-radius:20px !important;
+  padding:20px 22px !important;
+  margin-bottom:18px !important;
+  font-size:1.22rem !important;
+  line-height:1.55 !important;
+  font-weight:850 !important;
+}
+
+#question-list .question .choices{
+  display:grid !important;
+  gap:12px !important;
+  margin-bottom:18px !important;
+}
+
+#question-list .question .choice{
+  display:flex !important;
+  align-items:center !important;
+  gap:14px !important;
+  width:100% !important;
+  text-align:left !important;
+  padding:14px 16px !important;
+  background:#2c2f35 !important;
+  color:#f5f2ea !important;
+  border:1px solid #555960 !important;
+  border-radius:16px !important;
+  transition:all .18s ease !important;
+  box-shadow:none !important;
+}
+
+#question-list .question .choice:hover{
+  border-color:#e4bf62 !important;
+  transform:translateY(-1px) !important;
+}
+
+#question-list .question .choice.selected{
+  background:#343841 !important;
+  border-color:#e0bb60 !important;
+  box-shadow:0 0 0 2px rgba(224,187,96,.18) inset !important;
+}
+
+#question-list .question .choice.correct-choice{
+  background:#0f4330 !important;
+  border-color:#1fc97d !important;
+  color:#f7fbf8 !important;
+}
+
+#question-list .question .choice.wrong-choice{
+  background:#47292b !important;
+  border-color:#d67676 !important;
+  color:#fff5f5 !important;
+}
+
+#question-list .question .choice-letter{
+  width:36px !important;
+  height:36px !important;
+  min-width:36px !important;
+  display:grid !important;
+  place-items:center !important;
+  background:#f4ebd7 !important;
+  color:#8c6920 !important;
+  border:1px solid #d2c194 !important;
+  border-radius:10px !important;
+  font-weight:900 !important;
+}
+
+#question-list .question .numeric-wrap{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  align-items:center !important;
+  gap:12px !important;
+  padding:14px 16px !important;
+  margin-bottom:18px !important;
+  background:#2b2e34 !important;
+  border:1px solid #555960 !important;
+  border-radius:16px !important;
+}
+
+#question-list .question .numeric-answer{
+  min-width:220px !important;
+  padding:12px 14px !important;
+  background:#faf6ed !important;
+  color:#232529 !important;
+  border:1px solid #d2c194 !important;
+  border-radius:12px !important;
+  font-size:1rem !important;
+  font-weight:700 !important;
+}
+
+#question-list .question .q-actions{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:10px !important;
+  margin-top:4px !important;
+}
+
+#question-list .question .q-actions .btn{
+  border-radius:14px !important;
+  font-weight:850 !important;
+}
+
+#question-list .question .q-actions .btn.check{
+  background:linear-gradient(135deg,#e5c465,#d6ac43) !important;
+  color:#18191b !important;
+  border:1px solid #e7c96f !important;
+}
+
+#question-list .question .q-actions .btn.ghost{
+  background:#292c31 !important;
+  color:#f3efe6 !important;
+  border:1px solid #575a61 !important;
+}
+
+#question-list .question .feedback{
+  margin-top:14px !important;
+  border-radius:14px !important;
+  font-weight:800 !important;
+}
+
+#question-list .question .feedback.good{
+  background:#133626 !important;
+  color:#d7f7e7 !important;
+  border:1px solid #1fc97d !important;
+}
+
+#question-list .question .feedback.bad{
+  background:#412527 !important;
+  color:#ffe6e6 !important;
+  border:1px solid #d67676 !important;
+}
+
+#question-list .question .detail{
+  margin-top:12px !important;
+  background:#26292e !important;
+  color:#ebe7dc !important;
+  border:1px solid #4d525a !important;
+  border-radius:16px !important;
+  padding:14px 16px !important;
+}
+
+#question-list .question.correct{
+  border-color:#1fc97d !important;
+  box-shadow:0 0 0 1px rgba(31,201,125,.22), 0 18px 42px rgba(0,0,0,.22) !important;
+}
+
+#question-list .question.incorrect{
+  border-color:#d67676 !important;
+  box-shadow:0 0 0 1px rgba(214,118,118,.18), 0 18px 42px rgba(0,0,0,.22) !important;
+}
+
+@media (max-width: 860px){
+  #question-list .question.panel{padding:18px !important}
+  #question-list .question .q-top{
+    flex-direction:column !important;
+    align-items:flex-start !important;
+  }
+  #question-list .question .tags{
+    justify-content:flex-start !important;
+  }
+  #question-list .question .prompt{
+    font-size:1.08rem !important;
+    padding:16px 18px !important;
+  }
+  #question-list .question .choice{
+    padding:13px 14px !important;
+  }
+  #question-list .question .numeric-answer{
+    min-width:100% !important;
+  }
+}
+</style>
+<style id="sat-math-two-row-hierarchy-v1">
+  .site-header .nav {
+    align-items: flex-start !important;
+    flex-wrap: wrap !important;
+  }
+
+  .site-header .nav-links {
+    display: block !important;
+    flex: 1 1 620px !important;
+    min-width: 0 !important;
+  }
+
+  .sat-math-nav-top-row,
+  .sat-math-nav-volume-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+  }
+
+  .sat-math-nav-volume-row {
+    margin-top: 14px !important;
+    padding-top: 14px !important;
+    border-top: 1px solid #35383e !important;
+  }
+
+  .sat-math-nav-label {
+    margin-right: 4px !important;
+    color: #8f8a80 !important;
+    font-size: .72rem !important;
+    font-weight: 950 !important;
+    letter-spacing: .13em !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+  }
+
+  .sat-math-nav-top-row a,
+  .sat-math-nav-volume-row a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 12px 17px !important;
+    border: 1px solid transparent !important;
+    border-radius: 13px !important;
+    background: transparent !important;
+    color: #f3efe6 !important;
+    font-weight: 900 !important;
+    line-height: 1.2 !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+  }
+
+  .sat-math-nav-top-row a:hover,
+  .sat-math-nav-volume-row a:hover {
+    background: #292c31 !important;
+    border-color: #55585e !important;
+  }
+
+  .sat-math-nav-top-row a.sat-parent-selected {
+    border-color: #d6ae4e !important;
+    background: rgba(214, 174, 78, .09) !important;
+    color: #f4d77f !important;
+    box-shadow: inset 0 0 0 1px rgba(214, 174, 78, .11) !important;
+  }
+
+  .sat-math-nav-volume-row a.sat-child-selected {
+    border-color: #e7c96f !important;
+    background: linear-gradient(
+      135deg,
+      #e4c15f,
+      #c69a30
+    ) !important;
+    color: #18191b !important;
+    box-shadow: 0 7px 20px rgba(214, 174, 78, .18) !important;
+  }
+
+  .sat-math-nav-top-row a[aria-current="page"],
+  .sat-math-nav-volume-row a[aria-current="page"] {
+    text-decoration: none !important;
+  }
+
+  @media (max-width: 980px) {
+    .site-header .nav-links {
+      flex-basis: 100% !important;
+      width: 100% !important;
+      margin-top: 12px !important;
+    }
+
+    .sat-math-nav-top-row,
+    .sat-math-nav-volume-row {
+      justify-content: flex-start !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .sat-math-nav-top-row a,
+    .sat-math-nav-volume-row a {
+      padding: 10px 13px !important;
+      font-size: .9rem !important;
+    }
+
+    .sat-math-nav-label {
+      width: 100% !important;
+      margin-bottom: 2px !important;
+    }
+  }
+</style>
+<!-- sat-favicon-v1 -->
+<link rel="icon" href="/favicon.svg?v=1" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.ico?v=1">
+<link rel="icon" href="/favicon-32.png?v=1" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=1">
+<link rel="manifest" href="/site.webmanifest?v=1">
+<meta name="theme-color" content="#111214">
+<!-- /sat-favicon-v1 -->
+</head><body>
+<nav id="sat-global-navigation"
+     aria-label="SAT subject navigation"
+     style="
+       position:sticky;
+       top:0;
+       z-index:2147483647;
+       display:flex;
+       flex-wrap:wrap;
+       align-items:center;
+       gap:9px;
+       width:100%;
+       min-height:58px;
+       box-sizing:border-box;
+       padding:10px 18px;
+       background:linear-gradient(135deg,#f8fbff 0%,#e9f2ff 100%);
+       border-bottom:1px solid #d5e2f3;
+       box-shadow:0 4px 16px rgba(37,99,235,.08);
+     ">
+  <span style="
+        margin-right:5px;
+        color:#1e3a5f;
+        font:800 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+        letter-spacing:.01em;
+      ">SAT Prep</span>
+
+  <a data-sat-destination="/index.html"
+     href="/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">SAT Home</a>
+
+  <a data-sat-destination="/english/index.html"
+     href="/english/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">English</a>
+
+  <a data-sat-destination="/math/index.html"
+     href="/math/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">Math</a>
+</nav>
+<script>
+(function () {
+  var student = (
+    new URLSearchParams(window.location.search).get('student') || window.localStorage.getItem('sat_user') || ''
+  ).trim().toLowerCase();
+
+  var currentPath = window.location.pathname.replace(/\/+/g, '/');
+
+  document
+    .querySelectorAll('#sat-global-navigation [data-sat-destination]')
+    .forEach(function (link) {
+      var destination = link.getAttribute('data-sat-destination');
+      var url = new URL(destination, window.location.origin);
+
+      if (student) {
+        url.searchParams.set('student', student);
+      }
+
+      link.href = url.href;
+
+      var active =
+        (destination === '/index.html' && currentPath === '/index.html') ||
+        (
+          destination === '/english/index.html' &&
+          currentPath.indexOf('/english/') === 0
+        ) ||
+        (
+          destination === '/math/index.html' &&
+          currentPath.indexOf('/math/') === 0
+        );
+
+      if (active) {
+        link.style.background = '#2563eb';
+        link.style.borderColor = '#2563eb';
+        link.style.color = '#ffffff';
+        link.style.boxShadow = '0 4px 10px rgba(37,99,235,.20)';
+        link.setAttribute('aria-current', 'page');
+      }
+    });
+})();
+</script>
+
+<header class="site-header"><nav class="nav"><a class="brand" href="index.html"><span class="brand-mark">Σ</span><span>SAT Math 300</span></a><div class="nav-links"><a href="index.html">Home</a><a href="volume-1-algebra-foundations.html">Volume 1</a><a href="volume-2-advanced-math.html" aria-current="page">Volume 2</a><a href="volume-3-data-geometry-trigonometry.html">Volume 3</a></div><label style="font-size:0.85rem;color:#6b6f76;margin-left:12px;">Student: <input id="student-name" type="text" style="width:90px;" /></label></nav></header><section class="hero"><div class="hero-inner"><div><div class="eyebrow">SAT Math 300 Mastery Builder for Nireekshan</div><h1>Volume 2: Advanced Math</h1><p>Quadratics, exponentials, polynomials, radicals, and nonlinear functions. Work topic by topic, check each response, and use the hints and fast methods to build an error notebook.</p><div class="actions-row"><button id="start-quiz" class="btn">Start 10-question quiz</button><a class="btn secondary" href="#practice">Go to practice</a></div></div><div class="hero-card"><div class="progress-ring" style="--progress:0%"><div><strong>0%</strong><span>0 of 100 mastered</span></div></div></div></div></section><main><section class="stats"><div class="stat"><strong id="stat-mastered">0</strong><span>Mastered</span></div><div class="stat"><strong id="stat-attempted">0</strong><span>Attempted</span></div><div class="stat"><strong id="stat-remaining">100</strong><span>Remaining</span></div><div class="stat"><strong id="stat-visible">100</strong><span>Currently visible</span></div></section><section><div class="section-heading"><div><div class="eyebrow">Learn first</div><h2>Topic guides and formulas</h2></div><p>Review the concept card before practicing.</p></div><div class="lesson-grid"><article class="lesson panel" data-topic="Equivalent Expressions and Factoring"><div class="eyebrow">Concept guide</div><h2>Equivalent Expressions and Factoring</h2><p>Rewrite expressions without changing their value.</p><ul><li>Distribute before combining like terms.</li><li>Use patterns such as difference of squares.</li><li>Track exponent rules carefully.</li></ul><div><span class="formula">a(b + c) = ab + ac</span><span class="formula">A² − B² = (A − B)(A + B)</span><span class="formula">xᵐxⁿ = xᵐ⁺ⁿ</span></div><div class="warning"><strong>Common mistake:</strong> Only like terms—same variables with the same exponents—can be combined.</div></article><article class="lesson panel" data-topic="Quadratic Equations and Functions"><div class="eyebrow">Concept guide</div><h2>Quadratic Equations and Functions</h2><p>Use roots, factors, vertices, and graphs to analyze quadratics.</p><ul><li>Factoring reveals zeros.</li><li>Vertex form reveals maximum or minimum.</li><li>The discriminant tells how many real solutions exist.</li></ul><div><span class="formula">y = ax² + bx + c</span><span class="formula">y = a(x − h)² + k</span><span class="formula">b² − 4ac</span></div><div class="warning"><strong>Common mistake:</strong> A negative discriminant means no real solutions, not no solutions at all.</div></article><article class="lesson panel" data-topic="Exponential Functions"><div class="eyebrow">Concept guide</div><h2>Exponential Functions</h2><p>Recognize repeated multiplication, growth, and decay.</p><ul><li>Growth factor = 1 + r.</li><li>Decay factor = 1 − r.</li><li>The exponent counts equal time periods.</li></ul><div><span class="formula">y = a(b)ˣ</span><span class="formula">A = P(1 + r)ᵗ</span></div><div class="warning"><strong>Common mistake:</strong> A 20% increase uses 1.20, not 0.20.</div></article><article class="lesson panel" data-topic="Polynomial and Rational Expressions"><div class="eyebrow">Concept guide</div><h2>Polynomial and Rational Expressions</h2><p>Operate on polynomials and rational expressions while respecting structure and domain.</p><ul><li>Combine matching powers.</li><li>Use the Remainder Theorem for division by x − k.</li><li>Exclude values that make a denominator zero.</li></ul><div><span class="formula">P(k) = remainder</span><span class="formula">xᵐ/xⁿ = xᵐ⁻ⁿ</span></div><div class="warning"><strong>Common mistake:</strong> Cancellation does not erase original domain restrictions.</div></article><article class="lesson panel" data-topic="Radical and Rational Equations"><div class="eyebrow">Concept guide</div><h2>Radical and Rational Equations</h2><p>Solve equations containing roots, fractions, and inverse variation.</p><ul><li>Square both sides carefully.</li><li>Check possible extraneous solutions.</li><li>Multiply by a common denominator to clear fractions.</li></ul><div><span class="formula">√A = b ⇒ A = b²</span><span class="formula">xy = k</span></div><div class="warning"><strong>Common mistake:</strong> Squaring can introduce a solution that fails the original equation.</div></article><article class="lesson panel" data-topic="Nonlinear Functions and Systems"><div class="eyebrow">Concept guide</div><h2>Nonlinear Functions and Systems</h2><p>Analyze compositions, inverses, transformations, absolute value, and nonlinear intersections.</p><ul><li>Evaluate inner functions first.</li><li>An inverse reverses input and output.</li><li>Absolute-value equations often produce two cases.</li></ul><div><span class="formula">(f ∘ g)(x) = f(g(x))</span><span class="formula">|x − h| = k ⇒ x = h ± k</span></div><div class="warning"><strong>Common mistake:</strong> Horizontal shifts use the opposite sign inside the function.</div></article></div></section><section id="practice"><div class="section-heading"><div><div class="eyebrow">100 original questions</div><h2>Practice bank</h2></div><p>Answers and progress stay on this browser.</p></div><div id="quiz-banner" class="quiz-banner"><div><strong>Quick Quiz Mode</strong><br><span><span id="quiz-count">10</span> mixed questions from this volume</span></div><button id="exit-quiz" class="btn secondary">Exit quiz</button></div><div class="controls panel"><input id="search" class="control" type="search" placeholder="Search questions or skills"><select id="topic-filter" class="control" aria-label="Filter by topic"></select><select id="difficulty-filter" class="control"><option>All levels</option><option>Foundation</option><option>Medium</option><option>Hard</option><option>Challenge</option></select><select id="status-filter" class="control"><option>All questions</option><option>Not attempted</option><option>Correct</option><option>Needs review</option></select></div><div id="topic-nav" class="topic-nav"></div><div class="actions-row"><button id="print-page" class="btn ghost">Print / Save as PDF</button><button id="reset-volume" class="btn danger">Reset this volume</button></div><div id="question-list" class="question-list"></div></section></main><footer class="footer"><div class="footer-inner"><span>Original SAT-style practice material. Not affiliated with or endorsed by College Board.</span><span>Use official Bluebook practice tests to measure readiness.</span></div></footer><script>window.SAT_PAGE={"volume":2,"questions":[{"id":"v2q001","number":1,"topic":"Equivalent Expressions and Factoring","skill":"Distributing and combining like terms","difficulty":"Foundation","kind":"mcq","prompt":"Which expression is equivalent to 2(x − 7) − 5?","choices":["2x − 12","2x − 9","3x − 19","2x − 19"],"answer_index":3,"answer":null,"tolerance":0,"hint":"Distribute first, then combine constants.","explanation":"2(x − 7) − 5 = 2x − 14 − 5 = 2x − 19.","fast_method":"Test a value like x = 2 in the original and each choice—the match is your answer."},{"id":"v2q002","number":2,"topic":"Equivalent Expressions and Factoring","skill":"Greatest common factor","difficulty":"Foundation","kind":"mcq","prompt":"Factor 45x + 54 completely.","choices":["9(5x + 54)","45(x + 6)","5(9x + 6)","9(5x + 6)"],"answer_index":3,"answer":null,"tolerance":0,"hint":"Find the greatest factor shared by both terms.","explanation":"Both terms share a factor of 9; factoring it out gives 9(5x + 6).","fast_method":"Pull out the largest number and lowest power of the variable common to every term."},{"id":"v2q003","number":3,"topic":"Equivalent Expressions and Factoring","skill":"Factoring trinomials","difficulty":"Foundation","kind":"mcq","prompt":"Which expression is equivalent to x² + 10x + 21?","choices":["(x + 10)(x + 21)","(x + 3)(x + 7)","(x − 3)(x − 7)","(x + 4)(x + 6)"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Find two numbers that multiply to the constant and add to the x-coefficient.","explanation":"3·7 = 21 and 3 + 7 = 10, so the factorization is (x + 3)(x + 7).","fast_method":"Find two numbers that multiply to the constant and add to the middle coefficient."},{"id":"v2q004","number":4,"topic":"Equivalent Expressions and Factoring","skill":"Difference of squares","difficulty":"Foundation","kind":"mcq","prompt":"Factor x² − 9.","choices":["(x − 3)(x + 3)","(x − 9)(x + 1)","(x + 3)²","(x − 3)²"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Use A² − B² = (A − B)(A + B).","explanation":"x² − 9 = x² − 3² = (x − 3)(x + 3).","fast_method":"a² − b² = (a − b)(a + b): look for two perfect squares with a minus between them."},{"id":"v2q005","number":5,"topic":"Equivalent Expressions and Factoring","skill":"Exponent rules","difficulty":"Foundation","kind":"mcq","prompt":"For x ≠ 0, which expression is equivalent to (x³)(x¹)/x⁴?","choices":["x^-2","x^-1","1","x^8"],"answer_index":2,"answer":null,"tolerance":0,"hint":"Add exponents when multiplying and subtract when dividing.","explanation":"The exponent is 3 + 1 − 4 = 0, so the expression is 1.","fast_method":"Multiply → add exponents, divide → subtract; anything to the 0 power is 1."},{"id":"v2q006","number":6,"topic":"Equivalent Expressions and Factoring","skill":"Distributing and combining like terms","difficulty":"Foundation","kind":"mcq","prompt":"Which expression is equivalent to 5(x + 1) + 3?","choices":["6x + 8","5x + 8","5x + 4","5x + 2"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Distribute first, then combine constants.","explanation":"5(x + 1) + 3 = 5x + 5 + 3 = 5x + 8.","fast_method":"Test a value like x = 2 in the original and each choice—the match is your answer."},{"id":"v2q007","number":7,"topic":"Equivalent Expressions and Factoring","skill":"Greatest common factor","difficulty":"Medium","kind":"mcq","prompt":"Factor 24x + 32 completely.","choices":["24(x + 4)","8(3x + 32)","8(3x + 4)","3(8x + 4)"],"answer_index":2,"answer":null,"tolerance":0,"hint":"Find the greatest factor shared by both terms.","explanation":"Both terms share a factor of 8; factoring it out gives 8(3x + 4).","fast_method":"Pull out the largest number and lowest power of the variable common to every term."},{"id":"v2q008","number":8,"topic":"Equivalent Expressions and Factoring","skill":"Factoring trinomials","difficulty":"Medium","kind":"mcq","prompt":"Which expression is equivalent to x² + 8x + 7?","choices":["(x + 1)(x + 7)","(x + 2)(x + 6)","(x + 8)(x + 7)","(x − 1)(x − 7)"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Find two numbers that multiply to the constant and add to the x-coefficient.","explanation":"1·7 = 7 and 1 + 7 = 8, so the factorization is (x + 1)(x + 7).","fast_method":"Find two numbers that multiply to the constant and add to the middle coefficient."},{"id":"v2q009","number":9,"topic":"Equivalent Expressions and Factoring","skill":"Difference of squares","difficulty":"Medium","kind":"mcq","prompt":"Factor x² − 25.","choices":["(x − 25)(x + 1)","(x − 5)(x + 5)","(x + 5)²","(x − 5)²"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Use A² − B² = (A − B)(A + B).","explanation":"x² − 25 = x² − 5² = (x − 5)(x + 5).","fast_method":"a² − b² = (a − b)(a + b): look for two perfect squares with a minus between them."},{"id":"v2q010","number":10,"topic":"Equivalent Expressions and Factoring","skill":"Exponent rules","difficulty":"Medium","kind":"mcq","prompt":"For x ≠ 0, which expression is equivalent to (x³)(x¹)/x⁵?","choices":["x^9","x^-2","x^-1","x^-3"],"answer_index":2,"answer":null,"tolerance":0,"hint":"Add exponents when multiplying and subtract when dividing.","explanation":"The exponent is 3 + 1 − 5 = -1, so the expression is x^-1.","fast_method":"Multiply → add exponents, divide → subtract; anything to the 0 power is 1."},{"id":"v2q011","number":11,"topic":"Equivalent Expressions and Factoring","skill":"Distributing and combining like terms","difficulty":"Medium","kind":"mcq","prompt":"Which expression is equivalent to 6(x − 2) − 6?","choices":["6x − 8","6x − 6","6x − 18","7x − 18"],"answer_index":2,"answer":null,"tolerance":0,"hint":"Distribute first, then combine constants.","explanation":"6(x − 2) − 6 = 6x − 12 − 6 = 6x − 18.","fast_method":"Test a value like x = 2 in the original and each choice—the match is your answer."},{"id":"v2q012","number":12,"topic":"Equivalent Expressions and Factoring","skill":"Greatest common factor","difficulty":"Medium","kind":"mcq","prompt":"Factor 24x + 42 completely.","choices":["4(6x + 7)","6(4x + 42)","24(x + 7)","6(4x + 7)"],"answer_index":3,"answer":null,"tolerance":0,"hint":"Find the greatest factor shared by both terms.","explanation":"Both terms share a factor of 6; factoring it out gives 6(4x + 7).","fast_method":"Pull out the largest number and lowest power of the variable common to every term."},{"id":"v2q013","number":13,"topic":"Equivalent Expressions and Factoring","skill":"Factoring trinomials","difficulty":"Medium","kind":"mcq","prompt":"Which expression is equivalent to x² + 16x + 63?","choices":["(x + 8)(x + 8)","(x + 7)(x + 9)","(x − 7)(x − 9)","(x + 16)(x + 63)"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Find two numbers that multiply to the constant and add to the x-coefficient.","explanation":"7·9 = 63 and 7 + 9 = 16, so the factorization is (x + 7)(x + 9).","fast_method":"Find two numbers that multiply to the constant and add to the middle coefficient."},{"id":"v2q014","number":14,"topic":"Equivalent Expressions and Factoring","skill":"Difference of squares","difficulty":"Hard","kind":"mcq","prompt":"Factor x² − 36.","choices":["(x + 6)²","(x − 6)(x + 6)","(x − 6)²","(x − 36)(x + 1)"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Use A² − B² = (A − B)(A + B).","explanation":"x² − 36 = x² − 6² = (x − 6)(x + 6).","fast_method":"a² − b² = (a − b)(a + b): look for two perfect squares with a minus between them."},{"id":"v2q015","number":15,"topic":"Equivalent Expressions and Factoring","skill":"Exponent rules","difficulty":"Hard","kind":"mcq","prompt":"For x ≠ 0, which expression is equivalent to (x⁷)(x³)/x⁴?","choices":["x^17","x^14","x^0","x^6"],"answer_index":3,"answer":null,"tolerance":0,"hint":"Add exponents when multiplying and subtract when dividing.","explanation":"The exponent is 7 + 3 − 4 = 6, so the expression is x^6.","fast_method":"Multiply → add exponents, divide → subtract; anything to the 0 power is 1."},{"id":"v2q016","number":16,"topic":"Equivalent Expressions and Factoring","skill":"Distributing and combining like terms","difficulty":"Hard","kind":"mcq","prompt":"Which expression is equivalent to 4(x − 2) + 2?","choices":["4x","4x − 6","5x − 6","4x − 10"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Distribute first, then combine constants.","explanation":"4(x − 2) + 2 = 4x − 8 + 2 = 4x − 6.","fast_method":"Test a value like x = 2 in the original and each choice—the match is your answer."},{"id":"v2q017","number":17,"topic":"Equivalent Expressions and Factoring","skill":"Factoring completely","difficulty":"Hard","kind":"mcq","prompt":"Factor completely: 3x³ − 12x.","choices":["3x(x − 2)(x + 2)","3x(x² − 4)","x(3x − 12)","3(x³ − 4x)"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Take out the greatest common factor first, then look for a difference of squares.","explanation":"3x³ − 12x = 3x(x² − 4) = 3x(x − 2)(x + 2).","fast_method":"Pull the GCF 3x, then factor the leftover difference of squares."},{"id":"v2q018","number":18,"topic":"Equivalent Expressions and Factoring","skill":"Factoring with a leading coefficient","difficulty":"Challenge","kind":"mcq","prompt":"Which expression is equivalent to 2x² + 7x + 3?","choices":["(2x + 1)(x + 3)","(2x + 3)(x + 1)","(2x + 7)(x + 3)","(x + 1)(x + 3)"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Find factors of 2·3 = 6 that add to the middle coefficient 7.","explanation":"6 splits as 6 and 1: 2x² + 6x + x + 3 = 2x(x + 3) + 1(x + 3) = (2x + 1)(x + 3).","fast_method":"Expand each choice mentally—only (2x + 1)(x + 3) gives the 7x middle term."},{"id":"v2q019","number":19,"topic":"Equivalent Expressions and Factoring","skill":"Difference of squares","difficulty":"Challenge","kind":"mcq","prompt":"Which expression is equivalent to (x + 4)² − 9?","choices":["(x + 1)(x + 7)","(x + 4)(x − 3)","(x − 1)(x + 7)","(x + 5)(x + 3)"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Treat it as a difference of squares with (x + 4) and 3.","explanation":"(x + 4)² − 3² = [(x + 4) − 3][(x + 4) + 3] = (x + 1)(x + 7).","fast_method":"A² − B² = (A − B)(A + B) with A = x + 4, B = 3."},{"id":"v2q020","number":20,"topic":"Equivalent Expressions and Factoring","skill":"Exponent rules","difficulty":"Challenge","kind":"mcq","prompt":"For x ≠ 0, which expression is equivalent to (x⁴)(x²)/x⁵?","choices":["x","x^3","x^11","x^-3"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Add exponents when multiplying and subtract when dividing.","explanation":"The exponent is 4 + 2 − 5 = 1, so the expression is x.","fast_method":"Multiply → add exponents, divide → subtract; anything to the 0 power is 1."},{"id":"v2q021","number":21,"topic":"Quadratic Equations and Functions","skill":"Solving by factoring","difficulty":"Foundation","kind":"mcq","prompt":"What is one solution to x² − x − 6 = 0?","choices":["4","3","-2","-3"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Factor the quadratic and set each factor equal to zero.","explanation":"The quadratic factors as (x − 3)(x + 2) = 0, so the solutions are 3 and -2.","fast_method":"Two numbers multiplying to c and adding to b, or read the x-intercepts off Desmos."},{"id":"v2q022","number":22,"topic":"Quadratic Equations and Functions","skill":"Vertex form","difficulty":"Foundation","kind":"mcq","prompt":"What is the vertex of y = -2(x + 1)² + 7?","choices":["(1, 7)","(-1, -7)","(7, -1)","(-1, 7)"],"answer_index":3,"answer":null,"tolerance":0,"hint":"In y = a(x − h)² + k, the vertex is (h, k).","explanation":"The equation is already in vertex form, so the vertex is (-1, 7).","fast_method":"In y = a(x − h)² + k the vertex is (h, k)—read it straight off."},{"id":"v2q023","number":23,"topic":"Quadratic Equations and Functions","skill":"Discriminant","difficulty":"Foundation","kind":"mcq","prompt":"How many real solutions does 2x² = 0 have?","choices":["Exactly one real solution","Two distinct real solutions","Three distinct real solutions","No real solutions"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Compute b² − 4ac.","explanation":"The discriminant is 0² − 4(2)(0) = 0. Its sign determines the number of real solutions, giving: Exactly one real solution.","fast_method":"b² − 4ac: positive → 2 real solutions, zero → 1, negative → 0. No full solve needed."},{"id":"v2q024","number":24,"topic":"Quadratic Equations and Functions","skill":"Maximum or minimum value","difficulty":"Foundation","kind":"numeric","prompt":"A projectile’s height is modeled by h(t) = -3(t − 5)² + 9. What is the maximum height?","choices":null,"answer_index":null,"answer":"9","tolerance":1e-06,"hint":"A downward-opening parabola reaches its maximum at the vertex.","explanation":"Because -3 is negative, the parabola opens downward. Its vertex has y-coordinate 9, so the maximum height is 9.","fast_method":"In a(x − h)² + k the max/min value is k; confirm the shape in Desmos."},{"id":"v2q025","number":25,"topic":"Quadratic Equations and Functions","skill":"Equation from roots","difficulty":"Foundation","kind":"mcq","prompt":"Which quadratic equation has roots 1 and -5?","choices":["x² − 4x − 5 = 0","x² + 5x − 4 = 0","x² + 4x + 5 = 0","x² + 4x − 5 = 0"],"answer_index":3,"answer":null,"tolerance":0,"hint":"Start with (x − r₁)(x − r₂) = 0.","explanation":"(x − 1)(x + 5) expands to x² + 4x − 5 = 0.","fast_method":"With roots r and s, the equation is (x − r)(x − s) = 0."},{"id":"v2q026","number":26,"topic":"Quadratic Equations and Functions","skill":"Solving by factoring","difficulty":"Foundation","kind":"mcq","prompt":"What is one solution to x² + 6x + 8 = 0?","choices":["-1","2","-4","-2"],"answer_index":3,"answer":null,"tolerance":0,"hint":"Factor the quadratic and set each factor equal to zero.","explanation":"The quadratic factors as (x + 4)(x + 2) = 0, so the solutions are -4 and -2.","fast_method":"Two numbers multiplying to c and adding to b, or read the x-intercepts off Desmos."},{"id":"v2q027","number":27,"topic":"Quadratic Equations and Functions","skill":"Vertex form","difficulty":"Foundation","kind":"mcq","prompt":"What is the vertex of y = 2(x + 5)² + 9?","choices":["(9, -5)","(-5, -9)","(-5, 9)","(5, 9)"],"answer_index":2,"answer":null,"tolerance":0,"hint":"In y = a(x − h)² + k, the vertex is (h, k).","explanation":"The equation is already in vertex form, so the vertex is (-5, 9).","fast_method":"In y = a(x − h)² + k the vertex is (h, k)—read it straight off."},{"id":"v2q028","number":28,"topic":"Quadratic Equations and Functions","skill":"Discriminant","difficulty":"Foundation","kind":"mcq","prompt":"How many real solutions does 3x² + 3x + 2 = 0 have?","choices":["No real solutions","Exactly one real solution","Two distinct real solutions","Three distinct real solutions"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Compute b² − 4ac.","explanation":"The discriminant is 3² − 4(3)(2) = -15. Its sign determines the number of real solutions, giving: No real solutions.","fast_method":"b² − 4ac: positive → 2 real solutions, zero → 1, negative → 0. No full solve needed."},{"id":"v2q029","number":29,"topic":"Quadratic Equations and Functions","skill":"Maximum or minimum value","difficulty":"Medium","kind":"numeric","prompt":"A projectile’s height is modeled by h(t) = -2(t + 2)² + 12. What is the maximum height?","choices":null,"answer_index":null,"answer":"12","tolerance":1e-06,"hint":"A downward-opening parabola reaches its maximum at the vertex.","explanation":"Because -2 is negative, the parabola opens downward. Its vertex has y-coordinate 12, so the maximum height is 12.","fast_method":"In a(x − h)² + k the max/min value is k; confirm the shape in Desmos."},{"id":"v2q030","number":30,"topic":"Quadratic Equations and Functions","skill":"Equation from roots","difficulty":"Medium","kind":"mcq","prompt":"Which quadratic equation has roots -1 and -3?","choices":["x² + 4x + 3 = 0","x² − 4x + 3 = 0","x² + 4x − 3 = 0","x² + 5x + 4 = 0"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Start with (x − r₁)(x − r₂) = 0.","explanation":"(x + 1)(x + 3) expands to x² + 4x + 3 = 0.","fast_method":"With roots r and s, the equation is (x − r)(x − s) = 0."},{"id":"v2q031","number":31,"topic":"Quadratic Equations and Functions","skill":"Solving by factoring","difficulty":"Medium","kind":"mcq","prompt":"What is one solution to x² + 4x − 32 = 0?","choices":["4","-7","-8","8"],"answer_index":2,"answer":null,"tolerance":0,"hint":"Factor the quadratic and set each factor equal to zero.","explanation":"The quadratic factors as (x + 8)(x − 4) = 0, so the solutions are -8 and 4.","fast_method":"Two numbers multiplying to c and adding to b, or read the x-intercepts off Desmos."},{"id":"v2q032","number":32,"topic":"Quadratic Equations and Functions","skill":"Completing the square","difficulty":"Hard","kind":"mcq","prompt":"What is the vertex of the parabola y = x² − 6x + 5?","choices":["(3, -4)","(-3, -4)","(3, 5)","(6, 5)"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Complete the square to rewrite the equation in vertex form.","explanation":"y = (x² − 6x + 9) − 9 + 5 = (x − 3)² − 4, so the vertex is (3, −4).","fast_method":"The x-coordinate is −b/2a = 3; substitute to get y = −4."},{"id":"v2q033","number":33,"topic":"Quadratic Equations and Functions","skill":"Discriminant","difficulty":"Medium","kind":"mcq","prompt":"How many real solutions does 2x² + 6x + 6 = 0 have?","choices":["Three distinct real solutions","Two distinct real solutions","No real solutions","Exactly one real solution"],"answer_index":2,"answer":null,"tolerance":0,"hint":"Compute b² − 4ac.","explanation":"The discriminant is 6² − 4(2)(6) = -12. Its sign determines the number of real solutions, giving: No real solutions.","fast_method":"b² − 4ac: positive → 2 real solutions, zero → 1, negative → 0. No full solve needed."},{"id":"v2q034","number":34,"topic":"Quadratic Equations and Functions","skill":"Maximum or minimum value","difficulty":"Medium","kind":"numeric","prompt":"A projectile’s height is modeled by h(t) = -(t − 5)² + 3. What is the maximum height?","choices":null,"answer_index":null,"answer":"3","tolerance":1e-06,"hint":"A downward-opening parabola reaches its maximum at the vertex.","explanation":"Because -1 is negative, the parabola opens downward. Its vertex has y-coordinate 3, so the maximum height is 3.","fast_method":"In a(x − h)² + k the max/min value is k; confirm the shape in Desmos."},{"id":"v2q035","number":35,"topic":"Quadratic Equations and Functions","skill":"Equation from roots","difficulty":"Medium","kind":"mcq","prompt":"Which quadratic equation has roots -4 and 5?","choices":["x² − 19 = 0","x² − x − 20 = 0","x² − x + 20 = 0","x² + x − 20 = 0"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Start with (x − r₁)(x − r₂) = 0.","explanation":"(x + 4)(x − 5) expands to x² − x − 20 = 0.","fast_method":"With roots r and s, the equation is (x − r)(x − s) = 0."},{"id":"v2q036","number":36,"topic":"Quadratic Equations and Functions","skill":"Solving by factoring","difficulty":"Medium","kind":"mcq","prompt":"What is one solution to x² + 13x + 40 = 0?","choices":["-5","8","-7","-8"],"answer_index":3,"answer":null,"tolerance":0,"hint":"Factor the quadratic and set each factor equal to zero.","explanation":"The quadratic factors as (x + 5)(x + 8) = 0, so the solutions are -5 and -8.","fast_method":"Two numbers multiplying to c and adding to b, or read the x-intercepts off Desmos."},{"id":"v2q037","number":37,"topic":"Quadratic Equations and Functions","skill":"Vertex form","difficulty":"Medium","kind":"mcq","prompt":"What is the vertex of y = (x − 2)² + 10?","choices":["(10, 2)","(2, -10)","(2, 10)","(-2, 10)"],"answer_index":2,"answer":null,"tolerance":0,"hint":"In y = a(x − h)² + k, the vertex is (h, k).","explanation":"The equation is already in vertex form, so the vertex is (2, 10).","fast_method":"In y = a(x − h)² + k the vertex is (h, k)—read it straight off."},{"id":"v2q038","number":38,"topic":"Quadratic Equations and Functions","skill":"Discriminant","difficulty":"Hard","kind":"mcq","prompt":"How many real solutions does x² − 6x + 9 = 0 have?","choices":["Three distinct real solutions","No real solutions","Exactly one real solution","Two distinct real solutions"],"answer_index":2,"answer":null,"tolerance":0,"hint":"Compute b² − 4ac.","explanation":"The discriminant is -6² − 4(1)(9) = 0. Its sign determines the number of real solutions, giving: Exactly one real solution.","fast_method":"b² − 4ac: positive → 2 real solutions, zero → 1, negative → 0. No full solve needed."},{"id":"v2q039","number":39,"topic":"Quadratic Equations and Functions","skill":"Maximum or minimum value","difficulty":"Hard","kind":"numeric","prompt":"A projectile’s height is modeled by h(t) = -3(t − 4)² + 12. What is the maximum height?","choices":null,"answer_index":null,"answer":"12","tolerance":1e-06,"hint":"A downward-opening parabola reaches its maximum at the vertex.","explanation":"Because -3 is negative, the parabola opens downward. Its vertex has y-coordinate 12, so the maximum height is 12.","fast_method":"In a(x − h)² + k the max/min value is k; confirm the shape in Desmos."},{"id":"v2q040","number":40,"topic":"Quadratic Equations and Functions","skill":"Factors and x-intercepts","difficulty":"Hard","kind":"mcq","prompt":"The function f(x) = (x − 5)(x + 2). What are the x-intercepts of the graph of f?","choices":["5 and -2","-5 and 2","5 and 2","-5 and -2"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Set each factor equal to zero.","explanation":"x − 5 = 0 gives x = 5, and x + 2 = 0 gives x = −2, so the intercepts are at x = 5 and x = −2.","fast_method":"Each factor's zero is an x-intercept—flip the sign of the number in the factor."},{"id":"v2q041","number":41,"topic":"Quadratic Equations and Functions","skill":"Solving by factoring","difficulty":"Hard","kind":"mcq","prompt":"What is one solution to x² − 14x + 48 = 0?","choices":["-8","8","9","6"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Factor the quadratic and set each factor equal to zero.","explanation":"The quadratic factors as (x − 6)(x − 8) = 0, so the solutions are 6 and 8.","fast_method":"Two numbers multiplying to c and adding to b, or read the x-intercepts off Desmos."},{"id":"v2q042","number":42,"topic":"Quadratic Equations and Functions","skill":"Vertex form","difficulty":"Hard","kind":"mcq","prompt":"What is the vertex of y = (x + 1)² − 2?","choices":["(1, -2)","(-1, 2)","(-2, -1)","(-1, -2)"],"answer_index":3,"answer":null,"tolerance":0,"hint":"In y = a(x − h)² + k, the vertex is (h, k).","explanation":"The equation is already in vertex form, so the vertex is (-1, -2).","fast_method":"In y = a(x − h)² + k the vertex is (h, k)—read it straight off."},{"id":"v2q043","number":43,"topic":"Quadratic Equations and Functions","skill":"Discriminant","difficulty":"Challenge","kind":"mcq","prompt":"How many real solutions does 3x² − 24x + 48 = 0 have?","choices":["Three distinct real solutions","Two distinct real solutions","No real solutions","Exactly one real solution"],"answer_index":3,"answer":null,"tolerance":0,"hint":"Compute b² − 4ac.","explanation":"The discriminant is -24² − 4(3)(48) = 0. Its sign determines the number of real solutions, giving: Exactly one real solution.","fast_method":"b² − 4ac: positive → 2 real solutions, zero → 1, negative → 0. No full solve needed."},{"id":"v2q044","number":44,"topic":"Quadratic Equations and Functions","skill":"Maximum or minimum value","difficulty":"Challenge","kind":"numeric","prompt":"A projectile’s height is modeled by h(t) = -(t + 1)² + 11. What is the maximum height?","choices":null,"answer_index":null,"answer":"11","tolerance":1e-06,"hint":"A downward-opening parabola reaches its maximum at the vertex.","explanation":"Because -1 is negative, the parabola opens downward. Its vertex has y-coordinate 11, so the maximum height is 11.","fast_method":"In a(x − h)² + k the max/min value is k; confirm the shape in Desmos."},{"id":"v2q045","number":45,"topic":"Quadratic Equations and Functions","skill":"Interpreting forms","difficulty":"Challenge","kind":"mcq","prompt":"Which form of a quadratic function most clearly reveals the coordinates of its vertex?","choices":["Vertex form, a(x − h)² + k","Standard form, ax² + bx + c","Factored form, a(x − r)(x − s)","Slope-intercept form, y = mx + b"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Think about which form lets you read the turning point without any work.","explanation":"In vertex form a(x − h)² + k, the vertex is (h, k), read directly from the equation.","fast_method":"Vertex form names the vertex; factored form names the roots; standard names the y-intercept."},{"id":"v2q046","number":46,"topic":"Exponential Functions","skill":"Exponential growth models","difficulty":"Foundation","kind":"mcq","prompt":"A quantity starts at 100 and grows by 10% each year. Which function models its value after t years?","choices":["100(1.10)^t","100(10)^t","(100+10)t","100(0.10)^t"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Growth factor = 1 + rate as a decimal.","explanation":"A 10% increase gives a multiplier of 1 + 0.10 = 1.10, so the model is 100(1.10)^t.","fast_method":"Multiplier = 1 + rate, and the exponent is the time variable."},{"id":"v2q047","number":47,"topic":"Exponential Functions","skill":"Exponential decay","difficulty":"Foundation","kind":"numeric","prompt":"An item worth $250 loses 10% of its value each year. To the nearest dollar, what is its value after 2 years?","choices":null,"answer_index":null,"answer":"202","tolerance":0.5,"hint":"Multiply by 1 − decay rate for each year.","explanation":"Value = 250(0.90)^2 ≈ 202.50, which rounds to $202.","fast_method":"Multiplier = 1 − rate; raise it to the number of periods."},{"id":"v2q048","number":48,"topic":"Exponential Functions","skill":"Solving simple exponential equations","difficulty":"Foundation","kind":"mcq","prompt":"If 2^x = 32, what is x?","choices":["6","10","5","4"],"answer_index":2,"answer":null,"tolerance":0,"hint":"Write both sides as powers of the same base.","explanation":"Since 32 = 2^5, the exponents must be equal, so x = 5.","fast_method":"Rewrite both sides with the same base, then set the exponents equal."},{"id":"v2q049","number":49,"topic":"Exponential Functions","skill":"Evaluating exponential functions","difficulty":"Foundation","kind":"numeric","prompt":"For f(x) = 25(2)^x, what is f(3)?","choices":null,"answer_index":null,"answer":"200","tolerance":0.001,"hint":"Substitute the input into the exponent.","explanation":"f(3) = 25(2)^3 = 200.","fast_method":"Enter f(a) in Desmos, or compute the power first and then multiply by the coefficient."},{"id":"v2q050","number":50,"topic":"Exponential Functions","skill":"Repeated growth","difficulty":"Medium","kind":"mcq","prompt":"A culture begins with 3 cells and doubles every hour. How many cells are present after 3 hours?","choices":["12","9","24","27"],"answer_index":2,"answer":null,"tolerance":0,"hint":"Doubling for h periods means multiplying by 2^h.","explanation":"The count is 3·2^3 = 24.","fast_method":"Start × (multiplier)^periods; for doubling the multiplier is 2."},{"id":"v2q051","number":51,"topic":"Exponential Functions","skill":"Exponential growth models","difficulty":"Medium","kind":"mcq","prompt":"A quantity starts at 800 and grows by 12% each year. Which function models its value after t years?","choices":["(800+12)t","800(12)^t","800(0.12)^t","800(1.12)^t"],"answer_index":3,"answer":null,"tolerance":0,"hint":"Growth factor = 1 + rate as a decimal.","explanation":"A 12% increase gives a multiplier of 1 + 0.12 = 1.12, so the model is 800(1.12)^t.","fast_method":"Multiplier = 1 + rate, and the exponent is the time variable."},{"id":"v2q052","number":52,"topic":"Exponential Functions","skill":"Exponential decay","difficulty":"Medium","kind":"numeric","prompt":"An item worth $400 loses 15% of its value each year. To the nearest dollar, what is its value after 3 years?","choices":null,"answer_index":null,"answer":"246","tolerance":0.5,"hint":"Multiply by 1 − decay rate for each year.","explanation":"Value = 400(0.85)^3 ≈ 245.65, which rounds to $246.","fast_method":"Multiplier = 1 − rate; raise it to the number of periods."},{"id":"v2q053","number":53,"topic":"Exponential Functions","skill":"Solving simple exponential equations","difficulty":"Medium","kind":"mcq","prompt":"If 3^x = 81, what is x?","choices":["12","4","5","3"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Write both sides as powers of the same base.","explanation":"Since 81 = 3^4, the exponents must be equal, so x = 4.","fast_method":"Rewrite both sides with the same base, then set the exponents equal."},{"id":"v2q054","number":54,"topic":"Exponential Functions","skill":"Evaluating exponential functions","difficulty":"Medium","kind":"numeric","prompt":"For f(x) = 52(1.2)^x, what is f(3)?","choices":null,"answer_index":null,"answer":"89.856","tolerance":0.001,"hint":"Substitute the input into the exponent.","explanation":"f(3) = 52(1.2)^3 = 89.856.","fast_method":"Enter f(a) in Desmos, or compute the power first and then multiply by the coefficient."},{"id":"v2q055","number":55,"topic":"Exponential Functions","skill":"Repeated growth","difficulty":"Medium","kind":"mcq","prompt":"A culture begins with 5 cells and doubles every hour. How many cells are present after 4 hours?","choices":["20","40","85","80"],"answer_index":3,"answer":null,"tolerance":0,"hint":"Doubling for h periods means multiplying by 2^h.","explanation":"The count is 5·2^4 = 80.","fast_method":"Start × (multiplier)^periods; for doubling the multiplier is 2."},{"id":"v2q056","number":56,"topic":"Exponential Functions","skill":"Compound interest models","difficulty":"Hard","kind":"mcq","prompt":"A $1,500 deposit earns 4% interest compounded annually. Which function gives its value, in dollars, after t years?","choices":["1500(1.04)^t","1500(0.04)^t","1500(1.4)^t","1500 + 0.04t"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Each year the balance is multiplied by 1 plus the rate.","explanation":"Growth multiplier = 1 + 0.04 = 1.04, so value = 1500(1.04)^t.","fast_method":"Compounding multiplies by (1 + rate) each period."},{"id":"v2q057","number":57,"topic":"Exponential Functions","skill":"Exponential decay","difficulty":"Hard","kind":"numeric","prompt":"A car worth $18,000 loses 10% of its value each year. What is its value, in dollars, after 2 years?","choices":null,"answer_index":null,"answer":"14580","tolerance":1e-06,"hint":"Multiply by 0.90 once for each year.","explanation":"18000 × 0.90 × 0.90 = 18000 × 0.81 = 14,580.","fast_method":"Decay multiplier is 1 − 0.10 = 0.90; raise it to the 2nd power."},{"id":"v2q058","number":58,"topic":"Exponential Functions","skill":"Solving exponential equations","difficulty":"Hard","kind":"numeric","prompt":"If 2^(x + 1) = 16, what is x?","choices":null,"answer_index":null,"answer":"3","tolerance":1e-06,"hint":"Write 16 as a power of 2, then match exponents.","explanation":"16 = 2⁴, so x + 1 = 4 and x = 3.","fast_method":"Same base means equal exponents: x + 1 = 4."},{"id":"v2q059","number":59,"topic":"Exponential Functions","skill":"Evaluating exponential functions","difficulty":"Challenge","kind":"numeric","prompt":"For f(x) = 63(2)^x, what is f(2)?","choices":null,"answer_index":null,"answer":"252","tolerance":0.001,"hint":"Substitute the input into the exponent.","explanation":"f(2) = 63(2)^2 = 252.","fast_method":"Enter f(a) in Desmos, or compute the power first and then multiply by the coefficient."},{"id":"v2q060","number":60,"topic":"Exponential Functions","skill":"Interpreting the growth factor","difficulty":"Challenge","kind":"mcq","prompt":"A population is modeled by P(t) = 400(1.25)^t, where t is in years. By what percent does the population increase each year?","choices":["25%","125%","1.25%","75%"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Compare the base to 1 to read off the growth rate.","explanation":"The base 1.25 = 1 + 0.25, so the population grows by 25% each year.","fast_method":"Growth percent = (base − 1) × 100."},{"id":"v2q061","number":61,"topic":"Polynomial and Rational Expressions","skill":"Adding polynomials","difficulty":"Foundation","kind":"mcq","prompt":"Simplify (-6x²) + (0x² + 7x).","choices":["-6x⁴ + 7x²","-6x² + 7x","0x² + 0x","-6x² − 7x"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Combine terms with the same variable and exponent.","explanation":"Combine x² terms and x terms separately: (-6+0)x² + (0+7)x = -6x² + 7x.","fast_method":"Combine like terms by degree and drop any zero terms."},{"id":"v2q062","number":62,"topic":"Polynomial and Rational Expressions","skill":"Remainder theorem","difficulty":"Foundation","kind":"numeric","prompt":"What is the remainder when x² − 5 is divided by x + 3?","choices":null,"answer_index":null,"answer":"4","tolerance":1e-06,"hint":"For division by x − k, evaluate the polynomial at k.","explanation":"By the Remainder Theorem, substitute x = -3: 1(-3)² + 0(-3) − 5 = 4.","fast_method":"The remainder of dividing by (x − a) is simply f(a)."},{"id":"v2q063","number":63,"topic":"Polynomial and Rational Expressions","skill":"Simplifying rational expressions","difficulty":"Foundation","kind":"mcq","prompt":"For x ≠ 0, simplify (6x³·8x²)/(3x).","choices":["16x²","14/3x⁴","16x⁴","16x⁶"],"answer_index":2,"answer":null,"tolerance":0,"hint":"Multiply coefficients; add exponents in the numerator and subtract the denominator exponent.","explanation":"Coefficient = (6·8)/3 = 16 and exponent = 3 + 2 − 1 = 4, so 16x⁴.","fast_method":"Divide the coefficients and subtract exponents of matching bases."},{"id":"v2q064","number":64,"topic":"Polynomial and Rational Expressions","skill":"Domain restrictions","difficulty":"Foundation","kind":"mcq","prompt":"Which value is excluded from the domain of (x + 5)/(x − 4)?","choices":["-4","-5","4","5"],"answer_index":2,"answer":null,"tolerance":0,"hint":"A rational expression is undefined where its denominator is zero.","explanation":"Set x − 4 = 0, giving x = 4. Therefore 4 is excluded.","fast_method":"Set each denominator equal to zero; those x-values are excluded."},{"id":"v2q065","number":65,"topic":"Polynomial and Rational Expressions","skill":"Polynomial end behavior","difficulty":"Medium","kind":"mcq","prompt":"What is the end behavior of f(x) = x³ − 4x + 1?","choices":["The graph has no end behavior.","f(x) falls on both sides.","f(x) falls to the left and rises to the right.","f(x) rises to the left and falls to the right."],"answer_index":2,"answer":null,"tolerance":0,"hint":"Use the sign and parity of the leading term.","explanation":"The leading term is positive and has odd degree, so f(x) falls to the left and rises to the right.","fast_method":"Odd degree ends go opposite ways, even the same way; the leading sign sets direction."},{"id":"v2q066","number":66,"topic":"Polynomial and Rational Expressions","skill":"Adding polynomials","difficulty":"Medium","kind":"mcq","prompt":"Simplify (-3x² + 4x) + (2x²).","choices":["-6x² + 0x","-1x⁴ + 4x²","−x² + 4x","-5x² + 4x"],"answer_index":2,"answer":null,"tolerance":0,"hint":"Combine terms with the same variable and exponent.","explanation":"Combine x² terms and x terms separately: (-3+2)x² + (4+0)x = −x² + 4x.","fast_method":"Combine like terms by degree and drop any zero terms."},{"id":"v2q067","number":67,"topic":"Polynomial and Rational Expressions","skill":"Remainder theorem","difficulty":"Medium","kind":"numeric","prompt":"What is the remainder when 2x² − 4x − 6 is divided by x + 1?","choices":null,"answer_index":null,"answer":"0","tolerance":1e-06,"hint":"For division by x − k, evaluate the polynomial at k.","explanation":"By the Remainder Theorem, substitute x = -1: 2(-1)² − 4(-1) − 6 = 0.","fast_method":"The remainder of dividing by (x − a) is simply f(a)."},{"id":"v2q068","number":68,"topic":"Polynomial and Rational Expressions","skill":"Simplifying rational expressions","difficulty":"Medium","kind":"mcq","prompt":"For x ≠ 0, simplify (5x³·2x²)/(5x).","choices":["2x⁶","2x⁴","2x²","7/5x⁴"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Multiply coefficients; add exponents in the numerator and subtract the denominator exponent.","explanation":"Coefficient = (5·2)/5 = 2 and exponent = 3 + 2 − 1 = 4, so 2x⁴.","fast_method":"Divide the coefficients and subtract exponents of matching bases."},{"id":"v2q069","number":69,"topic":"Polynomial and Rational Expressions","skill":"Domain restrictions","difficulty":"Medium","kind":"mcq","prompt":"Which value is excluded from the domain of (x + 2)/(x − 3)?","choices":["3","-2","2","-3"],"answer_index":0,"answer":null,"tolerance":0,"hint":"A rational expression is undefined where its denominator is zero.","explanation":"Set x − 3 = 0, giving x = 3. Therefore 3 is excluded.","fast_method":"Set each denominator equal to zero; those x-values are excluded."},{"id":"v2q070","number":70,"topic":"Polynomial and Rational Expressions","skill":"Polynomial end behavior","difficulty":"Medium","kind":"mcq","prompt":"What is the end behavior of f(x) = 2x⁴ − 4x + 1?","choices":["f(x) rises to the left and falls to the right.","f(x) rises on both the left and right.","f(x) falls on both sides.","The graph has no end behavior."],"answer_index":1,"answer":null,"tolerance":0,"hint":"Use the sign and parity of the leading term.","explanation":"The leading term is positive and has even degree, so f(x) rises on both the left and right.","fast_method":"Odd degree ends go opposite ways, even the same way; the leading sign sets direction."},{"id":"v2q071","number":71,"topic":"Polynomial and Rational Expressions","skill":"Adding polynomials","difficulty":"Hard","kind":"mcq","prompt":"Simplify (−x²) + (-2x² − 6x).","choices":["-3x⁴ − 6x²","-3x² − 6x","1x² + 6x","2x² + 0x"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Combine terms with the same variable and exponent.","explanation":"Combine x² terms and x terms separately: (-1+-2)x² + (0+-6)x = -3x² − 6x.","fast_method":"Combine like terms by degree and drop any zero terms."},{"id":"v2q072","number":72,"topic":"Polynomial and Rational Expressions","skill":"Remainder theorem","difficulty":"Hard","kind":"numeric","prompt":"What is the remainder when 4x² + 2x is divided by x − 3?","choices":null,"answer_index":null,"answer":"42","tolerance":1e-06,"hint":"For division by x − k, evaluate the polynomial at k.","explanation":"By the Remainder Theorem, substitute x = 3: 4(3)² + 2(3) + 0 = 42.","fast_method":"The remainder of dividing by (x − a) is simply f(a)."},{"id":"v2q073","number":73,"topic":"Polynomial and Rational Expressions","skill":"Simplifying by factoring","difficulty":"Hard","kind":"mcq","prompt":"For x ≠ -3, which expression is equivalent to (x² − 9)/(x + 3)?","choices":["x − 3","x + 3","x − 9","x² − 3"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Factor the numerator as a difference of squares, then cancel.","explanation":"(x² − 9)/(x + 3) = (x − 3)(x + 3)/(x + 3) = x − 3.","fast_method":"Factor the top and cancel the shared (x + 3)."},{"id":"v2q074","number":74,"topic":"Polynomial and Rational Expressions","skill":"Zeros of a rational function","difficulty":"Challenge","kind":"numeric","prompt":"For what value of x does (2x − 6)/(x + 1) equal 0?","choices":null,"answer_index":null,"answer":"3","tolerance":1e-06,"hint":"A fraction is zero when its numerator is zero (and the denominator is not).","explanation":"Set 2x − 6 = 0, giving x = 3; the denominator x + 1 = 4 is nonzero, so x = 3 works.","fast_method":"Only the numerator can make a fraction zero—solve 2x − 6 = 0."},{"id":"v2q075","number":75,"topic":"Polynomial and Rational Expressions","skill":"Polynomial end behavior","difficulty":"Challenge","kind":"mcq","prompt":"What is the end behavior of f(x) = 3x⁵ − 4x + 1?","choices":["f(x) falls to the left and rises to the right.","f(x) falls on both sides.","f(x) rises to the left and falls to the right.","The graph has no end behavior."],"answer_index":0,"answer":null,"tolerance":0,"hint":"Use the sign and parity of the leading term.","explanation":"The leading term is positive and has odd degree, so f(x) falls to the left and rises to the right.","fast_method":"Odd degree ends go opposite ways, even the same way; the leading sign sets direction."},{"id":"v2q076","number":76,"topic":"Radical and Rational Equations","skill":"Square-root equations","difficulty":"Foundation","kind":"numeric","prompt":"Solve √(x − 4) = 6.","choices":null,"answer_index":null,"answer":"40","tolerance":1e-06,"hint":"Square both sides, then isolate x.","explanation":"Squaring gives x − 4 = 36; therefore x = 40. Check: √(36) = 6.","fast_method":"Square both sides, solve, and verify the answer in the original equation."},{"id":"v2q077","number":77,"topic":"Radical and Rational Equations","skill":"Radical equations","difficulty":"Foundation","kind":"mcq","prompt":"If √(3x − 24) = 3, what is x?","choices":["11","3","12","10"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Square both sides before solving the resulting linear equation.","explanation":"3x − 24 = 9. Thus 3x = 33, so x = 11.","fast_method":"Square both sides to clear the root, solve, then check for extraneous answers."},{"id":"v2q078","number":78,"topic":"Radical and Rational Equations","skill":"Rational equations","difficulty":"Foundation","kind":"numeric","prompt":"Solve a/x + b/x = c for x when a = 7, b = 8, and c = 15/7.","choices":null,"answer_index":null,"answer":"7","tolerance":1e-06,"hint":"Combine the fractions: (a + b)/x = c.","explanation":"Combine the fractions: (7+8)/x = 15/7, so 15/x = 15/7. Cross-multiplying gives x = 7.","fast_method":"Combine over a common denominator, then cross-multiply."},{"id":"v2q079","number":79,"topic":"Radical and Rational Equations","skill":"Inverse variation","difficulty":"Medium","kind":"mcq","prompt":"y varies inversely with x, and xy = 30. What is y when x = 2?","choices":["15","2","60","10"],"answer_index":0,"answer":null,"tolerance":0,"hint":"For inverse variation, y = k/x.","explanation":"y = 30/2 = 15.","fast_method":"The product xy is constant, so y = (that constant)/x."},{"id":"v2q080","number":80,"topic":"Radical and Rational Equations","skill":"Evaluating rational expressions","difficulty":"Medium","kind":"numeric","prompt":"What is the value of (x + 1)/(x − 1) when x = 6?","choices":null,"answer_index":null,"answer":"7/5","tolerance":1e-06,"hint":"Substitute carefully into both numerator and denominator.","explanation":"(6+1)/(6−1) = 7/5.","fast_method":"Substitute the value and simplify—just watch for a zero denominator."},{"id":"v2q081","number":81,"topic":"Radical and Rational Equations","skill":"Square-root equations","difficulty":"Medium","kind":"numeric","prompt":"Solve √(x + 2) = 6.","choices":null,"answer_index":null,"answer":"34","tolerance":1e-06,"hint":"Square both sides, then isolate x.","explanation":"Squaring gives x + 2 = 36; therefore x = 34. Check: √(36) = 6.","fast_method":"Square both sides, solve, and verify the answer in the original equation."},{"id":"v2q082","number":82,"topic":"Radical and Rational Equations","skill":"Radical equations","difficulty":"Hard","kind":"mcq","prompt":"If √(5x − 10) = 5, what is x?","choices":["6","7","8","5"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Square both sides before solving the resulting linear equation.","explanation":"5x − 10 = 25. Thus 5x = 35, so x = 7.","fast_method":"Square both sides to clear the root, solve, then check for extraneous answers."},{"id":"v2q083","number":83,"topic":"Radical and Rational Equations","skill":"Rational equations","difficulty":"Hard","kind":"numeric","prompt":"Solve a/x + b/x = c for x when a = 3, b = 7, and c = 10/7.","choices":null,"answer_index":null,"answer":"7","tolerance":1e-06,"hint":"Combine the fractions: (a + b)/x = c.","explanation":"Combine the fractions: (3+7)/x = 10/7, so 10/x = 10/7. Cross-multiplying gives x = 7.","fast_method":"Combine over a common denominator, then cross-multiply."},{"id":"v2q084","number":84,"topic":"Radical and Rational Equations","skill":"Inverse variation","difficulty":"Challenge","kind":"mcq","prompt":"y varies inversely with x, and xy = 39. What is y when x = 9?","choices":["39/10","9","13/3","351"],"answer_index":2,"answer":null,"tolerance":0,"hint":"For inverse variation, y = k/x.","explanation":"y = 39/9 = 13/3.","fast_method":"The product xy is constant, so y = (that constant)/x."},{"id":"v2q085","number":85,"topic":"Radical and Rational Equations","skill":"Evaluating rational expressions","difficulty":"Challenge","kind":"numeric","prompt":"What is the value of (x + 4)/(x − 4) when x = 3?","choices":null,"answer_index":null,"answer":"-7","tolerance":1e-06,"hint":"Substitute carefully into both numerator and denominator.","explanation":"(3+4)/(3−4) = 7/-1 = -7.","fast_method":"Substitute the value and simplify—just watch for a zero denominator."},{"id":"v2q086","number":86,"topic":"Nonlinear Functions and Systems","skill":"Line-parabola systems","difficulty":"Foundation","kind":"numeric","prompt":"The line y = x intersects y = x². One intersection has x = 0. What is its y-coordinate?","choices":null,"answer_index":null,"answer":"0","tolerance":1e-06,"hint":"Substitute the known x into either equation.","explanation":"Using y = x², y = 0² = 0.","fast_method":"Set the expressions equal, or graph both in Desmos and read the intersections."},{"id":"v2q087","number":87,"topic":"Nonlinear Functions and Systems","skill":"Function composition","difficulty":"Foundation","kind":"mcq","prompt":"If f(x) = 5x − 2 and g(x) = 6x, what is f(g(2))?","choices":["58","48","59","8"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Evaluate the inside function first.","explanation":"g(2) = 12; then f(12) = 5(12) − 2 = 58.","fast_method":"Work inside-out—evaluate the inner function, then feed its result into the outer one."},{"id":"v2q088","number":88,"topic":"Nonlinear Functions and Systems","skill":"Inverse functions","difficulty":"Foundation","kind":"numeric","prompt":"If f(x) = 3x + 7, what is f⁻¹(11)?","choices":null,"answer_index":null,"answer":"4/3","tolerance":1e-06,"hint":"Solve y = ax + b for x.","explanation":"Set 11 = 3x + 7. Then x = (11 − 7)/3 = 4/3.","fast_method":"Set f(x) equal to the given value and solve for x—that's the inverse output."},{"id":"v2q089","number":89,"topic":"Nonlinear Functions and Systems","skill":"Absolute-value equations","difficulty":"Foundation","kind":"mcq","prompt":"What are the solutions to |x − 2| = 5?","choices":["-3 only","2 only","-3 and 7","7 only"],"answer_index":2,"answer":null,"tolerance":0,"hint":"Split into x − h = k and x − h = −k.","explanation":"x = 2 ± 5, so the solutions are -3 and 7.","fast_method":"Split into two cases: inside = +value and inside = −value."},{"id":"v2q090","number":90,"topic":"Nonlinear Functions and Systems","skill":"Function transformations","difficulty":"Medium","kind":"mcq","prompt":"The graph of y = x² is translated 4 units left and 4 units down. Which equation represents the new graph?","choices":["y = (x − 4)² − 4","y = (x + 4)² − 4","y = −((x + 4)² − 4)","y = x² − 8"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Horizontal shifts appear with the opposite sign inside parentheses.","explanation":"A horizontal shift by -4 and vertical shift by -4 gives y = (x + 4)² − 4.","fast_method":"Inside the parentheses shifts left/right (opposite sign); outside shifts up/down."},{"id":"v2q091","number":91,"topic":"Nonlinear Functions and Systems","skill":"Line-parabola systems","difficulty":"Medium","kind":"numeric","prompt":"The line y = x + 2 intersects y = x². One intersection has x = 2. What is its y-coordinate?","choices":null,"answer_index":null,"answer":"4","tolerance":1e-06,"hint":"Substitute the known x into either equation.","explanation":"Using y = x², y = 2² = 4.","fast_method":"Set the expressions equal, or graph both in Desmos and read the intersections."},{"id":"v2q092","number":92,"topic":"Nonlinear Functions and Systems","skill":"Function composition","difficulty":"Medium","kind":"mcq","prompt":"If f(x) = 5x − 2 and g(x) = x, what is f(g(3))?","choices":["14","13","15","16"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Evaluate the inside function first.","explanation":"g(3) = 3; then f(3) = 5(3) − 2 = 13.","fast_method":"Work inside-out—evaluate the inner function, then feed its result into the outer one."},{"id":"v2q093","number":93,"topic":"Nonlinear Functions and Systems","skill":"Inverse functions","difficulty":"Medium","kind":"numeric","prompt":"If f(x) = 2x − 3, what is f⁻¹(1)?","choices":null,"answer_index":null,"answer":"2","tolerance":1e-06,"hint":"Solve y = ax + b for x.","explanation":"Set 1 = 2x − 3. Then x = (1 + 3)/2 = 2.","fast_method":"Set f(x) equal to the given value and solve for x—that's the inverse output."},{"id":"v2q094","number":94,"topic":"Nonlinear Functions and Systems","skill":"Absolute-value equations","difficulty":"Medium","kind":"mcq","prompt":"What are the solutions to |x − 7| = 7?","choices":["7 only","0 only","0 and 14","14 only"],"answer_index":2,"answer":null,"tolerance":0,"hint":"Split into x − h = k and x − h = −k.","explanation":"x = 7 ± 7, so the solutions are 0 and 14.","fast_method":"Split into two cases: inside = +value and inside = −value."},{"id":"v2q095","number":95,"topic":"Nonlinear Functions and Systems","skill":"Function transformations","difficulty":"Medium","kind":"mcq","prompt":"The graph of y = x² is translated 5 units right and 0 units up. Which equation represents the new graph?","choices":["y = −((x − 5)²)","y = (x + 5)²","y = x² + 5","y = (x − 5)²"],"answer_index":3,"answer":null,"tolerance":0,"hint":"Horizontal shifts appear with the opposite sign inside parentheses.","explanation":"A horizontal shift by 5 and vertical shift by 0 gives y = (x − 5)².","fast_method":"Inside the parentheses shifts left/right (opposite sign); outside shifts up/down."},{"id":"v2q096","number":96,"topic":"Nonlinear Functions and Systems","skill":"Line-parabola systems","difficulty":"Hard","kind":"numeric","prompt":"The line y = x + 12 intersects y = x². One intersection has x = -3. What is its y-coordinate?","choices":null,"answer_index":null,"answer":"9","tolerance":1e-06,"hint":"Substitute the known x into either equation.","explanation":"Using y = x², y = -3² = 9.","fast_method":"Set the expressions equal, or graph both in Desmos and read the intersections."},{"id":"v2q097","number":97,"topic":"Nonlinear Functions and Systems","skill":"Function composition","difficulty":"Hard","kind":"mcq","prompt":"If f(x) = 5x − 4 and g(x) = 2x, what is f(g(4))?","choices":["36","37","32","16"],"answer_index":0,"answer":null,"tolerance":0,"hint":"Evaluate the inside function first.","explanation":"g(4) = 8; then f(8) = 5(8) − 4 = 36.","fast_method":"Work inside-out—evaluate the inner function, then feed its result into the outer one."},{"id":"v2q098","number":98,"topic":"Nonlinear Functions and Systems","skill":"Inverse functions","difficulty":"Hard","kind":"numeric","prompt":"If f(x) = 3x − 6, what is f⁻¹(19)?","choices":null,"answer_index":null,"answer":"25/3","tolerance":1e-06,"hint":"Solve y = ax + b for x.","explanation":"Set 19 = 3x − 6. Then x = (19 + 6)/3 = 25/3.","fast_method":"Set f(x) equal to the given value and solve for x—that's the inverse output."},{"id":"v2q099","number":99,"topic":"Nonlinear Functions and Systems","skill":"Absolute-value equations","difficulty":"Challenge","kind":"mcq","prompt":"What are the solutions to |x + 5| = 4?","choices":["-1 only","-9 and -1","-5 only","-9 only"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Split into x − h = k and x − h = −k.","explanation":"x = -5 ± 4, so the solutions are -9 and -1.","fast_method":"Split into two cases: inside = +value and inside = −value."},{"id":"v2q100","number":100,"topic":"Nonlinear Functions and Systems","skill":"Function transformations","difficulty":"Challenge","kind":"mcq","prompt":"The graph of y = x² is translated 4 units right and 1 units up. Which equation represents the new graph?","choices":["y = x² + 5","y = (x − 4)² + 1","y = (x + 4)² + 1","y = (x − 1)² + 4"],"answer_index":1,"answer":null,"tolerance":0,"hint":"Horizontal shifts appear with the opposite sign inside parentheses.","explanation":"A horizontal shift by 4 and vertical shift by 1 gives y = (x − 4)² + 1.","fast_method":"Inside the parentheses shifts left/right (opposite sign); outside shifts up/down."}]};</script><script src="app.js?v=20260805-math-progress-v13-20260806T013611Z"></script><script>initVolumePage();</script><script id="sat-math-two-row-hierarchy-script-v1">
+(function () {
+  const SET_1_VOLUMES = [
+    {
+      label: 'Volume 1',
+      href: 'volume-1-algebra-foundations.html',
+      files: ['volume-1-algebra-foundations.html']
+    },
+    {
+      label: 'Volume 2',
+      href: 'volume-2-advanced-math.html',
+      files: ['volume-2-advanced-math.html']
+    },
+    {
+      label: 'Volume 3',
+      href: 'volume-3-data-geometry-trigonometry.html',
+      files: ['volume-3-data-geometry-trigonometry.html']
+    }
+  ];
+
+  const SET_2_VOLUMES = [
+    {
+      label: 'Volume 1',
+      href: 'set-2-volume-1-algebra.html',
+      files: ['set-2-volume-1-algebra.html']
+    },
+    {
+      label: 'Volume 2',
+      href: 'set-2-volume-2-advanced-math.html',
+      files: ['set-2-volume-2-advanced-math.html']
+    },
+    {
+      label: 'Volume 3',
+      href: 'set-2-volume-3-data-geometry-trigonometry.html',
+      files: ['set-2-volume-3-data-geometry-trigonometry.html']
+    }
+  ];
+
+  function currentFile() {
+    const path = window.location.pathname;
+    return path.split('/').pop() || 'index.html';
+  }
+
+  function studentId() {
+    return new URLSearchParams(window.location.search).get('student') || window.localStorage.getItem('sat_user') || '';
+  }
+
+  function hrefWithStudent(href) {
+    const student = studentId();
+
+    if (!student) {
+      return href;
+    }
+
+    const url = new URL(href, window.location.href);
+    url.searchParams.set('student', student);
+
+    return `${url.pathname.split('/').pop()}${url.search}${url.hash}`;
+  }
+
+  function makeLink(label, href, className, current) {
+    const anchor = document.createElement('a');
+    anchor.textContent = label;
+    anchor.href = hrefWithStudent(href);
+
+    if (className) {
+      anchor.className = className;
+    }
+
+    if (current) {
+      anchor.setAttribute('aria-current', 'page');
+    }
+
+    return anchor;
+  }
+
+  function activeSet(file) {
+    if (
+      file === 'set-2.html' ||
+      SET_2_VOLUMES.some(volume => volume.files.includes(file))
+    ) {
+      return 2;
+    }
+
+    if (
+      file === 'set-1.html' ||
+      SET_1_VOLUMES.some(volume => volume.files.includes(file))
+    ) {
+      return 1;
+    }
+
+    return 0;
+  }
+
+  function activeVolume(file, volumes) {
+    return volumes.findIndex(volume => volume.files.includes(file));
+  }
+
+  function buildNavigation() {
+    const navLinks =
+      document.querySelector('.site-header .nav-links') ||
+      document.querySelector('.nav-links');
+
+    if (!navLinks) {
+      console.warn('Two-row Math navigation skipped: .nav-links not found.');
+      return;
+    }
+
+    const file = currentFile();
+    const setNumber = activeSet(file);
+
+    const topRow = document.createElement('div');
+    topRow.className = 'sat-math-nav-top-row';
+
+    topRow.append(
+      makeLink(
+        'Home',
+        'index.html',
+        '',
+        file === 'index.html'
+      ),
+      makeLink(
+        'Set 1',
+        'set-1.html',
+        setNumber === 1 ? 'sat-parent-selected' : '',
+        file === 'set-1.html'
+      ),
+      makeLink(
+        'Set 2',
+        'set-2.html',
+        setNumber === 2 ? 'sat-parent-selected' : '',
+        file === 'set-2.html'
+      )
+    );
+
+    const fragment = document.createDocumentFragment();
+    fragment.appendChild(topRow);
+
+    if (setNumber === 1 || setNumber === 2) {
+      const volumeRow = document.createElement('div');
+      volumeRow.className = 'sat-math-nav-volume-row';
+
+      const label = document.createElement('span');
+      label.className = 'sat-math-nav-label';
+      label.textContent = `SET ${setNumber} VOLUMES`;
+
+      volumeRow.appendChild(label);
+
+      const volumes = setNumber === 1
+        ? SET_1_VOLUMES
+        : SET_2_VOLUMES;
+
+      const selectedIndex = activeVolume(file, volumes);
+
+      volumes.forEach((volume, index) => {
+        volumeRow.appendChild(
+          makeLink(
+            volume.label,
+            volume.href,
+            index === selectedIndex ? 'sat-child-selected' : '',
+            index === selectedIndex
+          )
+        );
+      });
+
+      fragment.appendChild(volumeRow);
+    }
+
+    navLinks.replaceChildren(fragment);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener(
+      'DOMContentLoaded',
+      buildNavigation,
+      { once: true }
+    );
+  } else {
+    buildNavigation();
+  }
+})();
+</script>
+<script src="/sat-nav-fix.js?v=20260729-4"></script>
+<script src="/js/inactivity-timeout.js?v=20260730-1"></script>
+</body></html>

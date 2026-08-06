@@ -12,7 +12,7 @@ LAMBDA_SOURCE="$ROOT/lambda/sat-progress-handler/source"
 DEV_BUCKET="sat-prep-josh-dev"
 DEV_FUNCTION="sat-progress-handler-dev"
 DEV_TABLE="sat-progress-dev"
-DEV_DOMAIN="dev.sat.denduluru.com"
+DEV_DOMAIN="dev-sat.denduluru.com"
 DISTRIBUTION_ID="E2YNYV2XTI6ODH"
 
 PROD_TABLE="sat-progress"

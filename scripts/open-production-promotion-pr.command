@@ -38,7 +38,7 @@ gh pr create \
   --body "$(cat <<'BODY'
 ## Promotion checklist
 
-- [ ] Tested student sign-in on dev.sat.denduluru.com
+- [ ] Tested student sign-in on dev-sat.denduluru.com
 - [ ] Tested Math question save and refresh
 - [ ] Tested English question save and refresh
 - [ ] Tested progress/dashboard behavior

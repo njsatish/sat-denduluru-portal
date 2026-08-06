@@ -4,7 +4,7 @@
 
 | Environment | Branch | URL | S3 | Lambda | DynamoDB |
 |---|---|---|---|---|---|
-| Development | `develop` | `https://dev.sat.denduluru.com` | `sat-prep-josh-dev` | `sat-progress-handler-dev` | `sat-progress-dev` |
+| Development | `develop` | `https://dev-sat.denduluru.com` | `sat-prep-josh-dev` | `sat-progress-handler-dev` | `sat-progress-dev` |
 | Production | `main` | `https://sat.denduluru.com` | `sat-prep-josh` | `sat-progress-handler` | `sat-progress` |
 
 Development currently shares the existing Cognito user pool for authentication,
@@ -35,7 +35,7 @@ git push origin develop
 
 At minimum:
 
-1. Sign in to `https://dev.sat.denduluru.com`.
+1. Sign in to `https://dev-sat.denduluru.com`.
 2. Answer a new Math question and refresh.
 3. Answer a new English question and refresh.
 4. Confirm progress appears under the development account.

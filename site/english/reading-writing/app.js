@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const PROGRESS_API = "https://l2m5cxuri2eojykndfbabmuthi0xfjya.lambda-url.us-east-1.on.aws/";
+  const PROGRESS_API = "https://hvvnxnlzdt7h4w53prvjavlgom0twjbu.lambda-url.us-east-1.on.aws/";
   const questions = window.SAT_RW_QUESTIONS || [];
   const letters = ['A', 'B', 'C', 'D'];
   const state = {

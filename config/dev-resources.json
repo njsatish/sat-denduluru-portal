@@ -1,0 +1,13 @@
+{
+  "environment": "dev",
+  "domain": "https://dev.sat.denduluru.com",
+  "awsAccount": "989174615155",
+  "region": "us-east-1",
+  "s3Bucket": "sat-prep-josh-dev",
+  "lambdaFunction": "sat-progress-handler-dev",
+  "lambdaFunctionUrl": "https://hvvnxnlzdt7h4w53prvjavlgom0twjbu.lambda-url.us-east-1.on.aws/",
+  "dynamoDbTable": "sat-progress-dev",
+  "cloudFrontDistributionId": "E2YNYV2XTI6ODH",
+  "cloudFrontDomain": "dpyayksfybvt5.cloudfront.net",
+  "cognitoIsolation": "shared-production-user-pool-initially"
+}

@@ -99,9 +99,14 @@ PY
   zip -qr "$TEMP_DIR/dev-lambda.zip" .
 )
 
-"${AWS[@]}" lambda update-function-code   --function-name "$DEV_FUNCTION"   --zip-file "fileb://$TEMP_DIR/dev-lambda.zip"   >/dev/null
-
-"${AWS[@]}" lambda wait function-updated   --function-name "$DEV_FUNCTION"
+# BEGIN SAT_DEV_PRESERVE_WORKING_LAMBDA_V2
+# Routine dev deployments publish frontend/site changes only. Preserve the
+# already-verified sat-progress-handler-dev package and its CORS wrapper.
+# Backend Lambda changes must use a dedicated backend deployment with API/CORS
+# smoke tests instead of being bundled into every frontend deployment.
+echo "Preserving verified dev progress Lambda: $DEV_FUNCTION"
+echo "Frontend deployment will not replace the dev Lambda package."
+# END SAT_DEV_PRESERVE_WORKING_LAMBDA_V2
 
 "${AWS[@]}" s3 sync   "$TEMP_DIR/site"   "s3://$DEV_BUCKET"   --delete   --exclude "backups/*"   --only-show-errors
 

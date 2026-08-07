@@ -389,6 +389,7 @@ async function syncFromCloud() {
     });
 
     if (changed) saveProgress(local);
+    resetOldSet2VisualReplacementProgressForJosh(); // post-cloud-prune
     resetOldVisualReplacementProgressForJosh(); // post-cloud-prune
   } catch (error) {
     console.warn('cloud sync failed', error);
@@ -723,6 +724,23 @@ function resetOldVisualReplacementProgressForJosh() {
   if (changed) localStorage.setItem(storageKey(), JSON.stringify(progress));
 }
 // END SAT_VISUAL_REPLACEMENT_LOCAL_RESET_V1
+
+// BEGIN SAT_SET2_VISUAL_REPLACEMENT_LOCAL_RESET_V2
+const SAT_SET2_VISUAL_REPLACEMENT_RESET_CUTOFF = "2026-08-07T22:41:07Z";
+const SAT_SET2_VISUAL_REPLACEMENT_RESET_IDS = new Set(["s2v1q001", "s2v1q015", "s2v1q017", "s2v1q019", "s2v1q025", "s2v1q027", "s2v1q028", "s2v1q031", "s2v1q035", "s2v1q036", "s2v1q037", "s2v1q038", "s2v2q015", "s2v2q016", "s2v2q017", "s2v2q018", "s2v2q021", "s2v2q025", "s2v2q026", "s2v2q035", "s2v2q045", "s2v2q051", "s2v2q052", "s2v2q061", "s2v2q067", "s2v2q071", "s2v2q075", "s2v2q076", "s2v3q021", "s2v3q023", "s2v3q031", "s2v3q035", "s2v3q036", "s2v3q041", "s2v3q042", "s2v3q043", "s2v3q055", "s2v3q065", "s2v3q075", "s2v3q079", "s2v3q088", "s2v3q091", "s2v3q095", "s2v3q096"]);
+function resetOldSet2VisualReplacementProgressForJosh() {
+  if (getUser() !== 'josh') return;
+  const progress = loadProgress();
+  const cutoffMs = Date.parse(SAT_SET2_VISUAL_REPLACEMENT_RESET_CUTOFF);
+  let changed = false;
+  SAT_SET2_VISUAL_REPLACEMENT_RESET_IDS.forEach(questionId => {
+    const item = progress[questionId]; if (!item) return;
+    const itemTime = item.syncedAt || item.attemptedAt || ''; const itemMs = Date.parse(itemTime);
+    if (!itemTime || Number.isNaN(itemMs) || itemMs < cutoffMs) { delete progress[questionId]; changed = true; }
+  });
+  if (changed) localStorage.setItem(storageKey(), JSON.stringify(progress));
+}
+// END SAT_SET2_VISUAL_REPLACEMENT_LOCAL_RESET_V2
 
 function parseMathValue(raw) {
   if (raw === null || raw === undefined) return NaN;
@@ -1283,6 +1301,7 @@ function moveGuidesAndFormulasToPageEnd(page) {
 
 async function initVolumePage() {
   if (!(await prepareStudentPage())) return;
+  resetOldSet2VisualReplacementProgressForJosh();
   resetOldVisualReplacementProgressForJosh();
 
 

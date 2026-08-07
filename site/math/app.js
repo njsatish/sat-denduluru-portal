@@ -389,6 +389,7 @@ async function syncFromCloud() {
     });
 
     if (changed) saveProgress(local);
+    resetOldVisualReplacementProgressForJosh(); // post-cloud-prune
   } catch (error) {
     console.warn('cloud sync failed', error);
     window.dispatchEvent(new CustomEvent('sat-math-progress-sync-error', {
@@ -699,6 +700,29 @@ function saveProgress(progress) {
   localStorage.setItem(storageKey(), JSON.stringify(progress));
   window.dispatchEvent(new Event('sat-progress'));
 }
+
+
+// BEGIN SAT_VISUAL_REPLACEMENT_LOCAL_RESET_V1
+const SAT_VISUAL_REPLACEMENT_RESET_CUTOFF = "2026-08-07T21:59:34Z";
+const SAT_VISUAL_REPLACEMENT_RESET_IDS = new Set(["v1q021", "v1q024", "v1q028", "v1q031", "v1q034", "v1q036", "v1q062", "v1q067", "v1q069", "v1q077", "v1q095", "v1q100", "v2q022", "v2q027", "v2q033", "v2q038", "v2q039", "v2q042", "v2q043", "v2q046", "v2q052", "v2q056", "v2q065", "v2q070", "v2q075", "v2q090", "v2q096", "v2q100", "v3q017", "v3q025", "v3q030", "v3q033", "v3q036", "v3q038", "v3q043", "v3q045", "v3q055", "v3q057", "v3q065", "v3q066", "v3q070", "v3q084", "v3q098", "v3q100"]);
+function resetOldVisualReplacementProgressForJosh() {
+  if (getUser() !== 'josh') return;
+  const progress = loadProgress();
+  const cutoffMs = Date.parse(SAT_VISUAL_REPLACEMENT_RESET_CUTOFF);
+  let changed = false;
+  SAT_VISUAL_REPLACEMENT_RESET_IDS.forEach(questionId => {
+    const item = progress[questionId];
+    if (!item) return;
+    const itemTime = item.syncedAt || item.attemptedAt || '';
+    const itemMs = Date.parse(itemTime);
+    if (!itemTime || Number.isNaN(itemMs) || itemMs < cutoffMs) {
+      delete progress[questionId];
+      changed = true;
+    }
+  });
+  if (changed) localStorage.setItem(storageKey(), JSON.stringify(progress));
+}
+// END SAT_VISUAL_REPLACEMENT_LOCAL_RESET_V1
 
 function parseMathValue(raw) {
   if (raw === null || raw === undefined) return NaN;
@@ -1259,6 +1283,8 @@ function moveGuidesAndFormulasToPageEnd(page) {
 
 async function initVolumePage() {
   if (!(await prepareStudentPage())) return;
+  resetOldVisualReplacementProgressForJosh();
+
 
   const page = window.SAT_PAGE;
   moveGuidesAndFormulasToPageEnd(page);

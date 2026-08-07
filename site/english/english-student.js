@@ -40,7 +40,7 @@
     setStudentName(studentId);
     if (!studentId) return;
     try {
-      const response = await fetch('https://l2m5cxuri2eojykndfbabmuthi0xfjya.lambda-url.us-east-1.on.aws/', {
+      const response = await fetch('https://hvvnxnlzdt7h4w53prvjavlgom0twjbu.lambda-url.us-east-1.on.aws/', {
         method: 'POST', headers: {'Content-Type':'application/json'},
         body: JSON.stringify({action:'getStudent', userId:studentId}), cache:'no-store'
       });

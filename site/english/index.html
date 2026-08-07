@@ -269,4 +269,151 @@ function updateProgressBar(detailId,percentId,fillId){const c=globalCounts();con
 function refreshIndex(){updateProgressBar('progressDetail','progressPercent','progressFill');document.querySelectorAll('.study-link[data-start]').forEach(link=>{const c=rangeCounts(Number(link.dataset.start),Number(link.dataset.end));link.querySelector('.set-progress').textContent=`${c.learned} learned · ${c.remaining} remaining`;})}
 document.getElementById('resetProgress').addEventListener('click',()=>{if(confirm('Reset all learned-word progress for all 375 SAT words on this browser?')){resetAllProgress();refreshIndex()}});window.addEventListener('storage',refreshIndex);refreshIndex();</script><script src="/sat-nav-fix.js?v=20260729-4"></script>
 <script src="/js/inactivity-timeout.js?v=20260730-1"></script>
+<!-- SAT_DEV_ENGLISH_INDEX_COMPACT_NAV_V1 BEGIN -->
+<style id="sat-dev-english-index-compact-nav-style">
+  /* Match the compact Math navigation dimensions on English index only. */
+  .sat-english-index-compact-nav {
+    min-height: 0 !important;
+    padding: 9px 12px !important;
+  }
+
+  .sat-english-index-compact-nav nav,
+  .sat-english-index-compact-nav .nav-links,
+  .sat-english-index-compact-nav .nav-menu,
+  .sat-english-index-compact-nav .navigation-links,
+  .sat-english-index-compact-nav [class*="nav-links"],
+  .sat-english-index-compact-nav [class*="nav-menu"] {
+    gap: 7px !important;
+    align-items: center !important;
+  }
+
+  .sat-english-index-compact-nav a,
+  .sat-english-index-compact-nav button {
+    min-height: 36px !important;
+    padding: 8px 12px !important;
+    border-radius: 9px !important;
+    font-size: 0.85rem !important;
+    line-height: 1.2 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .sat-english-index-compact-nav .brand,
+  .sat-english-index-compact-nav .logo,
+  .sat-english-index-compact-nav [class*="brand"],
+  .sat-english-index-compact-nav [class*="logo"] {
+    font-size: 1rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .sat-english-index-compact-nav [data-student-name],
+  .sat-english-index-compact-nav .student-name,
+  .sat-english-index-compact-nav [class*="student"] {
+    font-size: 0.85rem !important;
+    line-height: 1.2 !important;
+  }
+
+  @media (max-width: 700px) {
+    .sat-english-index-compact-nav {
+      padding: 8px 10px !important;
+    }
+
+    .sat-english-index-compact-nav nav,
+    .sat-english-index-compact-nav .nav-links,
+    .sat-english-index-compact-nav .nav-menu,
+    .sat-english-index-compact-nav .navigation-links,
+    .sat-english-index-compact-nav [class*="nav-links"],
+    .sat-english-index-compact-nav [class*="nav-menu"] {
+      gap: 6px !important;
+    }
+
+    .sat-english-index-compact-nav a,
+    .sat-english-index-compact-nav button {
+      min-height: 34px !important;
+      padding: 7px 10px !important;
+      font-size: 0.8rem !important;
+    }
+  }
+</style>
+<script id="sat-dev-english-index-compact-nav-script">
+(() => {
+  'use strict';
+
+  const requiredLabels = ['sat home', 'english', 'math'];
+
+  function normalize(value) {
+    return String(value || '').replace(/\s+/g, ' ').trim().toLowerCase();
+  }
+
+  function isPortalNavigation(element) {
+    if (!(element instanceof Element)) return false;
+    const labels = Array.from(element.querySelectorAll('a, button'))
+      .map((node) => normalize(node.textContent))
+      .filter(Boolean);
+
+    return requiredLabels.every((required) =>
+      labels.some((label) => label === required || label.includes(required))
+    );
+  }
+
+  function resizeNavigation() {
+    const selectors = [
+      'header',
+      'nav',
+      '[role="navigation"]',
+      '.top-nav',
+      '.site-nav',
+      '.sat-nav',
+      '.portal-nav',
+      '.main-nav',
+      '.navbar',
+      '#sat-subject-navigation',
+      '.sat-subject-navigation'
+    ];
+
+    const candidates = Array.from(
+      new Set(document.querySelectorAll(selectors.join(',')))
+    ).filter(isPortalNavigation);
+
+    // Mark only outer navigation bands, not nested <nav> elements inside them.
+    candidates
+      .filter((candidate) =>
+        !candidates.some(
+          (other) => other !== candidate && other.contains(candidate)
+        )
+      )
+      .forEach((navigation) =>
+        navigation.classList.add('sat-english-index-compact-nav')
+      );
+  }
+
+  function start() {
+    resizeNavigation();
+
+    let queued = false;
+    const observer = new MutationObserver(() => {
+      if (queued) return;
+      queued = true;
+      queueMicrotask(() => {
+        queued = false;
+        resizeNavigation();
+      });
+    });
+
+    observer.observe(document.body, {childList: true, subtree: true});
+    window.setTimeout(() => {
+      resizeNavigation();
+      observer.disconnect();
+    }, 10000);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start, {once: true});
+  } else {
+    start();
+  }
+})();
+</script>
+<!-- SAT_DEV_ENGLISH_INDEX_COMPACT_NAV_V1 END -->
 </body></html>

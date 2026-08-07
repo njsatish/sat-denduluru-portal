@@ -143,7 +143,7 @@
 (() => {
   'use strict';
 
-  const PROGRESS_API = 'https://l2m5cxuri2eojykndfbabmuthi0xfjya.lambda-url.us-east-1.on.aws/';
+  const PROGRESS_API = 'https://hvvnxnlzdt7h4w53prvjavlgom0twjbu.lambda-url.us-east-1.on.aws/';
   const LEGACY_PROGRESS_KEY = 'sat300-nireekshan-progress-v1';
   const TOTAL_WORDS = 375;
   const params = new URLSearchParams(location.search);
@@ -414,7 +414,7 @@
 (() => {
   'use strict';
 
-  const API = "https://l2m5cxuri2eojykndfbabmuthi0xfjya.lambda-url.us-east-1.on.aws/";
+  const API = "https://hvvnxnlzdt7h4w53prvjavlgom0twjbu.lambda-url.us-east-1.on.aws/";
   const TOTAL = 375;
   const previous = window.SATEnglishCloud || {};
   const normalizeStudent = value => {
@@ -556,3 +556,132 @@
   };
 })();
 /* END SAT ENGLISH CLOUD V7 */
+
+/* SAT_DEV_SINGLE_NAV_BEGIN */
+(() => {
+  'use strict';
+
+  const REQUIRED_LABELS = ['sat home', 'english', 'math'];
+
+  function normalize(value) {
+    return String(value || '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .toLowerCase();
+  }
+
+  function looksLikePortalNavigation(element) {
+    if (!(element instanceof Element)) return false;
+
+    const labels = Array.from(element.querySelectorAll('a, button'))
+      .map((node) => normalize(node.textContent))
+      .filter(Boolean);
+
+    return REQUIRED_LABELS.every((required) =>
+      labels.some((label) => label === required || label.includes(required))
+    );
+  }
+
+  function navigationRoots() {
+    const selectors = [
+      'header',
+      'nav',
+      '[role="navigation"]',
+      '.top-nav',
+      '.site-nav',
+      '.sat-nav',
+      '.portal-nav',
+      '.main-nav',
+      '.navbar'
+    ];
+
+    const candidates = Array.from(
+      new Set(Array.from(document.querySelectorAll(selectors.join(','))))
+    ).filter(looksLikePortalNavigation);
+
+    // Keep only the outermost element for each navigation band so a nested
+    // <nav> inside a <header> is not counted twice.
+    return candidates.filter((candidate) =>
+      !candidates.some(
+        (other) => other !== candidate && other.contains(candidate)
+      )
+    );
+  }
+
+  function chooseNavigationToKeep(navigations) {
+    const withStudent = navigations.filter((element) =>
+      element.querySelector('[data-student-name]') ||
+      /student\s*:/i.test(element.textContent || '')
+    );
+
+    if (withStudent.length) {
+      return withStudent[withStudent.length - 1];
+    }
+
+    // The Math-style navigation is the compact one. When no student marker is
+    // available, keep the shortest band; use the later one as the tie-breaker.
+    return navigations.reduce((best, current) => {
+      const bestHeight = best.getBoundingClientRect().height || Infinity;
+      const currentHeight = current.getBoundingClientRect().height || Infinity;
+      return currentHeight <= bestHeight ? current : best;
+    });
+  }
+
+  function removeDuplicateNavigation() {
+    const navigations = navigationRoots();
+    if (navigations.length < 2) return false;
+
+    const keep = chooseNavigationToKeep(navigations);
+    let removed = 0;
+
+    navigations.forEach((navigation) => {
+      if (
+        navigation !== keep &&
+        !navigation.contains(keep) &&
+        !keep.contains(navigation)
+      ) {
+        navigation.remove();
+        removed += 1;
+      }
+    });
+
+    if (removed) {
+      document.documentElement.dataset.satSingleNavigation = 'true';
+      console.info(`Removed ${removed} duplicate SAT navigation band(s).`);
+    }
+
+    return removed > 0;
+  }
+
+  function startNavigationCleanup() {
+    removeDuplicateNavigation();
+
+    let queued = false;
+    const observer = new MutationObserver(() => {
+      if (queued) return;
+      queued = true;
+      queueMicrotask(() => {
+        queued = false;
+        removeDuplicateNavigation();
+      });
+    });
+
+    observer.observe(document.body, {childList: true, subtree: true});
+
+    // Auth/navigation scripts may finish after DOMContentLoaded. Watch briefly,
+    // make one final pass, and then disconnect.
+    window.setTimeout(() => {
+      removeDuplicateNavigation();
+      observer.disconnect();
+    }, 10000);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startNavigationCleanup, {
+      once: true
+    });
+  } else {
+    startNavigationCleanup();
+  }
+})();
+/* SAT_DEV_SINGLE_NAV_END */

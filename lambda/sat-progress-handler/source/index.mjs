@@ -20,7 +20,8 @@ import {
   AdminGetUserCommand,
   AdminEnableUserCommand,
   AdminDisableUserCommand,
-  AdminSetUserPasswordCommand
+  AdminSetUserPasswordCommand,
+  AdminAddUserToGroupCommand
 } from '@aws-sdk/client-cognito-identity-provider';
 
 const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}), {
@@ -29,6 +30,7 @@ const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}), {
 
 const cognito = new CognitoIdentityProviderClient({});
 const USER_POOL_ID = process.env.USER_POOL_ID || '';
+const STUDENT_GROUP = process.env.STUDENT_GROUP || '';
 
 const TABLE = process.env.TABLE_NAME || 'sat-progress';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '';
@@ -930,6 +932,44 @@ function requireUserPool() {
   }
   return USER_POOL_ID;
 }
+// SAT_ADMIN_STUDENT_GROUP_V1
+function requireStudentGroup() {
+  const group = String(STUDENT_GROUP || '').trim();
+  if (!group) {
+    throw new HttpError(
+      503,
+      'STUDENT_GROUP_NOT_CONFIGURED',
+      'STUDENT_GROUP is not configured for student account administration'
+    );
+  }
+  return group;
+}
+
+async function ensureStudentGroupMembership(studentId) {
+  requireUserPool();
+  const group = requireStudentGroup();
+
+  try {
+    await cognito.send(new AdminAddUserToGroupCommand({
+      UserPoolId: USER_POOL_ID,
+      Username: studentId,
+      GroupName: group
+    }));
+  } catch (error) {
+    if (error?.name === 'ResourceNotFoundException') {
+      throw new HttpError(
+        503,
+        'STUDENT_GROUP_NOT_FOUND',
+        `Required Cognito student group "${group}" was not found`
+      );
+    }
+    throw cognitoHttpError(
+      error,
+      'Unable to assign the student to the Cognito students group'
+    );
+  }
+}
+
 function normalizeEmail(value) {
   const email = String(value || '').trim().toLowerCase();
   if (!email) return '';
@@ -1009,6 +1049,23 @@ async function createStudentAccount({ displayName, username, email }) {
   } catch (error) {
     throw cognitoHttpError(error, 'Unable to create the Cognito login');
   }
+  try {
+    await ensureStudentGroupMembership(studentId);
+  } catch (error) {
+    try {
+      await cognito.send(new AdminDeleteUserCommand({
+        UserPoolId: USER_POOL_ID,
+        Username: studentId
+      }));
+    } catch (cleanupError) {
+      console.error(
+        'Unable to clean up Cognito user after group-assignment failure',
+        cleanupError
+      );
+    }
+    throw error;
+  }
+
   try {
     const student = await createStudent(cleanDisplayName, studentId);
     return { student, temporaryPassword, account: await cognitoAccount(studentId) };

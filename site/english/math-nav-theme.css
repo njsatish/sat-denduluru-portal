@@ -1,0 +1,51 @@
+/* SAT_DEV_ENGLISH_MATH_NAV_THEME_V4
+   Keep the copied Math navigation dark on the English page despite English
+   page-level header/nav rules. Scoped to one marked navigation container. */
+
+[data-math-nav-theme="dark"] {
+  color-scheme: dark !important;
+  background: linear-gradient(180deg, #1d1f23 0%, #191b1f 100%) !important;
+  background-color: #1b1d21 !important;
+  color: #f4f0e8 !important;
+  border-color: #454950 !important;
+  box-shadow: none !important;
+}
+
+[data-math-nav-theme="dark"],
+[data-math-nav-theme="dark"] * {
+  color: #f4f0e8;
+}
+
+[data-math-nav-theme="dark"] a,
+[data-math-nav-theme="dark"] button {
+  background: #23262b !important;
+  background-color: #23262b !important;
+  color: #f4f0e8 !important;
+  border-color: #5a5f68 !important;
+  box-shadow: none !important;
+}
+
+[data-math-nav-theme="dark"] a:hover,
+[data-math-nav-theme="dark"] button:hover {
+  background-color: #2c3036 !important;
+  color: #ffffff !important;
+}
+
+[data-math-nav-theme="dark"] a.active,
+[data-math-nav-theme="dark"] a.current,
+[data-math-nav-theme="dark"] a.is-active,
+[data-math-nav-theme="dark"] a[aria-current="page"],
+[data-math-nav-theme="dark"] button.active,
+[data-math-nav-theme="dark"] button[aria-current="page"] {
+  background: linear-gradient(180deg, #e3c669 0%, #d5ad3e 100%) !important;
+  background-color: #d9b44a !important;
+  color: #15171a !important;
+  border-color: #f0d477 !important;
+}
+
+[data-math-nav-theme="dark"] strong,
+[data-math-nav-theme="dark"] b,
+[data-math-nav-theme="dark"] span,
+[data-math-nav-theme="dark"] p {
+  color: inherit;
+}

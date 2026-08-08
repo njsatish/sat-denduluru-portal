@@ -1873,7 +1873,7 @@ async function initProgramSelector() {
   syncFromCloud();
 }
 
-/* SAT_DEV_MATH_DISPLAY_NAME_ONLY_V1 BEGIN */
+/* SAT_DEV_MATH_DISPLAY_NAME_ONLY_V2 BEGIN */
 (() => {
   'use strict';
 
@@ -1887,7 +1887,43 @@ async function initProgramSelector() {
     return /^[a-z0-9_-]{1,80}$/.test(id) ? id : '';
   }
 
-  function currentStudentId() {
+  function decodeJwt(token) {
+    try {
+      const part = String(token || '').split('.')[1];
+      if (!part) return null;
+      const base64 = part.replace(/-/g, '+').replace(/_/g, '/');
+      const padded = base64 + '='.repeat((4 - base64.length % 4) % 4);
+      return JSON.parse(
+        new TextDecoder().decode(
+          Uint8Array.from(atob(padded), character => character.charCodeAt(0))
+        )
+      );
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function claimsStudentId(claims) {
+    return normalizeStudentId(
+      claims?.['cognito:username'] ||
+      claims?.username ||
+      claims?.preferred_username ||
+      ''
+    );
+  }
+
+  function claimsDisplayName(claims, fallback) {
+    return String(
+      claims?.name ||
+      claims?.given_name ||
+      claims?.preferred_username ||
+      claims?.['cognito:username'] ||
+      fallback ||
+      ''
+    ).trim();
+  }
+
+  function fallbackStudentId() {
     try {
       if (typeof getUser === 'function') {
         const value = normalizeStudentId(getUser());
@@ -1901,20 +1937,40 @@ async function initProgramSelector() {
     );
   }
 
+  async function resolveAuthenticatedIdentity() {
+    let sessionClaims = null;
+
+    try {
+      if (window.SATAuth && typeof window.SATAuth.getSession === 'function') {
+        const session = await window.SATAuth.getSession();
+        sessionClaims = session?.claims || null;
+      }
+    } catch (error) {
+      console.warn(
+        'Math display-name fix: SATAuth session lookup failed; using token claims.',
+        error
+      );
+    }
+
+    const tokenClaims = decodeJwt(
+      sessionStorage.getItem('sat_id_token') ||
+      localStorage.getItem('sat_id_token')
+    );
+
+    const claims = sessionClaims || tokenClaims || {};
+    const studentId = claimsStudentId(claims) || fallbackStudentId();
+    const displayName = claimsDisplayName(claims, studentId) || studentId;
+
+    return {studentId, displayName};
+  }
+
   function replaceIdentityText(root) {
     if (!root || !resolvedStudentId || !resolvedDisplayName) return;
 
-    const walker = document.createTreeWalker(
-      root,
-      NodeFilter.SHOW_TEXT
-    );
-
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
     const nodes = [];
     let node;
-
-    while ((node = walker.nextNode())) {
-      nodes.push(node);
-    }
+    while ((node = walker.nextNode())) nodes.push(node);
 
     for (const textNode of nodes) {
       const raw = String(textNode.nodeValue || '');
@@ -1927,18 +1983,15 @@ async function initProgramSelector() {
       }
 
       if (lower === `student: ${resolvedStudentId}`) {
-        textNode.nodeValue = raw.replace(
-          trimmed,
-          `Student: ${resolvedDisplayName}`
-        );
+        textNode.nodeValue = raw.replace(trimmed, `Student: ${resolvedDisplayName}`);
         continue;
       }
 
-      if (lower === `signed in as ${resolvedStudentId}.`) {
-        textNode.nodeValue = raw.replace(
-          trimmed,
-          `Signed in as ${resolvedDisplayName}.`
-        );
+      if (
+        lower === `signed in as ${resolvedStudentId}.` ||
+        lower === `signed in as ${resolvedStudentId}`
+      ) {
+        textNode.nodeValue = raw.replace(trimmed, `Signed in as ${resolvedDisplayName}.`);
       }
     }
   }
@@ -1952,73 +2005,54 @@ async function initProgramSelector() {
     }
 
     replaceIdentityText(document.querySelector('.site-header .nav'));
-    replaceIdentityText(
-      document.getElementById('sat-unified-global-navigation')
-    );
-    replaceIdentityText(
-      document.getElementById('sat-subject-navigation')
-    );
+    replaceIdentityText(document.getElementById('sat-unified-global-navigation'));
+    replaceIdentityText(document.getElementById('sat-subject-navigation'));
   }
 
   function scheduleApply() {
     if (queued) return;
     queued = true;
-
     requestAnimationFrame(() => {
       queued = false;
       applyDisplayName();
     });
   }
 
-  async function loadDisplayName() {
-    resolvedStudentId = currentStudentId();
-    if (!resolvedStudentId) return;
+  async function startDisplayNameSync() {
+    const identity = await resolveAuthenticatedIdentity();
+    resolvedStudentId = identity.studentId;
+    resolvedDisplayName = identity.displayName;
 
-    if (typeof apiRequest !== 'function') {
-      console.warn('Math display-name fix: apiRequest is unavailable.');
+    if (!resolvedStudentId) {
+      console.warn('Math display-name fix: authenticated student ID was not resolved.');
       return;
     }
 
-    try {
-      const data = await apiRequest({
-        action: 'getStudent',
-        userId: resolvedStudentId
-      });
+    // Keep existing progress/user identity unchanged.
+    localStorage.setItem('sat_user', resolvedStudentId);
 
-      const displayName = String(
-        data?.student?.displayName || ''
-      ).trim();
+    if (!resolvedDisplayName) resolvedDisplayName = resolvedStudentId;
 
-      if (!displayName) return;
+    applyDisplayName();
 
-      resolvedDisplayName = displayName;
-      applyDisplayName();
+    observer = new MutationObserver(scheduleApply);
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      characterData: true
+    });
 
-      observer = new MutationObserver(scheduleApply);
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true,
-        characterData: true
-      });
+    [100, 250, 500, 1000, 2000, 4000].forEach(delay => {
+      setTimeout(applyDisplayName, delay);
+    });
 
-      [100, 250, 500, 1000, 2000, 4000].forEach(delay => {
-        setTimeout(applyDisplayName, delay);
-      });
-
-      setTimeout(() => observer?.disconnect(), 10000);
-    } catch (error) {
-      console.warn('Math display-name lookup failed.', error);
-    }
+    setTimeout(() => observer?.disconnect(), 15000);
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener(
-      'DOMContentLoaded',
-      loadDisplayName,
-      {once: true}
-    );
+    document.addEventListener('DOMContentLoaded', startDisplayNameSync, {once: true});
   } else {
-    loadDisplayName();
+    startDisplayNameSync();
   }
 })();
-/* SAT_DEV_MATH_DISPLAY_NAME_ONLY_V1 END */
+/* SAT_DEV_MATH_DISPLAY_NAME_ONLY_V2 END */

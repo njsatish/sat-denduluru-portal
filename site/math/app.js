@@ -1872,3 +1872,153 @@ async function initProgramSelector() {
   window.addEventListener('sat-progress', render);
   syncFromCloud();
 }
+
+/* SAT_DEV_MATH_DISPLAY_NAME_ONLY_V1 BEGIN */
+(() => {
+  'use strict';
+
+  let resolvedStudentId = '';
+  let resolvedDisplayName = '';
+  let observer = null;
+  let queued = false;
+
+  function normalizeStudentId(value) {
+    const id = String(value || '').trim().toLowerCase();
+    return /^[a-z0-9_-]{1,80}$/.test(id) ? id : '';
+  }
+
+  function currentStudentId() {
+    try {
+      if (typeof getUser === 'function') {
+        const value = normalizeStudentId(getUser());
+        if (value) return value;
+      }
+    } catch (_) {}
+
+    return normalizeStudentId(
+      localStorage.getItem('sat_user') ||
+      new URLSearchParams(location.search).get('student')
+    );
+  }
+
+  function replaceIdentityText(root) {
+    if (!root || !resolvedStudentId || !resolvedDisplayName) return;
+
+    const walker = document.createTreeWalker(
+      root,
+      NodeFilter.SHOW_TEXT
+    );
+
+    const nodes = [];
+    let node;
+
+    while ((node = walker.nextNode())) {
+      nodes.push(node);
+    }
+
+    for (const textNode of nodes) {
+      const raw = String(textNode.nodeValue || '');
+      const trimmed = raw.trim();
+      const lower = trimmed.toLowerCase();
+
+      if (lower === resolvedStudentId) {
+        textNode.nodeValue = raw.replace(trimmed, resolvedDisplayName);
+        continue;
+      }
+
+      if (lower === `student: ${resolvedStudentId}`) {
+        textNode.nodeValue = raw.replace(
+          trimmed,
+          `Student: ${resolvedDisplayName}`
+        );
+        continue;
+      }
+
+      if (lower === `signed in as ${resolvedStudentId}.`) {
+        textNode.nodeValue = raw.replace(
+          trimmed,
+          `Signed in as ${resolvedDisplayName}.`
+        );
+      }
+    }
+  }
+
+  function applyDisplayName() {
+    if (!resolvedDisplayName) return;
+
+    const display = document.getElementById('student-display-name');
+    if (display && display.textContent.trim() !== resolvedDisplayName) {
+      display.textContent = resolvedDisplayName;
+    }
+
+    replaceIdentityText(document.querySelector('.site-header .nav'));
+    replaceIdentityText(
+      document.getElementById('sat-unified-global-navigation')
+    );
+    replaceIdentityText(
+      document.getElementById('sat-subject-navigation')
+    );
+  }
+
+  function scheduleApply() {
+    if (queued) return;
+    queued = true;
+
+    requestAnimationFrame(() => {
+      queued = false;
+      applyDisplayName();
+    });
+  }
+
+  async function loadDisplayName() {
+    resolvedStudentId = currentStudentId();
+    if (!resolvedStudentId) return;
+
+    if (typeof apiRequest !== 'function') {
+      console.warn('Math display-name fix: apiRequest is unavailable.');
+      return;
+    }
+
+    try {
+      const data = await apiRequest({
+        action: 'getStudent',
+        userId: resolvedStudentId
+      });
+
+      const displayName = String(
+        data?.student?.displayName || ''
+      ).trim();
+
+      if (!displayName) return;
+
+      resolvedDisplayName = displayName;
+      applyDisplayName();
+
+      observer = new MutationObserver(scheduleApply);
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        characterData: true
+      });
+
+      [100, 250, 500, 1000, 2000, 4000].forEach(delay => {
+        setTimeout(applyDisplayName, delay);
+      });
+
+      setTimeout(() => observer?.disconnect(), 10000);
+    } catch (error) {
+      console.warn('Math display-name lookup failed.', error);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener(
+      'DOMContentLoaded',
+      loadDisplayName,
+      {once: true}
+    );
+  } else {
+    loadDisplayName();
+  }
+})();
+/* SAT_DEV_MATH_DISPLAY_NAME_ONLY_V1 END */

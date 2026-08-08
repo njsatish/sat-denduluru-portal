@@ -108,12 +108,21 @@ async function createStudent(event) {
     const data=await apiRequest({
       action:'createStudentAccount',adminPassword,displayName,username,email:email||undefined
     });
+    const invitation=data.invitation||{};
     showCredentials({
-      title:'✓ Student created',displayName:data.student.displayName,
-      username:data.student.studentId,temporaryPassword:data.temporaryPassword
+      title:invitation.requested?'✓ Student created · invitation email requested':'✓ Student created',
+      displayName:data.student.displayName,
+      username:data.student.studentId,
+      temporaryPassword:data.temporaryPassword
     });
     document.getElementById('student-form').reset();
-    setStatus(`Created ${data.student.displayName}.`,'success');
+    if(invitation.requested){
+      setStatus(`Created ${data.student.displayName}. Cognito invitation requested for ${invitation.email}.`,'success');
+    }else if(email){
+      setStatus(`Created ${data.student.displayName}, but Cognito did not accept the email invitation request. Use Copy Login Details or Resend Invite.`,'error');
+    }else{
+      setStatus(`Created ${data.student.displayName}. No email supplied; use Copy Login Details.`,'success');
+    }
     await loadStudents();
   }catch(error){setStatus(error.message,'error');}
 }
@@ -152,6 +161,7 @@ function renderStudents(students) {
         </div>
         <div class="actions">
           <button class="btn view-progress" type="button">View Progress</button>
+          <button class="btn resend-invite" type="button" hidden>Resend Invite</button>
           <button class="btn reset-password" type="button">Reset Password</button>
           <button class="btn toggle-active ${student.active===false?'primary':'danger'}"
             data-active="${student.active===false?'true':'false'}" type="button">
@@ -171,6 +181,32 @@ function wireStudentActions(container) {
       }
       button.textContent='Hide Progress';
       await loadStudentProgress(article.dataset.studentId,details);
+    });
+  });
+  container.querySelectorAll('.resend-invite').forEach(button=>{
+    button.addEventListener('click',async()=>{
+      const article=button.closest('.student');const studentId=article.dataset.studentId;
+      const student=loadedStudents.find(value=>value.studentId===studentId);
+      const email=button.dataset.email||overviewByStudent.get(studentId)?.account?.email||'';
+      if(!email){setStatus(`${studentId} does not have an email address.`,'error');return;}
+      if(!confirm(`Resend the Cognito invitation to ${email}? This creates a new temporary password.`))return;
+      button.disabled=true;
+      try{
+        const data=await apiRequest({action:'resendStudentInvitation',adminPassword:getAdminPassword(),studentId});
+        showCredentials({
+          title:data.invitation?.requested?'✓ Invitation email requested':'Temporary password created',
+          displayName:student?.displayName||studentId,
+          username:studentId,
+          temporaryPassword:data.temporaryPassword
+        });
+        if(data.invitation?.requested){
+          setStatus(`Cognito invitation requested for ${data.email}.`,'success');
+        }else{
+          setStatus('A new temporary password was created, but the email request was not accepted. Use Copy Login Details.','error');
+        }
+        await loadOverview(studentId);
+      }catch(error){setStatus(error.message,'error');}
+      finally{button.disabled=false;}
     });
   });
   container.querySelectorAll('.reset-password').forEach(button=>{
@@ -225,6 +261,12 @@ async function loadOverview(studentId) {
     article.querySelector('.account-badges').innerHTML=`
       <span class="${activeStudent?.active===false?'badge off':'badge'}">
         ${activeStudent?.active===false?'● Disabled':'● Active'}</span>${accountBadge(overview)}`;
+    const resendButton=article.querySelector('.resend-invite');
+    if(resendButton){
+      const account=overview?.account;
+      resendButton.hidden=!(account?.email&&account?.userStatus==='FORCE_CHANGE_PASSWORD');
+      resendButton.dataset.email=account?.email||'';
+    }
   }catch(error){
     article.querySelector('.math-progress strong').textContent='Unable to load';
     article.querySelector('.english-progress strong').textContent='Unable to load';

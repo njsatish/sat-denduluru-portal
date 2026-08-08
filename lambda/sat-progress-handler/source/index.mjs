@@ -102,6 +102,11 @@ const satEnglishOriginalHandler = async event => {
         const studentId = requireStudentId(body.studentId);
         return resp(200, await adminStudentOverview(studentId));
       }
+      case 'resendStudentInvitation': {
+        assertAdmin(body.adminPassword);
+        const studentId = requireStudentId(body.studentId);
+        return resp(200, await resendStudentInvitation(studentId));
+      }
       case 'resetStudentPassword': {
         assertAdmin(body.adminPassword);
         const studentId = requireStudentId(body.studentId);
@@ -1021,29 +1026,70 @@ async function cognitoAccount(studentId) {
     throw cognitoHttpError(error, 'Unable to read the Cognito account');
   }
 }
+// SAT_ADMIN_EMAIL_INVITATIONS_V1
+async function requestStudentInvitationEmail({ studentId, temporaryPassword, email }) {
+  if (!email) {
+    return { requested: false, delivery: 'NONE', email: null, reason: 'NO_EMAIL' };
+  }
+  try {
+    await cognito.send(new AdminCreateUserCommand({
+      UserPoolId: USER_POOL_ID,
+      Username: studentId,
+      TemporaryPassword: temporaryPassword,
+      MessageAction: 'RESEND',
+      DesiredDeliveryMediums: ['EMAIL']
+    }));
+    return { requested: true, delivery: 'EMAIL', email };
+  } catch (error) {
+    console.error(`Unable to request Cognito invitation email for ${studentId}`, error);
+    return {
+      requested: false,
+      delivery: 'EMAIL',
+      email,
+      reason: error?.name || 'EMAIL_DELIVERY_REQUEST_FAILED',
+      message: error?.message || 'Cognito did not accept the invitation request'
+    };
+  }
+}
+
+async function resendStudentInvitation(studentId) {
+  requireUserPool();
+  const student = await getStudent(studentId);
+  if (!student) throw new HttpError(404, 'STUDENT_NOT_FOUND', 'Student was not found');
+  const account = await cognitoAccount(studentId);
+  if (!account) throw new HttpError(404, 'LOGIN_NOT_FOUND', 'The Cognito login account was not found');
+  if (!account.email) throw new HttpError(409, 'EMAIL_NOT_CONFIGURED', 'This student does not have an email address in Cognito');
+  if (account.userStatus !== 'FORCE_CHANGE_PASSWORD') {
+    throw new HttpError(409, 'INVITATION_NOT_APPLICABLE', 'Invitation resend is available only before the student completes first login');
+  }
+  await ensureStudentGroupMembership(studentId);
+  const temporaryPassword = temporaryStudentPassword();
+  const invitation = await requestStudentInvitationEmail({ studentId, temporaryPassword, email: account.email });
+  return { studentId, temporaryPassword, email: account.email, invitation, account: await cognitoAccount(studentId) };
+}
+
 async function createStudentAccount({ displayName, username, email }) {
   requireUserPool();
   const studentId = requireStudentId(username);
   const cleanDisplayName = String(displayName || '').trim();
   if (!cleanDisplayName || cleanDisplayName.length > 80) {
-    throw new HttpError(400, 'INVALID_DISPLAY_NAME',
-      'Student name must be between 1 and 80 characters');
+    throw new HttpError(400, 'INVALID_DISPLAY_NAME', 'Student name must be between 1 and 80 characters');
   }
   const cleanEmail = normalizeEmail(email);
   if (await getStudent(studentId)) {
-    throw new HttpError(409, 'STUDENT_ALREADY_EXISTS',
-      'A student with that username already exists');
+    throw new HttpError(409, 'STUDENT_ALREADY_EXISTS', 'A student with that username already exists');
   }
   if (await cognitoAccount(studentId)) {
-    throw new HttpError(409, 'LOGIN_ALREADY_EXISTS',
-      'A Cognito login with that username already exists');
+    throw new HttpError(409, 'LOGIN_ALREADY_EXISTS', 'A Cognito login with that username already exists');
   }
   const temporaryPassword = temporaryStudentPassword();
   const attributes = cleanEmail ? [{ Name: 'email', Value: cleanEmail }] : [];
   try {
     await cognito.send(new AdminCreateUserCommand({
-      UserPoolId: USER_POOL_ID, Username: studentId,
-      TemporaryPassword: temporaryPassword, MessageAction: 'SUPPRESS',
+      UserPoolId: USER_POOL_ID,
+      Username: studentId,
+      TemporaryPassword: temporaryPassword,
+      MessageAction: 'SUPPRESS',
       UserAttributes: attributes
     }));
   } catch (error) {
@@ -1053,32 +1099,35 @@ async function createStudentAccount({ displayName, username, email }) {
     await ensureStudentGroupMembership(studentId);
   } catch (error) {
     try {
-      await cognito.send(new AdminDeleteUserCommand({
-        UserPoolId: USER_POOL_ID,
-        Username: studentId
-      }));
+      await cognito.send(new AdminDeleteUserCommand({ UserPoolId: USER_POOL_ID, Username: studentId }));
     } catch (cleanupError) {
-      console.error(
-        'Unable to clean up Cognito user after group-assignment failure',
-        cleanupError
-      );
+      console.error('Unable to clean up Cognito user after group-assignment failure', cleanupError);
     }
     throw error;
   }
-
+  let student;
   try {
-    const student = await createStudent(cleanDisplayName, studentId);
-    return { student, temporaryPassword, account: await cognitoAccount(studentId) };
+    student = await createStudent(cleanDisplayName, studentId);
   } catch (error) {
     try {
-      await cognito.send(new AdminDeleteUserCommand({
-        UserPoolId: USER_POOL_ID, Username: studentId
-      }));
+      await cognito.send(new AdminDeleteUserCommand({ UserPoolId: USER_POOL_ID, Username: studentId }));
     } catch (cleanupError) {
       console.error('Unable to clean up Cognito user after directory failure', cleanupError);
     }
     throw error;
   }
+  const invitation = await requestStudentInvitationEmail({
+    studentId,
+    temporaryPassword,
+    email: cleanEmail
+  });
+  return {
+    student,
+    temporaryPassword,
+    invitationEmailRequested: invitation.requested,
+    invitation,
+    account: await cognitoAccount(studentId)
+  };
 }
 async function resetStudentPassword(studentId) {
   requireUserPool();

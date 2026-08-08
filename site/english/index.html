@@ -239,8 +239,82 @@ footer{text-align:center;color:#6b7280;padding:0 16px 30px;font-size:.88rem}@med
   html { visibility: hidden; }
 </style>
 <script src="/js/section-auth-guard.js?v=20260730-1"></script>
-  <link rel="stylesheet" href="./nav-size-fix.css?v=1">
-</head><body><header class="sat-global-nav"><div class="sat-global-inner"><a class="sat-brand" href="../index.html">SAT Prep</a><nav aria-label="SAT subject navigation"><a href="../index.html">SAT Home</a><a aria-current="page" class="active" href="index.html">English</a><a href="../math/index.html">Math</a></nav><div class="sat-student">Student: <strong data-student-name="">Student</strong></div></div></header><main class="container">
+</head><body><nav id="sat-global-navigation"
+     aria-label="SAT subject navigation"
+     style="
+       position:sticky;
+       top:0;
+       z-index:2147483647;
+       display:flex;
+       flex-wrap:wrap;
+       align-items:center;
+       gap:9px;
+       width:100%;
+       min-height:58px;
+       box-sizing:border-box;
+       padding:10px 18px;
+       background:linear-gradient(135deg,#f8fbff 0%,#e9f2ff 100%);
+       border-bottom:1px solid #d5e2f3;
+       box-shadow:0 4px 16px rgba(37,99,235,.08);
+     ">
+  <span style="
+        margin-right:5px;
+        color:#1e3a5f;
+        font:800 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+        letter-spacing:.01em;
+      ">SAT Prep</span>
+
+  <a data-sat-destination="/index.html"
+     href="/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">SAT Home</a>
+
+  <a data-sat-destination="/english/index.html"
+     href="/english/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     " class="active" aria-current="page">English</a>
+
+  <a data-sat-destination="/math/index.html"
+     href="/math/index.html"
+     style="
+       display:inline-flex;
+       align-items:center;
+       justify-content:center;
+       min-height:36px;
+       padding:0 14px;
+       border:1px solid #c9d9ee;
+       border-radius:10px;
+       background:rgba(255,255,255,.88);
+       color:#334155;
+       text-decoration:none;
+       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+       box-shadow:0 1px 3px rgba(15,23,42,.05);
+     ">Math</a>
+</nav><main class="container">
 <section class="hero"><div class="eyebrow">15 sections · 375 high-utility words</div><h1>SAT 375 Vocabulary Builder</h1><p>Study definitions, context, synonyms, antonyms, flashcards, quizzes, and spelling. Your existing progress for Words 1–300 remains intact.</p></section>
 <section class="card"><div class="progress-row"><div><h2>Your Learning Progress</h2><p class="muted" id="progressDetail">0 of 375 words learned · 375 remaining</p></div><div class="progress-number" id="progressPercent">0% complete</div></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><div class="actions"><a class="btn secondary" href="SAT_Progress.html">Progress Dashboard</a><button class="btn danger" id="resetProgress">Reset all progress</button></div></section>
 <section class="card"><h2>Practice</h2><p class="muted">Review any 25-word range with flashcards, a meaning quiz, or spelling practice.</p><a class="btn" href="SAT_Practice_Hub.html">Open Practice Hub</a></section>

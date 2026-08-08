@@ -1873,29 +1873,26 @@ async function initProgramSelector() {
   syncFromCloud();
 }
 
-/* SAT_DEV_MATH_DISPLAY_NAME_ONLY_V2 BEGIN */
+/* SAT_DEV_MATH_DISPLAY_SYNC_V4 BEGIN */
 (() => {
   'use strict';
 
-  let resolvedStudentId = '';
   let resolvedDisplayName = '';
   let observer = null;
-  let queued = false;
-
-  function normalizeStudentId(value) {
-    const id = String(value || '').trim().toLowerCase();
-    return /^[a-z0-9_-]{1,80}$/.test(id) ? id : '';
-  }
+  let retryTimer = null;
+  let retryCount = 0;
 
   function decodeJwt(token) {
     try {
       const part = String(token || '').split('.')[1];
       if (!part) return null;
+
       const base64 = part.replace(/-/g, '+').replace(/_/g, '/');
       const padded = base64 + '='.repeat((4 - base64.length % 4) % 4);
+
       return JSON.parse(
         new TextDecoder().decode(
-          Uint8Array.from(atob(padded), character => character.charCodeAt(0))
+          Uint8Array.from(atob(padded), ch => ch.charCodeAt(0))
         )
       );
     } catch (_) {
@@ -1903,53 +1900,61 @@ async function initProgramSelector() {
     }
   }
 
-  function claimsStudentId(claims) {
-    return normalizeStudentId(
-      claims?.['cognito:username'] ||
-      claims?.username ||
-      claims?.preferred_username ||
-      ''
-    );
-  }
-
-  function claimsDisplayName(claims, fallback) {
+  function displayNameFromClaims(claims) {
     return String(
       claims?.name ||
       claims?.given_name ||
-      claims?.preferred_username ||
-      claims?.['cognito:username'] ||
-      fallback ||
       ''
     ).trim();
   }
 
-  function fallbackStudentId() {
+  function currentInternalId() {
     try {
       if (typeof getUser === 'function') {
-        const value = normalizeStudentId(getUser());
-        if (value) return value;
+        const id = String(getUser() || '').trim();
+        if (id) return id;
       }
     } catch (_) {}
 
-    return normalizeStudentId(
+    return String(
       localStorage.getItem('sat_user') ||
-      new URLSearchParams(location.search).get('student')
-    );
+      new URLSearchParams(location.search).get('student') ||
+      ''
+    ).trim();
   }
 
-  async function resolveAuthenticatedIdentity() {
-    let sessionClaims = null;
+  function displayNameAlreadyVisible() {
+    const internalId = currentInternalId().toLowerCase();
+    const selectors = [
+      '#sat-unified-global-navigation [data-sat-home-student]',
+      '#sat-unified-global-navigation .student-name strong',
+      '#sat-unified-global-navigation .sat-home-student strong',
+      '#sat-unified-global-navigation strong[data-student-name]',
+      '[data-sat-display-name]'
+    ];
 
+    for (const selector of selectors) {
+      const element = document.querySelector(selector);
+      const value = String(element?.textContent || '').trim();
+      const lower = value.toLowerCase();
+
+      if (value && lower !== internalId && lower !== 'student') {
+        return value;
+      }
+    }
+
+    return '';
+  }
+
+  async function resolveDisplayName() {
     try {
       if (window.SATAuth && typeof window.SATAuth.getSession === 'function') {
         const session = await window.SATAuth.getSession();
-        sessionClaims = session?.claims || null;
+        const fromSession = displayNameFromClaims(session?.claims);
+        if (fromSession) return fromSession;
       }
     } catch (error) {
-      console.warn(
-        'Math display-name fix: SATAuth session lookup failed; using token claims.',
-        error
-      );
+      console.warn('Math display-name sync: session lookup failed.', error);
     }
 
     const tokenClaims = decodeJwt(
@@ -1957,102 +1962,75 @@ async function initProgramSelector() {
       localStorage.getItem('sat_id_token')
     );
 
-    const claims = sessionClaims || tokenClaims || {};
-    const studentId = claimsStudentId(claims) || fallbackStudentId();
-    const displayName = claimsDisplayName(claims, studentId) || studentId;
+    const fromToken = displayNameFromClaims(tokenClaims);
+    if (fromToken) return fromToken;
 
-    return {studentId, displayName};
-  }
-
-  function replaceIdentityText(root) {
-    if (!root || !resolvedStudentId || !resolvedDisplayName) return;
-
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-    const nodes = [];
-    let node;
-    while ((node = walker.nextNode())) nodes.push(node);
-
-    for (const textNode of nodes) {
-      const raw = String(textNode.nodeValue || '');
-      const trimmed = raw.trim();
-      const lower = trimmed.toLowerCase();
-
-      if (lower === resolvedStudentId) {
-        textNode.nodeValue = raw.replace(trimmed, resolvedDisplayName);
-        continue;
-      }
-
-      if (lower === `student: ${resolvedStudentId}`) {
-        textNode.nodeValue = raw.replace(trimmed, `Student: ${resolvedDisplayName}`);
-        continue;
-      }
-
-      if (
-        lower === `signed in as ${resolvedStudentId}.` ||
-        lower === `signed in as ${resolvedStudentId}`
-      ) {
-        textNode.nodeValue = raw.replace(trimmed, `Signed in as ${resolvedDisplayName}.`);
-      }
-    }
+    return displayNameAlreadyVisible();
   }
 
   function applyDisplayName() {
     if (!resolvedDisplayName) return;
 
     const display = document.getElementById('student-display-name');
-    if (display && display.textContent.trim() !== resolvedDisplayName) {
+    if (!display) return;
+
+    if (display.textContent.trim() !== resolvedDisplayName) {
       display.textContent = resolvedDisplayName;
     }
-
-    replaceIdentityText(document.querySelector('.site-header .nav'));
-    replaceIdentityText(document.getElementById('sat-unified-global-navigation'));
-    replaceIdentityText(document.getElementById('sat-subject-navigation'));
   }
 
-  function scheduleApply() {
-    if (queued) return;
-    queued = true;
-    requestAnimationFrame(() => {
-      queued = false;
+  function ensureObserver() {
+    if (observer || !document.body) return;
+
+    observer = new MutationObserver(() => {
       applyDisplayName();
     });
-  }
 
-  async function startDisplayNameSync() {
-    const identity = await resolveAuthenticatedIdentity();
-    resolvedStudentId = identity.studentId;
-    resolvedDisplayName = identity.displayName;
-
-    if (!resolvedStudentId) {
-      console.warn('Math display-name fix: authenticated student ID was not resolved.');
-      return;
-    }
-
-    // Keep existing progress/user identity unchanged.
-    localStorage.setItem('sat_user', resolvedStudentId);
-
-    if (!resolvedDisplayName) resolvedDisplayName = resolvedStudentId;
-
-    applyDisplayName();
-
-    observer = new MutationObserver(scheduleApply);
     observer.observe(document.body, {
       childList: true,
       subtree: true,
       characterData: true
     });
+  }
 
-    [100, 250, 500, 1000, 2000, 4000].forEach(delay => {
-      setTimeout(applyDisplayName, delay);
-    });
+  async function refreshDisplayName() {
+    const value = await resolveDisplayName();
 
-    setTimeout(() => observer?.disconnect(), 15000);
+    if (value) {
+      resolvedDisplayName = value;
+      applyDisplayName();
+      ensureObserver();
+
+      if (retryTimer) {
+        clearInterval(retryTimer);
+        retryTimer = null;
+      }
+    } else {
+      ensureObserver();
+    }
+  }
+
+  function start() {
+    refreshDisplayName();
+
+    retryTimer = setInterval(() => {
+      retryCount += 1;
+      refreshDisplayName();
+
+      if (retryCount >= 20 && retryTimer) {
+        clearInterval(retryTimer);
+        retryTimer = null;
+      }
+    }, 750);
+
+    window.addEventListener('focus', refreshDisplayName);
+    window.addEventListener('pageshow', refreshDisplayName);
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', startDisplayNameSync, {once: true});
+    document.addEventListener('DOMContentLoaded', start, { once: true });
   } else {
-    startDisplayNameSync();
+    start();
   }
 })();
-/* SAT_DEV_MATH_DISPLAY_NAME_ONLY_V2 END */
+/* SAT_DEV_MATH_DISPLAY_SYNC_V4 END */

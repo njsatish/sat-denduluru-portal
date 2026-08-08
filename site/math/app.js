@@ -1873,158 +1873,189 @@ async function initProgramSelector() {
   syncFromCloud();
 }
 
-/* SAT_DEV_MATH_DISPLAY_SYNC_V4 BEGIN */
+/* SAT_DEV_MATH_DISPLAY_SYNC_V5 BEGIN */
 (() => {
   'use strict';
 
-  let resolvedDisplayName = '';
-  let observer = null;
-  let retryTimer = null;
-  let retryCount = 0;
+  const TARGETS = [
+    '#student-display-name',
+    '[data-student-display-name]',
+    '[data-sat-display-name]',
+    '#sat-unified-global-navigation [data-sat-home-student]',
+    '#sat-unified-global-navigation [data-student-name]'
+  ];
+  const BAD_NAMES = new Set(['', 'student', 'undefined', 'null', 'loading...', 'loading']);
+  let displayName = '';
+  let applying = false;
+  let observer;
+
+  function clean(value) {
+    const result = String(value == null ? '' : value).replace(/\s+/g, ' ').trim();
+    return BAD_NAMES.has(result.toLowerCase()) ? '' : result;
+  }
+
+  function claimsName(claims) {
+    if (!claims || typeof claims !== 'object') return '';
+    const direct = clean(
+      claims.name || claims.display_name || claims.displayName ||
+      claims.given_name || claims.givenName || claims.nickname
+    );
+    if (direct) return direct;
+    const given = clean(claims.given_name || claims.givenName);
+    const family = clean(claims.family_name || claims.familyName);
+    return clean([given, family].filter(Boolean).join(' '));
+  }
 
   function decodeJwt(token) {
     try {
-      const part = String(token || '').split('.')[1];
+      const part = clean(token).split('.')[1];
       if (!part) return null;
-
       const base64 = part.replace(/-/g, '+').replace(/_/g, '/');
       const padded = base64 + '='.repeat((4 - base64.length % 4) % 4);
-
-      return JSON.parse(
-        new TextDecoder().decode(
-          Uint8Array.from(atob(padded), ch => ch.charCodeAt(0))
-        )
-      );
+      const bytes = Uint8Array.from(atob(padded), c => c.charCodeAt(0));
+      return JSON.parse(new TextDecoder('utf-8').decode(bytes));
     } catch (_) {
       return null;
     }
   }
 
-  function displayNameFromClaims(claims) {
-    return String(
-      claims?.name ||
-      claims?.given_name ||
-      ''
-    ).trim();
+  function nameFromObject(value, seen = new Set()) {
+    if (!value || typeof value !== 'object' || seen.has(value)) return '';
+    seen.add(value);
+
+    const own = claimsName(value);
+    if (own) return own;
+
+    const preferred = [
+      'claims', 'payload', 'attributes', 'userAttributes', 'idToken',
+      'id_token', 'tokens', 'session', 'signInUserSession', 'user'
+    ];
+    for (const key of preferred) {
+      const child = value[key];
+      const fromChild = typeof child === 'string'
+        ? claimsName(decodeJwt(child))
+        : nameFromObject(child, seen);
+      if (fromChild) return fromChild;
+    }
+    return '';
   }
 
-  function currentInternalId() {
+  function nameFromStorage(storage) {
     try {
-      if (typeof getUser === 'function') {
-        const id = String(getUser() || '').trim();
-        if (id) return id;
+      // Cognito/Amplify token keys are dynamic, so inspect all token/session values.
+      const candidates = [];
+      for (let i = 0; i < storage.length; i += 1) {
+        const key = storage.key(i) || '';
+        if (/idtoken|id_token|session|claims|user|profile/i.test(key)) {
+          candidates.push(storage.getItem(key));
+        }
+      }
+      for (const raw of candidates) {
+        if (!raw) continue;
+        const jwtName = claimsName(decodeJwt(raw));
+        if (jwtName) return jwtName;
+        try {
+          const objectName = nameFromObject(JSON.parse(raw));
+          if (objectName) return objectName;
+        } catch (_) {}
       }
     } catch (_) {}
-
-    return String(
-      localStorage.getItem('sat_user') ||
-      new URLSearchParams(location.search).get('student') ||
-      ''
-    ).trim();
+    return '';
   }
 
-  function displayNameAlreadyVisible() {
-    const internalId = currentInternalId().toLowerCase();
-    const selectors = [
-      '#sat-unified-global-navigation [data-sat-home-student]',
-      '#sat-unified-global-navigation .student-name strong',
-      '#sat-unified-global-navigation .sat-home-student strong',
-      '#sat-unified-global-navigation strong[data-student-name]',
-      '[data-sat-display-name]'
-    ];
-
-    for (const selector of selectors) {
-      const element = document.querySelector(selector);
-      const value = String(element?.textContent || '').trim();
-      const lower = value.toLowerCase();
-
-      if (value && lower !== internalId && lower !== 'student') {
-        return value;
+  async function nameFromAuth() {
+    try {
+      if (window.SATAuth && typeof window.SATAuth.getSession === 'function') {
+        const session = await window.SATAuth.getSession();
+        const value = nameFromObject(session);
+        if (value) return value;
       }
+    } catch (error) {
+      console.warn('Math display sync: SATAuth session unavailable.', error);
     }
+
+    try {
+      const auth = window.Auth || window.Amplify?.Auth;
+      if (auth && typeof auth.currentAuthenticatedUser === 'function') {
+        const user = await auth.currentAuthenticatedUser();
+        const value = nameFromObject(user);
+        if (value) return value;
+      }
+    } catch (_) {}
 
     return '';
   }
 
-  async function resolveDisplayName() {
+  function nameAlreadyRendered() {
+    // Read authenticated-name elements, but never use the Math target itself as a source.
+    const selectors = [
+      '#sat-unified-global-navigation .student-name strong',
+      '#sat-unified-global-navigation .sat-home-student strong',
+      '#sat-unified-global-navigation [data-sat-home-student] strong',
+      'header [data-student-name]',
+      '[data-auth-display-name]'
+    ];
+    for (const selector of selectors) {
+      const element = document.querySelector(selector);
+      const value = clean(element?.textContent);
+      if (value) return value;
+    }
+    return '';
+  }
+
+  async function resolveName() {
+    return clean(await nameFromAuth()) ||
+      nameFromStorage(sessionStorage) ||
+      nameFromStorage(localStorage) ||
+      nameAlreadyRendered();
+  }
+
+  function apply() {
+    if (!displayName || applying) return;
+    applying = true;
     try {
-      if (window.SATAuth && typeof window.SATAuth.getSession === 'function') {
-        const session = await window.SATAuth.getSession();
-        const fromSession = displayNameFromClaims(session?.claims);
-        if (fromSession) return fromSession;
+      for (const selector of TARGETS) {
+        document.querySelectorAll(selector).forEach(element => {
+          if (clean(element.textContent) !== displayName) {
+            element.textContent = displayName;
+          }
+          element.hidden = false;
+          element.removeAttribute('aria-hidden');
+        });
       }
-    } catch (error) {
-      console.warn('Math display-name sync: session lookup failed.', error);
-    }
-
-    const tokenClaims = decodeJwt(
-      sessionStorage.getItem('sat_id_token') ||
-      localStorage.getItem('sat_id_token')
-    );
-
-    const fromToken = displayNameFromClaims(tokenClaims);
-    if (fromToken) return fromToken;
-
-    return displayNameAlreadyVisible();
-  }
-
-  function applyDisplayName() {
-    if (!resolvedDisplayName) return;
-
-    const display = document.getElementById('student-display-name');
-    if (!display) return;
-
-    if (display.textContent.trim() !== resolvedDisplayName) {
-      display.textContent = resolvedDisplayName;
+    } finally {
+      applying = false;
     }
   }
 
-  function ensureObserver() {
-    if (observer || !document.body) return;
-
-    observer = new MutationObserver(() => {
-      applyDisplayName();
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-      characterData: true
-    });
-  }
-
-  async function refreshDisplayName() {
-    const value = await resolveDisplayName();
-
-    if (value) {
-      resolvedDisplayName = value;
-      applyDisplayName();
-      ensureObserver();
-
-      if (retryTimer) {
-        clearInterval(retryTimer);
-        retryTimer = null;
-      }
-    } else {
-      ensureObserver();
-    }
+  async function refresh() {
+    const resolved = await resolveName();
+    if (resolved) displayName = resolved;
+    apply();
   }
 
   function start() {
-    refreshDisplayName();
+    observer = new MutationObserver(() => {
+      apply();
+      if (!displayName) void refresh();
+    });
+    observer.observe(document.documentElement, { childList: true, subtree: true, characterData: true });
 
-    retryTimer = setInterval(() => {
-      retryCount += 1;
-      refreshDisplayName();
+    void refresh();
+    let attempts = 0;
+    const timer = setInterval(() => {
+      attempts += 1;
+      void refresh();
+      if (attempts >= 60 && displayName) clearInterval(timer);
+      if (attempts >= 120) clearInterval(timer);
+    }, 500);
 
-      if (retryCount >= 20 && retryTimer) {
-        clearInterval(retryTimer);
-        retryTimer = null;
-      }
-    }, 750);
-
-    window.addEventListener('focus', refreshDisplayName);
-    window.addEventListener('pageshow', refreshDisplayName);
+    window.addEventListener('focus', refresh);
+    window.addEventListener('pageshow', refresh);
+    window.addEventListener('storage', refresh);
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) void refresh();
+    });
   }
 
   if (document.readyState === 'loading') {
@@ -2033,4 +2064,4 @@ async function initProgramSelector() {
     start();
   }
 })();
-/* SAT_DEV_MATH_DISPLAY_SYNC_V4 END */
+/* SAT_DEV_MATH_DISPLAY_SYNC_V5 END */

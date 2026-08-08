@@ -1,0 +1,9 @@
+{
+  "region":"us-east-1",
+  "userPoolId":"us-east-1_LwhI9exCF",
+  "clientId":"27k6o53h48gneuo5qd6q8quebb",
+  "domain":"https://sat-denduluru-dev-989174615155.auth.us-east-1.amazoncognito.com",
+  "redirectUri":"https://dev-sat.denduluru.com/auth/callback.html",
+  "logoutUri":"https://dev-sat.denduluru.com/login.html",
+  "scope":"openid"
+}

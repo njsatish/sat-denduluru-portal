@@ -13,9 +13,22 @@ import {
   UpdateCommand
 } from '@aws-sdk/lib-dynamodb';
 
+import {
+  CognitoIdentityProviderClient,
+  AdminCreateUserCommand,
+  AdminDeleteUserCommand,
+  AdminGetUserCommand,
+  AdminEnableUserCommand,
+  AdminDisableUserCommand,
+  AdminSetUserPasswordCommand
+} from '@aws-sdk/client-cognito-identity-provider';
+
 const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}), {
   marshallOptions: { removeUndefinedValues: true }
 });
+
+const cognito = new CognitoIdentityProviderClient({});
+const USER_POOL_ID = process.env.USER_POOL_ID || '';
 
 const TABLE = process.env.TABLE_NAME || 'sat-progress';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '';
@@ -73,6 +86,29 @@ const satEnglishOriginalHandler = async event => {
         const student = await getStudent(userId);
         if (!student) throw new HttpError(404, 'STUDENT_NOT_FOUND', 'Student was not found');
         return resp(200, { student });
+      }
+      // SAT_ADMIN_ACCOUNT_ACTIONS_V1
+      case 'createStudentAccount':
+        assertAdmin(body.adminPassword);
+        return resp(201, await createStudentAccount({
+          displayName: body.displayName,
+          username: body.username,
+          email: body.email
+        }));
+      case 'adminStudentOverview': {
+        assertAdmin(body.adminPassword);
+        const studentId = requireStudentId(body.studentId);
+        return resp(200, await adminStudentOverview(studentId));
+      }
+      case 'resetStudentPassword': {
+        assertAdmin(body.adminPassword);
+        const studentId = requireStudentId(body.studentId);
+        return resp(200, await resetStudentPassword(studentId));
+      }
+      case 'setStudentActive': {
+        assertAdmin(body.adminPassword);
+        const studentId = requireStudentId(body.studentId);
+        return resp(200, await setStudentActive(studentId, body.active === true));
       }
       case 'createStudent':
         assertAdmin(body.adminPassword);
@@ -828,7 +864,7 @@ function cleanLearnedWords(values) {
   }
   return [...new Set(values
     .map(Number)
-    .filter(value => Number.isInteger(value) && value >= 1 && value <= 300))]
+    .filter(value => Number.isInteger(value) && value >= 1 && value <= 375))]
     .sort((left, right) => left - right);
 }
 
@@ -882,6 +918,184 @@ async function saveEnglishProgress(studentId, values) {
 
   return { studentId, learned, learnedCount: learned.length, updatedAt: now };
 }
+
+// BEGIN SAT_ADMIN_ACCOUNT_MANAGEMENT_V1
+const SAT_ADMIN_MATH_TOTAL = 600;
+const SAT_ADMIN_ENGLISH_TOTAL = 375;
+
+function requireUserPool() {
+  if (!USER_POOL_ID) {
+    throw new HttpError(503, 'USER_POOL_NOT_CONFIGURED',
+      'USER_POOL_ID is not configured for student account administration');
+  }
+  return USER_POOL_ID;
+}
+function normalizeEmail(value) {
+  const email = String(value || '').trim().toLowerCase();
+  if (!email) return '';
+  if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    throw new HttpError(400, 'INVALID_EMAIL', 'Enter a valid email address');
+  }
+  return email;
+}
+function temporaryStudentPassword() {
+  return `Sa7!${randomUUID().replaceAll('-', '').slice(0, 14)}z`;
+}
+function isSatMathQuestionId(questionId) {
+  const match = /^(?:v[123]q|s2v[123]q)(\d{3})$/.exec(String(questionId || ''));
+  if (!match) return false;
+  const number = Number(match[1]);
+  return number >= 1 && number <= 100;
+}
+function cognitoHttpError(error, fallbackMessage) {
+  const name = error?.name || '';
+  if (name === 'UsernameExistsException')
+    return new HttpError(409, 'LOGIN_ALREADY_EXISTS', 'A login with that username already exists');
+  if (name === 'UserNotFoundException')
+    return new HttpError(404, 'LOGIN_NOT_FOUND', 'The Cognito login account was not found');
+  if (name === 'InvalidPasswordException')
+    return new HttpError(400, 'INVALID_TEMPORARY_PASSWORD', error.message || 'The temporary password is invalid');
+  if (name === 'InvalidParameterException')
+    return new HttpError(400, 'COGNITO_INVALID_PARAMETER', error.message || fallbackMessage);
+  return error;
+}
+async function cognitoAccount(studentId) {
+  requireUserPool();
+  try {
+    const result = await cognito.send(new AdminGetUserCommand({
+      UserPoolId: USER_POOL_ID, Username: studentId
+    }));
+    const attributes = Object.fromEntries(
+      (result.UserAttributes || []).map(attribute => [attribute.Name, attribute.Value])
+    );
+    return {
+      username: result.Username || studentId,
+      enabled: result.Enabled !== false,
+      userStatus: result.UserStatus || null,
+      email: attributes.email || null,
+      createdAt: result.UserCreateDate || null,
+      modifiedAt: result.UserLastModifiedDate || null
+    };
+  } catch (error) {
+    if (error?.name === 'UserNotFoundException') return null;
+    throw cognitoHttpError(error, 'Unable to read the Cognito account');
+  }
+}
+async function createStudentAccount({ displayName, username, email }) {
+  requireUserPool();
+  const studentId = requireStudentId(username);
+  const cleanDisplayName = String(displayName || '').trim();
+  if (!cleanDisplayName || cleanDisplayName.length > 80) {
+    throw new HttpError(400, 'INVALID_DISPLAY_NAME',
+      'Student name must be between 1 and 80 characters');
+  }
+  const cleanEmail = normalizeEmail(email);
+  if (await getStudent(studentId)) {
+    throw new HttpError(409, 'STUDENT_ALREADY_EXISTS',
+      'A student with that username already exists');
+  }
+  if (await cognitoAccount(studentId)) {
+    throw new HttpError(409, 'LOGIN_ALREADY_EXISTS',
+      'A Cognito login with that username already exists');
+  }
+  const temporaryPassword = temporaryStudentPassword();
+  const attributes = cleanEmail ? [{ Name: 'email', Value: cleanEmail }] : [];
+  try {
+    await cognito.send(new AdminCreateUserCommand({
+      UserPoolId: USER_POOL_ID, Username: studentId,
+      TemporaryPassword: temporaryPassword, MessageAction: 'SUPPRESS',
+      UserAttributes: attributes
+    }));
+  } catch (error) {
+    throw cognitoHttpError(error, 'Unable to create the Cognito login');
+  }
+  try {
+    const student = await createStudent(cleanDisplayName, studentId);
+    return { student, temporaryPassword, account: await cognitoAccount(studentId) };
+  } catch (error) {
+    try {
+      await cognito.send(new AdminDeleteUserCommand({
+        UserPoolId: USER_POOL_ID, Username: studentId
+      }));
+    } catch (cleanupError) {
+      console.error('Unable to clean up Cognito user after directory failure', cleanupError);
+    }
+    throw error;
+  }
+}
+async function resetStudentPassword(studentId) {
+  requireUserPool();
+  const student = await getStudent(studentId);
+  if (!student) throw new HttpError(404, 'STUDENT_NOT_FOUND', 'Student was not found');
+  const temporaryPassword = temporaryStudentPassword();
+  try {
+    await cognito.send(new AdminSetUserPasswordCommand({
+      UserPoolId: USER_POOL_ID, Username: studentId,
+      Password: temporaryPassword, Permanent: false
+    }));
+  } catch (error) {
+    throw cognitoHttpError(error, 'Unable to reset the student password');
+  }
+  return { studentId, temporaryPassword, account: await cognitoAccount(studentId) };
+}
+async function setStudentActive(studentId, active) {
+  requireUserPool();
+  const student = await getStudent(studentId);
+  if (!student) throw new HttpError(404, 'STUDENT_NOT_FOUND', 'Student was not found');
+  const account = await cognitoAccount(studentId);
+  if (!account) throw new HttpError(409, 'LOGIN_NOT_PROVISIONED',
+    'This student does not have a Cognito login account yet');
+  try {
+    await cognito.send(active
+      ? new AdminEnableUserCommand({UserPoolId:USER_POOL_ID,Username:studentId})
+      : new AdminDisableUserCommand({UserPoolId:USER_POOL_ID,Username:studentId}));
+  } catch (error) {
+    throw cognitoHttpError(error, 'Unable to change the Cognito account status');
+  }
+  const now = new Date().toISOString();
+  try {
+    await ddb.send(new UpdateCommand({
+      TableName: TABLE,
+      Key: {userId:STUDENT_DIRECTORY,questionId:`${STUDENT_PREFIX}${studentId}`},
+      UpdateExpression:'SET #active = :active, #updatedAt = :updatedAt',
+      ExpressionAttributeNames:{'#active':'active','#updatedAt':'updatedAt'},
+      ExpressionAttributeValues:{':active':active,':updatedAt':now},
+      ConditionExpression:'attribute_exists(userId)'
+    }));
+  } catch (error) {
+    try {
+      await cognito.send(active
+        ? new AdminDisableUserCommand({UserPoolId:USER_POOL_ID,Username:studentId})
+        : new AdminEnableUserCommand({UserPoolId:USER_POOL_ID,Username:studentId}));
+    } catch (rollbackError) {
+      console.error('Unable to roll back Cognito account state', rollbackError);
+    }
+    throw error;
+  }
+  return { studentId, active, account: await cognitoAccount(studentId) };
+}
+async function adminStudentOverview(studentId) {
+  const [progress, english, account] = await Promise.all([
+    getProgress(studentId), getEnglishProgress(studentId), cognitoAccount(studentId)
+  ]);
+  const mathItems = (progress.items || []).filter(item => isSatMathQuestionId(item.questionId));
+  const attempted = mathItems.filter(item =>
+    item.lastResult === 'correct' || item.lastResult === 'incorrect').length;
+  const mastered = mathItems.filter(item =>
+    Number(item.correctCount || 0) > 0 || item.lastResult === 'correct').length;
+  const awaitingCorrections = mathItems.filter(item =>
+    item.lastResult === 'incorrect' && item.locked !== false &&
+    item.correctionAllowed !== true).length;
+  return {
+    studentId, account,
+    math:{mastered,attempted,total:SAT_ADMIN_MATH_TOTAL,awaitingCorrections},
+    english:{
+      learned:Array.isArray(english.learned)?english.learned.length:Number(english.learnedCount||0),
+      total:SAT_ADMIN_ENGLISH_TOTAL
+    }
+  };
+}
+// END SAT_ADMIN_ACCOUNT_MANAGEMENT_V1
 
 async function createStudent(displayNameValue, requestedStudentIdValue) {
   const displayName = String(displayNameValue || '').trim();

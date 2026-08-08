@@ -48,6 +48,23 @@ mkdir -p "$TEMP_DIR/site" "$TEMP_DIR/lambda"
 cp -R "$SITE_SOURCE/." "$TEMP_DIR/site/"
 cp -R "$LAMBDA_SOURCE/." "$TEMP_DIR/lambda/"
 
+# BEGIN SAT_DEV_AUTH_CONFIG_V1
+DEV_AUTH_CONFIG="$ROOT/config/dev-auth.json"
+if [[ -f "$DEV_AUTH_CONFIG" ]]; then
+  mkdir -p "$TEMP_DIR/site/js"
+  python3 - "$DEV_AUTH_CONFIG" "$TEMP_DIR/site/js/auth-config.js" <<'PYAUTH'
+import json,sys
+from pathlib import Path
+cfg=json.load(open(sys.argv[1],encoding="utf-8"))
+for key in ("region","userPoolId","clientId","domain","redirectUri","logoutUri","scope"):
+    if not cfg.get(key): raise SystemExit(f"Missing dev auth field: {key}")
+Path(sys.argv[2]).write_text(
+    "window.SAT_AUTH_CONFIG = Object.freeze(" + json.dumps(cfg,indent=2) + ");\n",
+    encoding="utf-8")
+PYAUTH
+fi
+# END SAT_DEV_AUTH_CONFIG_V1
+
 python3 -   "$TEMP_DIR/site"   "$TEMP_DIR/lambda"   "$DEV_FUNCTION_URL"   "$PROD_TABLE" "$DEV_TABLE"   "$PROD_BUCKET" "$DEV_BUCKET"   "https://sat.denduluru.com" "https://$DEV_DOMAIN" <<'PY'
 import re
 import sys

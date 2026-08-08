@@ -1,1145 +1,179 @@
 <!doctype html>
 <html lang="en">
 <head>
-<base href="/math/">
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <title>SAT Admin — Students and Corrections</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>SAT Administration — Students & Progress</title>
   <style>
-    .admin-shell{max-width:1050px;margin:40px auto;padding:0 20px 60px}
-    .admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px}
-    .admin-field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
-    .admin-field input{padding:11px;border:1px solid #cfd4dc;border-radius:8px;font:inherit}
-    .admin-status{min-height:24px;margin:14px 0}.admin-status.success{color:#08783f}.admin-status.error,.error-text{color:#b42318}
-    .admin-student{margin-top:16px}.admin-actions{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
-    .muted{color:#6b6f76}.student-progress{border-top:1px solid #e5e7eb;margin-top:14px;padding-top:14px}
-    .admin-summary{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:14px}.admin-summary span{background:#f3f4f6;border-radius:8px;padding:8px 12px}
-    .locked-row{display:flex;justify-content:space-between;align-items:center;gap:16px;border:1px solid #e5e7eb;border-radius:9px;padding:12px;margin:9px 0}
-    .locked-row div{display:flex;flex-direction:column;gap:3px}.locked-row span{font-size:.88rem;color:#6b6f76}
-    code{word-break:break-all}
+    :root{
+      color-scheme:dark;
+      --bg:#111214;--panel:#1b1d21;--panel2:#22252a;--border:#34383f;
+      --text:#f4f1e8;--muted:#aaa59a;--gold:#d6ae4e;--gold2:#e7c96f;
+      --green:#66d39e;--red:#ff8b8b;--shadow:0 18px 50px rgba(0,0,0,.28);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;background:
+      radial-gradient(circle at 20% 0%,rgba(214,174,78,.11),transparent 30%),
+      linear-gradient(180deg,#15171a,#101113);color:var(--text);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    a{color:inherit}
+    button,input{font:inherit}
+    .topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;
+      justify-content:space-between;gap:18px;padding:14px clamp(18px,4vw,54px);
+      background:rgba(17,18,20,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+    .brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:900}
+    .brand-mark{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;
+      border:1px solid #675a32;background:#29261c;color:var(--gold2)}
+    .top-actions{display:flex;gap:9px;flex-wrap:wrap}
+    .nav-btn,.btn{min-height:41px;display:inline-flex;align-items:center;justify-content:center;
+      padding:0 14px;border:1px solid var(--border);border-radius:11px;background:#24272c;
+      color:var(--text);text-decoration:none;font-weight:850;cursor:pointer}
+    .btn.primary{background:linear-gradient(135deg,#e4c15f,#cda33f);border-color:#d6ae4e;color:#171717}
+    .btn.danger{background:#2a1a1c;border-color:#623238;color:#ffb4b4}
+    .btn:disabled{opacity:.58;cursor:wait}
+    .shell{width:min(1480px,calc(100% - 32px));margin:auto;padding:38px 0 70px}
+    .hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:22px;margin-bottom:24px}
+    .card,.panel{border:1px solid var(--border);background:linear-gradient(180deg,#1f2126,#181a1e);
+      border-radius:20px;box-shadow:var(--shadow)}
+    .hero-copy{padding:32px}.eyebrow{color:var(--gold2);font-size:.77rem;font-weight:900;
+      letter-spacing:.13em;text-transform:uppercase}
+    h1{font-size:clamp(2.4rem,5vw,4.7rem);line-height:.96;letter-spacing:-.055em;margin:10px 0 12px}
+    h2{letter-spacing:-.025em}.hero-copy p,.note{color:#c4bfb4;line-height:1.6}
+    .access{padding:25px}.field{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+    label{font-size:.82rem;font-weight:850;color:#ddd8cd}
+    input{width:100%;min-height:45px;border:1px solid #3b3f46;border-radius:11px;
+      padding:0 13px;background:#14161a;color:var(--text);outline:none}
+    input:focus{border-color:#9b8546;box-shadow:0 0 0 3px rgba(214,174,78,.12)}
+    .status{min-height:22px;margin-top:12px;color:var(--muted);font-size:.88rem}
+    .status.success{color:#96e8ba}.status.error{color:#ff9a9a}
+    .layout{display:grid;grid-template-columns:minmax(310px,390px) minmax(0,1fr);gap:22px;align-items:start}
+    .panel{padding:25px}.panel h2{margin:7px 0}.hint{font-size:.75rem;color:#817d74;line-height:1.4}
+    .button-row{display:flex;gap:9px;flex-wrap:wrap}
+    .created{display:none;margin-top:18px;padding:16px;border:1px solid #315b48;
+      background:#14231c;border-radius:13px}.created.show{display:block}
+    .created h3{color:#9ef0c5;margin:0 0 10px}.credential{margin:7px 0;padding:9px 10px;
+      border:1px solid #30453a;background:#101913;border-radius:9px;font-size:.84rem;word-break:break-word}
+    .students-panel{padding:0;overflow:hidden}
+    .students-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;
+      padding:23px 25px 18px;border-bottom:1px solid var(--border)}
+    .students-head h2{margin:6px 0 0}.search{max-width:320px}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:14px 0 0}
+    .stat{padding:12px;border:1px solid var(--border);border-radius:11px;background:#17191d}
+    .stat strong{display:block;font-size:1.2rem}.stat span{color:var(--muted);font-size:.72rem}
+    .student{padding:21px 25px;border-bottom:1px solid var(--border)}.student:last-child{border-bottom:0}
+    .student-main{display:grid;grid-template-columns:minmax(190px,.9fr) minmax(320px,1.2fr) auto;
+      gap:18px;align-items:center}
+    .identity{display:flex;gap:12px;align-items:center}.avatar{width:45px;height:45px;border-radius:50%;
+      flex:0 0 45px;display:grid;place-items:center;background:#29261c;border:1px solid #64572f;
+      color:var(--gold2);font-weight:950}
+    .identity h3{margin:0 0 3px}.identity p{margin:0;color:var(--muted);font-size:.8rem}
+    .badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.badge{font-size:.7rem;font-weight:850;
+      padding:4px 7px;border-radius:999px;border:1px solid #37463c;background:#162019;color:#9fe0b9}
+    .badge.warn{border-color:#65562e;background:#221f16;color:#e6c66d}
+    .badge.off{border-color:#583539;background:#221719;color:#eda0a0}
+    .progress-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.progress{
+      padding:11px 12px;border:1px solid var(--border);border-radius:11px;background:#17191d}
+    .progress small{color:var(--muted);font-weight:850;text-transform:uppercase;letter-spacing:.05em}
+    .progress strong{display:block;margin-top:5px;font-size:.9rem}.bar{height:5px;margin-top:8px;
+      border-radius:999px;background:#2d3035;overflow:hidden}.bar span{display:block;height:100%;width:var(--pct);
+      background:linear-gradient(90deg,#b9953f,#e0c267)}
+    .actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+    .actions .btn{min-height:37px;padding:0 10px;font-size:.76rem}
+    .details{display:none;margin-top:17px;padding-top:17px;border-top:1px dashed #3a3e45}
+    .details.open{display:block}.summary{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:13px}
+    .summary span{padding:7px 10px;background:#17191d;border:1px solid var(--border);border-radius:9px;font-size:.8rem}
+    .locked{display:flex;justify-content:space-between;gap:12px;align-items:center;
+      padding:11px;margin:8px 0;border:1px solid var(--border);border-radius:10px;background:#17191d}
+    .locked div{display:flex;flex-direction:column;gap:2px}.locked span{color:var(--muted);font-size:.76rem}
+    .empty{padding:34px;text-align:center;color:var(--muted)}
+    footer{text-align:center;color:#77736b;font-size:.78rem;padding-top:25px}
+    @media(max-width:1080px){.hero,.layout{grid-template-columns:1fr}.student-main{grid-template-columns:1fr}.actions{justify-content:flex-start}}
+    @media(max-width:680px){.shell{width:calc(100% - 18px);padding-top:20px}.hero-copy,.access,.panel{padding:19px}
+      .students-head{padding:19px;flex-direction:column;align-items:stretch}.student{padding:19px}
+      .progress-grid,.stats{grid-template-columns:1fr}.search{max-width:none}.topbar{padding:10px}}
   </style>
-<style id="sat-math-charcoal-gold-v1">
-  :root {
-    color-scheme: dark;
-    --cg-bg: #111214;
-    --cg-surface: #1d2025;
-    --cg-surface-2: #24272d;
-    --cg-surface-3: #2a2d33;
-    --cg-border: #43464d;
-    --cg-border-soft: #34373d;
-    --cg-text: #f4f1e8;
-    --cg-muted: #c0bbb0;
-    --cg-gold: #d6ae4e;
-    --cg-gold-light: #e7c96f;
-    --cg-gold-dark: #9f7620;
-    --cg-danger: #ef4444;
-    --cg-success: #22c55e;
-  }
-
-  html,
-  body {
-    background: var(--cg-bg) !important;
-    color: var(--cg-text) !important;
-  }
-
-  body {
-    min-height: 100vh;
-  }
-
-  main,
-  section,
-  article,
-  .page,
-  .container,
-  .wrapper,
-  .wrap {
-    color: var(--cg-text) !important;
-  }
-
-  /* Common SAT subject navigation */
-  #sat-global-navigation,
-  #sat-global-subject-nav,
-  #sat-subject-navigation,
-  .subject-nav {
-    background: linear-gradient(135deg, #1c1d20 0%, #24262a 100%) !important;
-    border-bottom: 1px solid #46484d !important;
-    box-shadow: 0 5px 18px rgba(0, 0, 0, .26) !important;
-  }
-
-  #sat-global-navigation > span,
-  #sat-global-subject-nav > span,
-  #sat-subject-navigation > span,
-  .subject-nav > span {
-    color: #f2eee2 !important;
-  }
-
-  #sat-global-navigation a,
-  #sat-global-subject-nav a,
-  #sat-subject-navigation a,
-  .subject-nav a {
-    background: #24262a !important;
-    border-color: #55585e !important;
-    color: #ece7dc !important;
-    box-shadow: none !important;
-  }
-
-  #sat-global-navigation a:hover,
-  #sat-global-subject-nav a:hover,
-  #sat-subject-navigation a:hover,
-  .subject-nav a:hover {
-    background: #303238 !important;
-    border-color: #777a80 !important;
-  }
-
-  #sat-global-navigation a[aria-current="page"],
-  #sat-global-subject-nav a[aria-current="page"],
-  #sat-subject-navigation a[aria-current="page"],
-  .subject-nav a[aria-current="page"] {
-    background: linear-gradient(135deg, #e4c15f, #c69a30) !important;
-    border-color: #e7c96f !important;
-    color: #18191b !important;
-    box-shadow: 0 4px 12px rgba(214, 174, 78, .20) !important;
-  }
-
-  /* Math-specific header/navigation */
-  .site-header,
-  header.site-header,
-  .nav,
-  .navbar,
-  .topbar {
-    background: #17181b !important;
-    border-color: #383a40 !important;
-    color: var(--cg-text) !important;
-  }
-
-  .brand,
-  .math-brand,
-  .nav a,
-  .nav-links a,
-  .navbar a {
-    color: #f2eee2 !important;
-  }
-
-  .brand-mark,
-  .sigma {
-    background: linear-gradient(135deg, #f0cf76, #b68a26) !important;
-    color: #191a1c !important;
-    box-shadow: 0 6px 18px rgba(214, 174, 78, .22) !important;
-  }
-
-  .nav-links a[aria-current="page"],
-  .nav-links a.active,
-  .nav a[aria-current="page"],
-  .navbar a.active {
-    background: linear-gradient(135deg, #e4c15f, #c69a30) !important;
-    color: #18191b !important;
-  }
-
-  /* Hero */
-  .hero {
-    background:
-      radial-gradient(
-        circle at 80% 20%,
-        rgba(214, 174, 78, .18),
-        transparent 33%
-      ),
-      linear-gradient(
-        145deg,
-        #1a1c20 0%,
-        #131416 58%,
-        #101113 100%
-      ) !important;
-    border-bottom: 1px solid #34363b !important;
-    color: #fffdf5 !important;
-  }
-
-  .hero::before,
-  .hero::after {
-    opacity: .12 !important;
-  }
-
-  .hero-inner {
-    background: transparent !important;
-    color: #fffdf5 !important;
-  }
-
-  .hero h1,
-  .hero h2,
-  .hero h3,
-  .hero strong {
-    color: #fffdf5 !important;
-    text-shadow: none !important;
-  }
-
-  .hero p,
-  .hero span,
-  .hero .eyebrow {
-    color: #c8c2b6 !important;
-  }
-
-  .eyebrow {
-    color: var(--cg-gold-light) !important;
-  }
-
-  /* Cards and panels */
-  .panel,
-  .card,
-  .hero-card,
-  .volume-card,
-  .overall-card,
-  .lesson,
-  .question,
-  .stat,
-  .controls,
-  .quiz-banner,
-  .set-card,
-  .progress-card,
-  .practice-card,
-  .section-card,
-  .content-card,
-  .modal-content,
-  .dialog,
-  .box {
-    background: linear-gradient(180deg, #1f2227 0%, #1a1c20 100%) !important;
-    border-color: var(--cg-border) !important;
-    color: var(--cg-text) !important;
-    box-shadow: 0 18px 45px rgba(0, 0, 0, .30) !important;
-  }
-
-  .set-card.featured,
-  .volume-card.featured,
-  .question.featured {
-    border-color: #8e7637 !important;
-  }
-
-  .set-number {
-    color: var(--cg-gold-light) !important;
-    opacity: .09 !important;
-  }
-
-  /* Text */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  strong,
-  .title,
-  .word,
-  .question-title,
-  .q-number {
-    color: #fffdf5 !important;
-  }
-
-  p,
-  li,
-  label,
-  small,
-  .muted,
-  .subtitle,
-  .description,
-  .footer,
-  footer,
-  .meta,
-  .helper,
-  .hint,
-  .explanation {
-    color: var(--cg-muted) !important;
-  }
-
-  a {
-    color: #e7c96f;
-  }
-
-  a:hover {
-    color: #f4dda0;
-  }
-
-  /* Buttons */
-  button,
-  .btn,
-  .choice,
-  .topic-nav button,
-  .card-button,
-  .primary-button {
-    background: #2b2e34 !important;
-    color: #f5f0e4 !important;
-    border-color: #55585e !important;
-  }
-
-  button:hover,
-  .btn:hover,
-  .choice:hover,
-  .topic-nav button:hover,
-  .card-button:hover,
-  .primary-button:hover {
-    background: #35383f !important;
-    border-color: #777a80 !important;
-  }
-
-  .btn.primary,
-  .primary-button,
-  .card-button,
-  #start-quiz,
-  .actions-row .btn:first-child {
-    background: linear-gradient(135deg, #e4c15f, #c69a30) !important;
-    border-color: #e7c96f !important;
-    color: #18191b !important;
-    box-shadow: 0 8px 24px rgba(214, 174, 78, .22) !important;
-  }
-
-  .btn.primary:hover,
-  .primary-button:hover,
-  .card-button:hover,
-  #start-quiz:hover {
-    background: linear-gradient(135deg, #edcf79, #d5aa3f) !important;
-  }
-
-  .btn.secondary,
-  .btn.ghost {
-    background: #282b31 !important;
-    color: #eee9dd !important;
-  }
-
-  .btn.danger,
-  button.danger {
-    background: #641b1b !important;
-    border-color: #9f2929 !important;
-    color: #fee2e2 !important;
-  }
-
-  /* Inputs and filters */
-  input,
-  select,
-  textarea,
-  .control,
-  .numeric-answer {
-    background: #121316 !important;
-    color: var(--cg-text) !important;
-    border-color: #505258 !important;
-  }
-
-  input::placeholder,
-  textarea::placeholder {
-    color: #858178 !important;
-  }
-
-  /* Active/selected states */
-  .choice.selected,
-  .topic-nav button.active,
-  .filter.active,
-  .tab.active {
-    background: #6f571f !important;
-    border-color: #d6ae4e !important;
-    color: #fff8e4 !important;
-  }
-
-  .correct,
-  .question.correct,
-  .choice.correct-choice {
-    background: #123322 !important;
-    border-color: var(--cg-success) !important;
-  }
-
-  .incorrect,
-  .question.incorrect,
-  .choice.incorrect-choice,
-  .choice.wrong-choice {
-    background: #3b1414 !important;
-    border-color: var(--cg-danger) !important;
-  }
-
-  /* Progress */
-  .progress-track,
-  .bar,
-  progress {
-    background: #0c0d0f !important;
-  }
-
-  .progress-track span,
-  .bar > span,
-  .progress-fill,
-  progress::-webkit-progress-value {
-    background: linear-gradient(90deg, #e7c96f, #c99d35) !important;
-  }
-
-  /* Chips/tags/formulas */
-  .chips span,
-  .tag,
-  .badge,
-  .pill,
-  .formula {
-    background: #282b31 !important;
-    color: #e8d59c !important;
-    border-color: #4f5156 !important;
-  }
-
-  .warning {
-    background: #3a2d13 !important;
-    border-color: #8a6a21 !important;
-    color: #f3dfa2 !important;
-  }
-
-  code,
-  pre {
-    background: #0d0e10 !important;
-    color: #f0d98f !important;
-    border-color: #3f4146 !important;
-  }
-
-  /* Tables */
-  table,
-  th,
-  td {
-    background: var(--cg-surface) !important;
-    color: var(--cg-text) !important;
-    border-color: var(--cg-border) !important;
-  }
-
-  /* Footer */
-  .footer,
-  footer {
-    background: #18191c !important;
-    color: #918c82 !important;
-    border-color: #31343a !important;
-  }
-
-  hr {
-    border-color: #37393f !important;
-  }
-
-  @media print {
-    html,
-    body,
-    main,
-    section,
-    article,
-    .panel,
-    .card,
-    .question {
-      background: #ffffff !important;
-      color: #000000 !important;
-      box-shadow: none !important;
-    }
-  }
-</style>
-<style id="sat-math-two-row-hierarchy-v1">
-  .site-header .nav {
-    align-items: flex-start !important;
-    flex-wrap: wrap !important;
-  }
-
-  .site-header .nav-links {
-    display: block !important;
-    flex: 1 1 620px !important;
-    min-width: 0 !important;
-  }
-
-  .sat-math-nav-top-row,
-  .sat-math-nav-volume-row {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-end !important;
-    flex-wrap: wrap !important;
-    gap: 10px !important;
-  }
-
-  .sat-math-nav-volume-row {
-    margin-top: 14px !important;
-    padding-top: 14px !important;
-    border-top: 1px solid #35383e !important;
-  }
-
-  .sat-math-nav-label {
-    margin-right: 4px !important;
-    color: #8f8a80 !important;
-    font-size: .72rem !important;
-    font-weight: 950 !important;
-    letter-spacing: .13em !important;
-    line-height: 1.2 !important;
-    white-space: nowrap !important;
-  }
-
-  .sat-math-nav-top-row a,
-  .sat-math-nav-volume-row a {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 12px 17px !important;
-    border: 1px solid transparent !important;
-    border-radius: 13px !important;
-    background: transparent !important;
-    color: #f3efe6 !important;
-    font-weight: 900 !important;
-    line-height: 1.2 !important;
-    text-decoration: none !important;
-    box-shadow: none !important;
-  }
-
-  .sat-math-nav-top-row a:hover,
-  .sat-math-nav-volume-row a:hover {
-    background: #292c31 !important;
-    border-color: #55585e !important;
-  }
-
-  .sat-math-nav-top-row a.sat-parent-selected {
-    border-color: #d6ae4e !important;
-    background: rgba(214, 174, 78, .09) !important;
-    color: #f4d77f !important;
-    box-shadow: inset 0 0 0 1px rgba(214, 174, 78, .11) !important;
-  }
-
-  .sat-math-nav-volume-row a.sat-child-selected {
-    border-color: #e7c96f !important;
-    background: linear-gradient(
-      135deg,
-      #e4c15f,
-      #c69a30
-    ) !important;
-    color: #18191b !important;
-    box-shadow: 0 7px 20px rgba(214, 174, 78, .18) !important;
-  }
-
-  .sat-math-nav-top-row a[aria-current="page"],
-  .sat-math-nav-volume-row a[aria-current="page"] {
-    text-decoration: none !important;
-  }
-
-  @media (max-width: 980px) {
-    .site-header .nav-links {
-      flex-basis: 100% !important;
-      width: 100% !important;
-      margin-top: 12px !important;
-    }
-
-    .sat-math-nav-top-row,
-    .sat-math-nav-volume-row {
-      justify-content: flex-start !important;
-    }
-  }
-
-  @media (max-width: 560px) {
-    .sat-math-nav-top-row a,
-    .sat-math-nav-volume-row a {
-      padding: 10px 13px !important;
-      font-size: .9rem !important;
-    }
-
-    .sat-math-nav-label {
-      width: 100% !important;
-      margin-bottom: 2px !important;
-    }
-  }
-</style>
-<!-- sat-favicon-v1 -->
-<link rel="icon" href="/favicon.svg?v=1" type="image/svg+xml">
-<link rel="alternate icon" href="/favicon.ico?v=1">
-<link rel="icon" href="/favicon-32.png?v=1" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=1">
-<link rel="manifest" href="/site.webmanifest?v=1">
-<meta name="theme-color" content="#111214">
-<!-- /sat-favicon-v1 -->
-
-<style id="sat-admin-template2-styles">
-  .admin-shell{
-    max-width:1380px;
-  }
-
-  .admin-student{
-    margin-top:18px;
-    padding:24px;
-  }
-
-  .admin-student-header{
-    display:flex;
-    align-items:flex-start;
-    gap:16px;
-    flex-wrap:wrap;
-  }
-
-  .admin-student-identity{
-    margin-right:auto;
-  }
-
-  .admin-student-identity h3{
-    margin-bottom:6px;
-  }
-
-  .view-progress{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-  }
-
-  .view-progress-chevron{
-    display:inline-block;
-    transition:transform .18s ease;
-  }
-
-  .view-progress[aria-expanded="true"]
-  .view-progress-chevron{
-    transform:rotate(180deg);
-  }
-
-  .student-progress{
-    border-top:1px solid #4a4d53;
-    margin-top:20px;
-    padding-top:20px;
-  }
-
-  .admin-summary{
-    display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:14px;
-    margin-bottom:24px;
-  }
-
-  .admin-summary span{
-    display:flex;
-    flex-direction:column;
-    gap:4px;
-    padding:17px;
-    border-radius:14px;
-    background:#f3f4f6;
-    color:#202329;
-  }
-
-  .admin-summary strong{
-    font-size:1.65rem;
-  }
-
-  .admin-progress-heading{
-    display:flex;
-    align-items:flex-end;
-    justify-content:space-between;
-    gap:16px;
-    margin-bottom:16px;
-  }
-
-  .admin-progress-heading h4{
-    margin-bottom:5px;
-    font-size:1.3rem;
-  }
-
-  .admin-progress-tabs{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-bottom:18px;
-  }
-
-  .admin-progress-tab{
-    min-height:43px;
-    padding:0 18px;
-    border:1px solid #4a4d53;
-    border-radius:12px;
-    background:#292d35;
-    color:#f7f3ea;
-    font:800 15px/1 system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      sans-serif;
-    cursor:pointer;
-  }
-
-  .admin-progress-tab.active{
-    border-color:#e3b83e;
-    background:#e3b83e;
-    color:#17191d;
-  }
-
-  .admin-volume-grid{
-    display:grid;
-    grid-template-columns:
-      repeat(3,minmax(0,1fr));
-    gap:17px;
-  }
-
-  .admin-volume-card{
-    display:flex;
-    flex-direction:column;
-    min-width:0;
-    padding:19px;
-    border:1px solid #4a4d53;
-    border-radius:17px;
-    background:rgba(255,255,255,.025);
-  }
-
-  .admin-volume-header{
-    display:flex;
-    align-items:flex-start;
-    gap:12px;
-    margin-bottom:15px;
-  }
-
-  .admin-volume-header > div{
-    margin-right:auto;
-    min-width:0;
-  }
-
-  .admin-volume-header h5{
-    margin:5px 0;
-    font-size:1.15rem;
-  }
-
-  .admin-volume-count{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    min-width:31px;
-    height:31px;
-    padding:0 9px;
-    border-radius:999px;
-    background:rgba(227,184,62,.16);
-    color:#f1ce66;
-    font-weight:900;
-  }
-
-  .admin-volume-actions{
-    display:flex;
-    align-items:center;
-    gap:9px;
-    flex-wrap:wrap;
-    margin-bottom:15px;
-  }
-
-  .admin-volume-actions .btn{
-    min-height:38px;
-    padding:0 12px;
-    font-size:.88rem;
-  }
-
-  .admin-volume-questions{
-    display:grid;
-    gap:10px;
-  }
-
-  .admin-question-card{
-    padding:13px;
-    border:1px solid #4a4d53;
-    border-radius:13px;
-    background:rgba(255,255,255,.025);
-  }
-
-  .admin-question-details{
-    display:flex;
-    flex-direction:column;
-    gap:3px;
-  }
-
-  .admin-question-details span{
-    color:#9da1aa;
-    font-size:.87rem;
-  }
-
-  .admin-question-actions{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-    margin-top:11px;
-  }
-
-  .admin-question-actions .btn{
-    min-height:37px;
-    padding:0 12px;
-    font-size:.86rem;
-  }
-
-  .admin-volume-empty{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    min-height:150px;
-    padding:18px;
-    border:1px dashed #4a4d53;
-    border-radius:13px;
-    color:#8d9199;
-    text-align:center;
-  }
-
-  .admin-other-questions{
-    margin-top:18px;
-  }
-
-  @media(max-width:1080px){
-    .admin-volume-grid{
-      grid-template-columns:
-        repeat(2,minmax(0,1fr));
-    }
-  }
-
-  @media(max-width:720px){
-    .admin-summary,
-    .admin-volume-grid{
-      grid-template-columns:1fr;
-    }
-
-    .admin-student-header{
-      align-items:stretch;
-    }
-
-    .admin-actions,
-    .admin-actions .btn,
-    .admin-actions a{
-      width:100%;
-    }
-
-    .admin-volume-actions .btn,
-    .admin-question-actions .btn{
-      width:100%;
-    }
-  }
-</style>
-
 </head>
 <body>
-<nav id="sat-global-navigation"
-     aria-label="SAT subject navigation"
-     style="
-       position:sticky;
-       top:0;
-       z-index:2147483647;
-       display:flex;
-       flex-wrap:wrap;
-       align-items:center;
-       gap:9px;
-       width:100%;
-       min-height:58px;
-       box-sizing:border-box;
-       padding:10px 18px;
-       background:linear-gradient(135deg,#f8fbff 0%,#e9f2ff 100%);
-       border-bottom:1px solid #d5e2f3;
-       box-shadow:0 4px 16px rgba(37,99,235,.08);
-     ">
-  <span style="
-        margin-right:5px;
-        color:#1e3a5f;
-        font:800 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-        letter-spacing:.01em;
-      ">SAT Prep</span>
+<header class="topbar">
+  <a class="brand" href="/admin.html"><span class="brand-mark">SAT</span><span>Administration</span></a>
+  <div class="top-actions">
+    <a class="nav-btn" href="/index.html">SAT Home</a>
+    <a class="nav-btn" href="/login.html">Student Login</a>
+  </div>
+</header>
 
-  <a data-sat-destination="/index.html"
-     href="/index.html"
-     style="
-       display:inline-flex;
-       align-items:center;
-       justify-content:center;
-       min-height:36px;
-       padding:0 14px;
-       border:1px solid #c9d9ee;
-       border-radius:10px;
-       background:rgba(255,255,255,.88);
-       color:#334155;
-       text-decoration:none;
-       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-       box-shadow:0 1px 3px rgba(15,23,42,.05);
-     ">SAT Home</a>
-
-  <a data-sat-destination="/english/index.html"
-     href="/english/index.html"
-     style="
-       display:inline-flex;
-       align-items:center;
-       justify-content:center;
-       min-height:36px;
-       padding:0 14px;
-       border:1px solid #c9d9ee;
-       border-radius:10px;
-       background:rgba(255,255,255,.88);
-       color:#334155;
-       text-decoration:none;
-       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-       box-shadow:0 1px 3px rgba(15,23,42,.05);
-     ">English</a>
-
-  <a data-sat-destination="/math/index.html"
-     href="/math/index.html"
-     style="
-       display:inline-flex;
-       align-items:center;
-       justify-content:center;
-       min-height:36px;
-       padding:0 14px;
-       border:1px solid #c9d9ee;
-       border-radius:10px;
-       background:rgba(255,255,255,.88);
-       color:#334155;
-       text-decoration:none;
-       font:700 14px/1 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-       box-shadow:0 1px 3px rgba(15,23,42,.05);
-     ">Math</a>
-</nav>
-<script>
-(function () {
-  var student = (
-    new URLSearchParams(window.location.search).get('student') || ''
-  ).trim().toLowerCase();
-
-  var currentPath = window.location.pathname.replace(/\/+/g, '/');
-
-  document
-    .querySelectorAll('#sat-global-navigation [data-sat-destination]')
-    .forEach(function (link) {
-      var destination = link.getAttribute('data-sat-destination');
-      var url = new URL(destination, window.location.origin);
-
-      if (student) {
-        url.searchParams.set('student', student);
-      }
-
-      link.href = url.href;
-
-      var active =
-        (destination === '/index.html' && currentPath === '/index.html') ||
-        (
-          destination === '/english/index.html' &&
-          currentPath.indexOf('/english/') === 0
-        ) ||
-        (
-          destination === '/math/index.html' &&
-          currentPath.indexOf('/math/') === 0
-        );
-
-      if (active) {
-        link.style.background = '#2563eb';
-        link.style.borderColor = '#2563eb';
-        link.style.color = '#ffffff';
-        link.style.boxShadow = '0 4px 10px rgba(37,99,235,.20)';
-        link.setAttribute('aria-current', 'page');
-      }
-    });
-})();
-</script>
-
-<header class="site-header">
-    <nav class="nav">
-      <a class="brand" href="admin.html"><span class="brand-mark">Σ</span><span>SAT Math 300 Admin</span></a>
-      <div class="nav-links"><a href="index.html">Student site</a></div>
-    </nav>
-  </header>
-
-  <main class="admin-shell">
-    <section class="panel">
+<main class="shell">
+  <section class="hero">
+    <div class="card hero-copy">
+      <div class="eyebrow">Student account management</div>
+      <h1>Students &amp;<br>Progress</h1>
+      <p>Create login accounts, review Math and English progress, reset passwords,
+        enable or disable accounts, and manage Math correction approvals.</p>
+    </div>
+    <div class="card access">
       <div class="eyebrow">Administrator access</div>
-      <h1>Students and correction approvals</h1>
-      <div class="admin-field">
-        <label for="admin-password">Administrator password</label>
+      <h2>Admin password</h2>
+      <div class="field">
+        <label for="admin-password">Password</label>
         <input id="admin-password" type="password" autocomplete="current-password">
       </div>
-      <button id="load-students" class="btn">Load students</button>
-      <div id="admin-status" class="admin-status" aria-live="polite"></div>
-    </section>
+      <button id="load-students" class="btn primary" type="button">Load students</button>
+      <div id="admin-status" class="status" aria-live="polite"></div>
+      <div class="stats">
+        <div class="stat"><strong id="stat-active">—</strong><span>Active</span></div>
+        <div class="stat"><strong id="stat-students">—</strong><span>Students</span></div>
+        <div class="stat"><strong id="stat-corrections">—</strong><span>Corrections</span></div>
+      </div>
+    </div>
+  </section>
 
-    <section class="panel" style="margin-top:20px">
-      <div class="eyebrow">Create a direct link</div>
-      <h2>Create student</h2>
-      <form id="student-form" class="admin-grid">
-        <div class="admin-field">
-          <label for="display-name">Student display name</label>
-          <input id="display-name" maxlength="80" required placeholder="Joshua">
+  <div class="layout">
+    <aside class="panel">
+      <div class="eyebrow">New account</div>
+      <h2>Create Student Account</h2>
+      <p class="note">The same lowercase username is used for Cognito, Math progress, and English progress.</p>
+
+      <form id="student-form">
+        <div class="field">
+          <label for="display-name">Student name</label>
+          <input id="display-name" maxlength="80" placeholder="Samuel Smith" required>
         </div>
-        <div class="admin-field">
-          <label for="existing-id">Existing progress ID (optional)</label>
-          <input id="existing-id" maxlength="80" placeholder="josh">
-          <small class="muted">Enter <strong>josh</strong> to preserve progress already stored under that ID. Leave blank for a new random link.</small>
+        <div class="field">
+          <label for="username">Username</label>
+          <input id="username" maxlength="80" autocomplete="off" placeholder="samuel" required>
+          <div class="hint">Lowercase letters, numbers, underscore and hyphen only.</div>
         </div>
-        <div style="align-self:end;margin-bottom:14px"><button class="btn" type="submit">Create student and copy link</button></div>
+        <div class="field">
+          <label for="email">Email <span class="hint">(optional)</span></label>
+          <input id="email" type="email" maxlength="254" autocomplete="off" placeholder="parent@example.com">
+        </div>
+        <div class="button-row">
+          <button class="btn primary" type="submit">Create Student</button>
+          <button class="btn" type="reset">Clear</button>
+        </div>
       </form>
+
+      <div id="credential-box" class="created" aria-live="polite">
+        <h3 id="credential-title">Student created</h3>
+        <div class="credential"><b>Name:</b> <span id="credential-name"></span></div>
+        <div class="credential"><b>Username:</b> <span id="credential-username"></span></div>
+        <div class="credential"><b>Temporary password:</b> <span id="credential-password"></span></div>
+        <div class="credential"><b>Login:</b> <span id="credential-login"></span></div>
+        <button id="copy-login-details" class="btn" type="button">Copy Login Details</button>
+      </div>
+    </aside>
+
+    <section class="panel students-panel">
+      <div class="students-head">
+        <div><div class="eyebrow">Accounts</div><h2>Students</h2></div>
+        <input class="search" id="student-search" type="search" placeholder="Search name or username">
+      </div>
+      <div id="student-list"><div class="empty">Enter the administrator password and load students.</div></div>
     </section>
-
-    <section style="margin-top:24px">
-      <div class="section-heading"><div><div class="eyebrow">Student directory</div><h2>Students</h2></div></div>
-      <div id="student-list"></div>
-    </section>
-  </main>
-
-  <script src="admin.js?v=20260803-rw1"></script>
-<script id="sat-math-two-row-hierarchy-script-v1">
-(function () {
-  const SET_1_VOLUMES = [
-    {
-      label: 'Volume 1',
-      href: 'volume-1-algebra-foundations.html',
-      files: ['volume-1-algebra-foundations.html']
-    },
-    {
-      label: 'Volume 2',
-      href: 'volume-2-advanced-math.html',
-      files: ['volume-2-advanced-math.html']
-    },
-    {
-      label: 'Volume 3',
-      href: 'volume-3-data-geometry-trigonometry.html',
-      files: ['volume-3-data-geometry-trigonometry.html']
-    }
-  ];
-
-  const SET_2_VOLUMES = [
-    {
-      label: 'Volume 1',
-      href: 'set-2-volume-1-algebra.html',
-      files: ['set-2-volume-1-algebra.html']
-    },
-    {
-      label: 'Volume 2',
-      href: 'set-2-volume-2-advanced-math.html',
-      files: ['set-2-volume-2-advanced-math.html']
-    },
-    {
-      label: 'Volume 3',
-      href: 'set-2-volume-3-data-geometry-trigonometry.html',
-      files: ['set-2-volume-3-data-geometry-trigonometry.html']
-    }
-  ];
-
-  function currentFile() {
-    const path = window.location.pathname;
-    return path.split('/').pop() || 'index.html';
-  }
-
-  function studentId() {
-    return new URLSearchParams(window.location.search).get('student') || '';
-  }
-
-  function hrefWithStudent(href) {
-    const student = studentId();
-
-    if (!student) {
-      return href;
-    }
-
-    const url = new URL(href, window.location.href);
-    url.searchParams.set('student', student);
-
-    return `${url.pathname.split('/').pop()}${url.search}${url.hash}`;
-  }
-
-  function makeLink(label, href, className, current) {
-    const anchor = document.createElement('a');
-    anchor.textContent = label;
-    anchor.href = hrefWithStudent(href);
-
-    if (className) {
-      anchor.className = className;
-    }
-
-    if (current) {
-      anchor.setAttribute('aria-current', 'page');
-    }
-
-    return anchor;
-  }
-
-  function activeSet(file) {
-    if (
-      file === 'set-2.html' ||
-      SET_2_VOLUMES.some(volume => volume.files.includes(file))
-    ) {
-      return 2;
-    }
-
-    if (
-      file === 'set-1.html' ||
-      SET_1_VOLUMES.some(volume => volume.files.includes(file))
-    ) {
-      return 1;
-    }
-
-    return 0;
-  }
-
-  function activeVolume(file, volumes) {
-    return volumes.findIndex(volume => volume.files.includes(file));
-  }
-
-  function buildNavigation() {
-    const navLinks =
-      document.querySelector('.site-header .nav-links') ||
-      document.querySelector('.nav-links');
-
-    if (!navLinks) {
-      console.warn('Two-row Math navigation skipped: .nav-links not found.');
-      return;
-    }
-
-    const file = currentFile();
-    const setNumber = activeSet(file);
-
-    const topRow = document.createElement('div');
-    topRow.className = 'sat-math-nav-top-row';
-
-    topRow.append(
-      makeLink(
-        'Home',
-        'index.html',
-        '',
-        file === 'index.html'
-      ),
-      makeLink(
-        'Set 1',
-        'set-1.html',
-        setNumber === 1 ? 'sat-parent-selected' : '',
-        file === 'set-1.html'
-      ),
-      makeLink(
-        'Set 2',
-        'set-2.html',
-        setNumber === 2 ? 'sat-parent-selected' : '',
-        file === 'set-2.html'
-      )
-    );
-
-    const fragment = document.createDocumentFragment();
-    fragment.appendChild(topRow);
-
-    if (setNumber === 1 || setNumber === 2) {
-      const volumeRow = document.createElement('div');
-      volumeRow.className = 'sat-math-nav-volume-row';
-
-      const label = document.createElement('span');
-      label.className = 'sat-math-nav-label';
-      label.textContent = `SET ${setNumber} VOLUMES`;
-
-      volumeRow.appendChild(label);
-
-      const volumes = setNumber === 1
-        ? SET_1_VOLUMES
-        : SET_2_VOLUMES;
-
-      const selectedIndex = activeVolume(file, volumes);
-
-      volumes.forEach((volume, index) => {
-        volumeRow.appendChild(
-          makeLink(
-            volume.label,
-            volume.href,
-            index === selectedIndex ? 'sat-child-selected' : '',
-            index === selectedIndex
-          )
-        );
-      });
-
-      fragment.appendChild(volumeRow);
-    }
-
-    navLinks.replaceChildren(fragment);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener(
-      'DOMContentLoaded',
-      buildNavigation,
-      { once: true }
-    );
-  } else {
-    buildNavigation();
-  }
-})();
-</script>
-<script src="/sat-nav-fix.js?v=20260729-4"></script></body>
+  </div>
+  <footer>No direct student links are used. Students sign in through /login.html.</footer>
+</main>
+<script src="/admin.js?v=accounts-v1"></script>
+</body>
 </html>

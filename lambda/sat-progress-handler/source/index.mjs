@@ -21,7 +21,8 @@ import {
   AdminEnableUserCommand,
   AdminDisableUserCommand,
   AdminSetUserPasswordCommand,
-  AdminAddUserToGroupCommand
+  AdminAddUserToGroupCommand,
+  AdminUpdateUserAttributesCommand
 } from '@aws-sdk/client-cognito-identity-provider';
 
 const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}), {
@@ -1063,6 +1064,23 @@ async function resendStudentInvitation(studentId) {
     throw new HttpError(409, 'INVITATION_NOT_APPLICABLE', 'Invitation resend is available only before the student completes first login');
   }
   await ensureStudentGroupMembership(studentId);
+
+  const displayName =
+    String(
+      student.displayName ||
+      studentId
+    ).trim() || studentId;
+
+  await cognito.send(
+    new AdminUpdateUserAttributesCommand({
+      UserPoolId: USER_POOL_ID,
+      Username: studentId,
+      UserAttributes: [{
+        Name: 'name',
+        Value: displayName
+      }]
+    })
+  );
   const temporaryPassword = temporaryStudentPassword();
   const invitation = await requestStudentInvitationEmail({ studentId, temporaryPassword, email: account.email });
   return { studentId, temporaryPassword, email: account.email, invitation, account: await cognitoAccount(studentId) };
@@ -1083,7 +1101,20 @@ async function createStudentAccount({ displayName, username, email }) {
     throw new HttpError(409, 'LOGIN_ALREADY_EXISTS', 'A Cognito login with that username already exists');
   }
   const temporaryPassword = temporaryStudentPassword();
-  const attributes = cleanEmail ? [{ Name: 'email', Value: cleanEmail }] : [];
+  const attributes = [
+    {
+      Name: 'name',
+      Value: cleanDisplayName
+    },
+    ...(
+      cleanEmail
+        ? [{
+            Name: 'email',
+            Value: cleanEmail
+          }]
+        : []
+    )
+  ];
   try {
     await cognito.send(new AdminCreateUserCommand({
       UserPoolId: USER_POOL_ID,

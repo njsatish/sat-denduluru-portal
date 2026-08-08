@@ -916,4 +916,139 @@ async function loadMathProgress() {
 </script>
 <script src="/sat-nav-fix.js?v=20260729-4"></script>
 <script src="/js/inactivity-timeout.js?v=20260730-1"></script>
+<!-- SAT_DEV_HOME_SIGNOUT_V1 BEGIN -->
+<style id="sat-dev-home-signout-style">
+  /*
+    Keep the existing shared navigation exactly as-is.
+    This adds only the missing Sign out button on SAT Home.
+  */
+  #sat-unified-global-navigation .sat-home-signout {
+    min-height: 46px;
+    padding: 10px 18px;
+    border: 1px solid #555960;
+    border-radius: 14px;
+    background: #282b30;
+    color: #f4f1e8;
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 850;
+    line-height: 1.2;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  #sat-unified-global-navigation .sat-home-signout:hover {
+    border-color: #8a7440;
+    background: #303238;
+  }
+
+  #sat-unified-global-navigation .sat-home-signout:focus-visible {
+    outline: 2px solid #e7c96f;
+    outline-offset: 2px;
+  }
+
+  #sat-unified-global-navigation .sat-home-signout:disabled {
+    opacity: .65;
+    cursor: wait;
+  }
+
+  @media (max-width: 720px) {
+    #sat-unified-global-navigation .sat-home-signout {
+      width: 100%;
+    }
+  }
+</style>
+
+<script id="sat-dev-home-signout-script">
+(() => {
+  'use strict';
+
+  const BUTTON_ID = 'sat-home-signout';
+
+  function fallbackLogout() {
+    const authKeys = [
+      'sat_user',
+      'sat_access_token',
+      'sat_id_token',
+      'sat_refresh_token',
+      'sat_pkce_verifier',
+      'sat_pkce_state'
+    ];
+
+    for (const storage of [window.localStorage, window.sessionStorage]) {
+      authKeys.forEach((key) => storage.removeItem(key));
+    }
+
+    window.location.assign('/login.html');
+  }
+
+  async function signOut(button) {
+    if (button) {
+      button.disabled = true;
+      button.textContent = 'Signing out…';
+    }
+
+    try {
+      if (window.SATAuth && typeof window.SATAuth.logout === 'function') {
+        await window.SATAuth.logout();
+        return;
+      }
+    } catch (error) {
+      console.error('SAT sign out failed; using local fallback.', error);
+    }
+
+    fallbackLogout();
+  }
+
+  function ensureSignOut() {
+    const globalNav = document.getElementById('sat-unified-global-navigation');
+    const inner = globalNav?.querySelector('.sat-unified-inner');
+
+    if (!inner) return false;
+    if (document.getElementById(BUTTON_ID)) return true;
+
+    const button = document.createElement('button');
+    button.id = BUTTON_ID;
+    button.className = 'sat-home-signout';
+    button.type = 'button';
+    button.textContent = 'Sign out';
+    button.setAttribute('aria-label', 'Sign out of SAT Prep');
+    button.addEventListener('click', () => signOut(button));
+
+    // Keep it directly after the SAT Home / English / Math links.
+    inner.appendChild(button);
+    return true;
+  }
+
+  function start() {
+    if (ensureSignOut()) return;
+
+    let attempts = 0;
+    const timer = window.setInterval(() => {
+      attempts += 1;
+      if (ensureSignOut() || attempts >= 40) {
+        window.clearInterval(timer);
+      }
+    }, 100);
+
+    const observer = new MutationObserver(() => {
+      ensureSignOut();
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    window.setTimeout(() => observer.disconnect(), 10000);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start, {once: true});
+  } else {
+    start();
+  }
+})();
+</script>
+<!-- SAT_DEV_HOME_SIGNOUT_V1 END -->
 </body></html>

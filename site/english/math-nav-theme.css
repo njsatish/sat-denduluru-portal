@@ -49,3 +49,17 @@
 [data-math-nav-theme="dark"] p {
   color: inherit;
 }
+
+/* SAT_DEV_ENGLISH_SAT_PREP_COLOR_V6
+   English page styles were overriding only the SAT Prep brand color.
+   Match the Math navigation's warm off-white text color. */
+[data-math-nav-theme="dark"] [data-sat-prep-brand="true"],
+[data-math-nav-theme="dark"] [data-sat-prep-brand="true"]:link,
+[data-math-nav-theme="dark"] [data-sat-prep-brand="true"]:visited,
+[data-math-nav-theme="dark"] [data-sat-prep-brand="true"]:hover,
+[data-math-nav-theme="dark"] [data-sat-prep-brand="true"]:active,
+[data-math-nav-theme="dark"] [data-sat-prep-brand="true"] * {
+  color: #f4f0e8 !important;
+  -webkit-text-fill-color: #f4f0e8 !important;
+  text-decoration-color: #f4f0e8 !important;
+}
